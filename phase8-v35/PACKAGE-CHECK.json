@@ -1,0 +1,9 @@
+{
+  "source": "v3.3",
+  "file_count": 27,
+  "missing_references": [],
+  "p31_sha256_source": "8f621e6491cc01be85cdd1725c91c4a8e938745b613ffdc9056955d73ac413d8",
+  "p31_sha256_package": "8f621e6491cc01be85cdd1725c91c4a8e938745b613ffdc9056955d73ac413d8",
+  "scope_rule": "Requires wholly separate origin/hostname, not merely another repo path on same GitHub Pages owner.",
+  "tests": "Static packaging only. Browser/iPhone IndexedDB tests pending."
+}
