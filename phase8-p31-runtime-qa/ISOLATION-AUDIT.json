@@ -1,0 +1,12 @@
+{
+  "base_zip": "juglog_phase8_isolated_idb_test_candidate_20261025.zip",
+  "isolated_db": "juglog_p31_deep_isolation_20261025_v1",
+  "isolated_storage_prefix": "juglog_p31_deep_isolation_20261025_",
+  "modified_files": [
+    "p31.html"
+  ],
+  "script_syntax": "pass",
+  "local_refs": "pass",
+  "old_namespaces_absent": true,
+  "actual_p31_recovery_in_indexeddb": "not tested"
+}
