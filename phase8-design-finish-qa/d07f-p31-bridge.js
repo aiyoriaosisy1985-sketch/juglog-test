@@ -487,7 +487,21 @@ function clear(){for(const target of Object.values(map)){document.getElementById
 function sync(){syncBonusState();syncCompletion();try{
 const doc=frame.contentDocument;if(!doc||doc.readyState!=='complete'){clear();return;}
 const session=doc.getElementById('playing');
-if(!session||session.classList.contains('hidden')||session.hidden){clear();status.textContent='P31に実戦が選択されていません。';return;}
+if(!session||session.classList.contains('hidden')||session.hidden){
+ clear();
+ // A hidden P31 playing panel alone does not prove that the active session is
+ // unselected: P31 may still be restoring its projection after iframe load.
+ let selection=null;
+ try{selection=frame.contentWindow?.__p8SessionApi?.state();}catch(_e){}
+ if(!selection||!Array.isArray(selection.sessions)){
+  status.textContent='実戦データを読み込み中です。';
+ }else if(selection.selectedId){
+  status.textContent='選択中の実戦データを同期中です。';
+ }else{
+  status.textContent='実戦が選択されていません。台一覧から実戦を確認してください。';
+ }
+ return;
+}
 const data={};for(const source of Object.keys(map)){const node=doc.getElementById(source);if(!node){clear();status.textContent='P31の集計項目が不足しています。';return;}data[source]=node.textContent.trim();}
 // Display data and editability are independent: a lease can expire without
 // changing any BB/RB/G counts. Never skip the capability/status update.
@@ -632,14 +646,17 @@ function syncDataTabs(){
  const signature=JSON.stringify(snapshot);if(signature===lastViewSignature)return;lastViewSignature=signature;
  const s=snapshot.session,ev=snapshot.events;
  const rate=(count)=>s.personalG>0&&!s.hasUnmeasuredG&&s.measuredG===s.personalG&&count>0?'1/'+(s.measuredG/count).toFixed(2):'—';
- guess.innerHTML=`<p class="p8-provenance">データ元：P31隔離版の選択中実戦／確定記録</p><div class="p8-data-grid"><div>本人G<strong>${esc(s.personalG)}</strong></div><div>BB / RB<strong>${esc(s.bb)} / ${esc(s.rb)}</strong></div><div>ぶどう<strong>${esc(s.grape)}　${esc(rate(s.grape))}</strong></div><div>チェリー<strong>${esc(s.cherry)}　${esc(rate(s.cherry))}</strong></div></div><p>小役実測G：${esc(s.measuredG)} ／ 本人G：${esc(s.personalG)}</p><p>小役確率：${s.hasUnmeasuredG||s.measuredG!==s.personalG?'全ゲーム実測条件を満たさないため未算出':'全ゲーム実測時のみ算出'}</p><p class="p8-provenance">設定推測は対応機種の確定BB・RBのみで参考評価します。小役は判定に含めません。</p>`;
+ guess.innerHTML=`<p class="p8-provenance">データ元：P31隔離版の選択中実戦／確定記録</p><div class="p8-data-grid"><div>本人G<strong>${esc(s.personalG)}</strong></div><div>BB / RB<strong>${esc(s.bb)} / ${esc(s.rb)}</strong></div><div>ぶどう<strong>${esc(s.grape)}　${esc(rate(s.grape))}</strong></div><div>チェリー<strong>${esc(s.cherry)}　${esc(rate(s.cherry))}</strong></div></div><p>小役実測G：${esc(s.measuredG)} ／ 本人G：${esc(s.personalG)}</p><p>小役確率：${s.hasUnmeasuredG||s.measuredG!==s.personalG?'全ゲーム実測条件を満たさないため未算出':'全ゲーム実測時のみ算出'}</p><p class="p8-provenance">BB・RB限定の参考推測と、小役を含む暫定参考推測は別々に表示します。ぶどうは全ゲーム実測などの条件を満たす場合のみ使用し、従来のチェリー記録は使用しません。</p>`;
 
- const prediction=window.P8MachineEstimator?.estimate({machine:s.machine,games:s.personalG,bb:s.bb,rb:s.rb});
+ const hall=s.hallObservation;
+ const useHall=!!hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;
+ const bonusScope=useHall?{games:hall.totalG,bb:hall.bb,rb:hall.rb}:{games:s.personalG,bb:s.bb,rb:s.rb};
+ const prediction=window.P8MachineEstimator?.estimate({machine:s.machine,...bonusScope});
  const extra=window.P8SmallRoleEstimator?.estimate({machine:prediction?.machineId,games:s.personalG,bb:s.bb,rb:s.rb,grape:s.grape,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG});
  const guessSection=document.createElement('section');guessSection.className='p8-machine-prediction';
  if(prediction?.ok){
   const h=document.createElement('h3');h.textContent=prediction.machine+'｜BB・RB限定参考推測';guessSection.append(h);
-  const intro=document.createElement('p');intro.textContent=`対象 ${prediction.games}G｜BB ${prediction.bb}・RB ${prediction.rb}`;guessSection.append(intro);
+  const intro=document.createElement('p');intro.textContent=`${useHall?'ホール累計（同一観測）':'本人実戦（ホール累計未登録）'}｜対象 ${prediction.games}G｜BB ${prediction.bb}・RB ${prediction.rb}`;guessSection.append(intro);
   const table=document.createElement('table');table.className='p8-prob-table';
   const tbody=document.createElement('tbody');
   for(const row of prediction.settings){
@@ -660,7 +677,7 @@ function syncDataTabs(){
  guess.append(guessSection);
  if(extra?.ok){
   const small=document.createElement('section');small.className='p8-machine-prediction';
-  const title=document.createElement('h3');title.textContent='小役を含む参考推測（機種別・暫定値）';small.append(title);
+  const title=document.createElement('h3');title.textContent='本人実戦のみ｜小役を含む参考推測（機種別・暫定値）';small.append(title);
   const explanation=document.createElement('p');explanation.textContent=extra.notes.join('。')+'。'+extra.reference.notice+' BB・RBの公式値と、小役の非公式参考値に基づく同一事前重みの相対比較です。';small.append(explanation);
   const t=document.createElement('table');t.className='p8-prob-table';const tb=document.createElement('tbody');
   for(const row of extra.settings){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.textContent='設定'+row.setting;td.textContent=row.percent.toFixed(1)+'%';tr.append(th,td);tb.append(tr);}t.append(tb);small.append(t);

@@ -2827,7 +2827,11 @@ window.__p8ViewsApi=Object.freeze({
    const effective=correctedEvents(view.filter(e=>e.sessionId===active));
    const bonuses=s.bonuses.filter(b=>!b.pendingReview);
    const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,recordedAt:e.recordedAt||null});
-   return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG,bb:bonuses.filter(b=>b.bonusType==='BB').length,rb:bonuses.filter(b=>b.bonusType==='RB').length,grape:s.grape,cherry:s.cherry},events:effective.map(fmt)}));
+   // Read only: never merge a hall observation with personal-session counters.
+   const latestHall=s.snapshots.at(-1);
+   const hallValid=!!latestHall&&Number.isSafeInteger(latestHall.totalG)&&latestHall.totalG>0&&Number.isSafeInteger(latestHall.bb)&&latestHall.bb>=0&&Number.isSafeInteger(latestHall.rb)&&latestHall.rb>=0&&latestHall.bb+latestHall.rb<=latestHall.totalG;
+   const hallObservation=hallValid?{totalG:latestHall.totalG,bb:latestHall.bb,rb:latestHall.rb}:null;
+   return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG,bb:bonuses.filter(b=>b.bonusType==='BB').length,rb:bonuses.filter(b=>b.bonusType==='RB').length,grape:s.grape,cherry:s.cherry,hallObservation},events:effective.map(fmt)}));
  }
 });
 // D07F correction capability: only committed events for the active session.
