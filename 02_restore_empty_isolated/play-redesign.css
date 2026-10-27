@@ -1,0 +1,463 @@
+/* P31 PLAY REDESIGN R1 – a single dedicated visual layer, no functional rules */
+:root{--glass-edge:#68a88e;--glass-white:#ffffffc5;--glass-depth:#00130e;}
+#tab-play #playing>.panel{background:radial-gradient(ellipse 100% 28% at 50% -8%,#267f5b68,transparent 100%),linear-gradient(155deg,#103b2e 0%,#09291f 51%,#06221b 100%)!important;border:1px solid #499477!important;border-radius:24px!important;padding:13px!important;box-shadow:inset 0 1px 0 #a5f4c64d,0 10px 30px #0008!important}
+#tab-play #playing>.panel>.row:first-child{padding:3px 4px 11px!important;gap:8px!important}
+#tab-play #playing>.panel>.row:first-child h2{font-size:clamp(20px,5.7vw,27px)!important;letter-spacing:.01em;text-shadow:0 2px 5px #0006!important}
+#tab-play .top-g-stats{gap:9px!important;margin-bottom:10px!important}
+#tab-play .top-g-stats .kpi{min-width:0!important;border-radius:18px!important;padding:13px 5px!important;border:1px solid #559e80!important;background:radial-gradient(ellipse 110% 58% at 25% -17%,#b5ffcd51,transparent 85%),linear-gradient(160deg,#21674d,#104331 58%,#0a2d23)!important;box-shadow:inset 0 2px 1px #d8ffe584,inset 0 -3px 3px #001a11a0,0 4px 0 #06251b,0 7px 13px #0007!important}
+#tab-play .top-g-stats .kpi.hall-total{border-color:#73aeed!important;background:radial-gradient(ellipse 105% 56% at 22% -8%,#d7f3ff85,transparent 80%),linear-gradient(155deg,#286bad,#164275 56%,#092e5d)!important;box-shadow:inset 0 2px 1px #e1f6ff91,inset 0 -3px 3px #011936aa,0 4px 0 #102d50,0 7px 13px #0008!important}
+#tab-play .top-g-stats small{font-size:12px!important;color:#d4e3dc!important;white-space:nowrap!important}
+#tab-play .top-g-stats strong{font-size:clamp(20px,6vw,27px)!important;line-height:1.3!important;color:white!important;font-variant-numeric:tabular-nums!important}
+#tab-play .game-controls{border-radius:21px!important;padding:11px!important;margin:0 0 13px!important;background:radial-gradient(ellipse 110% 75% at 31% -20%,#79e9ac30,transparent 76%),linear-gradient(160deg,#164e3b,#0d3429)!important;border:1px solid #4c9477!important;box-shadow:inset 0 2px 1px #cbffe676,inset 0 -2px 2px #00160faa,0 6px 14px #0005!important}
+#tab-play .game-controls :is(input,button){border-radius:13px!important;min-height:45px!important}
+#tab-play .game-controls button{box-shadow:inset 0 1px 1px #ffffff56,0 3px 0 #051e16,0 5px 7px #0005!important}
+#tab-play .action-board.sp{gap:13px!important;margin-bottom:14px!important}
+#tab-play .action-board.sp :is(.action-right,.action-left){gap:13px!important}
+#tab-play .action-board.sp .record-card{position:relative!important;isolation:isolate!important;overflow:visible!important;border:1px solid color-mix(in srgb,var(--v5-edge,#85ffc0) 68%,#fff 32%)!important;border-radius:25px!important;background:radial-gradient(ellipse 110% 67% at 24% -31%,#ffffffa8,transparent 73%),radial-gradient(ellipse 62% 40% at 96% 94%,#001d2280,transparent 85%),linear-gradient(160deg,var(--v5-top) -8%,var(--v5-mid) 29%,var(--v5-base) 65%,var(--v5-dark) 110%)!important;box-shadow:inset 0 2px 2px #fffa,inset 2px 1px 2px #fff7,inset -1px 0 1px #0004,inset 0 -3px 2px #0007,0 5px 0 var(--v5-dark),0 7px 3px #000a,0 13px 18px #0009!important;transition:transform .12s ease,filter .12s ease!important}
+#tab-play .action-board.sp .record-card:before{content:""!important;position:absolute!important;inset:5px 6px auto!important;height:46%!important;border-radius:19px 19px 47% 47%!important;background:linear-gradient(180deg,#ffffffb9 0%,#ffffff4b 51%,transparent 100%)!important;opacity:.70!important;pointer-events:none!important;z-index:0!important}
+#tab-play .action-board.sp .record-card:after{content:""!important;position:absolute!important;inset:5px!important;border-radius:19px!important;border:1px solid #ffffff75!important;background:radial-gradient(ellipse 62% 13% at 17% 98%,#fff8,transparent 96%),radial-gradient(ellipse 38% 11% at 87% 98%,#fff7,transparent 98%)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0019!important;pointer-events:none!important;z-index:0!important}
+#tab-play .action-board.sp .record-card .tap{position:relative!important;z-index:1!important;background:transparent!important;box-shadow:none!important;border:0!important;border-radius:23px!important;padding:10px 49px 34px 9px!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:105px!important}
+#tab-play .action-board.sp .record-card .record-symbol{display:flex!important;justify-content:center!important;align-items:center!important;filter:drop-shadow(0 3px 2px #0018)!important;text-shadow:0 3px 3px #0008!important;max-width:100%!important}
+#tab-play .action-board.sp .record-card .record-footer{position:absolute!important;z-index:2!important;bottom:9px!important;left:6px!important;right:6px!important;line-height:1.1!important;font-size:clamp(14px,4.6vw,20px)!important;text-align:center!important;font-weight:850!important;white-space:nowrap!important;pointer-events:none!important;text-shadow:0 2px 3px #001a!important}
+#tab-play .action-board.sp .record-card .record-minus{position:absolute!important;z-index:4!important;top:9px!important;right:9px!important;width:44px!important;height:44px!important;border-radius:13px!important;background:linear-gradient(150deg,#485b55 0%,#182b25 52%,#070f0d 100%)!important;border:1px solid #f3fff5d9!important;box-shadow:inset 0 2px 2px #fff7,inset 0 -2px 2px #000a,0 3px 0 #051510,0 6px 8px #0009!important;color:white!important}
+#tab-play .action-board.sp .record-card:has(.tap:active){transform:translateY(3px)!important;filter:brightness(.94)!important}
+#tab-play .four.sp .kpi{border-radius:17px!important;background:radial-gradient(ellipse 105% 67% at 21% -28%,#91ffc132,transparent 79%),linear-gradient(150deg,#194d3c,#0b3227)!important;border:1px solid #538c75!important;box-shadow:inset 0 2px 1px #c9ffe677,inset 0 -2px 2px #00180d,0 5px 12px #0005!important}
+#tab-play .quick-complete{border-radius:15px!important;border:1px solid #fff0c6!important;background:radial-gradient(ellipse 125% 71% at 22% -15%,#fffef1df,transparent 75%),linear-gradient(155deg,#ffe2a3,#edc67d 62%,#bc8c3d)!important;box-shadow:inset 0 2px 2px #fff9de,inset 0 -2px 2px #81502291,0 4px 0 #825a25,0 7px 13px #0008!important;color:#152e24!important;font-weight:850!important}
+.tabs{background:linear-gradient(180deg,#123f30,#061d17)!important;border-top:1px solid #559f80!important;box-shadow:0 -8px 19px #0008,inset 0 1px 0 #e7ffe72b!important}
+.tabs button.active{border-radius:17px!important;background:radial-gradient(ellipse 95% 60% at 20% -14%,#b5eb9766,transparent 72%),linear-gradient(158deg,#315a41,#123a2a)!important;box-shadow:inset 0 2px 1px #e9ffd199,inset 0 -2px 2px #00170d,0 5px 10px #0007!important}
+.tabs .nav-icon{width:21px!important;height:21px!important;flex:none!important}
+@media(max-width:375px){#tab-play .action-board.sp{gap:10px!important}#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important}#tab-play .action-board.sp .record-card .tap{padding-right:46px!important}}
+@media(prefers-reduced-motion:reduce){#tab-play .action-board.sp .record-card{transition:none!important}}
+
+/* R2: screen-space architecture, not more sheen. Uses existing DOM and events. */
+@media (orientation:portrait) and (max-width:600px){
+  header{padding:6px 11px 7px!important}
+  header .sub,header small{line-height:1.15!important}
+  main{padding:5px 10px calc(82px + env(safe-area-inset-bottom))!important}
+  #tab-play #playing>.panel{padding:12px!important;border-radius:22px!important;margin:5px 0 11px!important}
+  #tab-play #playing>.panel>.row:first-child{padding:1px 2px 8px!important}
+  #tab-play .top-g-stats{gap:8px!important;margin-bottom:10px!important}
+  #tab-play .top-g-stats .kpi{border-radius:17px!important;padding:11px 3px 9px!important}
+  #tab-play .top-g-stats strong{font-size:clamp(21px,6.1vw,25px)!important}
+  #tab-play .game-controls{padding:10px!important;margin-bottom:12px!important}
+  #tab-play .game-controls .game-input-row{gap:6px!important}
+  #tab-play .game-controls :is(input,button){min-height:43px!important}
+  #tab-play .game-controls .measure-check{font-size:11.5px!important;line-height:1.3!important;margin-top:8px!important}
+  #tab-play .action-board.sp{gap:11px!important;margin-bottom:10px!important}
+  #tab-play .action-board.sp :is(.action-left,.action-right){gap:11px!important}
+  #tab-play .action-board.sp .record-card{border-radius:23px!important;min-height:118px!important}
+  #tab-play .action-board.sp .record-card .tap{min-height:113px!important;height:113px!important;padding:12px 48px 29px 6px!important}
+  #tab-play .action-board.sp .record-card .record-symbol{max-height:71px!important;line-height:1!important}
+  #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:65px!important;max-height:65px!important}
+  #tab-play .action-board.sp .record-card .record-footer{bottom:9px!important;font-size:clamp(14px,4.2vw,18px)!important}
+  #tab-play .action-board.sp .record-card .record-minus{top:8px!important;right:8px!important;width:44px!important;height:44px!important}
+  #tab-play .four.sp{gap:9px!important;margin:7px 0 9px!important}
+  #tab-play .four.sp .kpi{min-width:0!important;padding:10px 5px!important}
+  #tab-play .four.sp .uncompleted-kpi{min-width:0!important}
+  #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:49px!important}
+  .tabs{padding-bottom:max(5px,env(safe-area-inset-bottom))!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+  #tab-play .action-board.sp .record-card .tap{padding-right:48px!important}
+  #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:57px!important}
+  #tab-play .top-g-stats small{font-size:11px!important}
+}
+
+/* R3: balanced surface architecture, no functional selectors modified */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play #playing>.panel{padding:13px!important;box-shadow:inset 0 1px 0 #b2ffdf8a,0 12px 24px #0008!important}
+#tab-play .top-g-stats .kpi{min-height:84px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:5px!important;box-shadow:inset 0 2px 1px #d8ffe584,inset 0 -2px 2px #001a11a0,0 4px 0 #06251b,0 8px 15px #0007!important}
+#tab-play .game-controls{border-radius:21px!important;box-shadow:inset 0 2px 1px #cbffe676,inset 0 -2px 2px #00160faa,0 7px 16px #0006!important}
+#tab-play .action-board.sp{gap:12px!important;margin-bottom:13px!important}
+#tab-play .action-board.sp :is(.action-right,.action-left){gap:12px!important}
+#tab-play .action-board.sp .record-card{min-height:120px!important;border-radius:27px!important;box-shadow:inset 0 2px 2px #fffa,inset 2px 1px 2px #fff7,inset -1px 0 1px #0004,inset 0 -3px 2px #0007,0 5px 0 var(--v5-dark),0 8px 5px #0009,0 16px 22px #0009!important}
+#tab-play .action-board.sp .record-card .tap{height:115px!important;min-height:115px!important;padding-bottom:34px!important}
+#tab-play .action-board.sp .record-card:before{height:40%!important;opacity:.58!important}
+#tab-play .action-board.sp .record-card .record-footer{bottom:11px!important}
+#tab-play .four.sp{margin-top:13px!important;gap:9px!important}
+#tab-play .four.sp .kpi{box-shadow:inset 0 2px 1px #c9ffe677,inset 0 -2px 2px #00180d,0 6px 13px #0006!important}
+#tab-play .quick-complete{min-height:52px!important;box-shadow:inset 0 2px 2px #fff9de,inset 0 -2px 2px #81502291,0 4px 0 #825a25,0 8px 14px #0008!important}
+}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{gap:10px!important}#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important}#tab-play .action-board.sp .record-card{min-height:115px!important}#tab-play .action-board.sp .record-card .tap{height:110px!important;min-height:110px!important}}
+
+/* R4: product-level hierarchy and tactile surfaces; all event semantics untouched */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding:5px 11px!important}
+ main{padding-top:4px!important}
+ #tab-play #playing>.panel{padding:12px!important;margin-top:4px!important;border-radius:24px!important;background:radial-gradient(ellipse 120% 30% at 30% -14%,#9ce7b540,transparent 75%),linear-gradient(153deg,#113a2e,#09281f 66%,#061d18)!important;border:1px solid #4a9375!important;box-shadow:inset 0 1px 1px #e6ffe177,0 12px 27px #0008!important}
+ #tab-play #playing>.panel>.row:first-child{padding-bottom:6px!important}
+ #tab-play .top-g-stats{gap:8px!important;margin-bottom:9px!important}
+ #tab-play .top-g-stats .kpi{min-height:73px!important;padding:7px 3px!important;gap:3px!important;border-radius:19px!important}
+ #tab-play .game-controls{padding:9px!important;margin-bottom:8px!important;border-radius:20px!important;background:radial-gradient(ellipse 120% 70% at 23% -22%,#ceffdf36,transparent 75%),linear-gradient(150deg,#174a39,#0b3026 85%)!important}
+ #tab-play .game-controls .measure-check{margin-top:5px!important;line-height:1.2!important}
+ #tab-play .action-board.sp{gap:12px!important;margin-bottom:7px!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:11px!important}
+ #tab-play .action-board.sp .record-card{height:116px!important;min-height:116px!important;border-radius:26px!important;background:radial-gradient(ellipse 105% 55% at 22% -23%,#fff9,transparent 70%),linear-gradient(150deg,var(--v5-top),var(--v5-mid) 29%,var(--v5-base) 64%,var(--v5-dark))!important;box-shadow:inset 0 2px 1px #fffb,inset 1px 0 1px #fff9,inset 0 -4px 3px #0006,0 5px 0 var(--v5-dark),0 8px 5px #0009,0 14px 20px #0007!important}
+ #tab-play .action-board.sp .record-card:before{height:40%!important;opacity:.53!important;border-radius:19px 19px 50% 50%!important}
+ #tab-play .action-board.sp .record-card:after{inset:4px!important;border-radius:21px!important}
+ #tab-play .action-board.sp .record-card .tap{height:111px!important;min-height:111px!important;padding:7px 51px 28px 7px!important}
+ #tab-play .action-board.sp .record-card .record-symbol{filter:drop-shadow(0 3px 3px #0009)!important}
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:62px!important;max-height:62px!important}
+ #tab-play .action-board.sp .record-card .record-minus{top:8px!important;right:8px!important;box-shadow:inset 0 2px 1px #fff8,inset 0 -2px 2px #000a,0 3px 0 #07120e,0 7px 9px #000a!important}
+ #tab-play .action-board.sp .record-card .record-footer{bottom:10px!important;font-size:clamp(15px,4.2vw,19px)!important}
+ #tab-play .four.sp{margin:7px 0 8px!important;gap:7px!important}
+ #tab-play .four.sp .kpi{padding:8px 4px!important;border-radius:16px!important}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important}
+ .tabs{border-top:1px solid #72a98a!important;background:linear-gradient(#104333,#051e18)!important;box-shadow:0 -7px 17px #000a,inset 0 1px 1px #c7ffdf32!important}
+ .tabs button.active{background:linear-gradient(148deg,#2c5941,#103626)!important;border:1px solid #c5a75a!important;box-shadow:inset 0 1px 1px #e2ffe273,0 5px 10px #0006!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .action-board.sp .record-card{height:109px!important;min-height:109px!important}
+ #tab-play .action-board.sp .record-card .tap{height:104px!important;min-height:104px!important}
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:54px!important}
+}
+
+/* R5: protect action visibility while retaining touch sizes; portrait only */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel{padding:10px!important;margin-top:2px!important}
+ #tab-play #playing>.panel>.row:first-child{padding:0 2px 4px!important}
+ #tab-play .top-g-stats{margin-bottom:7px!important;gap:7px!important}
+ #tab-play .top-g-stats .kpi{min-height:64px!important;padding:5px 3px!important;gap:1px!important}
+ #tab-play .top-g-stats strong{font-size:clamp(20px,5.5vw,24px)!important;line-height:1.15!important}
+ #tab-play .game-controls{padding:7px 9px!important;margin-bottom:7px!important}
+ #tab-play .game-controls :is(input,button){min-height:43px!important}
+ #tab-play .game-controls .measure-check{margin-top:3px!important}
+ #tab-play .action-board.sp{gap:9px!important;margin-bottom:6px!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:9px!important}
+ #tab-play .action-board.sp .record-card{height:108px!important;min-height:108px!important}
+ #tab-play .action-board.sp .record-card .tap{height:103px!important;min-height:103px!important;padding-bottom:28px!important}
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:57px!important;max-height:57px!important}
+ #tab-play .four.sp{margin:5px 0 5px!important;gap:7px!important}
+ #tab-play .four.sp .kpi{padding:6px 4px!important}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .action-board.sp .record-card{height:103px!important;min-height:103px!important}
+ #tab-play .action-board.sp .record-card .tap{height:98px!important;min-height:98px!important}
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:51px!important;max-height:51px!important}
+}
+
+/* 360px: reclaim vertical space without shrinking 44px cancel/completion targets */
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing>.panel{padding:8px!important}
+ #tab-play .top-g-stats .kpi{min-height:56px!important;padding:3px 2px!important}
+ #tab-play .top-g-stats{margin-bottom:5px!important}
+ #tab-play .game-controls{padding:5px 7px!important;margin-bottom:4px!important}
+ #tab-play .game-controls .measure-check{margin-top:1px!important}
+ #tab-play .action-board.sp{gap:6px!important;margin-bottom:3px!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:6px!important}
+ #tab-play .action-board.sp .record-card{height:98px!important;min-height:98px!important}
+ #tab-play .action-board.sp .record-card .tap{height:93px!important;min-height:93px!important}
+ #tab-play .four.sp{margin:2px 0 3px!important}
+}
+
+/* R6: small-phone layout calibration: keep every critical action >=44px */
+@media (orientation:portrait) and (max-width:375px){
+ header{padding-top:2px!important;padding-bottom:2px!important}
+ #tab-play #playing>.panel>.row:first-child{padding-bottom:2px!important}
+ #tab-play .top-g-stats .kpi{min-height:52px!important}
+ #tab-play .game-controls{padding:4px 7px!important}
+ #tab-play .game-controls .measure-check{font-size:11.5px!important;line-height:1.14!important}
+ #tab-play .action-board.sp .record-card{height:95px!important;min-height:95px!important;border-radius:22px!important}
+ #tab-play .action-board.sp .record-card .tap{height:90px!important;min-height:90px!important}
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:48px!important;max-height:48px!important}
+ #tab-play .action-board.sp .record-card .record-footer{bottom:6px!important}
+ #tab-play .four.sp{margin:1px 0 1px!important}
+ #tab-play .four.sp .kpi{padding:4px 3px!important}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:46px!important}
+}
+
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .top-g-stats .kpi{min-height:42px!important}
+ #tab-play .game-controls{margin-bottom:0px!important}
+ #tab-play .top-g-stats{margin-bottom:2px!important}
+ #tab-play .action-board.sp .record-card{height:92px!important;min-height:92px!important}
+ #tab-play .action-board.sp .record-card .tap{height:87px!important;min-height:87px!important}
+ #tab-play .action-board.sp .record-card .record-minus{min-width:44px!important;min-height:44px!important}
+}
+
+/* R7 / portrait density: reduce only structural whitespace, preserve record and cancel tap targets */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding-block:3px!important}
+ main{padding-top:2px!important}
+ #tab-play #playing>.panel{padding:7px!important;margin-top:2px!important}
+ #tab-play #playing>.panel>.row:first-child{padding:0 1px 2px!important}
+ #tab-play .top-g-stats{gap:6px!important;margin:0 0 4px!important}
+ #tab-play .top-g-stats .kpi{padding:4px 3px!important;gap:1px!important;min-height:58px!important}
+ #tab-play .game-controls{padding:5px 7px!important;margin-top:3px!important;margin-bottom:4px!important}
+ #tab-play .game-controls .game-input-row{margin-top:3px!important}
+ #tab-play .game-controls .measure-check{margin-top:2px!important;line-height:1.15!important}
+ #tab-play .action-board.sp{gap:7px!important;margin-top:3px!important;margin-bottom:3px!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:7px!important}
+ #tab-play .four.sp{margin:3px 0!important;gap:6px!important}
+ #tab-play .four.sp .kpi{padding:5px 3px!important}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important}
+ #tab-play .action-board.sp .record-card .record-minus{min-width:44px!important;min-height:44px!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .top-g-stats .kpi{min-height:48px!important}
+ #tab-play .top-g-stats{margin-bottom:2px!important}
+ #tab-play .game-controls{padding:4px 6px!important;margin-bottom:2px!important}
+ #tab-play .action-board.sp{gap:5px!important;margin:2px 0!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:5px!important}
+ #tab-play .four.sp{margin:-6px 0 1px!important}
+ #tab-play .four.sp .kpi{padding:3px 3px!important}
+}
+
+/* R9: product-surface redesign pass, preserving the verified R8 geometry.
+   Material hierarchy: enamel input tiles, pearlescent top counters, gently curved buttons. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel{
+  background:radial-gradient(ellipse 105% 35% at 31% -12%,#8dffbd35,transparent 82%),linear-gradient(161deg,#124032 0%,#092e25 58%,#07261d 100%)!important;
+  border-color:#5f9c7f!important;
+  box-shadow:inset 0 1px 0 #e7fff579,inset 0 -1px 1px #01150c,0 8px 26px #0008!important
+ }
+ #tab-play .top-g-stats .kpi{
+  background:radial-gradient(ellipse 116% 77% at 25% -32%,#bdffe157,transparent 74%),linear-gradient(152deg,#236c50 0%,#114432 57%,#092b21 100%)!important;
+  border-color:#68ad8b!important;
+  box-shadow:inset 0 2px 2px #e2ffee93,inset 0 -2px 3px #00180eb3,0 3px 0 #08291e,0 7px 14px #0006!important
+ }
+ #tab-play .top-g-stats .kpi.hall-total{
+  background:radial-gradient(ellipse 120% 75% at 22% -35%,#d2f4ff9a,transparent 75%),linear-gradient(158deg,#3179b6 0%,#174b7a 55%,#0d2b4d 100%)!important;
+  box-shadow:inset 0 2px 2px #e0f6ffa8,inset 0 -2px 3px #001535ac,0 3px 0 #0e3254,0 7px 14px #0007!important
+ }
+ #tab-play .game-controls{
+  background:radial-gradient(ellipse 105% 72% at 23% -23%,#c4ffdf3d,transparent 77%),linear-gradient(160deg,#1b5743,#0b3529 81%)!important;
+  border-color:#5fa486!important;
+  box-shadow:inset 0 1px 1px #d9ffe988,inset 0 -2px 2px #001810,0 5px 14px #0005!important
+ }
+ #tab-play .game-controls input{
+  background:linear-gradient(175deg,#0a2a21,#103d2f)!important;
+  border:1px solid #47856b!important;
+  box-shadow:inset 0 3px 6px #001810b6,inset 0 1px 1px #83cca238!important
+ }
+ #tab-play .action-board.sp .record-card{
+  border-radius:24px!important;
+  background:radial-gradient(ellipse 95% 55% at 17% -23%,#fff9,transparent 76%),linear-gradient(153deg,var(--v5-top) 0%,var(--v5-mid) 37%,var(--v5-base) 72%,var(--v5-dark) 105%)!important;
+  box-shadow:inset 0 2px 2px #fffc,inset 2px 1px 1px #fff8,inset -1px 0 1px #0015,inset 0 -3px 3px #0005,0 4px 0 var(--v5-dark),0 7px 4px #0009,0 12px 18px #0007!important
+ }
+ #tab-play .action-board.sp .record-card:before{
+  height:38%!important;opacity:.46!important;border-radius:18px 18px 49% 49%!important;
+  background:linear-gradient(#fff 0%,#ffffff69 48%,transparent 100%)!important
+ }
+ #tab-play .action-board.sp .record-card:after{
+  border-color:#ffffff93!important;
+  background:radial-gradient(ellipse 52% 13% at 16% 99%,#fff7,transparent 98%),radial-gradient(ellipse 48% 10% at 90% 98%,#fff6,transparent 99%)!important
+ }
+ #tab-play .action-board.sp .record-card .record-minus{
+  background:linear-gradient(143deg,#52655e,#21312c 45%,#0b1411)!important;
+  box-shadow:inset 0 2px 1px #fff8,inset 0 -2px 3px #000b,0 3px 0 #061710,0 5px 8px #000a!important
+ }
+ #tab-play .four.sp .kpi{
+  background:radial-gradient(ellipse 120% 65% at 21% -28%,#bbffdc42,transparent 75%),linear-gradient(151deg,#215842,#0b3528 78%)!important;
+  border-color:#64a084!important
+ }
+ #tab-play .quick-complete{
+  background:radial-gradient(ellipse 110% 72% at 22% -19%,#fffdf2c9,transparent 77%),linear-gradient(158deg,#ffdf9a,#f0c983 60%,#cc9f4f)!important;
+  border-color:#ffecc0!important;
+  box-shadow:inset 0 2px 2px #fffde6,inset 0 -2px 2px #8c602b70,0 3px 0 #996b30,0 7px 12px #0006!important
+ }
+ .tabs{background:linear-gradient(180deg,#124838,#082a21 72%,#051a15)!important;border-top-color:#75b295!important}
+ .tabs button.active{border-color:#dcc273!important;background:linear-gradient(163deg,#3a684c,#123b2c)!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing .action-board.sp{margin-bottom:0px!important}
+}
+
+
+/* R10 — PRODUCT COMPONENT REBUILD: real clickable surface, compact portrait proportions */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play #playing>.panel {background:radial-gradient(ellipse 105% 65% at 44% -33%,#9df8bc3d,transparent 75%),linear-gradient(148deg,#144938,#092d23 62%,#061b16)!important; border:1px solid #4c9f7c!important;box-shadow:inset 0 1px 0 #caffdb77,0 10px 25px #0008!important}
+#tab-play .top-g-stats{gap:8px!important}
+#tab-play .top-g-stats .kpi{background:radial-gradient(ellipse 120% 66% at 32% -28%,#e6fff38c,transparent 72%),linear-gradient(154deg,#256c51,#124934 59%,#08271f)!important; border:1px solid #5faa8a!important;border-radius:19px!important;box-shadow:inset 0 2px 1px #d6ffe2a6,inset 0 -2px 2px #001910,0 3px 0 #07261b,0 7px 14px #0007!important}
+#tab-play .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 120% 66% at 30% -26%,#e5f7ff9e,transparent 72%),linear-gradient(152deg,#2b77b7,#184b81 59%,#0b294b)!important;border-color:#80baff!important}
+#tab-play .game-controls{background:radial-gradient(ellipse 120% 70% at 23% -25%,#b4ffda4b,transparent 76%),linear-gradient(155deg,#1b5844,#0b3027)!important;border:1px solid #599d7e!important;border-radius:20px!important;box-shadow:inset 0 2px 1px #c7ffdf8c,inset 0 -2px 3px #00181055,0 5px 13px #0006!important}
+#tab-play .game-controls input{border-radius:12px!important;box-shadow:inset 0 2px 5px #00150fc7,inset 0 1px 0 #b6e7cd3d!important}
+#tab-play .action-board.sp{column-gap:13px!important;row-gap:9px!important}
+#tab-play .action-board.sp :is(.action-left,.action-right){gap:10px!important}
+#tab-play .action-board.sp .record-card{isolation:isolate!important;overflow:hidden!important;height:116px!important;min-height:116px!important;border-radius:25px!important;border:1px solid color-mix(in srgb,var(--v5-edge) 66%,white)!important;background:radial-gradient(ellipse 126% 58% at 21% -22%,#fff9,transparent 73%),radial-gradient(ellipse 85% 80% at 76% 108%,#00172555,transparent 82%),linear-gradient(153deg,var(--v5-top),var(--v5-mid) 32%,var(--v5-base) 73%,var(--v5-dark))!important;box-shadow:inset 0 2px 1px #ffffffbd,inset 1px 0 1px #ffffff8a,inset 0 -3px 2px #001c2a77,0 4px 0 var(--v5-dark),0 7px 5px #0009,0 13px 20px #0007!important}
+#tab-play .action-board.sp .record-card::before{height:49%!important;top:4px!important;left:5px!important;right:5px!important;opacity:.58!important;border-radius:20px 20px 56% 56%!important;background:linear-gradient(180deg,#fff8,#ffffff60 46%,transparent 100%)!important}
+#tab-play .action-board.sp .record-card::after{inset:4px!important;border:1px solid #fff9!important;border-radius:21px!important;box-shadow:inset 0 1px 1px #fffb,inset 0 -3px 2px #001b2c55!important}
+#tab-play .action-board.sp .record-card .tap{height:111px!important;min-height:111px!important;padding:10px 48px 31px 8px!important;display:flex!important;justify-content:center!important;align-items:center!important}
+#tab-play .action-board.sp .record-card .record-symbol{filter:drop-shadow(0 3px 2px #000a)!important}
+#tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:62px!important;max-height:62px!important}
+#tab-play .action-board.sp .record-card .record-footer{bottom:9px!important;font-size:clamp(15px,4.4vw,19px)!important;font-variant-numeric:tabular-nums!important}
+#tab-play .action-board.sp .record-card .record-minus{top:8px!important;right:8px!important;border-radius:14px!important;border:1px solid #f6fff1e8!important;background:radial-gradient(ellipse 93% 50% at 50% 0%,#60766a9c,transparent 85%),linear-gradient(152deg,#2e4139,#0c1712)!important;box-shadow:inset 0 2px 2px #fff7,inset 0 -2px 2px #000b,0 3px 0 #05130d,0 6px 8px #000a!important}
+#tab-play .four.sp .kpi{background:radial-gradient(ellipse 110% 70% at 22% -27%,#b4ffe358,transparent 76%),linear-gradient(154deg,#19513f,#0a3025)!important;border:1px solid #68a688!important;box-shadow:inset 0 1px 1px #eaffea87,inset 0 -2px 2px #00171080,0 4px 10px #0005!important}
+#tab-play .quick-complete{background:radial-gradient(ellipse 120% 70% at 24% -25%,#fffbe8d9,transparent 77%),linear-gradient(158deg,#ffeab4,#f0c780 62%,#cb9e53)!important;border:1px solid #ffe9b6!important;box-shadow:inset 0 2px 1px #fffde8,inset 0 -2px 2px #7d521b73,0 3px 0 #9e7236,0 6px 11px #0006!important}
+.tabs{background:linear-gradient(180deg,#174a3a,#06261d 78%,#061b16)!important;border-top:1px solid #6ab08c!important;box-shadow:0 -6px 20px #0009,inset 0 1px 1px #d8ffe53d!important}
+.tabs button.active{border-color:#e0c46c!important;background:linear-gradient(150deg,#335f47,#0d3024)!important;box-shadow:inset 0 1px 1px #f4ffdc8a,0 5px 10px #0005!important}
+}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{column-gap:9px!important}#tab-play .action-board.sp .record-card{height:109px!important;min-height:109px!important}#tab-play .action-board.sp .record-card .tap{height:104px!important;min-height:104px!important}#tab-play .game-controls{margin-bottom:1px!important}}
+/* R10 safety fit: compress decorative margins, preserve touch targets. */
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .four.sp{margin-top:-16px!important;margin-bottom:0!important}
+ #tab-play .action-board.sp{margin-bottom:0!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing .top-g-stats{margin-bottom:3px!important}
+ #tab-play #playing .game-controls{margin-bottom:3px!important;margin-top:3px!important}
+ #tab-play #playing .action-board.sp{margin-top:2px!important}
+ #tab-play #playing .four.sp{margin-top:4px!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing .top-g-stats{margin-bottom:1px!important}
+ #tab-play #playing .game-controls{margin-bottom:1px!important}
+ #tab-play #playing .action-board.sp{margin-top:0!important}
+}
+
+/* R11 DESIGN REFINEMENT – breathing room for critical completion control.
+   Preserve 44px cancel buttons, bonus layout and full-size four recording keys. */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding-top:1px!important;padding-bottom:1px!important}
+ #tab-play #playing>.panel{padding:6px!important}
+ #tab-play #playing>.panel>.row:first-child{padding-bottom:0!important;margin-bottom:0!important}
+ #tab-play .top-g-stats{margin-bottom:1px!important;gap:7px!important}
+ #tab-play .top-g-stats .kpi{padding-top:3px!important;padding-bottom:3px!important}
+ #tab-play .game-controls{padding-top:4px!important;padding-bottom:4px!important;margin-top:1px!important;margin-bottom:1px!important}
+ #tab-play .game-controls .measure-check{line-height:1.08!important;margin-top:1px!important}
+ #tab-play .action-board.sp{margin-top:0!important;margin-bottom:0!important;row-gap:7px!important}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:7px!important}
+ #tab-play .four.sp{margin-top:0!important;margin-bottom:0!important}
+ #tab-play .four.sp .kpi{padding-top:2px!important;padding-bottom:2px!important}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important}
+ #tab-play .action-board.sp .record-card .record-minus{min-width:44px!important;min-height:44px!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .top-g-stats .kpi{min-height:48px!important}
+ #tab-play #playing>.panel{padding:5px!important}
+ #tab-play .action-board.sp .record-card{height:109px!important;min-height:109px!important}
+ #tab-play .action-board.sp .record-card .tap{height:104px!important;min-height:104px!important}
+}
+
+/* R11 final measured spacing: compact inner button-row gutters, not touch boxes. */
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:4px!important}
+ #tab-play .four.sp{margin-top:-2px!important}
+}
+
+/* R12 — cohesive geometry system, not extra sparkle.  Visuals-only layer. */
+@media (orientation:portrait) and (max-width:600px) {
+ #tab-play #playing>.panel:first-child{
+   border-radius:23px!important;
+   border:1px solid #588e73!important;
+   background:linear-gradient(155deg,#154536 0%,#0c3126 45%,#09271f 100%)!important;
+   box-shadow:inset 0 1px 0 #eaffd84c,0 8px 22px #0008!important;
+ }
+ #tab-play #playing>.panel:first-child>.row:first-child h2{
+   font-weight:850!important;letter-spacing:.015em!important;
+   text-shadow:0 2px 4px #001e19!important;
+ }
+ #tab-play .top-g-stats .kpi{
+   border-radius:17px!important; border:1px solid #4d9278!important;
+   background:radial-gradient(ellipse at 28% -45%,#dbffe35c 0%,transparent 70%),linear-gradient(150deg,#22654c,#103e30 70%,#092a22)!important;
+   box-shadow:inset 0 1.5px 1px #ffffff80,inset 0 -2px 2px #00181090,0 4px 7px #0006!important;
+ }
+ #tab-play .top-g-stats .kpi.hall-total{
+   border-color:#629dd4!important;
+   background:radial-gradient(ellipse at 28% -45%,#e0f5ff99,transparent 70%),linear-gradient(145deg,#26669c,#173d6c 72%,#112e51)!important;
+ }
+ #tab-play .game-controls{
+   border-radius:19px!important;border-color:#477d69!important;
+   background:linear-gradient(151deg,#1a4c39,#0b3127)!important;
+   box-shadow:inset 0 1px 1px #c0ffe04f,0 4px 10px #0004!important;
+ }
+ #tab-play .game-input-row :is(button,input){border-radius:11px!important}
+ #tab-play .action-board.sp .record-card{
+   border-radius:24px!important;
+   box-shadow:inset 0 1px 1px #ffffff70,inset 0 -2px 1px #0005,0 5px 0 var(--v5-dark),0 9px 13px #0009!important;
+ }
+ #tab-play .action-board.sp .record-card::before{
+   height:42%!important;opacity:.47!important;
+   border-radius:21px 21px 45% 45%!important;
+   background:linear-gradient(180deg,#ffffffe3, #ffffff38 49%, transparent)!important;
+ }
+ #tab-play .action-board.sp .record-card::after{
+   border-radius:20px!important;
+   box-shadow:inset 0 1px 1px #fff8,inset 0 -2px 2px #0006!important;
+ }
+ #tab-play .action-board.sp .record-card .record-footer{
+   letter-spacing:.005em!important;font-variant-numeric:tabular-nums;
+   text-shadow:0 1px 3px #001710bf!important;
+ }
+ #tab-play .action-board.sp .record-card .record-minus{
+   border-radius:12px!important;
+   background:linear-gradient(145deg,#354b40,#14241f 60%,#0c1611)!important;
+   border:1px solid #edf9e2d0!important;
+   box-shadow:inset 0 1px 1px #fffb,0 3px 0 #03100d,0 5px 7px #0009!important;
+ }
+ #tab-play .four.sp .kpi{
+   background:linear-gradient(156deg,#1b4938,#0b2f24)!important;
+   border-radius:17px!important;border-color:#47745f!important;
+   box-shadow:inset 0 1px 0 #d7ffe359,0 3px 8px #0005!important;
+ }
+ #tab-play .four.sp .quick-complete{
+   border-radius:13px!important;
+   background:radial-gradient(ellipse at 23% -30%,#fffdeac2,transparent 68%),linear-gradient(155deg,#ffe7aa,#ebc47a 71%,#c4954c)!important;
+   border:1px solid #ffe2a8!important;
+   box-shadow:inset 0 1px 1px #fff9,0 3px 0 #9a723a,0 6px 10px #0006!important;
+ }
+ .tabs{background:linear-gradient(180deg,#10392d,#08261e)!important;
+   border-color:#3f775f!important;box-shadow:0 -5px 18px #0009!important}
+ .tabs button.active{border-radius:13px!important;
+   background:linear-gradient(158deg,#365d43,#15382b)!important;
+   box-shadow:inset 0 1px 1px #fff5,0 3px 8px #0005!important}
+}
+
+/* R13 structural design: unified operations deck, hall odds after primary actions */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play #playing>.panel{background:radial-gradient(ellipse 105% 30% at 45% -10%,#378f694b,transparent 100%),linear-gradient(154deg,#113c2e,#09291f 56%,#071d17)!important}
+#tab-play .play-command-deck{position:relative;isolation:isolate;display:flow-root;padding:0;margin:0 0 6px;border-radius:20px;background:linear-gradient(180deg,#164d3a20,transparent 50%)}
+#tab-play .play-command-deck>.game-controls{margin-bottom:9px!important}
+#tab-play .play-command-deck>.action-board.sp{margin-bottom:7px!important}
+#tab-play .play-command-deck>.four.sp{margin:0 0 2px!important;gap:7px!important}
+#tab-play .hall-prob{margin:7px 0!important;border-radius:16px!important}
+#tab-play .top-g-stats{margin-bottom:8px!important}
+#tab-play .action-board.sp .record-card{border-radius:24px!important}
+#tab-play .action-board.sp .record-card .record-symbol{filter:drop-shadow(0 2px 1px #0007)!important}
+#tab-play .action-board.sp .record-card:before{opacity:.53!important;height:41%!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+#tab-play .play-command-deck>.game-controls{margin-bottom:7px!important}
+#tab-play .play-command-deck>.action-board.sp{margin-bottom:5px!important}
+#tab-play .play-command-deck>.four.sp{gap:6px!important}
+}
+
+/* R14: 360px vertical safety margin; preserve all tap target geometry. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel:first-child{padding-top:5px!important;padding-bottom:6px!important}
+ #tab-play .top-g-stats{margin-bottom:3px!important}
+ #tab-play .game-controls{margin-top:0!important;margin-bottom:4px!important}
+ #tab-play .action-board.sp{margin-top:0!important;margin-bottom:3px!important}
+ #tab-play .four.sp{margin-top:0!important;margin-bottom:0!important}
+ #tab-play .hall-prob{margin-top:8px!important}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing>.panel:first-child{padding-top:3px!important;padding-bottom:4px!important}
+ #tab-play .top-g-stats{margin-bottom:1px!important}
+ #tab-play .game-controls{margin-bottom:1px!important}
+ #tab-play .action-board.sp{margin-bottom:1px!important}
+ #tab-play .four.sp{margin-top:-3px!important}
+}
+
+/* R15: unified material system — deliberately replaces the visible surface of the deck.
+   Visual-only; retain the button dimensions, ids and event bindings. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel:first-child{border-radius:23px!important;background:radial-gradient(ellipse 95% 33% at 35% -13%,#6ec69438,transparent 86%),linear-gradient(156deg,#114431,#092d23 58%,#071d18)!important;border-color:#549679!important;box-shadow:inset 0 1px #cbf9d26e,0 11px 28px #0008!important}
+ #tab-play #playing>.panel:first-child>.row:first-child h2{font-size:clamp(19px,5.7vw,23px)!important;font-weight:820!important;letter-spacing:-.025em!important}
+ #tab-play .top-g-stats{gap:8px!important}
+ #tab-play .top-g-stats .kpi{border-radius:19px!important;background:radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)!important;border:1px solid #5b9a7e!important;box-shadow:inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006!important}
+ #tab-play .top-g-stats .kpi.hall-total{border-color:#75b6ec!important;background:radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0015288f,0 3px 0 #092848,0 7px 12px #0007!important}
+ #tab-play .game-controls{border-radius:20px!important;border-color:#468e72!important;background:radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)!important;box-shadow:inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005!important}
+ #tab-play .game-input-row :is(input,button){border-radius:12px!important}
+ #tab-play .action-board.sp .record-card{border-radius:26px!important;border:1px solid color-mix(in srgb,var(--v5-edge) 67%,#ffffff 33%)!important;background:radial-gradient(ellipse 125% 85% at 26% -49%,#ffffffe2 0%,#ffffff2b 45%,transparent 68%),linear-gradient(156deg,var(--v5-top),var(--v5-mid) 35%,var(--v5-base) 73%,var(--v5-dark))!important;box-shadow:inset 0 1.6px 1px #fffba,inset 1px 0 2px #fff7,inset 0 -3px 3px #0006,0 4px 0 var(--v5-dark),0 7px 4px #0009,0 12px 16px #0009!important}
+ #tab-play .action-board.sp .record-card::before{inset:5px 6px auto!important;height:47%!important;border-radius:20px 20px 50% 50%!important;background:linear-gradient(180deg,#ffffffb7 0%,#ffffff54 45%,transparent 100%)!important;opacity:.43!important}
+ #tab-play .action-board.sp .record-card::after{inset:4px!important;border-radius:21px!important;border:1px solid #ffffff89!important;background:radial-gradient(ellipse 56% 13% at 16% 97%,#fff6,transparent 100%),radial-gradient(ellipse 48% 14% at 88% 96%,#fff5,transparent 100%)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -1px 1px #0018!important}
+ #tab-play .action-board.sp .record-card .record-symbol{text-shadow:0 2px 3px #001b!important;filter:drop-shadow(0 2px 2px #0019)!important}
+ #tab-play .action-board.sp .record-card .record-footer{bottom:8px!important;font-variant-numeric:tabular-nums!important;font-weight:850!important;text-shadow:0 1px 2px #001e!important}
+ #tab-play .action-board.sp .record-card .record-minus{border-radius:14px!important;border:1px solid #e8fff1e6!important;background:linear-gradient(145deg,#51625e,#1b2c25 51%,#091410)!important;box-shadow:inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a!important;min-width:44px!important;min-height:44px!important}
+ #tab-play .four.sp .kpi{border-radius:17px!important;background:radial-gradient(ellipse 95% 60% at 24% -23%,#c9ffd32e,transparent 75%),linear-gradient(156deg,#205440,#10382a)!important;border:1px solid #538b71!important;box-shadow:inset 0 1px 1px #e1ffde8a,0 4px 11px #0005!important}
+ #tab-play .four.sp .quick-complete{border-radius:14px!important;background:radial-gradient(ellipse 110% 85% at 18% -32%,#fffdecdf,transparent 74%),linear-gradient(154deg,#ffe3a2,#eac479 72%,#ca9c53)!important;border:1px solid #ffe7a9!important;box-shadow:inset 0 1.5px 1px #ffffe8,inset 0 -2px 1px #93601f88,0 3px 0 #a16f2e,0 6px 10px #0007!important}
+ .tabs{background:linear-gradient(180deg,#103f2f,#041d17)!important;border-top:1px solid #568e70!important;box-shadow:0 -6px 18px #0009,inset 0 1px 1px #dcffd742!important}
+ .tabs button.active{border-radius:15px!important;background:linear-gradient(150deg,#365d46,#133a2d)!important;box-shadow:inset 0 1px 1px #efffe08f,0 3px 8px #0007!important}
+}
