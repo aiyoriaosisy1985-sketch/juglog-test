@@ -1,0 +1,18 @@
+/* v2.7 static-layout audit fixes; visual browser approval is still pending. */
+/* Preserve original D07F dark/light palette. Do not force counts to white. */
+html[data-theme=light] #panel-play .key .count{color:inherit}
+/* The P31 buttons are absolutely positioned in the D07F key; keep the count below the symbol. */
+#panel-play .button-grid .key{isolation:isolate}
+#panel-play .button-grid .key .symbol{max-width:calc(100% - 6px);overflow:hidden;text-overflow:clip}
+#panel-play .button-grid .key .count{max-width:calc(100% - 6px);font-variant-numeric:tabular-nums}
+/* In narrow widths, avoid reducing clickable controls below practical tap target. */
+#panel-play .settlement :is(button,.complete){min-height:48px}
+.bottom button{min-height:52px}
+/* Prevent browser text autosizing from selectively enlarging stats or controls. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media(max-width:359px){
+  #panel-play .button-grid{gap:5px}
+  #panel-play .button-grid .key .symbol{font-size:clamp(21px,7vw,33px)}
+  #panel-play .button-grid .key:is(.grape,.cherry) .symbol{font-size:clamp(19px,5.5vw,26px)}
+  #panel-play .button-grid .key .count{font-size:14px}
+}
