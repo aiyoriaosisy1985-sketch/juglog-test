@@ -2818,7 +2818,7 @@ window.__p8ViewsApi=Object.freeze({
    const s=project?.get(sessionId);
    if(!s)return {ok:false,reason:'session-not-found'};
    const effective=correctedEvents(view.filter(e=>e.sessionId===sessionId));
-   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,recordedAt:e.recordedAt||null});
+   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,recordedAt:e.recordedAt||null});
    return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g},events:effective.map(fmt)}));
  },
  snapshot(){
@@ -2826,7 +2826,7 @@ window.__p8ViewsApi=Object.freeze({
    if(!s)return Object.freeze({ok:false,reason:'no-selected-session'});
    const effective=correctedEvents(view.filter(e=>e.sessionId===active));
    const bonuses=s.bonuses.filter(b=>!b.pendingReview);
-   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,recordedAt:e.recordedAt||null});
+   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,recordedAt:e.recordedAt||null});
    return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG,bb:bonuses.filter(b=>b.bonusType==='BB').length,rb:bonuses.filter(b=>b.bonusType==='RB').length,grape:s.grape,cherry:s.cherry},events:effective.map(fmt)}));
  }
 });
@@ -2934,6 +2934,47 @@ window.__p8SurfaceApi=Object.freeze({
  leave(){// Keep the iframe/lease alive: D07F input uses THIS same P31 writer.
   return Object.freeze({retained:true});
  }
+});
+// D07F-facing public observation API. Native P31 writer is the only persistence path.
+// D07F finance/card API. All writes use the existing P31 journalled writer.
+window.__p8LedgerApi=Object.freeze({
+ state(){const s=project?.get(active);return Object.freeze({ready:!!s&&s.status==='ACTIVE'&&writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead(),sessionId:s?.id||null,store:s?.store||''});},
+ snapshot(){
+  const s=project?.get(active);if(!s)return {ok:false,reason:'実戦が選択されていません'};
+  try{
+   const finance=window.JissenhyoFinance.build(view,s.id),card=window.JissenhyoCard.build(view);
+   return JSON.parse(JSON.stringify({ok:true,sessionId:s.id,store:s.store,finance:{invested:finance.invested,recovered:finance.recovered,cashNet:finance.cashNet,latestBalance:finance.latestBalance,latestNet:finance.latestNet,inserted:finance.inserted,paidOut:finance.paidOut,records:finance.records.map(r=>({type:r.type,amount:r.amount,eventId:r.eventId,games:r.games}))},cards:card.cards.map(c=>({store:c.store,cardLabel:c.cardLabel,knownBalance:c.knownBalance,deposits:c.deposits,withdrawals:c.withdrawals,warning:!!c.warning}))}));
+  }catch(_e){return {ok:false,reason:'記録を取得できません'}}
+ },
+ async saveFinance(type,amount){
+  const s=project?.get(active);if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead())return {status:'rejected',reason:'実戦・保存権限を確認してください'};
+  if(!Object.hasOwn(window.JissenhyoFinance.TYPES,type))return {status:'rejected',reason:'記録種別が不正です'};
+  const signed=type==='NET_MEDALS_OBSERVED',zero=signed||type==='MEDALS_BALANCE_OBSERVED';
+  if(!Number.isSafeInteger(amount)||(!signed&&amount<0)||(!zero&&amount===0))return {status:'rejected',reason:'金額・枚数が不正です'};
+  try{return await runForD07F([{type,amount,segmentId:s.segment}]);}catch(_e){return {status:'unknown'}}
+ },
+ async saveCard(type,cardLabel,amount){
+  const s=project?.get(active);if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead())return {status:'rejected',reason:'実戦・保存権限を確認してください'};
+  if(!Object.hasOwn(window.JissenhyoCard.TYPES,type)||typeof cardLabel!=='string')return {status:'rejected',reason:'記録種別・カード名が不正です'};
+  const store=s.store.trim().replace(/\s+/g,' '),label=cardLabel.trim().replace(/\s+/g,' ')||'会員カード';
+  if(!store||store.length>120||label.length>60||!Number.isSafeInteger(amount)||amount<0||(type!=='CARD_BALANCE_OBSERVED'&&amount===0))return {status:'rejected',reason:'店舗・カード・枚数が不正です'};
+  const ledger=window.JissenhyoCard.build(view).cards.find(c=>c.key===window.JissenhyoCard.key(store,label));
+  if(type==='CARD_WITHDRAWAL'&&ledger?.knownBalance!=null&&amount>ledger.knownBalance)return {status:'rejected',reason:'確認済み残高を超える引出です'};
+  try{return await runForD07F([{type,store,cardLabel:label,amount,segmentId:s.segment}]);}catch(_e){return {status:'unknown'}}
+ }
+});
+window.__p8HallApi=Object.freeze({
+  state(){const s=project?.get(active);return Object.freeze({ready:!!s&&s.status==='ACTIVE'&&!!writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead(),selectedId:active||null});},
+  async save(input){
+    const s=project?.get(active);
+    if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead()||!input||typeof input!=='object')return Object.freeze({status:'rejected',reason:'操作可能な実戦・保存権限を確認してください'});
+    const keys=['totalG','currentG','bb','rb'];const v={};
+    for(const k of keys){let x=input[k];if(x===null||x===''){v[k]=null;continue;}if(typeof x!=='number'||!Number.isSafeInteger(x)||x<0)return Object.freeze({status:'rejected',reason:'0以上の整数で入力してください'});v[k]=x;}
+    if(keys.every(k=>v[k]===null))return Object.freeze({status:'rejected',reason:'観測値を1項目以上入力してください'});
+    if(v.totalG!==null&&v.bb!==null&&v.rb!==null&&v.bb+v.rb>v.totalG)return Object.freeze({status:'rejected',reason:'BB・RB合計が総Gを超えています'});
+    try{return await runForD07F([{type:'HALL_SNAPSHOT_RECORDED',...v,observedAt:new Date().toISOString(),segmentId:s.segment}]);}
+    catch(_e){return Object.freeze({status:'unknown'});}
+  }
 });
 window.__p8CountApi = Object.freeze({
   state(){return Object.freeze({ready:!!writer && !busy && pending.length===0 && !!active && !document.hidden && !p8JournalRead(), busy:!!busy, pending:pending.length, hasSession:!!active, writer:!!writer});},
