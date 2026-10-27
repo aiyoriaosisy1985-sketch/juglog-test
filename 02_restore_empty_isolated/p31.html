@@ -3180,8 +3180,13 @@ $('restoreBtn').onclick=async()=>{
  try{existing=await allEvents()}catch(err){$('importResult').textContent='復元前のDB確認に失敗しました（復元は開始していません）：'+err.message;return}
  if(existing.length){alert('実戦データが存在します。安全のため上書き・統合は行いません。');return}
  if(!confirm(`検証済み「${validatedImport.filename}」の${validatedImport.events.length}件を空の実戦DBへ復元しますか？`))return;
- // Recheck after the native confirm dialog: another action may have started.
- if(busy||pending.length||readCheckpointPending()||!writer||document.hidden){$('importResult').textContent='復元確認中に入力状態が変化しました。復元を開始しません。';return}
+ // Recheck the lease after the native confirm dialog, which can pause Safari
+ // long enough for the 12-second lease to expire. Do not force ownership.
+ if(busy||pending.length||readCheckpointPending()||document.hidden){$('importResult').textContent='復元確認中に入力状態が変化しました。復元を開始しません。';return}
+ const leaseReady=await prepareLeaseForWrite();
+ if(!leaseReady||!writer||document.hidden||busy||pending.length||readCheckpointPending()){
+  $('importResult').textContent='復元前に入力権限を安全に取得できませんでした。復元は開始していません。';return;
+ }
  const restoreData=validatedImport;
  busy=true;render();
  let t;
