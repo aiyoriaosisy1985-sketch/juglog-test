@@ -1,0 +1,12 @@
+/* Read-only machine reference sheet. Scoped to guess tab. */
+#panel-guess .p8-reference{margin-top:12px}
+#panel-guess .p8-ref-label{display:block;font-weight:750;font-size:12px;margin:8px 0 6px}
+#panel-guess #p8-ref-machine{width:100%;min-height:43px;border-radius:11px;padding:8px 10px;font:inherit;color:inherit;background:var(--jc-surface,#123d30);border:1px solid #78aa94}
+#panel-guess .p8-ref-scroll{overflow-x:auto;max-width:100%;margin-top:9px;-webkit-overflow-scrolling:touch}
+#panel-guess .p8-ref-table{border-collapse:collapse;width:100%;min-width:315px;font-size:11px;font-variant-numeric:tabular-nums}
+#panel-guess .p8-ref-table th,#panel-guess .p8-ref-table td{text-align:right;white-space:nowrap;border-bottom:1px solid #81aa9760;padding:10px 4px}
+#panel-guess .p8-ref-table th:first-child,#panel-guess .p8-ref-table td:first-child{text-align:center;font-weight:800}
+#panel-guess .p8-ref-table th{font-weight:800}
+#panel-guess .p8-ref-foot{font-size:11px;line-height:1.55;overflow-wrap:anywhere;opacity:.85;margin:9px 0 0}
+html[data-theme=light] #panel-guess #p8-ref-machine{background:#fff;color:#1d4737;border-color:#9cbaab}
+@media(max-width:360px){#panel-guess .p8-ref-table{min-width:330px}}

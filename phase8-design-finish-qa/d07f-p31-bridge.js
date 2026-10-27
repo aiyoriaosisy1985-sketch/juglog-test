@@ -508,7 +508,7 @@ if(directUncertain||hasJournal()){
 }else if(capability?.pending>0||capability?.busy){
  status.textContent='P31の未保存操作・保存処理を確認してください。';
 }else if(capability?.ready){
- status.textContent='P31の選択中実戦と同期中。D07Fから操作できます（実機未検証）。';
+ status.textContent='実戦データと同期中。記録操作ができます。';
 }else{
  status.textContent='P31の操作条件を満たしていません。実戦状態を確認してください。';
 }
@@ -635,6 +635,7 @@ function syncDataTabs(){
  guess.innerHTML=`<p class="p8-provenance">データ元：P31隔離版の選択中実戦／確定記録</p><div class="p8-data-grid"><div>本人G<strong>${esc(s.personalG)}</strong></div><div>BB / RB<strong>${esc(s.bb)} / ${esc(s.rb)}</strong></div><div>ぶどう<strong>${esc(s.grape)}　${esc(rate(s.grape))}</strong></div><div>チェリー<strong>${esc(s.cherry)}　${esc(rate(s.cherry))}</strong></div></div><p>小役実測G：${esc(s.measuredG)} ／ 本人G：${esc(s.personalG)}</p><p>小役確率：${s.hasUnmeasuredG||s.measuredG!==s.personalG?'全ゲーム実測条件を満たさないため未算出':'全ゲーム実測時のみ算出'}</p><p class="p8-provenance">設定推測は対応機種の確定BB・RBのみで参考評価します。小役は判定に含めません。</p>`;
 
  const prediction=window.P8MachineEstimator?.estimate({machine:s.machine,games:s.personalG,bb:s.bb,rb:s.rb});
+ const extra=window.P8SmallRoleEstimator?.estimate({machine:prediction?.machineId,games:s.personalG,bb:s.bb,rb:s.rb,grape:s.grape,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG});
  const guessSection=document.createElement('section');guessSection.className='p8-machine-prediction';
  if(prediction?.ok){
   const h=document.createElement('h3');h.textContent=prediction.machine+'｜BB・RB限定参考推測';guessSection.append(h);
@@ -657,6 +658,16 @@ function syncDataTabs(){
   const warn=document.createElement('p');warn.textContent='設定推測：'+(prediction?.reason||'推測エンジンを読み込めません。');guessSection.append(warn);
  }
  guess.append(guessSection);
+ if(extra?.ok){
+  const small=document.createElement('section');small.className='p8-machine-prediction';
+  const title=document.createElement('h3');title.textContent='小役を含む参考推測（機種別・暫定値）';small.append(title);
+  const explanation=document.createElement('p');explanation.textContent=extra.notes.join('。')+'。'+extra.reference.notice+' BB・RBの公式値と、小役の非公式参考値に基づく同一事前重みの相対比較です。';small.append(explanation);
+  const t=document.createElement('table');t.className='p8-prob-table';const tb=document.createElement('tbody');
+  for(const row of extra.settings){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.textContent='設定'+row.setting;td.textContent=row.percent.toFixed(1)+'%';tr.append(th,td);tb.append(tr);}t.append(tb);small.append(t);
+  const source=document.createElement('p');source.className='p8-estimate-disclaimer';source.textContent='小役参考値：'+extra.sources.smallRoles+'。メーカー非公表・原著未照合。現行の旧チェリー記録は推測に使用しません。';small.append(source);
+  guess.append(small);
+ }
+
  // Use the same confirmed-bonus rule as the P31 projection. A pending award
  // is counted only if its BONUS_REVIEW_CONFIRMED event is effective.
  const confirmedIds=new Set(ev.filter(e=>e.type==='BONUS_REVIEW_CONFIRMED'&&e.bonusId).map(e=>e.bonusId));
