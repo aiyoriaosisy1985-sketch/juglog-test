@@ -2493,7 +2493,7 @@ $('financeAddBtn').onclick=async()=>{
 function renderCards(s){
  const mini=$('cardMini'),overview=$('cardOverview'),rows=$('cardRows');mini.replaceChildren();overview.replaceChildren();rows.replaceChildren();
  const e=window.JissenhyoCard;
- $('cardAddBtn').disabled=!s||!writer||busy||pending.length>0;
+ $('cardAddBtn').disabled=!s||s.status!=='ACTIVE'||!writer||busy||pending.length>0||document.hidden||!!p8JournalRead();
  if(!e){overview.textContent='会員カード機能を読み込めません';return}
  const d=e.build(view),format=n=>n===null?'未確認':n.toLocaleString()+'枚';
  const store=s?.store?.trim().replace(/\s+/g,' ')||'',label=$('cardLabel').value.trim().replace(/\s+/g,' ')||'会員カード';
@@ -2541,7 +2541,7 @@ function renderSessionHistory(){
 }
 $('cardLabel').oninput=()=>renderCards(project?.get(active));
 $('cardAddBtn').onclick=async()=>{
- const s=project?.get(active);if(!s||!writer||busy||pending.length){alert('実戦を選択し、保存可能な状態で操作してください');return}
+ const s=project?.get(active);if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead()){alert('実戦中かつ保存可能な状態で操作してください');return}
  const e=window.JissenhyoCard,type=$('cardType').value;if(!e||!e.TYPES[type])return;
  const store=s.store.trim().replace(/\s+/g,' '),cardLabel=$('cardLabel').value.trim().replace(/\s+/g,' ')||'会員カード';
  const raw=$('cardAmount').value.trim();if(!/^\d+$/.test(raw)){alert('枚数を0以上の整数で入力してください');return}
