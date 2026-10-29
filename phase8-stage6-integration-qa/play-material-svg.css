@@ -1,0 +1,14 @@
+/* MATERIAL-SVG concept: true vector-drawn face, HTML events and labels unchanged. */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play#tab-play #playing#playing .action-board.sp .record-card{background-color:transparent!important;background-size:100% 100%!important;background-repeat:no-repeat!important;background-position:center!important;border:0!important;border-radius:23px!important;box-shadow:0 3px 0 #05190f,0 9px 13px #0009!important;overflow:hidden!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.bb{background-image:url('./visual-assets/key-bb.svg')!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.rb{background-image:url('./visual-assets/key-rb.svg')!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.grape{background-image:url('./visual-assets/key-grape.svg')!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.cherry{background-image:url('./visual-assets/key-cherry.svg')!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card::before,#tab-play#tab-play #playing#playing .action-board.sp .record-card::after{display:none!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card .record-minus{background:linear-gradient(155deg,#31423a,#0b1814)!important;border:1px solid #eaffee9c!important;box-shadow:inset 0 1px 1px #e8ffe977,0 2px 6px #000b!important}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card .record-footer{text-shadow:0 2px 3px #00170faa!important}
+#tab-play .game-controls{background:linear-gradient(159deg,#174d3a,#092e22)!important;border:1px solid #528f75!important;box-shadow:inset 0 1px 1px #cfffe46a,0 4px 9px #0006!important}
+#tab-play .top-g-stats .kpi{background:linear-gradient(160deg,#1b5943,#0c3024)!important;border-color:#50967a!important;box-shadow:inset 0 1px 0 #d7ffe78a,0 3px 9px #0005!important}
+#tab-play .top-g-stats .kpi.hall-total{background:linear-gradient(155deg,#2368a1,#103857)!important;border-color:#72a7d4!important}
+}

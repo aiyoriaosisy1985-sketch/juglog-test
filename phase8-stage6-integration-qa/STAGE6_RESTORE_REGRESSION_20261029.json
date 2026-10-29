@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "result_reset_before_restore_guards": true,
+    "parent_confirmation": true,
+    "no_hidden_child_confirmation_on_parent_failure": true,
+    "empty_db_recheck": true,
+    "restore_uncertain_guard": true,
+    "native_parent_dialog": true,
+    "no_visible_p31_overlay": true,
+    "engine_iframe": true,
+    "five_tabs": true,
+    "no_open_function_call": true,
+    "p31_inline_js_0": true,
+    "p31_inline_js_10": true
+  },
+  "files": {
+    "p31.html": "f593a0652e61efbd3efaf82e8c545570857268071b824517d01e274580ca75fd",
+    "index.html": "7b9df6bd405a8f8d949c7f85a17b3723812985cde68e490e757a9695a0bcd3a5",
+    "d07f-p31-bridge.js": "0ee5c00303583285aa685c1013970bcfe0144ae5642850b09e728886f820c9e5"
+  },
+  "limitation": "Static and syntax tests only; no browser or phone test performed."
+}
