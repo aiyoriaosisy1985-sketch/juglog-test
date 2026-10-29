@@ -547,7 +547,7 @@ function renderSessionHistory(){
  for(const s of sessions){
   const btn=document.createElement('button');btn.type='button';btn.className='p8-history-session';
   btn.setAttribute('aria-pressed',String(s.id===chosen.id));
-  btn.textContent=`${s.date||'日付不明'} ｜ ${s.store||'店舗未記録'} ｜ ${s.machine||'機種未記録'} ${s.number??'—'}番 ｜ ${s.personalG??'—'}G ｜ BB${s.bb??'—'} / RB${s.rb??'—'}${s.isActive?'（実戦中選択）':''}`;
+  btn.textContent=`${s.date||'日付不明'} ｜ ${s.store||'店舗未記録'} ｜ ${s.machine||'機種未記録'} ${s.number??'—'}番 ｜ ${s.personalG??'—'}G ｜ BB${s.bb??'—'} / RB${s.rb??'—'}${s.isActive?'（P31で選択中）':''}`;
   btn.addEventListener('click',()=>{historyDetailId=s.id;renderSessionHistory();});list.append(btn);
  }
  // History selection changes the read-only preview only. Never silently switch
