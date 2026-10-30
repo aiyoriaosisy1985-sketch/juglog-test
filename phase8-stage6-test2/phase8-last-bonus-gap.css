@@ -1,0 +1,13 @@
+
+/* Read-only latest bonus gap: no change to D07F keys or existing rate cards. */
+.p8-last-gap{margin-top:8px;padding:9px 10px;border:1px solid #6fb59396;border-radius:13px;background:linear-gradient(145deg,#0c4535,#032a21)}
+.p8-last-gap h2{font-size:12px;margin:0 0 7px;color:#c0dccb;font-weight:800}
+.p8-last-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.p8-last-gap-grid>div{border:1px solid #82b69c59;border-radius:10px;padding:8px 5px;text-align:center;min-width:0}
+.p8-last-gap-grid span{display:block;font-size:12px;color:#d4e8da}
+.p8-last-gap-grid strong{display:block;margin-top:4px;font-size:22px;font-variant-numeric:tabular-nums}
+#p8-since-bb{color:#ff829e}#p8-since-rb{color:#83c9ff}
+html[data-theme=light] .p8-last-gap{background:linear-gradient(145deg,#eff9f0,#d9ebdf);border-color:#aac9b3}
+html[data-theme=light] .p8-last-gap h2,html[data-theme=light] .p8-last-gap-grid span{color:#365747}
+html[data-theme=light] .p8-last-gap-grid>div{border-color:#b2cebb}
+html[data-theme=light] #p8-since-bb{color:#b51f4a}html[data-theme=light] #p8-since-rb{color:#155d9a}

@@ -1,0 +1,9 @@
+{
+  "js_checked": 19,
+  "js_all_pass": true,
+  "js_failures": [],
+  "local_asset_missing": [],
+  "bridge_sha256": "4c0d68b8ddbadf3b9b4110d933fd18e7920ec43e7b54ec1a657f96009fbdc9e6",
+  "browser_tested": false,
+  "stage6_complete": false
+}
