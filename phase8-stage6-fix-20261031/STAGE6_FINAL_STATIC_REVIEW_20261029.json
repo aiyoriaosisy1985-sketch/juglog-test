@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-29",
+  "scope": "stage6 integration static checks / no browser tests",
+  "checks": {
+    "five_tabs": true,
+    "asset_references_present": true,
+    "bonus_foreground_fence": true,
+    "bonus_session_fence": true,
+    "restore_parent_dialog": true,
+    "restoration_db_empty_guard": true
+  },
+  "js_files_checked": 19,
+  "javascript_errors": [],
+  "missing_assets": [],
+  "status": "static checks passed; browser verification outstanding",
+  "modified_sha256": "65503c07a6e4c912d04548ddeeca76064352e1b2c22916f3c7448a955d645f75"
+}

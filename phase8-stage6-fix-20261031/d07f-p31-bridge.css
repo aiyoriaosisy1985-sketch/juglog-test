@@ -1,0 +1,100 @@
+#p31-overlay[hidden]{display:none!important}#p31-overlay{position:fixed;inset:0;z-index:10000;background:#05271f;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}.p31-overlay-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 13px;color:#f5fef8}.p31-overlay-head button{min-height:42px;padding:8px 14px;border:1px solid #81c8a6;background:#194d3b;color:#fff;border-radius:10px}#p31-frame{border:0;flex:1;width:100%;background:#0b2f23}.board .key[data-p31]{touch-action:manipulation}.board .key[data-p31]:active{filter:brightness(1.35);transform:scale(.98)}.board .entry button{width:100%;min-height:46px}.micro{line-height:1.4}@media(prefers-reduced-motion:reduce){.board .key[data-p31]{transition:none!important}}
+#p8-direct-status{margin:8px 10px;padding:8px 10px;border-radius:10px;background:#164c3b;color:#e3fbea;font-size:12px;line-height:1.45}button[data-p31]:disabled{opacity:.55;filter:grayscale(.35);cursor:not-allowed}
+.p8-games-form{display:grid;gap:8px}.p8-games-form>input{min-height:44px;padding:10px;border-radius:10px;border:1px solid var(--line,#6d947c);background:var(--panel,#fff);color:var(--text,#102b1e);width:100%;box-sizing:border-box}.p8-measure{display:flex;gap:8px;align-items:center;font-size:12px}.p8-measure input{min-width:18px;min-height:18px}.p8-games-form button:disabled{opacity:.45;cursor:not-allowed}
+
+#p8-inspect-last{display:block;margin:8px auto;padding:10px 12px;max-width:100%;border-radius:10px;border:1px solid #79ad99;background:transparent;color:inherit;min-height:44px}
+
+.p8-dataview{min-height:60px;color:inherit;font-size:14px;line-height:1.65}.p8-data-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}.p8-data-grid>div{border:1px solid #71a18b88;border-radius:12px;padding:10px;min-width:0}.p8-data-grid strong{display:block;font-size:20px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.p8-event-list{list-style:none;padding:0;max-height:450px;overflow:auto}.p8-event-list li{display:flex;justify-content:space-between;gap:12px;padding:8px;border-bottom:1px solid #80a89255}.p8-event-list small{white-space:nowrap;color:inherit;opacity:.7}.p8-dataview svg{max-width:100%;overflow:visible}
+
+.p8-history-sessions{display:grid;gap:6px;margin:12px 0 18px}.p8-history-session{width:100%;text-align:left;padding:11px;border-radius:10px;border:1px solid var(--stroke,#64866f);background:transparent;color:inherit;line-height:1.5;min-height:44px}.p8-history-session[aria-pressed="true"]{outline:2px solid #67bf91;outline-offset:1px;font-weight:700}
+
+/* Phase 8 workbench: compact read-only bonus state and native review entry */
+.p8-bonus-state{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px;font-size:.84rem}
+.p8-bonus-state>span{white-space:nowrap}
+.p8-bonus-state strong{font-variant-numeric:tabular-nums}
+.p8-bonus-state button{margin-left:auto;min-height:38px;padding:7px 13px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;font:inherit}
+.p8-bonus-state button:disabled{opacity:.45;cursor:default}
+
+/* Phase 8: session-management controls use the native P31 confirmation dialog. */
+.p8-session-actions{margin:12px 0;padding:12px;border:1px solid var(--line, #607080);border-radius:12px}
+.p8-session-actions h2{margin:0 0 6px;font-size:1rem}
+.p8-session-actions p{margin:4px 0 10px;font-size:.82rem}
+.p8-session-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.p8-session-buttons button{min-width:0;padding:10px 5px;border-radius:9px;border:1px solid var(--line, #607080);background:var(--surface, #243044);color:inherit;font:inherit}
+.p8-session-buttons button:last-child{grid-column:1/-1}
+#p8-session-status:empty{display:none}
+
+/* v4.3: selected-history correction handoff, with session identity warning */
+.p8-history-actions{display:grid;gap:6px;margin:0 0 14px}
+.p8-history-actions button{min-height:44px;padding:10px 12px;text-align:center;border:1px solid var(--line,#60846f);border-radius:10px;color:inherit;background:var(--surface,#243044);font:inherit}
+.p8-history-advice{margin:0;font-size:.81rem;line-height:1.55;opacity:.85}
+
+/* D07F native bonus confirmation; P31 remains the authoritative writer. */
+#p8-bonus-dialog{width:min(92vw,440px);max-height:90dvh;overflow:auto;border:1px solid var(--line,#53636a);border-radius:18px;background:var(--panel,#20292e);color:var(--text,#fff);padding:20px;box-shadow:0 20px 50px #0008}
+#p8-bonus-dialog::backdrop{background:#0009}
+.p8-bonus-form{display:grid;gap:12px}
+.p8-bonus-form h2{margin:0;font-size:1.2rem}
+.p8-bonus-form label{font-weight:700}
+.p8-bonus-form select{width:100%;padding:12px;border-radius:9px;font-size:1rem}
+.p8-bonus-form p{margin:0;line-height:1.5;font-size:.9rem}
+.p8-bonus-actions{display:flex;gap:10px;justify-content:flex-end}
+.p8-bonus-actions button{min-height:44px;padding:10px 14px;border-radius:10px}
+
+/* v47: compact event correction controls */
+.p8-history-corrections{margin:12px 0;padding:10px;border:1px solid var(--line, #555);border-radius:12px}.p8-correction-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--line,#555)}.p8-correction-row span{overflow-wrap:anywhere;min-width:0}.p8-correction-row button{flex-shrink:0}
+
+.p8-session-switch{display:grid;gap:7px;margin-top:10px}.p8-session-switch select,.p8-session-switch button{min-width:0;width:100%;padding:9px;border-radius:9px;border:1px solid var(--line,#607080);background:var(--surface,#243044);color:inherit;font:inherit}
+
+/* v5.1: QA interface hierarchy; gameplay actions and app storage are unchanged. */
+.p8-legacy-tools{margin-top:14px;border-top:1px solid var(--line,#749b85);padding-top:10px}
+.p8-legacy-tools summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:650;font-size:12px;opacity:.85}
+.p8-legacy-tools[open] .p8-session-buttons{margin-top:8px}
+#p8-data-tools>label[for=p8-direct-backup-file]{display:block;margin-top:14px;margin-bottom:6px}
+#p8-data-tools #p8-direct-backup-file{display:block;max-width:100%;margin-bottom:10px}
+#p8-data-tools #p8-direct-restore{min-height:44px}
+.p8-session-actions>p:first-of-type{margin:0 0 12px;font-size:12px;line-height:1.5}
+.p8-session-actions h2{margin-bottom:8px}
+
+/* v5.2: scoped layout consistency for P31-connected controls; retain D07F keys */
+.p8-session-actions{padding:12px 13px;margin-block:10px;border-radius:15px}
+.p8-session-buttons{gap:8px}
+.p8-session-buttons button,.p8-session-switch button,.p8-history-actions button,.p8-correction-row button{min-height:44px;line-height:1.35;padding:9px 11px;touch-action:manipulation}
+.p8-session-switch select{min-height:44px}
+.p8-session-switch{gap:8px;margin-top:12px}
+.p8-session-actions p,#p8-session-status{overflow-wrap:anywhere;line-height:1.45}
+.p8-history-actions{gap:8px;margin-bottom:12px}
+.p8-correction-row{gap:10px;padding-block:9px}
+.p8-correction-row button{max-width:46%;white-space:normal}
+#p8-data-tools #p8-direct-backup-file{min-height:44px;width:100%}
+#p8-data-tools #p8-direct-restore{width:100%;padding:10px 12px;white-space:normal}
+.p8-legacy-tools summary{line-height:1.4}
+.p8-session-buttons button:focus-visible,.p8-session-switch :is(button,select):focus-visible,.p8-history-actions button:focus-visible,.p8-correction-row button:focus-visible,#p8-data-tools :is(button,input):focus-visible{outline:2px solid #f4d58e;outline-offset:2px}
+@media(max-width:374px){.p8-session-actions{padding:10px}.p8-session-buttons{gap:6px}.p8-session-buttons button{padding-inline:6px;font-size:12px}.p8-correction-row{flex-wrap:wrap}.p8-correction-row button{max-width:none}}
+
+/* v5.8.1: readable history action contrast in both themes. */
+.p8-history-actions button{background:#253248;color:#fff;}
+html[data-theme="light"] .p8-history-actions button{background:#253248;color:#fff;border-color:#607d96;}
+html[data-theme="light"] .p8-history-actions button:disabled{color:#d1d7df;}
+
+/* Stage 6 QA fix: session create form matches D07F rather than Safari defaults. */
+#p8-create-dialog{width:min(92vw,440px);max-width:calc(100vw - 24px);max-height:min(88dvh,760px);overflow:auto;overscroll-behavior:contain;box-sizing:border-box;margin:auto;padding:20px;border:1px solid #7bb99c;border-radius:18px;background:linear-gradient(160deg,#14513e,#062d23);color:#f5faf6;box-shadow:0 20px 50px #0009}
+#p8-create-dialog::backdrop{background:#001d17b8}
+#p8-create-dialog .p8-bonus-form{min-width:0;gap:12px}
+#p8-create-dialog .p8-bonus-form label{display:grid;gap:5px;min-width:0}
+#p8-create-dialog input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;font:inherit;color:#f5faf6;background:#06382b;border:1px solid #80b49c;border-radius:10px}
+#p8-create-dialog input:focus{outline:2px solid #ffe3a1;outline-offset:1px}
+#p8-create-dialog .p8-bonus-actions{flex-wrap:wrap}
+#p8-create-dialog .p8-bonus-actions button{background:linear-gradient(#1a7156,#0a4736);border:1px solid #81bca0;color:#f5faf6;font:inherit;font-weight:700}
+#p8-create-dialog .p8-bonus-actions button:last-of-type{background:linear-gradient(#ffe9a0,#d7a94f);color:#163025;border-color:#ffe3a0}
+html[data-theme=light] #p8-create-dialog{background:linear-gradient(#f4fbf5,#deede2);color:#173b31}
+html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;border-color:#75a08d}
+
+/* Phase 8 stage6 consolidated modal layout: iOS Safari safe input widths and keyboard viewport. */
+#p8-create-dialog,#p8-bonus-dialog{max-width:calc(100% - 24px);max-height:calc(100dvh - 32px);max-height:calc(var(--p8-visual-height, 100dvh) - 32px);box-sizing:border-box;overflow-x:hidden;overflow-y:auto;scroll-padding-bottom:80px;}
+#p8-create-dialog .p8-bonus-form,#p8-bonus-dialog .p8-bonus-form{min-width:0;max-width:100%;}
+#p8-create-dialog input[type=date]{display:block;width:100%;max-width:100%;min-width:0;-webkit-appearance:none;appearance:none;}
+#p8-create-dialog .p8-bonus-actions{position:relative;min-width:0;}
+#p8-create-dialog .p8-bonus-actions button{flex:1 1 120px;}
+#p8-create-dialog :is(input,select):focus{scroll-margin-bottom:95px;}
+
+#p8-review-reason:not(:empty){display:block;margin:4px 2px 8px;font-size:12px;line-height:1.5;color:var(--text,#fff);}

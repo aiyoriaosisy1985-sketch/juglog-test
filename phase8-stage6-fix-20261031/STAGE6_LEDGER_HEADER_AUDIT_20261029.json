@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-29",
+  "scope": "stage6 ledger and header integration static audit",
+  "checks": {
+    "ledger_shared_gate": true,
+    "ledger_in_flight_gate": true,
+    "ledger_uncertain_blocks_writes": true,
+    "header_D07F_navigation": true,
+    "old_header_open_removed": true,
+    "restore_dialog_exists": true,
+    "five_tabs_exist": true,
+    "js_syntax_bridge_pass": true,
+    "js_syntax_ledger_pass": true
+  },
+  "browser_verified": false,
+  "iPhone_verified": false,
+  "files": {
+    "d07f-p31-bridge.js": "4f665517618b231fc145d4cfedb225a9b5f15cddaef4d889bf8215fc8096143c",
+    "phase8-ledger.js": "a115529d69cec28a84e14042cabc05a9fbbd8f3d8cbefc29c2d80c071acfc28b",
+    "index.html": "7b9df6bd405a8f8d949c7f85a17b3723812985cde68e490e757a9695a0bcd3a5"
+  }
+}
