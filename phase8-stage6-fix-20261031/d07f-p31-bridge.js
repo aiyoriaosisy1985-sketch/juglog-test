@@ -337,7 +337,7 @@ document.getElementById('p8-create-session')?.addEventListener('click',()=>{
  if(!api?.state().ready){sessionStatusEl.textContent='入力権限と保存状態を確認してください。';return;}
  const local=new Date();const yyyy=local.getFullYear(),mm=String(local.getMonth()+1).padStart(2,'0'),dd=String(local.getDate()).padStart(2,'0');
  document.getElementById('p8-create-date').value=`${yyyy}-${mm}-${dd}`;
- document.getElementById('p8-create-feedback').textContent='';createDialog.showModal();
+ document.getElementById('p8-create-feedback').textContent='';createDialog.showModal();p8UpdateDialogViewport();
 });
 createDialog.querySelector('#p8-create-save').addEventListener('click',async()=>{
  if(p8WriteBlocked())return;
@@ -356,21 +356,41 @@ createDialog.querySelector('#p8-create-save').addEventListener('click',async()=>
 });
 createDialog.addEventListener('cancel',e=>{if(directPending)e.preventDefault();});
 createDialog.addEventListener('close',()=>{document.activeElement?.blur?.();});
-// Visual viewport is smaller than the layout viewport while iOS keyboard is open.
-// This only adjusts dialog geometry; no persistence or event writer is touched.
+// Keep the native modal inside Safari's actual visible viewport when its keyboard is open.
+// Avoid input.scrollIntoView(): on iOS it can scroll the outer page instead of the dialog.
 function p8UpdateDialogViewport(){
- const height=window.visualViewport?.height;
+ const vv=window.visualViewport;
+ const height=vv?.height;
  if(Number.isFinite(height)&&height>0){
   document.documentElement.style.setProperty('--p8-visual-height',`${Math.round(height)}px`);
  }
+ if(!createDialog.open)return;
+ const top=Number.isFinite(vv?.offsetTop)?vv.offsetTop:0;
+ const visibleHeight=Number.isFinite(height)&&height>0?height:window.innerHeight;
+ createDialog.style.top=`${Math.round(top+visibleHeight/2)}px`;
+ createDialog.style.maxHeight=`${Math.max(160,Math.floor(visibleHeight-24))}px`;
 }
 window.visualViewport?.addEventListener('resize',p8UpdateDialogViewport);
 window.visualViewport?.addEventListener('scroll',p8UpdateDialogViewport);
-p8UpdateDialogViewport();
-createDialog.addEventListener('focusin',e=>{
- if(!e.target?.matches?.('input,select,textarea'))return;
- requestAnimationFrame(()=>e.target.scrollIntoView({block:'nearest',behavior:'instant'}));
+window.addEventListener('resize',p8UpdateDialogViewport);
+createDialog.addEventListener('close',()=>{
+ createDialog.style.removeProperty('top');
+ createDialog.style.removeProperty('max-height');
 });
+createDialog.addEventListener('focusin',e=>{
+ const target=e.target;
+ if(!target?.matches?.('input,select,textarea'))return;
+ requestAnimationFrame(()=>{
+  p8UpdateDialogViewport();
+  // Only move the dialog's own scroll area, never the document underneath.
+  const dialogBox=createDialog.getBoundingClientRect();
+  const fieldBox=target.getBoundingClientRect();
+  const safeTop=dialogBox.top+16,safeBottom=dialogBox.bottom-72;
+  if(fieldBox.bottom>safeBottom)createDialog.scrollTop+=fieldBox.bottom-safeBottom;
+  else if(fieldBox.top<safeTop)createDialog.scrollTop-=safeTop-fieldBox.top;
+ });
+});
+p8UpdateDialogViewport();
 createDialog.querySelector('form').addEventListener('submit',e=>{if(directPending)e.preventDefault();});
 document.querySelectorAll('[data-p8-session-action]').forEach(btn=>btn.addEventListener('click',()=>void directSessionTransition(btn.dataset.p8SessionAction)));
 document.getElementById('p8-session-switch-btn')?.addEventListener('click',()=>{
@@ -421,7 +441,7 @@ acknowledge.addEventListener('click',async()=>{
  if(directPending){setDirectStatus('保存処理中は解除できません。');return;}
  try{const api=frame.contentWindow?.__p8ReconcileApi;if(!api){setDirectStatus('照合APIに接続できません。');return;}
  const r=await api.acknowledgeSaved();if(r.ok){directUncertain=false;setDirectStatus('保存済みを確認しました。次の操作を許可します。');}
- else setDirectStatus('保存確定の照合条件を満たしていません。入力停止を維持します。');
+ else setDirectStatus('保存確定の照合条件を満たしていません（'+String(r?.reason||'原因不明')+'）。入力停止を維持します。');
  }catch(_e){setDirectStatus('照合に失敗しました。入力停止を維持します。');}
  finally{updateDirectButtons();}
 });

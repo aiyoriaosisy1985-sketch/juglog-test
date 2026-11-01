@@ -98,3 +98,6 @@ html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;bor
 #p8-create-dialog :is(input,select):focus{scroll-margin-bottom:95px;}
 
 #p8-review-reason:not(:empty){display:block;margin:4px 2px 8px;font-size:12px;line-height:1.5;color:var(--text,#fff);}
+
+/* BUG-005: center the new-session modal in the Safari visual viewport, not the document. */
+#p8-create-dialog[open]{position:fixed;left:50%;right:auto;bottom:auto;margin:0;transform:translate(-50%,-50%);width:min(92vw,440px);max-width:calc(100vw - 24px);overflow-y:auto;overscroll-behavior:contain;}

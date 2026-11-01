@@ -2730,7 +2730,33 @@ function p8ValidRecoveryPayload(j){
 window.__p8ReconcileApi=Object.freeze({
  journal(){const v=p8JournalRead();return Object.freeze({blocked:!!v,invalid:!!v?.invalid,operationId:v?.operationId||null,stage:v?.stage||null});},
  async acknowledgeSaved(){
-  const v=p8JournalRead();if(!v||v.invalid)return Object.freeze({ok:false,reason:'missing-or-corrupt'});
+  const v=p8JournalRead();
+  // A successful P31 write can clear its durable journal before the D07F
+  // presentation receives confirmation. In that case D07F may remain locked
+  // even though the event is already committed. Do not re-append or alter DB.
+  // Require a fresh DB replay plus exact immutable operation/event-ID match.
+  if(!v){
+   const last=window.__p8LastAcceptedAttempt;
+   if(!last||!p8ValidRecoveryPayload({version:1,...last})||busy||pending.length||
+      !writer||document.hidden||!db)
+     return Object.freeze({ok:false,reason:'no-journal-unsafe-or-no-attempt'});
+   busy=true;
+   try{
+    await heartbeat();
+    if(!writer||document.hidden)return Object.freeze({ok:false,reason:'lease-lost'});
+    try{await refresh();}catch(_e){return Object.freeze({ok:false,reason:'fresh-db-refresh-failed'});}
+    if(p8JournalRead()!==null)return Object.freeze({ok:false,reason:'journal-appeared'});
+    const check=await this.inspectLast();
+    if(check.state!=='保存済み'||check.operationId!==last.operationId||
+       check.projection!=='effective-in-memory-view'||
+       check.expectedCount!==last.prepared.length||check.viewCount!==last.prepared.length)
+      return Object.freeze({ok:false,reason:'no-journal-db-or-view-mismatch'});
+    if(p8JournalRead()!==null||pending.length)return Object.freeze({ok:false,reason:'state-changed'});
+    return Object.freeze({ok:true,reason:'already-committed-no-journal'});
+   }catch(_e){return Object.freeze({ok:false,reason:'reconciliation-exception'});}
+   finally{busy=false;render();}
+  }
+  if(v.invalid)return Object.freeze({ok:false,reason:'corrupt-journal'});
   if(busy)return Object.freeze({ok:false,reason:'busy'});
   if(pending.length>1||pending.some(q=>q.operationId!==v.operationId||JSON.stringify(q.prepared)!==JSON.stringify(v.prepared)))return Object.freeze({ok:false,reason:'pending-journal-mismatch'});
   if(!writer||document.hidden||!db)return Object.freeze({ok:false,reason:'no-write-lease'});
