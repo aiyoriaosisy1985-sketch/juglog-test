@@ -2680,6 +2680,22 @@ $('sessionsBtn').onclick=()=>{if(!canChangeSessionContext())return;let html='<di
 // Phase 8 isolated accepted-operation journal, stored before P31 append.
 // This does not write to the event store and is NOT a guarantee of commit.
 const P8_JOURNAL_KEY='juglog_phase8_resume_order_qa_20261026_attempt_journal';
+// A durable, identity-only reconciliation receipt survives Safari reload.
+// It never authorizes a replay/write; the DB and effective view must match.
+const P8_RECEIPT_KEY='juglog_phase8_last_confirmed_receipt_v1';
+function p8ReceiptRead(){
+ try{const raw=localStorage.getItem(P8_RECEIPT_KEY);if(!raw)return null;
+  const row=JSON.parse(raw);return p8ValidRecoveryPayload(row)?row:{invalid:true};
+ }catch(_e){return {invalid:true};}
+}
+function p8ReceiptWrite(j){
+ if(!p8ValidRecoveryPayload(j))return false;
+ try{const row={version:1,operationId:j.operationId,prepared:j.prepared};
+  localStorage.setItem(P8_RECEIPT_KEY,JSON.stringify(row));
+  const check=p8ReceiptRead();return !!check&&!check.invalid&&JSON.stringify(check)===JSON.stringify(row);
+ }catch(_e){return false;}
+}
+
 function p8JournalRead(){
  try{const raw=localStorage.getItem(P8_JOURNAL_KEY);if(!raw)return null;
   const x=JSON.parse(raw);if(x?.version!==1||!x?.operationId||!Array.isArray(x?.prepared)||!x.prepared.length)throw Error('invalid');
@@ -2696,6 +2712,8 @@ function p8JournalWrite(operationId,prepared,stage){
 function p8JournalFinishSuccess(operationId){
  const v=p8JournalRead();
  if(!v||v.invalid||v.operationId!==operationId||v.stage!=='committed-awaiting-reconciliation')return false;
+ // Do not erase the journal if its durable receipt cannot be verified.
+ if(!p8ReceiptWrite(v))return false;
  try{localStorage.removeItem(P8_JOURNAL_KEY)}catch(_e){return false;}
  // Do not report completion unless the durable journal is verifiably absent.
  // A failed cleanup must never cause the same event to be resubmitted.
@@ -2736,7 +2754,7 @@ window.__p8ReconcileApi=Object.freeze({
   // even though the event is already committed. Do not re-append or alter DB.
   // Require a fresh DB replay plus exact immutable operation/event-ID match.
   if(!v){
-   const last=window.__p8LastAcceptedAttempt;
+   const last=window.__p8LastAcceptedAttempt||p8ReceiptRead();
    if(!last||!p8ValidRecoveryPayload({version:1,...last})||busy||pending.length||
       !writer||document.hidden||!db)
      return Object.freeze({ok:false,reason:'no-journal-unsafe-or-no-attempt'});
@@ -2772,6 +2790,7 @@ window.__p8ReconcileApi=Object.freeze({
    if(check.projection!=='effective-in-memory-view'||check.expectedCount!==v.prepared.length||check.viewCount!==v.prepared.length)return Object.freeze({ok:false,reason:'not-confirmed-in-effective-view'});
    const now=p8JournalRead();
    if(!now||now.invalid||JSON.stringify(now)!==JSON.stringify(v))return Object.freeze({ok:false,reason:'journal-changed'});
+   if(!p8ReceiptWrite(v))return Object.freeze({ok:false,reason:'receipt-persist-failed'});
    try{localStorage.removeItem(P8_JOURNAL_KEY);}catch(_e){return Object.freeze({ok:false,reason:'journal-delete-failed'});}
    if(p8JournalRead()!==null)return Object.freeze({ok:false,reason:'journal-clear-unverified'});
    // Only clear an in-memory pending copy after the durable journal is gone.
@@ -2819,7 +2838,7 @@ window.__p8ReconcileApi=Object.freeze({
   return Object.freeze({ok,reason:ok?'same-operation-id-verified':'retry-failed-or-unverified'});
  },
  async inspectLast(){
-  const last=p8JournalRead()||window.__p8LastAcceptedAttempt; // durable record has precedence after reload
+  const last=p8JournalRead()||window.__p8LastAcceptedAttempt||p8ReceiptRead(); // journal has precedence; receipt only allows read-only identity reconciliation
   if(!last||last.invalid)return Object.freeze({state:'判定不能',reason:last?.invalid?'corrupt-journal':'no-accepted-attempt'});
   const classify=window.JuglogReadOnlyBatch?.classifyBatchIndexedDB;
   if(typeof classify!=='function'||!db)return Object.freeze({state:'判定不能',reason:'classifier-unavailable'});
