@@ -301,8 +301,9 @@ function populateSessionSelect(){
    option.textContent=`${item.date}｜${item.store}｜${item.number}番台 (${item.status})`;
    sessionSelect.append(option);
   }
-  if(state.sessions.some(x=>x.id===keep))sessionSelect.value=keep;
-  else if(state.selectedId)sessionSelect.value=state.selectedId;
+  // P31 owns the active session. Never override its selection with a stale DOM value.
+  if(state.selectedId && state.sessions.some(x=>x.id===state.selectedId))sessionSelect.value=state.selectedId;
+  else sessionSelect.selectedIndex=-1;
   for(const button of document.querySelectorAll('[data-p8-session-action]')){
    const action=button.dataset.p8SessionAction;
    button.disabled=!state.ready||(action==='resume'?state.selectedStatus==='ACTIVE':state.selectedStatus!=='ACTIVE')||p8WriteBlocked();
