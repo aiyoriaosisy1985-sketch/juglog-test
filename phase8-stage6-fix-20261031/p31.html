@@ -1991,8 +1991,15 @@ function validateCorrectionDependencies(history, upcoming){
  const effective=ordered.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
  const corrections=upcoming.filter(e=>['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
  if(corrections.length>1)throw Error('複数の訂正は一操作ずつ保存してください');
+ // Stage 8: Recheck the PERSISTED lifecycle state inside the same readwrite transaction.
+ // Closed sessions permit only narrowly scoped history correction, never new gameplay.
+ const persistedSessions=replay(ordered);
+ const closedCorrectionTypes=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED']);
  for(const e of corrections){
   const target=byId.get(e.targetEventId);
+  const state=persistedSessions.get(e.sessionId);
+  if(!state)throw Error('訂正対象の実戦が見つかりません');
+  if(['CLOSED_CONFIRMED','CLOSED_PENDING'].includes(state.status)&&(!target||!closedCorrectionTypes.has(target.type)))throw Error('終了済み実戦ではゲーム数・ぶどう・チェリーのみ訂正できます');
   if(!target||target.sessionId!==e.sessionId||['EVENT_CANCELLED','EVENT_RESTORED'].includes(target.type))throw Error('取消・復元先が不正です');
   if(e.type==='EVENT_CANCELLED'&&!effective.some(x=>x.eventId===target.eventId))throw Error('この操作は既に取消されています');
   if(e.type==='EVENT_RESTORED'&&!cancelled.has(target.eventId))throw Error('この操作は取消状態ではありません');
@@ -2910,14 +2917,17 @@ window.__p8CorrectionApi=Object.freeze({
   entries(){
     const s=project?.get(active);
     if(!s)return Object.freeze({ready:false,sessionId:null,entries:[]});
-    const ready=s.status==='ACTIVE'&&!!writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead();
+    const closed=['CLOSED_CONFIRMED','CLOSED_PENDING'].includes(s.status);
+    const ready=(s.status==='ACTIVE'||closed)&&!!writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead();
     const relevant=view.filter(e=>e.sessionId===active);
     const cancelled=new Set();
     for(const e of relevant){
       if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);
       if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId);
     }
-    const allowed=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED']);
+    const allowed=new Set(closed
+      ? ['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED']
+      : ['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED']);
     const rows=relevant.filter(e=>allowed.has(e.type)).slice().reverse().map(e=>{
       const action=cancelled.has(e.eventId)?'restore':'cancel';
       let reason='';

@@ -620,7 +620,9 @@ function renderSessionHistory(){
  if(selectedActive){
    let capability;try{capability=frame.contentWindow?.__p8CorrectionApi?.entries();}catch(_e){}
    const h=document.createElement('h3');h.textContent='個別訂正・取消の復元';corrections.append(h);
-   const hint=document.createElement('p');hint.textContent='対象を確認して1操作ずつ確定します。依存する操作がある場合は訂正できません。';corrections.append(hint);
+   const hint=document.createElement('p');hint.textContent=['CLOSED_CONFIRMED','CLOSED_PENDING'].includes(chosen.status)
+     ? '終了済み実戦のゲーム数・ぶどう・チェリーだけを訂正できます。終了状態は維持され、履歴に取消・復元が追記されます。'
+     : '対象を確認して1操作ずつ確定します。依存する操作がある場合は訂正できません。';corrections.append(hint);
    if(capability?.sessionId===chosen.id){
      for(const item of capability.entries.slice(0,30)){
        const line=document.createElement('div');line.className='p8-correction-row';
