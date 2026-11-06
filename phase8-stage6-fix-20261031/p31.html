@@ -3220,13 +3220,49 @@ function backupStats(events){return {eventCount:events.length,sessionCount:event
 async function renderBackupOverview(){try{const data=await backupSnapshot(),stat=backupStats(data.events);$('backupOverview').textContent=`書き出し対象：イベント${stat.eventCount}件／実戦${stat.sessionCount}件／チェックポイント${data.checkpoints.length}件。保存後はJSONファイルを確認してください。`}catch(e){$('backupOverview').textContent='保存内容を取得できません：'+e.message}}
 $('emergencyExportBtn').onclick=async()=>{const button=$('emergencyExportBtn'),status=$('emergencyExportStatus');if(!pending.length){status.textContent='現在、退避対象の未保存操作はありません。';syncEmergencyExport();return}button.disabled=true;try{if(!window.JuglogEmergencyRecovery)throw Error('緊急退避用モジュールを読み込めませんでした');const queue=pending.map(q=>({operationId:q.operationId,prepared:q.prepared,acceptanceAnchor:q.anchor}));const json=await window.JuglogEmergencyRecovery.exportPending(queue,{appVersion:'v46.9',dbIdentifier:DB});const stamp=new Date().toISOString().replace(/[:.]/g,'-');const filename='juglog-unsaved-emergency-'+stamp+'.json';const blob=new Blob([json],{type:'application/json'});const url=URL.createObjectURL(blob);try{const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove()}finally{setTimeout(()=>URL.revokeObjectURL(url),30000)}status.textContent='未保存 '+queue.length+'操作の退避ファイル書き出しを開始：'+filename+'。ファイルへの保存完了を確認してください。退避操作はDBへの保存ではなく、キューも削除していません。'}catch(e){status.textContent='緊急退避JSONを生成できませんでした：'+(e?.message||String(e));showAlert('緊急退避に失敗しました。画面を閉じずに対処してください。','danger')}finally{syncEmergencyExport()}};
 $('exportBtn').onclick=async()=>{const btn=$('exportBtn');if(pending.length||busy||readCheckpointPending()){$('exportResult').textContent='未保存または処理中の操作があるため、通常バックアップを開始しません。保存を再試行するか、未保存操作の緊急退避JSONを利用してください。';return}btn.disabled=true;try{if(pending.length||busy||readCheckpointPending())throw Error('未確定チェックポイントがあります。通常バックアップを中止しました');const {events,checkpoints}=await backupSnapshot();const now=new Date(),obj={manifest:{backupFormatVersion:2,schemaVersion:1,exportedAt:now.toISOString(),sourceClientId:clientId,eventCount:events.length,checkpointCount:checkpoints.length},events,checkpoints};const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');const filename=backupName(now);a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);$('exportResult').textContent=`書き出し開始：${filename}（イベント${events.length}件・チェックポイント${checkpoints.length}件）。保存完了はファイルアプリで確認してください。`;}catch(e){$('exportResult').textContent='書き出し失敗：'+e.message}finally{btn.disabled=false}};
+// Stage 9: Backups are untrusted input. This list mirrors event types handled by
+// nice()/replay() and the finance/card/preseat modules in this release.
+const BACKUP_EVENT_TYPES=new Set([
+ 'SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED',
+ 'SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED',
+ 'GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','HALL_SNAPSHOT_RECORDED',
+ 'BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED',
+ 'EVENT_CANCELLED','EVENT_RESTORED',
+ 'CASH_INVESTED','CASH_RECOVERED','MEDALS_INSERTED','MEDALS_PAID_OUT',
+ 'MEDALS_BALANCE_OBSERVED','NET_MEDALS_OBSERVED',
+ 'CARD_DEPOSIT','CARD_WITHDRAWAL','CARD_BALANCE_OBSERVED',
+ 'PRESEAT_GRAPH_OBSERVED'
+]);
+function validateBackupEventPayload(e){
+ if(!BACKUP_EVENT_TYPES.has(e.type))throw Error('対応していないイベント種別があります');
+ if(e.type==='GAMES_RECORDED'&&(!Number.isSafeInteger(e.delta)||e.delta<=0))throw Error('ゲーム数の増分が不正です');
+ if(e.type==='SESSION_CREATED'){
+  if(typeof e.segmentId!=='string'||!e.segmentId||
+   ['store','machine','number','date'].some(k=>typeof e[k]!=='string'||!e[k].trim()))throw Error('実戦作成情報が不足しています');
+ }
+ if(e.type==='SEGMENT_STARTED'&&(typeof e.segmentId!=='string'||!e.segmentId))throw Error('遊技区間IDが不正です');
+ if(e.type==='BONUS_AWARDED'&&(
+  typeof e.bonusId!=='string'||!e.bonusId||!['BB','RB'].includes(e.bonusType)
+ ))throw Error('ボーナス情報が不正です');
+ if(['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(e.type)&&
+  (typeof e.bonusId!=='string'||!e.bonusId))throw Error('ボーナス参照が不正です');
+ if(['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type)&&
+  (typeof e.targetEventId!=='string'||!e.targetEventId))throw Error('訂正参照が不正です');
+}
 function validateBackup(data){
  if(![1,2].includes(data?.manifest?.backupFormatVersion)||!Array.isArray(data.events)||data.manifest.eventCount!==data.events.length)throw Error('対応形式またはイベント件数が一致しません');
  const ids=new Set(),seq=new Set(),operations=new Map(),ordered=data.events.slice().sort((a,b)=>a.commitSequence-b.commitSequence);
- const previous=new Map();
+ const previous=new Map(),createdSessions=new Set();
  for(let i=0;i<ordered.length;i++){
   const e=ordered[i];
   if(!e||typeof e.eventId!=='string'||!e.eventId||typeof e.type!=='string'||!e.type||typeof e.operationId!=='string'||!e.operationId||typeof e.sessionId!=='string'||!e.sessionId||!Number.isSafeInteger(e.commitSequence)||e.commitSequence!==i+1||ids.has(e.eventId)||seq.has(e.commitSequence))throw Error('ID・イベント型・順序に不整合があります');
+  validateBackupEventPayload(e);
+  if(e.type==='SESSION_CREATED'){
+   if(createdSessions.has(e.sessionId))throw Error('同一実戦IDの再作成はできません');
+   createdSessions.add(e.sessionId);
+  }else if(!createdSessions.has(e.sessionId)){
+   throw Error('実戦作成より前、または存在しない実戦へのイベントがあります');
+  }
   if(operations.has(e.operationId)&&operations.get(e.operationId)!==e.sessionId)throw Error('操作グループ内の実戦IDが異なります');
   operations.set(e.operationId,e.sessionId);
   if(e.type==='EVENT_CANCELLED'||e.type==='EVENT_RESTORED'){
