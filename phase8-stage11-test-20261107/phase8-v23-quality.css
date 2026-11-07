@@ -1,0 +1,21 @@
+/* Phase 8 v2.3: D07F 5-tab legibility and spatial rhythm. No event or storage logic changes. */
+#panel-guess.content,#panel-graph.content,#panel-history.content,#panel-settings.content{padding:12px 12px 22px;min-width:0}
+#panel-guess .section-card,#panel-graph .section-card,#panel-history .section-card,#panel-settings .section-card{padding:13px 12px;margin-bottom:10px;border-radius:16px}
+#panel-guess .heading,#panel-graph .heading,#panel-history .heading,#panel-settings .heading{margin-bottom:10px}
+#panel-guess .heading h1,#panel-graph .heading h1,#panel-history .heading h1,#panel-settings .heading h1{line-height:1.25}
+.p8-data-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:9px 0}
+.p8-data-grid>div{min-width:0;padding:10px 9px;overflow-wrap:anywhere}
+.p8-data-grid strong{font-size:clamp(16px,4.8vw,20px);line-height:1.25;margin-top:3px}
+.p8-dataview{min-width:0;overflow-wrap:anywhere;line-height:1.5}
+.p8-provenance{font-size:11px;line-height:1.5;opacity:.82;margin:6px 0}
+.p8-history-sessions{margin:10px 0 14px;gap:7px}
+.p8-history-session{padding:10px;overflow-wrap:anywhere}
+.p8-event-list{margin:7px 0 0;max-height:440px}
+.p8-event-list li{align-items:start;min-width:0;gap:8px}
+.p8-event-list li span{min-width:0;overflow-wrap:anywhere}
+.p8-event-list li small{flex:none}
+#panel-settings .settings-row{min-width:0;gap:8px;padding:11px 0}
+#panel-settings .settings-row>div{min-width:0}
+#panel-settings .theme-pick{gap:5px}
+#panel-settings .theme-pick button{padding:7px 8px}
+@media(max-width:374px){#panel-guess.content,#panel-graph.content,#panel-history.content,#panel-settings.content{padding-inline:8px}.p8-data-grid{gap:6px}.p8-data-grid>div{padding:8px 7px}.p8-event-list li{font-size:12px}}
