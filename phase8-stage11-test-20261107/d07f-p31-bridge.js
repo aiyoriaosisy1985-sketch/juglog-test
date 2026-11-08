@@ -328,6 +328,7 @@ function populateSessionSelect(){
  try{
   const state=frame.contentWindow?.__p8SessionApi?.state();if(!state)return;
   const keep=sessionSelect.value;
+  const pendingChoice=!!sessionSelect.dataset.userChoice && state.sessions.some(x=>x.id===keep);
   sessionSelect.replaceChildren();
   for(const item of state.sessions){
    const option=document.createElement('option');option.value=item.id;
@@ -335,7 +336,8 @@ function populateSessionSelect(){
    sessionSelect.append(option);
   }
   // P31 owns the active session. Never override its selection with a stale DOM value.
-  if(state.selectedId && state.sessions.some(x=>x.id===state.selectedId))sessionSelect.value=state.selectedId;
+  if(pendingChoice)sessionSelect.value=keep;
+  else if(state.selectedId && state.sessions.some(x=>x.id===state.selectedId))sessionSelect.value=state.selectedId;
   else sessionSelect.selectedIndex=-1;
   for(const button of document.querySelectorAll('[data-p8-session-action]')){
    const action=button.dataset.p8SessionAction;
@@ -383,7 +385,7 @@ createDialog.querySelector('#p8-create-save').addEventListener('click',async()=>
  const button=createDialog.querySelector('#p8-create-save');directPending=true;button.disabled=true;feedback.textContent='保存しています…';updateDirectButtons();
  try{
   const result=await frame.contentWindow?.__p8SessionApi?.create(input);
-  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。';sync();requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));}
+  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。ホール累計は任意です。';sync();requestAnimationFrame(()=>{const hall=document.getElementById('p8-hall-form');hall?.scrollIntoView({behavior:'auto',block:'start'});document.getElementById('p8-hall-status').textContent='新規実戦を作成しました。ホール累計を入力するか、実戦カウントに戻って開始してください（入力は任意）。';});}
   else if(result?.status==='rejected'){feedback.textContent=result.reason||'入力または権限を確認してください。';}
   else{directUncertain=true;feedback.textContent='保存結果が不明です。再作成せず保存記録を照合してください。';sessionStatusEl.textContent=feedback.textContent;}
  }catch(_e){directUncertain=true;feedback.textContent='保存結果が不明です。再作成しないでください。';sessionStatusEl.textContent=feedback.textContent;}
@@ -428,10 +430,11 @@ createDialog.addEventListener('focusin',e=>{
 p8UpdateDialogViewport();
 createDialog.querySelector('form').addEventListener('submit',e=>{if(directPending)e.preventDefault();});
 document.querySelectorAll('[data-p8-session-action]').forEach(btn=>btn.addEventListener('click',()=>void directSessionTransition(btn.dataset.p8SessionAction)));
+sessionSelect.addEventListener('change',()=>{sessionSelect.dataset.userChoice='true';});
 document.getElementById('p8-session-switch-btn')?.addEventListener('click',()=>{
  if(p8WriteBlocked()){sessionStatusEl.textContent='未照合の保存状態があります。';return;}
  const result=frame.contentWindow?.__p8SessionApi?.select(sessionSelect.value);
- if(result?.status==='selected'){sessionStatusEl.textContent='実戦を切り替えました。';sync();}
+ if(result?.status==='selected'){delete sessionSelect.dataset.userChoice;sessionStatusEl.textContent='実戦を切り替えました。';populateSessionSelect();sync();}
  else sessionStatusEl.textContent='実戦を切り替えられません。保存状態を確認してください。';
 });
 frame.addEventListener('load',populateSessionSelect);

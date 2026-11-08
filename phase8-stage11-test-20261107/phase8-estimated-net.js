@@ -51,12 +51,13 @@ function render(){
  const px=x=>42+(x/Math.max(1,result.games))*280,py=y=>178-(y-lo)/(hi-lo)*154;
  function el(tag,attrs,txt){const a=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>a.setAttribute(k,String(v)));if(txt!==undefined)a.textContent=txt;svg.append(a);return a;}
  el('line',{x1:42,y1:py(0),x2:323,y2:py(0),stroke:'currentColor',opacity:'.65','stroke-dasharray':'4 4'});
- el('polyline',{points:result.points.map(p=>px(p.games).toFixed(1)+','+py(p.net).toFixed(1)).join(' '),fill:'none',stroke:'#50d7ad','stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round'});
+ const displayPoints=[];for(const item of result.points){if(displayPoints.length&&displayPoints.at(-1).games===item.games){displayPoints[displayPoints.length-1]=item;}else displayPoints.push(item);}
+ el('polyline',{points:displayPoints.map(p=>px(p.games).toFixed(1)+','+py(p.net).toFixed(1)).join(' '),fill:'none',stroke:'#50d7ad','stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round'});
  const last=result.points.at(-1);el('circle',{cx:px(last.games),cy:py(last.net),r:4,fill:'#50d7ad'});
  for(const g of [0,Math.round(result.games/2),result.games])el('text',{x:px(g),y:199,'text-anchor':'middle','font-size':10,fill:'currentColor'},g.toLocaleString('ja-JP')+'G');
  for(const n of [ymin,ymax])el('text',{x:38,y:py(n)+3,'text-anchor':'end','font-size':10,fill:'currentColor'},Math.round(n).toLocaleString('ja-JP'));
  host.append(svg);
- const detail=document.createElement('p');detail.className='p8-net-note';detail.textContent='推定差枚：実測値ではありません。画面内の増減位置もG数登録時点の近似です。';host.append(detail);
+ const detail=document.createElement('p');detail.className='p8-net-note';detail.textContent='推定差枚：実測値ではありません。グラフでは同一G地点の複数記録を集約します。増減位置はG数登録時点の近似です。';host.append(detail);
  const assumptions=document.createElement('details');assumptions.className='p8-net-note';const summaryEl=document.createElement('summary');summaryEl.textContent='計算条件・制約を表示';const para=document.createElement('p');para.textContent=result.assumptions;assumptions.append(summaryEl,para);host.append(assumptions);
 }
 root.P8EstimatedNet=Object.freeze({build,models:MODELS});
