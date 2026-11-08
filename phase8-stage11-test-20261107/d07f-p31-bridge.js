@@ -386,7 +386,6 @@ if(hallSection&&hallForm){
  close.textContent='入力せず実戦開始／閉じる';
  hallSection.append(close);
  hallDialog.append(hallSection);document.body.append(hallDialog);
- let firstEntryHall=false;
  const jumpToCounter=()=>{
   const counter=document.querySelector('#panel-play .heading');
   if(!counter)return;
@@ -394,15 +393,13 @@ if(hallSection&&hallForm){
  };
  const openHall=(initialEntry=false)=>{
   if(hallDialog.open)return;
-  firstEntryHall=initialEntry===true;
   document.activeElement?.blur?.();
   hallDialog.showModal();
  };
  hallOpen.addEventListener('click',()=>openHall(false));
  close.addEventListener('click',()=>hallDialog.close());
  hallDialog.addEventListener('close',()=>{
-  if(firstEntryHall)jumpToCounter();
-  firstEntryHall=false;
+  jumpToCounter();
  });
  document.addEventListener('p8-hall-saved',()=>{
   if(hallDialog.open)hallDialog.close();
