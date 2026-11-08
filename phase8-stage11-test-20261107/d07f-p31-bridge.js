@@ -184,7 +184,17 @@ function navigateD07F(tab,focusId){
  const button=document.getElementById('tab-'+tab);
  if(!button){setDirectStatus('移動先の画面が見つかりません。');return;}
  button.click();
- if(focusId)document.getElementById(focusId)?.focus();
+ if(focusId){
+  // Change tabs first; a hidden target cannot be scrolled into view reliably.
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   const target=document.getElementById(focusId);
+   if(!target)return;
+   document.activeElement?.blur?.();
+   const sessionArea=target.closest('.p8-session-actions')||target;
+   const top=Math.max(0,sessionArea.getBoundingClientRect().top+window.scrollY-90);
+   window.scrollTo({top,behavior:'auto'});
+  }));
+ }
 }
 // Data management and session selection always use the native P31 handlers.
 // Import/restore buttons are deliberately *not* auto-clicked: the user must
@@ -362,6 +372,35 @@ async function directSessionTransition(action){
  }catch(_e){directUncertain=true;sessionStatusEl.textContent='保存結果が不明です。再操作しないでください。';}
  finally{directPending=false;populateSessionSelect();updateDirectButtons();}
 }
+// Stage 11: Reuse the existing hall observation form in a modal.
+// Only the presentation moves; the P31 ledger/save API and form handler remain unchanged.
+const hallSection=document.querySelector('.p8-hall-panel');
+const hallForm=document.getElementById('p8-hall-form');
+const hallDialog=document.createElement('dialog');hallDialog.id='p8-hall-dialog';
+const hallOpen=document.createElement('button');hallOpen.id='p8-hall-open';hallOpen.type='button';
+hallOpen.textContent='ホール累計を確認・修正';
+hallOpen.setAttribute('aria-haspopup','dialog');
+if(hallSection&&hallForm){
+ hallSection.before(hallOpen);
+ const close=document.createElement('button');close.type='button';close.id='p8-hall-skip';
+ close.textContent='入力せず実戦開始／閉じる';
+ hallSection.append(close);
+ hallDialog.append(hallSection);document.body.append(hallDialog);
+ const openHall=()=>{
+  if(hallDialog.open)return;
+  document.activeElement?.blur?.();
+  hallDialog.showModal();
+ };
+ hallOpen.addEventListener('click',openHall);
+ close.addEventListener('click',()=>hallDialog.close());
+ document.addEventListener('p8-hall-saved',()=>{
+  if(hallDialog.open)hallDialog.close();
+ });
+ // The summary shortcut should open the same dialog; never focus a hidden field.
+ document.getElementById('jump-hall-total')?.addEventListener('click',openHall);
+ window.__p8OpenHallDialog=openHall;
+}
+
 // D07F native session creation. Validation and commit remain P31-owned.
 const createDialog=document.createElement('dialog');createDialog.id='p8-create-dialog';
 createDialog.innerHTML=`<form method="dialog" class="p8-bonus-form"><h2>新規実戦</h2><label>日付<input id="p8-create-date" type="date" required></label><label>店舗<input id="p8-create-store" maxlength="120" required></label><label>機種<select id="p8-create-machine"><option value="マイジャグラーV">マイジャグラーV</option><option value="マイジャグラーVI">マイジャグラーVI</option><option value="ネオアイムジャグラーEX">ネオアイムジャグラーEX</option><option value="ファンキージャグラー2">ファンキージャグラー2</option><option value="ゴーゴージャグラー3">ゴーゴージャグラー3</option><option value="ミスタージャグラー">ミスタージャグラー</option><option value="ウルトラミラクルジャグラー">ウルトラミラクルジャグラー</option><option value="ジャグラーガールズSS">ジャグラーガールズSS</option><option value="ハッピージャグラーVⅢ">ハッピージャグラーVⅢ</option><option value="other">その他（手入力）</option></select></label><label id="p8-create-machine-other-wrap" hidden>新しい機種名<input id="p8-create-machine-other" maxlength="120" placeholder="機種名を入力"></label><label>台番号<input id="p8-create-number" inputmode="numeric" maxlength="30" placeholder="未入力でも可"></label><label class="p8-measure-default"><input id="p8-create-measured" type="checkbox">この実戦では追加した全Gの小役を実測する（途中変更可）</label><div class="p8-bonus-actions"><button value="cancel" type="button" data-p8-cancel>キャンセル</button><button type="button" id="p8-create-save">作成する</button></div><p id="p8-create-feedback" role="status" aria-live="polite"></p></form>`;
@@ -385,7 +424,7 @@ createDialog.querySelector('#p8-create-save').addEventListener('click',async()=>
  const button=createDialog.querySelector('#p8-create-save');directPending=true;button.disabled=true;feedback.textContent='保存しています…';updateDirectButtons();
  try{
   const result=await frame.contentWindow?.__p8SessionApi?.create(input);
-  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。ホール累計は任意です。';sync();requestAnimationFrame(()=>{const hall=document.getElementById('p8-hall-form');hall?.scrollIntoView({behavior:'auto',block:'start'});document.getElementById('p8-hall-status').textContent='新規実戦を作成しました。ホール累計を入力するか、実戦カウントに戻って開始してください（入力は任意）。';});}
+  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。ホール累計は任意です。';sync();requestAnimationFrame(()=>{document.getElementById('p8-hall-status').textContent='着席時のホール累計を入力できます。分からない場合はスキップしてください。';window.__p8OpenHallDialog?.();});}
   else if(result?.status==='rejected'){feedback.textContent=result.reason||'入力または権限を確認してください。';}
   else{directUncertain=true;feedback.textContent='保存結果が不明です。再作成せず保存記録を照合してください。';sessionStatusEl.textContent=feedback.textContent;}
  }catch(_e){directUncertain=true;feedback.textContent='保存結果が不明です。再作成しないでください。';sessionStatusEl.textContent=feedback.textContent;}
@@ -434,7 +473,7 @@ sessionSelect.addEventListener('change',()=>{sessionSelect.dataset.userChoice='t
 document.getElementById('p8-session-switch-btn')?.addEventListener('click',()=>{
  if(p8WriteBlocked()){sessionStatusEl.textContent='未照合の保存状態があります。';return;}
  const result=frame.contentWindow?.__p8SessionApi?.select(sessionSelect.value);
- if(result?.status==='selected'){delete sessionSelect.dataset.userChoice;sessionStatusEl.textContent='実戦を切り替えました。';populateSessionSelect();sync();}
+ if(result?.status==='selected'){delete sessionSelect.dataset.userChoice;sessionStatusEl.textContent='選択した実戦を開きました。';populateSessionSelect();sync();}
  else sessionStatusEl.textContent='実戦を切り替えられません。保存状態を確認してください。';
 });
 frame.addEventListener('load',populateSessionSelect);

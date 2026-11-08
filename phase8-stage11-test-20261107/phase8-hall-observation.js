@@ -14,7 +14,7 @@ form.addEventListener('submit',async ev=>{
  if(snapshot.totalG!==null&&snapshot.bb!==null&&snapshot.rb!==null&&snapshot.bb+snapshot.rb>snapshot.totalG){say('BB・RB合計が累計Gを超えています。');return;}
  if(!window.confirm(`ホール累計値を保存しますか？\n総G：${snapshot.totalG??'未入力'} / 現在G：${snapshot.currentG??'未入力'}\nBB：${snapshot.bb??'未入力'} / RB：${snapshot.rb??'未入力'}`))return;
  pending=true;const btn=form.querySelector('[type=submit]');btn.disabled=true;say('保存結果を確認中…');
- try{const result=await api.save(snapshot);if(result?.status==='saved-and-refreshed'){say('ホール観測値を保存しました。');form.reset();}else if(result?.status==='rejected')say('保存されませんでした：'+(result.reason||'保存権限を確認してください'));else say('保存結果を確定できません。再入力せず保存履歴を確認してください。');}
+ try{const result=await api.save(snapshot);if(result?.status==='saved-and-refreshed'){say('ホール観測値を保存しました。');form.reset();document.dispatchEvent(new Event('p8-hall-saved'));}else if(result?.status==='rejected')say('保存されませんでした：'+(result.reason||'保存権限を確認してください'));else say('保存結果を確定できません。再入力せず保存履歴を確認してください。');}
  catch(_e){say('保存結果を確認できません。再入力せず保存履歴を確認してください。');}
  finally{pending=false;btn.disabled=false;}
 });})();
