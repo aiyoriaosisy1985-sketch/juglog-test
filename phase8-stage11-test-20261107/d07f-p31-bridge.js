@@ -386,10 +386,20 @@ if(hallSection&&hallForm){
  close.textContent='入力せず実戦開始／閉じる';
  hallSection.append(close);
  hallDialog.append(hallSection);document.body.append(hallDialog);
+ // On iOS Safari the native dialog can restore the previous page scroll after
+ // the close event. Scroll the window (not a scrollIntoView ancestor), and
+ // check again once the dialog's native focus/scroll restoration has settled.
  const jumpToCounter=()=>{
-  const counter=document.querySelector('#panel-play .heading');
-  if(!counter)return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>counter.scrollIntoView({block:'start',behavior:'auto'})));
+  const move=()=>{
+   if(hallDialog.open || document.hidden)return;
+   const counter=document.querySelector('#panel-play > .heading');
+   if(!counter || document.getElementById('panel-play')?.hidden)return;
+   const top=Math.max(0,counter.getBoundingClientRect().top+window.scrollY-90);
+   if(Math.abs(window.scrollY-top)>3)window.scrollTo({top,behavior:'auto'});
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(move));
+  setTimeout(move,120);
+  setTimeout(move,360);
  };
  const openHall=(initialEntry=false)=>{
   if(hallDialog.open)return;
