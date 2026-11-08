@@ -386,20 +386,19 @@ if(hallSection&&hallForm){
  close.textContent='入力せず実戦開始／閉じる';
  hallSection.append(close);
  hallDialog.append(hallSection);document.body.append(hallDialog);
- // On iOS Safari the native dialog can restore the previous page scroll after
- // the close event. Scroll the window (not a scrollIntoView ancestor), and
- // check again once the dialog's native focus/scroll restoration has settled.
+ // Use the already field-tested Play tab re-tap navigation. This avoids
+ // independently calculating page scroll position while Safari is restoring
+ // focus and scroll after dismissing a native <dialog>.
  const jumpToCounter=()=>{
-  const move=()=>{
+  window.setTimeout(()=>{
    if(hallDialog.open || document.hidden)return;
-   const counter=document.querySelector('#panel-play > .heading');
-   if(!counter || document.getElementById('panel-play')?.hidden)return;
-   const top=Math.max(0,counter.getBoundingClientRect().top+window.scrollY-90);
-   if(Math.abs(window.scrollY-top)>3)window.scrollTo({top,behavior:'auto'});
-  };
-  requestAnimationFrame(()=>requestAnimationFrame(move));
-  setTimeout(move,120);
-  setTimeout(move,360);
+   const playTab=document.getElementById('tab-play');
+   if(!playTab)return;
+   // The click handler already resets the page and, when Play is active,
+   // scrolls to the counter. No session or ledger state is modified.
+   playTab.click();
+   if(!playTab.classList.contains('selected'))playTab.click();
+  },180);
  };
  const openHall=(initialEntry=false)=>{
   if(hallDialog.open)return;
