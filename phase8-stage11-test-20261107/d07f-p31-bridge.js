@@ -386,18 +386,29 @@ if(hallSection&&hallForm){
  close.textContent='入力せず実戦開始／閉じる';
  hallSection.append(close);
  hallDialog.append(hallSection);document.body.append(hallDialog);
- const openHall=()=>{
+ let firstEntryHall=false;
+ const jumpToCounter=()=>{
+  const counter=document.querySelector('#panel-play .heading');
+  if(!counter)return;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>counter.scrollIntoView({block:'start',behavior:'auto'})));
+ };
+ const openHall=(initialEntry=false)=>{
   if(hallDialog.open)return;
+  firstEntryHall=initialEntry===true;
   document.activeElement?.blur?.();
   hallDialog.showModal();
  };
- hallOpen.addEventListener('click',openHall);
+ hallOpen.addEventListener('click',()=>openHall(false));
  close.addEventListener('click',()=>hallDialog.close());
+ hallDialog.addEventListener('close',()=>{
+  if(firstEntryHall)jumpToCounter();
+  firstEntryHall=false;
+ });
  document.addEventListener('p8-hall-saved',()=>{
   if(hallDialog.open)hallDialog.close();
  });
  // The summary shortcut should open the same dialog; never focus a hidden field.
- document.getElementById('jump-hall-total')?.addEventListener('click',openHall);
+ document.getElementById('jump-hall-total')?.addEventListener('click',()=>openHall(false));
  window.__p8OpenHallDialog=openHall;
 }
 
@@ -424,7 +435,7 @@ createDialog.querySelector('#p8-create-save').addEventListener('click',async()=>
  const button=createDialog.querySelector('#p8-create-save');directPending=true;button.disabled=true;feedback.textContent='保存しています…';updateDirectButtons();
  try{
   const result=await frame.contentWindow?.__p8SessionApi?.create(input);
-  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。ホール累計は任意です。';sync();requestAnimationFrame(()=>{document.getElementById('p8-hall-status').textContent='着席時のホール累計を入力できます。分からない場合はスキップしてください。';window.__p8OpenHallDialog?.();});}
+  if(result?.status==='saved-and-refreshed'){const id=frame.contentWindow?.__p8SessionApi?.state()?.selectedId; if(id){setMeasuredPreference(id,document.getElementById('p8-create-measured').checked);lastMeasuredSession=null;restoreMeasuredPreference();}createDialog.close();sessionStatusEl.textContent='新規実戦を保存しました。ホール累計は任意です。';sync();requestAnimationFrame(()=>{document.getElementById('p8-hall-status').textContent='着席時のホール累計を入力できます。分からない場合はスキップしてください。';window.__p8OpenHallDialog?.(true);});}
   else if(result?.status==='rejected'){feedback.textContent=result.reason||'入力または権限を確認してください。';}
   else{directUncertain=true;feedback.textContent='保存結果が不明です。再作成せず保存記録を照合してください。';sessionStatusEl.textContent=feedback.textContent;}
  }catch(_e){directUncertain=true;feedback.textContent='保存結果が不明です。再作成しないでください。';sessionStatusEl.textContent=feedback.textContent;}
