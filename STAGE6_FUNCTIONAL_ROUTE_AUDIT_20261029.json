@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "bridge_exists": true,
+    "five_tabs": true,
+    "history_select": true,
+    "correction_refresh_after_unlock": true,
+    "native_history_no_p31_instruction": true,
+    "native_legacy_label_absent": true,
+    "backup_confirm": true,
+    "backup_safety_api": true,
+    "legacy_overlay_absent": true
+  },
+  "bridge_sha256": "c9c175ae0e3cbdb700e382194cbe36585512c038f01d00fe953c476068a03552",
+  "limits": "Static routing and syntax only; not browser or iPhone functional verification"
+}

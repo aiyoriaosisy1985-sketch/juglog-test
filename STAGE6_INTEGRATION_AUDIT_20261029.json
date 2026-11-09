@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "five visible tab buttons": true,
+    "five panels": true,
+    "P31 legacy overlay removed": true,
+    "P31 iframe retained and visually hidden": true,
+    "legacy open function removed": true,
+    "P31 core APIs retained": true,
+    "restore confirm parent integration": true,
+    "restore D07F dialog": true,
+    "backup empty database guard": true,
+    "navigation targets valid": true
+  },
+  "all_passed": true,
+  "core_hashes": {
+    "index.html": "7b9df6bd405a8f8d949c7f85a17b3723812985cde68e490e757a9695a0bcd3a5",
+    "p31.html": "0822fa9fa0ab7413d9d56927608c08aa34640695df4a4a81038f9464e7fa1ef4",
+    "d07f-p31-bridge.js": "0ee5c00303583285aa685c1013970bcfe0144ae5642850b09e728886f820c9e5"
+  },
+  "limitations": [
+    "No real-browser or iPhone operation tests",
+    "No complete feature parity or regression suite yet",
+    "Need to inspect hidden iframe native dialogs in remaining API paths"
+  ]
+}

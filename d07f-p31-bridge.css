@@ -75,3 +75,29 @@
 .p8-history-actions button{background:#253248;color:#fff;}
 html[data-theme="light"] .p8-history-actions button{background:#253248;color:#fff;border-color:#607d96;}
 html[data-theme="light"] .p8-history-actions button:disabled{color:#d1d7df;}
+
+/* Stage 6 QA fix: session create form matches D07F rather than Safari defaults. */
+#p8-create-dialog{width:min(92vw,440px);max-width:calc(100vw - 24px);max-height:min(88dvh,760px);overflow:auto;overscroll-behavior:contain;box-sizing:border-box;margin:auto;padding:20px;border:1px solid #7bb99c;border-radius:18px;background:linear-gradient(160deg,#14513e,#062d23);color:#f5faf6;box-shadow:0 20px 50px #0009}
+#p8-create-dialog::backdrop{background:#001d17b8}
+#p8-create-dialog .p8-bonus-form{min-width:0;gap:12px}
+#p8-create-dialog .p8-bonus-form label{display:grid;gap:5px;min-width:0}
+#p8-create-dialog input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;font:inherit;color:#f5faf6;background:#06382b;border:1px solid #80b49c;border-radius:10px}
+#p8-create-dialog input:focus{outline:2px solid #ffe3a1;outline-offset:1px}
+#p8-create-dialog .p8-bonus-actions{flex-wrap:wrap}
+#p8-create-dialog .p8-bonus-actions button{background:linear-gradient(#1a7156,#0a4736);border:1px solid #81bca0;color:#f5faf6;font:inherit;font-weight:700}
+#p8-create-dialog .p8-bonus-actions button:last-of-type{background:linear-gradient(#ffe9a0,#d7a94f);color:#163025;border-color:#ffe3a0}
+html[data-theme=light] #p8-create-dialog{background:linear-gradient(#f4fbf5,#deede2);color:#173b31}
+html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;border-color:#75a08d}
+
+/* Phase 8 stage6 consolidated modal layout: iOS Safari safe input widths and keyboard viewport. */
+#p8-create-dialog,#p8-bonus-dialog{max-width:calc(100% - 24px);max-height:calc(100dvh - 32px);max-height:calc(var(--p8-visual-height, 100dvh) - 32px);box-sizing:border-box;overflow-x:hidden;overflow-y:auto;scroll-padding-bottom:80px;}
+#p8-create-dialog .p8-bonus-form,#p8-bonus-dialog .p8-bonus-form{min-width:0;max-width:100%;}
+#p8-create-dialog input[type=date]{display:block;width:100%;max-width:100%;min-width:0;-webkit-appearance:none;appearance:none;}
+#p8-create-dialog .p8-bonus-actions{position:relative;min-width:0;}
+#p8-create-dialog .p8-bonus-actions button{flex:1 1 120px;}
+#p8-create-dialog :is(input,select):focus{scroll-margin-bottom:95px;}
+
+#p8-review-reason:not(:empty){display:block;margin:4px 2px 8px;font-size:12px;line-height:1.5;color:var(--text,#fff);}
+
+/* BUG-005: center the new-session modal in the Safari visual viewport, not the document. */
+#p8-create-dialog[open]{position:fixed;left:50%;right:auto;bottom:auto;margin:0;transform:translate(-50%,-50%);width:min(92vw,440px);max-width:calc(100vw - 24px);overflow-y:auto;overscroll-behavior:contain;}

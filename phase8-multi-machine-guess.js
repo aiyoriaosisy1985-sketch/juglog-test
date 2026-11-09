@@ -34,7 +34,8 @@ function identify(input){
 function estimate({machine,games,bb,rb}={}){
  const id=identify(machine),model=id?models[id]:null;
  if(!model)return {ok:false,code:'UNSUPPORTED_MACHINE',reason:'機種未特定、または未対応のため推測しません。'};
- if(![games,bb,rb].every(x=>Number.isSafeInteger(x)&&x>=0)||games===0||bb+rb>games)
+ if(games===0&&bb===0&&rb===0)return {ok:false,code:'NO_DATA',reason:'ゲーム数・ボーナスの記録を待っています。'};
+ if(![games,bb,rb].every(x=>Number.isSafeInteger(x)&&x>=0)||bb+rb>games)
    return {ok:false,code:'INVALID_DATA',reason:'G数・確定BB/RB件数に整合しない値があります。'};
  const logs=model.rows.map(r=>{
   const pb=1/r.bb,pr=1/r.rb,pOther=1-pb-pr;
