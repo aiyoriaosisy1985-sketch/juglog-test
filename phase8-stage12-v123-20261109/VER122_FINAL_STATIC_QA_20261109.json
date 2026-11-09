@@ -1,0 +1,23 @@
+{
+  "package": "Juglog Ver.12.2 revised static-QA candidate",
+  "baseline": "juglog_stage12_isolated_QA_20261109.zip",
+  "changes_this_pass": [
+    "Fixed inaccurate ホール累計未登録 wording after explicit 0G/BB0/RB0 initial hall observation: display 朝一0G開始・本人実戦 instead",
+    "Kept zero-total hall out of setting probability calculations (uses personal game count)",
+    "Reviewed custom confirmation guard, CSS layout and no-change engine boundaries"
+  ],
+  "checks": {
+    "zip_integrity": "pass",
+    "javascript_syntax_all_external_and_inline": "pass",
+    "P31_html_identical_to_baseline": "pass",
+    "browser_visual_and_e2e": "blocked by environment; not tested",
+    "iPhone_storage_and_saved_data": "not tested"
+  },
+  "known_limits": [
+    "Haptics unsupported/unimplemented; do not present as completed",
+    "Legacy P31 internal dialogs remain unchanged",
+    "Full confirmation coverage and light/dark appearance require iPhone testing",
+    "Do not overwrite Stage11 baseline or existing Stage12 QA path",
+    "Stored records must not be reset/restored during visual tests"
+  ]
+}
