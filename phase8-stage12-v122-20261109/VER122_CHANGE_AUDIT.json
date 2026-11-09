@@ -1,0 +1,18 @@
+{
+  "version": "Ver.12.2 (candidate; device unverified)",
+  "based_on": "juglog_stage12_isolated_QA_20261109.zip",
+  "changes_in_this_revision": [
+    "Accessible custom confirmation for D07F direct operations",
+    "Hall cumulative data save now uses same custom confirmation with foreground/write gate revalidation",
+    "Grape/cherry icon silhouettes adjusted (white fill plus role-tone outline)",
+    "Theme-specific checkbox colors override legacy inline styles"
+  ],
+  "known_limits": [
+    "Headless browser blocked by environment administrator; visual display QA not completed",
+    "P31 hidden internal-engine native dialogs are not modified",
+    "Hall 0G display logic not yet proven by functional test",
+    "Haptics feasibility not implemented",
+    "Safe deploy and two-device QA outstanding"
+  ],
+  "safety": "No changes to underlying P31 data engine, IndexedDB keys, event write types, event schema or production site."
+}
