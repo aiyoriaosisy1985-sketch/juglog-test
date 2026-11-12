@@ -1,0 +1,30 @@
+/* v2.5: D07F layout corrections. No event logic changes. */
+/* Restore native D07F visual hierarchy. v2.4 generic flex rules incorrectly displaced counts/fruit. */
+#panel-play .button-grid .key{display:block;position:relative;height:clamp(94px,25vw,107px);overflow:hidden;min-width:0;padding:0;touch-action:manipulation}
+#panel-play .button-grid .key .symbol{display:block;position:absolute;left:3px;right:3px;top:21px;max-width:none;line-height:1.02;text-align:center;overflow-wrap:normal;font-size:clamp(26px,8vw,49px)}
+#panel-play .button-grid .key:is(.grape,.cherry) .symbol{font-size:clamp(21px,6vw,32px);top:27px;letter-spacing:-.04em}
+#panel-play .button-grid .key .count{display:block;position:absolute;left:3px;right:3px;bottom:8px;top:auto;max-width:none;line-height:1.1;text-align:center;overflow-wrap:normal;font-size:clamp(15px,4vw,18px);white-space:nowrap}
+#panel-play .button-grid .key:active:not(:disabled){transform:translateY(2px) scale(.99);filter:brightness(1.08)}
+#panel-play .button-grid .key:disabled{opacity:.55;cursor:not-allowed}
+/* Actual integrated game entry is .p8-games-form (not the old .entrycontrols). */
+#panel-play .p8-games-form{display:grid;gap:8px;min-width:0}
+#panel-play .p8-games-form>label{min-width:0}
+#panel-play .p8-games-form input[type=number]{width:100%;min-width:0;min-height:44px;box-sizing:border-box}
+#panel-play .p8-games-form input[type=checkbox]{width:20px;height:20px;flex:0 0 20px}
+#panel-play .p8-games-form .p8-measure{display:flex;align-items:center;gap:8px;white-space:normal;line-height:1.4}
+#panel-play .p8-games-form button{min-height:44px}
+/* The settlement panel has two controls, not the three columns in the D07F mock. */
+#panel-play .settlement{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px}
+#panel-play .settlement .complete{width:100%;min-height:50px;height:auto;line-height:1.25;padding:8px 6px;white-space:normal;overflow-wrap:anywhere}
+#panel-play .rategrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#panel-play .rategrid .rate{min-width:0;padding:5px 2px;font-size:clamp(10px,3vw,13px);overflow-wrap:anywhere}
+#panel-play .rategrid .rate strong{font-size:clamp(15px,4vw,19px)}
+#panel-play .rategrid .rate:nth-child(3n){border-right:0}
+#panel-play .rates-top{flex-wrap:wrap}
+#panel-play .rates-top span{overflow-wrap:anywhere}
+/* Five tabs compact spacing and readable controls across both themes. */
+#panel-guess .section-card,#panel-graph .section-card,#panel-history .section-card,#panel-settings .section-card{overflow-wrap:anywhere}
+.bottom button{min-width:0;min-height:52px}
+.bottom button:active{transform:translateY(1px);filter:brightness(1.12)}
+@media(max-width:374px){#panel-play .button-grid{gap:8px}#panel-play .button-grid .key .symbol{top:19px}#panel-play .button-grid .key:is(.grape,.cherry) .symbol{top:26px}#panel-play .button-grid .key .count{bottom:6px}}
+@media(prefers-reduced-motion:reduce){#panel-play .button-grid .key,.bottom button{transition:none}}

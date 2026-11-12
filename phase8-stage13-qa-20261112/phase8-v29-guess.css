@@ -1,0 +1,8 @@
+/* Machine-specific estimate card; scoped to the guess tab. */
+#panel-guess .p8-machine-prediction{margin-top:12px;padding:12px;border-radius:14px;border:1px solid currentColor;min-width:0}
+#panel-guess .p8-machine-prediction h3{font-size:15px;margin:0 0 8px;line-height:1.4}
+#panel-guess .p8-prob-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+#panel-guess .p8-prob-table :is(th,td){padding:7px 6px;border-bottom:1px solid #8885}
+#panel-guess .p8-prob-table th{text-align:left}
+#panel-guess .p8-prob-table td{text-align:right;font-weight:700}
+#panel-guess .p8-machine-prediction p{line-height:1.6;overflow-wrap:anywhere}

@@ -1,0 +1,6 @@
+/* Stage13 optional non-overlap cherry switch; visually disabled until reliable count exists. */
+.jgl-cherry-choice{display:flex;align-items:center;gap:10px;margin:10px 0 6px;font-size:0.95rem;line-height:1.5;}
+.jgl-cherry-choice input{width:19px;height:19px;accent-color:#3cae83;flex:none;}
+.jgl-cherry-choice:has(input:disabled){opacity:.65;}
+
+.jgl-cherry-verify-form{display:flex;flex-direction:column;gap:8px;margin:10px 0;font-size:13px}.jgl-cherry-verify-form input[type=number]{max-width:7em;padding:5px}.jgl-cherry-verify-form button{align-self:flex-start;padding:8px 12px}

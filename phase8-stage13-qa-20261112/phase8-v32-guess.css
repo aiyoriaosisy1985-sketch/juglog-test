@@ -1,0 +1,11 @@
+/* v3.2: machine-estimate readability and accessible scaling, no event/storage changes */
+#panel-guess .p8-machine-prediction{overflow:hidden}
+#panel-guess .p8-prob-table{table-layout:fixed}
+#panel-guess .p8-prob-table th{width:32%;white-space:nowrap}
+#panel-guess .p8-prob-table td{width:68%;display:flex;align-items:center;gap:10px;justify-content:flex-end;min-width:0}
+#panel-guess .p8-estimate-bar{height:9px;background:rgba(128,128,128,.22);border-radius:99px;overflow:hidden;flex:1;min-width:20px}
+#panel-guess .p8-estimate-fill{display:block;height:100%;border-radius:99px;background:#39a878}
+#panel-guess .p8-estimate-percent{width:57px;text-align:right;flex:none;font-variant-numeric:tabular-nums}
+#panel-guess .p8-estimate-disclaimer{font-size:12px;line-height:1.5;margin:10px 0;color:inherit;opacity:.87}
+@media(max-width:355px){#panel-guess .p8-prob-table td{gap:5px}#panel-guess .p8-estimate-percent{width:49px}}
+@media(prefers-reduced-motion:reduce){#panel-guess .p8-estimate-fill{transition:none}}
