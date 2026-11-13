@@ -1,0 +1,12 @@
+/* D07F visual treatment for P31's native confirmation dialog; no event handlers. */
+html[data-d07f-theme=dark] {color-scheme:dark;--p8-bg:#073a2c;--p8-fg:#f4fff5;--p8-border:#65a78a;--p8-surface:#0a4938;--p8-btn:#287357;--p8-muted:#ccded5}
+html[data-d07f-theme=light] {color-scheme:light;--p8-bg:#e6f2e6;--p8-fg:#103b2c;--p8-border:#6ca68d;--p8-surface:#f5fbf5;--p8-btn:#1a7651;--p8-muted:#47695a}
+#modal {background:var(--p8-bg)!important;color:var(--p8-fg)!important;border:1px solid var(--p8-border)!important;border-radius:20px!important;max-width:480px;max-height:min(85dvh,720px);overflow:auto;box-sizing:border-box;padding:20px!important;box-shadow:0 22px 70px #0008!important;font:-apple-system-body;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif}
+#modal::backdrop{background:rgba(0,13,10,.75)}
+#modalTitle{font-size:21px;line-height:1.4;font-weight:800;color:var(--p8-fg);margin:0 0 13px}
+#modalContent{color:var(--p8-fg);line-height:1.55;overflow-wrap:anywhere}
+#modalContent :is(input,select,textarea){max-width:100%;box-sizing:border-box;min-height:42px;background:var(--p8-surface);color:var(--p8-fg);border:1px solid var(--p8-border);border-radius:9px;padding:7px}
+#modal button{touch-action:manipulation;min-height:44px;border-radius:11px;font-size:15px;font-weight:750}
+#modalOk{background:var(--p8-btn)!important;color:#fff!important;border:1px solid var(--p8-border)!important}
+#modal button:focus-visible{outline:3px solid #e5ca73;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){#modal *{animation:none!important;transition:none!important}}

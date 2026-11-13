@@ -1,0 +1,12 @@
+/* Stage14 Candidate4: reduce unused space and clarify controls; no change to P31 event logic. */
+#panel-play .p8-games-form{gap:5px;}
+#panel-play .stage14-input-feedback:empty{display:none;margin:0;min-height:0;padding:0;}
+#panel-play .stage14-input-feedback:not(:empty){margin:3px 0 4px;min-height:0;}
+#panel-play .p8-measure{padding:3px 0;margin:0;min-height:32px;}
+#panel-play .quick-game-actions{margin-top:1px;}
+#panel-play #p8-stage14-minus10{border:1px solid #ffadb4!important;background:linear-gradient(160deg,#a83d50,#681c30)!important;color:#fff5f6!important;text-shadow:0 1px 2px #43121d;}
+html[data-theme="light"] #panel-play #p8-stage14-minus10{border-color:#bb5364!important;background:linear-gradient(160deg,#d96978,#a52e4e)!important;color:#fff!important;}
+#panel-play #p8-stage14-minus10:focus-visible{outline:3px solid #ffe5ac;outline-offset:2px;}
+#panel-history .stage14-history-sessions-toggle{width:100%;min-height:44px;margin:-5px 0 16px;padding:10px 12px;border-radius:11px;border:1px solid #c6a96b;background:linear-gradient(150deg,#235c47,#123d32);color:#f8ebc7;font-weight:700;font-size:14px;cursor:pointer;}
+html[data-theme="light"] #panel-history .stage14-history-sessions-toggle{background:linear-gradient(145deg,#dcece1,#a6ccb5);color:#20543a;border-color:#669e7d;}
+#panel-history .stage14-history-sessions-toggle[hidden],#panel-history .p8-history-session[hidden]{display:none!important;}
