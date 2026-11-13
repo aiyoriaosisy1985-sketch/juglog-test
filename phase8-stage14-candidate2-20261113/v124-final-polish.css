@@ -1,0 +1,33 @@
+/* Juglog Ver.12.4 – known display gaps, no event engine or data changes. */
+/* Explicitly override #p8-games input for the dark theme. Numeric keypad and 46px hit area maintained. */
+html[data-theme="dark"] #panel-play .v122-game-entry-line input#p8-games {
+  -webkit-appearance:none; appearance:textfield; box-sizing:border-box;
+  background:linear-gradient(145deg,#174c3b,#0e362a) !important;
+  color:#f3f6ed !important;
+  border:1px solid #c4a76d !important;
+  box-shadow:inset 0 1px 3px #031c14b8,0 1px 0 #ffe3a422 !important;
+  caret-color:#ffe3ad !important;
+  opacity:1 !important;
+}
+html[data-theme="dark"] #panel-play input#p8-games::placeholder {color:#c2d4c5 !important;opacity:1}
+html[data-theme="dark"] #panel-play input#p8-games:focus-visible {outline:2px solid #f0d58e;outline-offset:2px}
+html[data-theme="light"] #panel-play .v122-game-entry-line input#p8-games {
+  background:#fffefa !important;color:#174b36 !important;border:1px solid #548f73 !important;
+  box-shadow:inset 0 1px 2px #20593a17 !important;opacity:1 !important;
+}
+html[data-theme="light"] #panel-play input#p8-games::placeholder{color:#587564 !important;opacity:1}
+/* Disabled controls should remain distinguishable but readable. */
+html[data-theme="dark"] #p8-data-tools button:disabled,
+html[data-theme="dark"] #panel-settings button:disabled {
+  opacity:1 !important;color:#c1d3c4 !important;
+  background:linear-gradient(145deg,#254538,#17372c) !important;
+  border-color:#806e4c !important;filter:none !important;
+  cursor:not-allowed !important;
+}
+html[data-theme="light"] #p8-data-tools button:disabled,
+html[data-theme="light"] #panel-settings button:disabled {
+  opacity:1 !important;color:#526e5f !important;
+  background:#e5eee6 !important;border-color:#93b3a0 !important;
+  filter:none !important;cursor:not-allowed !important;
+}
+/* Keep correction/history visibility semantics from Ver.12.3 unchanged. */
