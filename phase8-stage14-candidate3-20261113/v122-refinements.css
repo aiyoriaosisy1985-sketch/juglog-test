@@ -1,0 +1,72 @@
+/* Juglog Ver.12.2 candidate — presentation only; P31 data engine unchanged. */
+:root { --v122-accent:#c8ad74; --v122-border:rgba(211,181,113,.74); }
+html[data-theme="light"]{ --v122-accent:#36745c; --v122-border:rgba(48,116,86,.7); }
+/* Main and nested panels, dark champagne gold / light metallic green. */
+.tab-panel.board,.tab-panel .section-card,#panel-play .entry,#panel-play .rates,
+#panel-play .p8-last-gap,#panel-play .p8-session-actions,
+#panel-play .p8-hall-panel,#panel-play .p8-bonus-state,
+#panel-history .p8-history-corrections,
+#panel-play .stat:not(.stat-jump-total){border-color:var(--v122-border)!important}
+/* Keep colored counters and the blue total tile intact. */
+#panel-play .key,#panel-play .stat-jump-total{border-color:revert-layer}
+/* Compact explicit input row; no duplicated submit button. */
+#panel-play .v122-game-entry-line{display:grid;grid-template-columns:minmax(0,3fr) minmax(75px,1fr);gap:8px;align-items:stretch}
+#panel-play .v122-game-entry-line input{min-width:0;width:100%;height:46px;min-height:46px;margin:0;font-size:16px}
+#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;padding:5px}
+#panel-play .quick-game-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:1px}
+#panel-play .quick-game-actions button{min-height:46px;min-width:0;font-size:clamp(12px,3.5vw,15px);white-space:nowrap;padding-inline:2px}
+#panel-play .p8-measure{margin:0;min-height:36px;padding:4px 0}
+#panel-play .quick-game-actions #p8-minus50{border-color:var(--v122-border);background:linear-gradient(145deg,#315e4f,#143a2e);color:#f0dfb9}
+html[data-theme="light"] #panel-play .quick-game-actions #p8-minus50{background:linear-gradient(150deg,#d7eee1,#9ecbb8);border-color:#538f77;color:#174632!important}
+/* Explicit color accessibility: no dark type on blue action buttons. */
+html[data-theme="light"] #panel-play #p8-quick50,
+html[data-theme="light"] #panel-play #p8-quick100{color:#fff!important;text-shadow:0 1px 2px #143b68!important}
+html[data-theme="light"] #panel-play .p8-session-buttons button,
+html[data-theme="light"] #panel-play #p8-session-switch-btn,
+html[data-theme="light"] #panel-play .p8-session-switch select{color:#fff!important;text-shadow:none!important}
+html[data-theme="light"] #panel-play .p8-session-switch select{background:#2a4e65!important}
+html[data-theme="light"] #panel-play .p8-session-buttons button:disabled,
+html[data-theme="light"] #panel-play #p8-session-switch-btn:disabled{color:#a1b7af!important;background:#e8efeb!important;border-color:#94b5a5!important;opacity:1!important}
+/* A row of three session controls; full-width correction/history below. */
+#panel-play .p8-session-actions>.p8-session-buttons{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#panel-play .p8-session-actions>.p8-session-buttons button{grid-column:auto;min-width:0;padding:9px 3px;white-space:nowrap;font-size:clamp(12px,3.4vw,15px)}
+#panel-play .p8-session-actions>.p8-session-buttons button:last-child{grid-column:1/-1}
+/* Reconciliation controls: same row, active only when action requires it (disabled state preserves informative label). */
+#panel-play .v122-reconcile-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:7px 0}
+#panel-play .v122-reconcile-row button{display:block;width:100%;max-width:none;margin:0;min-height:46px;font-size:clamp(12px,3.4vw,14px);line-height:1.2;padding:7px 2px;white-space:nowrap;color:#e8d9b4;background:#194737;border:1px solid var(--v122-border);border-radius:10px}
+html[data-theme="light"] #panel-play .v122-reconcile-row button{color:#19523b!important;background:#d6eade;border-color:#46896e}
+#panel-play .v122-reconcile-row button:disabled{opacity:.58}
+/* The history correction ledger is collapsed by default; no loss of audit/event data. */
+#panel-history details.v122-folded-corrections{padding:8px 12px}
+#panel-history details.v122-folded-corrections>summary{cursor:pointer;list-style:none;min-height:46px;display:flex;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--v122-border);color:#efdcac;font-weight:750}
+#panel-history details.v122-folded-corrections>summary::after{content:' ▾';margin-left:auto}
+#panel-history details.v122-folded-corrections[open]>summary::after{content:' ▴'}
+html[data-theme="light"] #panel-history details.v122-folded-corrections>summary{background:#d7eadd;color:#19513c}
+#panel-history .p8-event-toggle{color:#f0d99e;background:linear-gradient(145deg,#184838,#0c3228);border:1px solid var(--v122-border);font-weight:750}
+html[data-theme="light"] #panel-history .p8-event-toggle{color:#225d45!important;background:linear-gradient(145deg,#d9f0e2,#aed5c1)!important;border:1px solid #6a9f86}
+html[data-theme="light"] #panel-history .p8-correction-row button{color:#154b39!important;background:#d1e8dc;border:1px solid #5f9880}
+html[data-theme="light"] #panel-history .p8-correction-row button:disabled{color:#708b7d!important;background:#e8eee9;border-color:#b7c9ba;opacity:1}
+/* Theme-dependent checkboxes: maintain native hitboxes and checkbox checked state. */
+html[data-theme="dark"] input[type="checkbox"]{accent-color:#c7a869}
+html[data-theme="light"] input[type="checkbox"]{accent-color:#3b9071}
+/* Correction buttons preserve fruit-key hues. */
+html[data-theme="dark"] .button-grid .fruit-minus{color:#f7e5b3;border-color:#c8aa70;background:linear-gradient(140deg,#255542,#09281f)}
+html[data-theme="light"] .button-grid .fruit-minus{color:#184e3a;border-color:#4f947a;background:linear-gradient(145deg,#effaf1,#aad8c2)}
+/* Avoid theme-specific white native confirm; app-owned dialog uses nonblocking promise. */
+.v122-confirm{width:min(90vw,410px);max-height:80dvh;overflow:auto;margin:auto;border:1px solid #d5b875;border-radius:17px;background:#073d30;color:#f3f6ef;padding:20px;box-shadow:0 17px 45px #0008}
+.v122-confirm::backdrop{background:#001b14b8}
+.v122-confirm p{white-space:pre-line;font-size:16px;font-weight:700;line-height:1.6;margin:0 0 18px}
+.v122-confirm-actions{display:flex;justify-content:flex-end;gap:10px}
+.v122-confirm-actions button{min-height:46px;min-width:100px;border-radius:11px;border:1px solid #d6b876;font-size:15px;font-weight:750;background:#144e3a;color:#f0ddb0}
+.v122-confirm-actions button:last-child{background:linear-gradient(155deg,#f9e7aa,#d3aa53);color:#133a2d}
+html[data-theme="light"] .v122-confirm{background:#f0f8f1;color:#143f2e;border-color:#568e71}
+html[data-theme="light"] .v122-confirm-actions button{background:#d9eee1;color:#20573f;border-color:#62967c}
+html[data-theme="light"] .v122-confirm-actions button:last-child{background:linear-gradient(160deg,#c1e7d2,#82bca0);color:#173d2d}
+@media(max-width:345px){#panel-play .quick-game-actions button{font-size:12px}#panel-play .v122-reconcile-row button{font-size:11px}}
+
+/* Match native inline-accent checkbox and avoid the saturated blue default. */
+html[data-theme="dark"] input[type="checkbox"]{accent-color:#c7a869!important}
+html[data-theme="light"] input[type="checkbox"]{accent-color:#3b9071!important}
+/* Ensure correction dialog is readable with large text preference. */
+html[data-stage12-font="large"] .v122-confirm p{font-size:17px}
+@media (max-width:360px){#panel-play .v122-game-entry-line{grid-template-columns:minmax(0,2.3fr) minmax(66px,1fr)}#panel-play .quick-game-actions{gap:4px}}
