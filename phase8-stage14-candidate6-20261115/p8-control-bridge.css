@@ -1,0 +1,23 @@
+
+#p8-d07f-controls{position:relative;z-index:2;margin:14px auto;padding:14px;max-width:450px;border:1px solid #69a88e;border-radius:18px;background:linear-gradient(140deg,#063e30,#01291e);color:#f4fff6;font:14px -apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 8px 22px #0006}
+#p8-d07f-controls .p8-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#p8-d07f-controls .p8-head strong{font-size:20px;font-weight:800}
+#p8-d07f-controls .p8-head em{color:#adf4c2;font-style:normal;font-size:12px}
+#p8-d07f-controls p{font-size:12px;color:#d1e6db;line-height:1.5}
+#p8-d07f-controls .p8-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:12px 0}
+#p8-d07f-controls .p8-stats div{border:1px solid #549b7c;background:#0c4837;border-radius:11px;padding:9px 4px;text-align:center;font-size:12px}
+#p8-d07f-controls .p8-stats b{display:block;margin-top:4px;font-size:21px;overflow-wrap:anywhere}
+#p8-d07f-controls .p8-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#p8-d07f-controls button{border:1px solid #80c6a5;border-radius:12px;padding:11px 5px;background:#136344;color:#fff;font-weight:800;min-height:46px;touch-action:manipulation}
+#p8-d07f-controls button:active{transform:scale(.97);filter:brightness(1.2)}
+#p8-d07f-controls button:disabled{opacity:.45;cursor:not-allowed}
+#p8-d07f-controls #p8-native-link{width:100%;background:#193b39}
+#p8-d07f-controls.collapsed .p8-stats,#p8-d07f-controls.collapsed .p8-actions{display:none}
+
+#p8-d07f-controls .p8-actions{grid-template-columns:repeat(3,minmax(0,1fr))}
+#p8-d07f-controls .p8-game{display:grid;gap:8px;margin:10px 0}
+#p8-d07f-controls .p8-game input[type=number]{width:100%;box-sizing:border-box;border:1px solid #80c6a5;border-radius:8px;background:#eef8f0;color:#0c3021;min-height:44px;padding:9px}
+#p8-d07f-controls .p8-check{display:flex;align-items:center;gap:8px}
+#p8-d07f-controls #p8-rearm{width:100%;background:#465339;margin:8px 0}
+#p8-d07f-controls .p8-status{word-break:break-word}
+#p8-d07f-controls.collapsed .p8-game,#p8-d07f-controls.collapsed #p8-rearm{display:none}

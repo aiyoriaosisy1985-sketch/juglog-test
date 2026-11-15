@@ -1,0 +1,9 @@
+/* Stage14 Candidate2 UI changes only; event processing stays on the authoritative P31 API. */
+.stage14-input-feedback{margin:7px 0 12px;min-height:1.2em;font-size:13px;font-weight:600;color:var(--text,#fff);overflow-wrap:anywhere}
+.stage14-bonus-confirm p{display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center;margin:0 0 14px}
+.stage14-bonus-confirm p>strong:first-child{font-size:19px}
+.stage14-modal-caption{font-size:14px;opacity:.88}
+.stage14-modal-current{display:block;font-size:clamp(32px,8vw,46px);line-height:1.15;min-width:55%;border:2px solid #eac16f;background:#17483c;color:#ffe49a;border-radius:12px;padding:12px 24px;font-variant-numeric:tabular-nums}
+.stage14-modal-warning{font-size:14px;line-height:1.5}
+.stage14-correction-reason{display:block;font-size:12px;opacity:.8;line-height:1.4;margin-top:5px}
+#p8-estimated-net svg,#stage12-bonus-timeline svg{overflow:visible}

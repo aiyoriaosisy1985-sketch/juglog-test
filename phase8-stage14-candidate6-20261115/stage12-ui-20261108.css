@@ -1,0 +1,39 @@
+/* Stage12 UI improvements; no ledger/storage logic changes. */
+#panel-play #p8-games{min-height:42px;height:42px;padding-top:6px;padding-bottom:6px}
+#panel-play .p8-games-form{gap:5px}
+/* Preserve minimum touch targets even when vertical whitespace is reduced. */
+#panel-play .quick-game-actions button{min-height:44px}
+
+/* Inputs: keep the glass-like design and correct light-theme contrast. */
+html[data-theme="light"] #panel-play input,
+html[data-theme="light"] #panel-play select,
+html[data-theme="light"] #panel-settings select{color:#183a2a!important;background:#fff!important;border-color:#8cae9a!important}
+html[data-theme="light"] #panel-play .action,
+html[data-theme="light"] #panel-play .complete,
+html[data-theme="light"] #panel-play #p8-review-open,
+html[data-theme="light"] #panel-play #p8-inspect-last,
+html[data-theme="light"] #panel-play #p8-ack-saved{color:#18392b!important;text-shadow:none!important}
+html[data-theme="light"] #panel-play .action.add{color:#fff!important}
+html[data-theme="light"] #panel-play .rates-top,
+html[data-theme="light"] #panel-play .rate,
+html[data-theme="light"] #panel-play .p8-bonus-state{color:#193b2d!important}
+/* Gentle champagne gold highlights; counters retain their established colors. */
+#panel-play .entry,#panel-play .rates,#panel-play .stat{border-color:rgba(210,176,103,.58)}
+#stage12-flash{position:fixed;inset:0;z-index:2147483640;pointer-events:none;opacity:0;transition:opacity .18s ease-out}
+#stage12-flash.stage12-active{opacity:1;transition:none}
+@media(prefers-reduced-motion:reduce){#stage12-flash{display:none}}
+#panel-settings #stage12-font-size{min-height:44px;max-width:130px;border-radius:9px;padding:8px}
+#panel-history .p8-event-toggle{width:100%;min-height:44px;margin:10px 0;border-radius:9px}
+.p8-event-list li[hidden]{display:none!important}
+html[data-stage12-font="small"] .tab-panel{font-size:.93em}
+html[data-stage12-font="large"] .tab-panel{font-size:1.09em}
+html[data-stage12-font="large"] .setting-desc{font-size:1em}
+
+/* Stage 12: place correction/settlement actions directly under the four counters. */
+#panel-play .settlement{margin-top:8px;margin-bottom:8px}
+#panel-play .settlement button{min-height:46px}
+#stage12-zero-start{width:100%;min-height:46px;margin:5px 0 6px;padding:10px;border:1px solid #d3af68;border-radius:11px;background:rgba(199,158,78,.14);color:inherit;font-weight:700}
+#stage12-zero-note{font-size:.87em;line-height:1.5;margin:0 0 12px}
+
+/* Cancellation action is visually distinct from additions. */
+#p8-minus50{border:1px solid #c99b72;background:rgba(150,87,53,.16);min-height:44px}
