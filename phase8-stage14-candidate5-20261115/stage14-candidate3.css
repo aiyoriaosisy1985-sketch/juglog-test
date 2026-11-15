@@ -1,0 +1,5 @@
+/* Stage14 Candidate3: native iOS numeric keyboard and compact input controls. */
+#panel-play #p8-games{font-size:16px;min-width:0;touch-action:manipulation;}
+#panel-play #p8-games:focus-visible{outline:2px solid #eac16f;outline-offset:2px;}
+#panel-play .quick-game-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+#panel-play .quick-game-actions button{min-width:0;}

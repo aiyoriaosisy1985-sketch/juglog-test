@@ -1,0 +1,15 @@
+/* Stage11 regression repairs: layout only; no storage/event changes. */
+#p8-create-machine-other-wrap[hidden]{display:none!important}
+#panel-play .p8-games-form{gap:5px}
+#panel-play .p8-games-form .p8-measure{margin-top:0;padding:3px 0 2px;line-height:1.3;min-height:32px}
+#panel-play .quick-game-actions{margin-top:2px}
+#panel-play .button-grid .keywrap>.key{height:116px!important;overflow:hidden}
+#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:52px;top:6px}
+#panel-play .button-grid .key:is(.grape,.cherry) .count{bottom:25px!important;font-size:18px}
+#panel-play .button-grid .key .key-rate{bottom:9px!important;line-height:1.2;font-size:12px;white-space:nowrap;pointer-events:none}
+#panel-play .button-grid .key:is(.bb,.rb) .count{bottom:18px}
+#panel-play .button-grid .key:is(.bb,.rb) .symbol{top:29px}
+#panel-play .button-grid .fruit-minus{z-index:6}
+#p8-hall-form{scroll-margin-top:18px;scroll-margin-bottom:calc(100px + env(safe-area-inset-bottom))}
+@media(max-width:374px){#panel-play .button-grid .keywrap>.key{height:111px!important}#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:48px}}
+#p8-hall-form .p8-hall-jump-target{outline:3px solid #ffe2a0;outline-offset:3px}
