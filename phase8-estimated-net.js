@@ -3,9 +3,17 @@
    Unmeasured small roles and unknown machines must not silently produce a plausible-looking curve. */
 (function(root){'use strict';
 const MODELS=Object.freeze({
- 'ファンキージャグラー2':Object.freeze({bb:240,rb:96,grape:8,cherry:2,replayDenom:7.298}),
- 'マイジャグラーV':Object.freeze({bb:240,rb:96,grape:8,cherry:2,replayDenom:7.298}),
- 'マイジャグラーⅤ':Object.freeze({bb:240,rb:96,grape:8,cherry:2,replayDenom:7.298})
+ 'マイジャグラーV':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'マイジャグラーⅤ':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'マイジャグラーVI':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'マイジャグラーⅥ':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ネオアイムジャグラーEX':{bb:252,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ファンキージャグラー2':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ゴーゴージャグラー3':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ミスタージャグラー':{bb:240,rb:96,grape:8,cherry:2,replayDenom:7.298},
+ 'ウルトラミラクルジャグラー':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ジャグラーガールズSS':{bb:240,rb:96,grape:8,cherry:1,replayDenom:7.298},
+ 'ハッピージャグラーVⅢ':{bb:240,rb:96,grape:8,cherry:2,replayDenom:7.298}
 });
 function build(snapshot){
  if(!snapshot?.ok||!snapshot.session||!Array.isArray(snapshot.events))return {ok:false,reason:'実戦記録を取得できません。'};
@@ -29,12 +37,12 @@ function build(snapshot){
    if(e.pendingReview&&!reviewIds.has(e.bonusId)){pending++;continue;}
    net+=model[e.bonusType.toLowerCase()];
    if(e.bonusType==='BB')bb++;else rb++;
-   point();awards.push({games,type:e.bonusType,net:Math.round(net)});
+   point();awards.push({games,type:e.bonusType,net:Math.round(net),currentG:Number.isSafeInteger(e.awardedAtCurrentG)?e.awardedAtCurrentG:null});
   }
  }
  if(pendingGrape||pendingCherry){net+=pendingGrape*model.grape+pendingCherry*model.cherry;point();}
  if(games!==s.personalG||bb!==s.bb||rb!==s.rb||grape!==s.grape||cherry!==s.cherry)return {ok:false,reason:'小役・ボーナスの記録と計算結果が一致しないため表示を停止しました。'};
- return {ok:true,machine:s.machine,games,net:Math.round(net),points,awards,bb,rb,grape,cherry,pending,assumptions:'通常時3枚掛け、ぶどう8枚、チェリー2枚、BB純増240枚、RB純増96枚、リプレイ平均1/7.298。その他の小役、目押し・ボーナス成立後の誤差は未反映。小役はG数登録区間にまとめて反映。'};
+ return {ok:true,machine:s.machine,games,net:Math.round(net),points,awards,bb,rb,grape,cherry,pending,assumptions:'通常時3枚掛け、ぶどう8枚、チェリー・BB・RBは機種別の暫定値、リプレイ平均1/7.298。未記録のベル・ピエロ等は未補正。ボーナス終了後の誤差も未反映。成立時点ではなく入力時点の曲線です。'};
 }
 function render(){
  const host=document.getElementById('p8-estimated-net');if(!host)return;
@@ -53,11 +61,52 @@ function render(){
  el('line',{x1:42,y1:py(0),x2:323,y2:py(0),stroke:'currentColor',opacity:'.65','stroke-dasharray':'4 4'});
  const displayPoints=[];for(const item of result.points){if(displayPoints.length&&displayPoints.at(-1).games===item.games){displayPoints[displayPoints.length-1]=item;}else displayPoints.push(item);}
  el('polyline',{points:displayPoints.map(p=>px(p.games).toFixed(1)+','+py(p.net).toFixed(1)).join(' '),fill:'none',stroke:'#50d7ad','stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round'});
+ // Candidate6: label collision checks cover neighboring text, award markers and
+ // the plotted trajectory. If a safe location does not exist, retain the dot/title.
+ const occupiedLabels=[];
+ const awardDots=result.awards.map(a=>({x:px(a.games),y:py(a.net)}));
+ const curve=displayPoints.map(p=>({x:px(p.games),y:py(p.net)}));
+ function onSegment(x,y,a,b){
+  const dx=b.x-a.x,dy=b.y-a.y,den=dx*dx+dy*dy;
+  const t=den?Math.max(0,Math.min(1,((x-a.x)*dx+(y-a.y)*dy)/den)):0;
+  return Math.hypot(x-(a.x+dx*t),y-(a.y+dy*t));
+ }
+ function clearOfCurve(box){
+  for(let i=1;i<curve.length;i++){
+   const a=curve[i-1],b=curve[i];
+   // Sample rectangle edges/center so crossing the text is also rejected.
+   for(const x of [box.left, (box.left+box.right)/2,box.right])
+    for(const y of [box.top, (box.top+box.bottom)/2,box.bottom])
+     if(onSegment(x,y,a,b)<4)return false;
+  }
+  return true;
+ }
+ for(const a of result.awards){
+  const cx=px(a.games),cy=py(a.net),color=a.type==='BB'?'#fa7397':'#6acbff';
+  const dot=el('circle',{cx,cy,r:5.5,fill:color,stroke:'#ffffff','stroke-width':1.2});
+  const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=`${a.type} 当選時${a.currentG===null?'G未設定':a.currentG+'G'}／本人累計${a.games}G`;dot.append(title);
+  if(a.currentG===null)continue;
+  const label=a.type+' '+a.currentG+'G',width=label.length*6+6;
+  let place=null;
+  for(const offsetY of [-17,-32,20,35,-47,50]){
+   for(const offsetX of [0,-24,24,-48,48]){
+    const x=Math.max(44+width/2,Math.min(320-width/2,cx+offsetX)),y=cy+offsetY;
+    if(y<14||y>182)continue;
+    const box={left:x-width/2,right:x+width/2,top:y-11,bottom:y+3};
+    if(!occupiedLabels.every(b=>box.right<b.left-4||box.left>b.right+4||box.bottom<b.top-3||box.top>b.bottom+3))continue;
+    if(awardDots.some(d=>d.x>=box.left-8&&d.x<=box.right+8&&d.y>=box.top-8&&d.y<=box.bottom+8))continue;
+    if(!clearOfCurve(box))continue;
+    place={x,y,box};break;
+   }
+   if(place)break;
+  }
+  if(place){occupiedLabels.push(place.box);el('text',{x:place.x,y:place.y,'text-anchor':'middle','font-size':10,'font-weight':'bold',fill:color},label);}
+ }
  const last=result.points.at(-1);el('circle',{cx:px(last.games),cy:py(last.net),r:4,fill:'#50d7ad'});
  for(const g of [0,Math.round(result.games/2),result.games])el('text',{x:px(g),y:199,'text-anchor':'middle','font-size':10,fill:'currentColor'},g.toLocaleString('ja-JP')+'G');
  for(const n of [ymin,ymax])el('text',{x:38,y:py(n)+3,'text-anchor':'end','font-size':10,fill:'currentColor'},Math.round(n).toLocaleString('ja-JP'));
  host.append(svg);
- const detail=document.createElement('p');detail.className='p8-net-note';detail.textContent='推定差枚：実測値ではありません。グラフでは同一G地点の複数記録を集約します。増減位置はG数登録時点の近似です。';host.append(detail);
+ const detail=document.createElement('p');detail.className='p8-net-note';detail.textContent='線は推定差枚（実測値ではありません）。ピンク＝BB、水色＝RB。各ラベルは当選時の台表示G、横軸は本人累計Gです。重なった点はラベルではなく点の詳細で確認してください。';host.append(detail);
  const assumptions=document.createElement('details');assumptions.className='p8-net-note';const summaryEl=document.createElement('summary');summaryEl.textContent='計算条件・制約を表示';const para=document.createElement('p');para.textContent=result.assumptions;assumptions.append(summaryEl,para);host.append(assumptions);
 }
 root.P8EstimatedNet=Object.freeze({build,models:MODELS});

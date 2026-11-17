@@ -1,0 +1,34 @@
+/* Juglog Ver.12.5: QA evidence-based text contrast corrections only. */
+/* A: Five buttons shown after expanding the data-tools section. */
+html[data-theme="light"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:not(:disabled) {
+  color:#ffffff !important; -webkit-text-fill-color:#ffffff !important;
+  background:linear-gradient(145deg,#325371,#22364e) !important;
+  border-color:#829fad !important; text-shadow:none !important; opacity:1 !important;
+}
+html[data-theme="dark"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:not(:disabled) {
+  color:#f7f2e7 !important; -webkit-text-fill-color:#f7f2e7 !important;
+  background:linear-gradient(145deg,#334761,#1d2b3e) !important;
+  border-color:#bdad83 !important; text-shadow:none !important; opacity:1 !important;
+}
+html[data-theme="light"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:disabled {
+  color:#4d6959 !important; -webkit-text-fill-color:#4d6959 !important;
+  background:#e2ebe4 !important; border-color:#98b5a2 !important; opacity:1 !important;
+}
+html[data-theme="dark"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:disabled {
+  color:#becac1 !important; -webkit-text-fill-color:#becac1 !important;
+  background:#254136 !important; border-color:#6c826d !important; opacity:1 !important;
+}
+/* B: Real-medals note in the graph: previously very low contrast against pale green. */
+html[data-theme="light"] #panel-graph #p8-net-graph .p8-net-note {color:#285643 !important; opacity:1 !important;}
+html[data-theme="dark"] #panel-graph #p8-net-graph .p8-net-note {color:#d0dfd4 !important; opacity:1 !important;}
+/* C: Disabled history correction controls: subdued but legible. */
+html[data-theme="light"] #panel-history .p8-correction-row button:disabled {
+  color:#4e6c5d !important; -webkit-text-fill-color:#4e6c5d !important;
+  background:#e2ede5 !important; border-color:#8da99a !important;
+  opacity:1 !important; filter:none !important; text-shadow:none !important;
+}
+html[data-theme="dark"] #panel-history .p8-correction-row button:disabled {
+  color:#c5d1c6 !important; -webkit-text-fill-color:#c5d1c6 !important;
+  background:#244235 !important; border-color:#798d7b !important;
+  opacity:1 !important; filter:none !important; text-shadow:none !important;
+}

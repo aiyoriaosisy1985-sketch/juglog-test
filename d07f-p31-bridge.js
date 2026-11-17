@@ -18,7 +18,15 @@ function foregroundUnchanged(epoch){return !document.hidden && foregroundEpoch==
 function v122Confirm(message){
  return new Promise(resolve=>{
   const dialog=document.createElement('dialog');dialog.className='v122-confirm';dialog.setAttribute('aria-label','操作内容の確認');
-  const body=document.createElement('p');body.textContent=message;
+  const body=document.createElement('p');
+  if(message&&typeof message==='object'&&message.kind==='bonus-completion'){
+   dialog.classList.add('stage14-bonus-confirm');
+   const heading=document.createElement('strong');heading.textContent=message.type+'消化完了の確認';
+   const caption=document.createElement('span');caption.textContent='遊技台の現在G';caption.className='stage14-modal-caption';
+   const count=document.createElement('strong');count.className='stage14-modal-current';count.textContent=Number.isSafeInteger(message.current)?message.current+'G':'未設定';
+   const warning=document.createElement('span');warning.textContent='確定すると現在Gが0Gに戻ります。本人累計Gは保持されます。';warning.className='stage14-modal-warning';
+   body.append(heading,caption,count,warning);
+  }else body.textContent=message;
   const actions=document.createElement('div');actions.className='v122-confirm-actions';
   const cancel=document.createElement('button');cancel.type='button';cancel.textContent='キャンセル';
   const ok=document.createElement('button');ok.type='button';ok.textContent='OK';
@@ -50,11 +58,23 @@ const directMessage=document.createElement('p');
 directMessage.id='p8-direct-status';directMessage.setAttribute('role','status');directMessage.setAttribute('aria-live','polite');
 directMessage.textContent='ぶどう・チェリーは保存処理に直接接続。';
 document.querySelector('[data-p31="grapeBtn"]')?.closest('.button-grid')?.after(directMessage);
-function setDirectStatus(message){directMessage.textContent=message;}
+function setDirectStatus(message){directMessage.textContent=message;const inline=document.getElementById('stage14-input-feedback');if(inline)inline.textContent=message;}
 function updateDirectButtons(){
  let ready=false;
  try{ready=!!frame.contentWindow?.__p8CountApi?.state().ready;}catch(_e){}
  const gameButton=document.getElementById('p8-games-submit');if(gameButton)gameButton.disabled=!ready||p8WriteBlocked();
+ // Writer leases can become available after the history view was rendered.
+ // Refresh the eligibility of visible correction buttons without resetting scroll.
+ try{
+  const capability=frame.contentWindow?.__p8CorrectionApi?.entries();
+  document.querySelectorAll('.p8-correction-row button[data-stage14-sequence]').forEach(btn=>{
+   const entry=capability?.entries?.find(e=>String(e.sequence)===btn.dataset.stage14Sequence && e.action===btn.dataset.stage14Action);
+   const eligible=!!capability?.ready&&!!entry?.eligible&&!p8WriteBlocked();
+   btn.disabled=!eligible;btn.title=entry?.reason||(!capability?.ready?'保存権限の確認中です':'');
+   const text=btn.parentElement.querySelector('.stage14-correction-reason');
+   if(text){text.textContent=eligible?'':btn.title||'現在は訂正できません';text.hidden=eligible;}
+  });
+ }catch(_e){}
  document.querySelectorAll('[data-fruit-minus]').forEach(btn=>{btn.disabled=!ready||p8WriteBlocked();});
  for(const id of Object.keys(directRoles)){
    const btn=document.querySelector(`[data-p31="${id}"]`);
@@ -98,6 +118,12 @@ async function directCount(role){
  let api;
  try{api=frame.contentWindow?.__p8CountApi; if(!api?.state().ready){setDirectStatus('入力できません。台一覧で実戦の選択と入力状態を確認してください。');return;}}
  catch(_e){setDirectStatus('保存機能に接続できません。再入力せず、接続状態を確認してください。');return;}
+ // Candidate5: do not count normal-play roles while an awarded bonus is unfinished.
+ // The existing P31 API remains the source of truth; fail closed if its state is unknown.
+ let bonusState;
+ try{bonusState=api.bonusActions();}catch(_e){}
+ if(!bonusState||!bonusState.ready){setDirectStatus('ボーナス状態を確認できません。保存はしていません。');return;}
+ if(bonusState.completion||bonusState.pendingCount>0){await showIncompleteBonusWarning();return;}
  directPending=true;updateDirectButtons();setDirectStatus('保存処理中…');
  try{
    const result=await api.count(role);
@@ -141,6 +167,11 @@ bonusDialog.querySelector('#p8-bonus-save').addEventListener('click',async()=>{
  // Preserve the user's draft across backgrounding, but never auto-commit it.
  // A fresh foreground tap confirms the retained values for the same session.
  if(document.hidden){bonusDialog.querySelector('#p8-bonus-feedback').textContent='アプリ復帰後に内容を確認して保存してください。';return;}
+ const beforeAction=frame.contentWindow?.__p8CountApi?.bonusActions();
+ if(beforeAction?.completion||beforeAction?.pendingCount>0){
+  bonusDialog.querySelector('#p8-bonus-feedback').textContent='先に未消化ボーナスの消化完了・保留確認を行ってください。';
+  return;
+ }
  const btn=bonusDialog.querySelector('#p8-bonus-save');
  const feedback=bonusDialog.querySelector('#p8-bonus-feedback');
  const type=bonusType, trigger=bonusDialog.querySelector('#p8-bonus-trigger').value;
@@ -151,7 +182,7 @@ bonusDialog.querySelector('#p8-bonus-save').addEventListener('click',async()=>{
   const result=await api.awardBonus(type,trigger);
   if(result.status==='saved-and-refreshed'){
    bonusDialog.close();bonusType=null;setDirectStatus(type+'を保存しました。');sync();window.__stage12Flash?.(type);
-  }else if(result.status==='rejected'){feedback.textContent='操作を受け付けられませんでした。実戦状態を確認してください。';}
+  }else if(result.status==='rejected'){feedback.textContent=result.reason||'操作を受け付けられませんでした。実戦状態を確認してください。';}
   else {directUncertain=true;feedback.textContent='保存結果を確認できません。再操作しないで保存照合を行ってください。';setDirectStatus(feedback.textContent);}
  }catch(_e){directUncertain=true;feedback.textContent='保存結果不明です。再操作しないでください。';setDirectStatus(feedback.textContent);}
  finally{directPending=false;btn.disabled=false;updateDirectButtons();}
@@ -168,7 +199,8 @@ async function directBonusAction(action){
  catch(_e){setDirectStatus('実戦データに接続できません。');return;}
  const target=action==='complete'?info?.completion:info?.review;
  if(!info?.ready||!target){setDirectStatus(action==='review'?(info?.reviewReason||'保留を確認できません。実戦状態を確認してください。'):'現在、この消化完了操作はできません。実戦の状態を確認してください。');syncBonusState();return;}
- const message=action==='complete'?`${target.type}を消化完了し、現在Gを0にしますか？`:`${target.type}の保留を確認済みとして計上しますか？\nこの操作だけでは現在Gはリセットしません。`;
+ const displayCurrent=api?.gamePosition()?.current;
+ const message=action==='complete'?{kind:'bonus-completion',type:target.type,current:displayCurrent}:`${target.type}の保留を確認済みとして計上しますか？\nこの操作だけでは現在Gはリセットしません。`;
  const confirmationEpoch=foregroundEpoch;
  if(!await v122Confirm(message))return;
  if(!foregroundUnchanged(confirmationEpoch)||p8WriteBlocked()){
@@ -177,13 +209,35 @@ async function directBonusAction(action){
  }
  directPending=true;updateDirectButtons();setDirectStatus('保存処理中…');
  try{
-  const result=await api.bonusAction(action);
+  const result=await api.bonusAction(action,action==='complete'?displayCurrent:null);
   if(result.status==='saved-and-refreshed'){setDirectStatus(`${target.type}の${action==='complete'?'消化完了':'保留確認'}を保存しました。`);sync();}
   else if(result.status==='rejected'){setDirectStatus('状態が変更されたため操作を受け付けませんでした。');sync();}
   else{directUncertain=true;setDirectStatus('保存結果が不明です。再操作せず保存記録を照合してください。');}
  }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再操作しないでください。');}
  finally{directPending=false;updateDirectButtons();}
 }
+// Candidate5: confirmation is shown only after an attempted prohibited normal-play input.
+// Never auto-complete: the player must explicitly confirm through the existing flow.
+async function showIncompleteBonusWarning(){
+ let info;
+ try{info=frame.contentWindow?.__p8CountApi?.bonusActions();}catch(_e){}
+ if(!info){setDirectStatus('ボーナス状態を確認できません。保存はしていません。');return;}
+ const action=info.completion?'complete':info.review?'review':null;
+ if(!action){
+  setDirectStatus(info.reviewReason||'保留ボーナスの状態を確認してください。保存はしていません。');
+  return;
+ }
+ const pendingOnly=action==='review';
+ setDirectStatus(pendingOnly?'保留ボーナスの確認が必要です。G数・小役は保存していません。':'BB/RBの消化完了が未記録です。先に消化完了を保存してください。');
+ const epoch=foregroundEpoch;
+ const message=pendingOnly
+  ? '保留ボーナスが残っています。\nゲーム数・小役は保存していません。\n\n保留の確認に進みますか？'
+  : 'ボーナス消化が未完了です。\nゲーム数・小役は保存していません。\n\n消化完了の確認へ進みますか？';
+ const go=await v122Confirm(message);
+ if(!go||!foregroundUnchanged(epoch)||p8WriteBlocked())return;
+ await directBonusAction(action);
+}
+
 // D07F Undo calls P31's event cancellation API, not its old UI button.
 async function directUndo(){
  if(p8WriteBlocked()){setDirectStatus('未照合の操作があります。保存記録を確認してください。');return;}
@@ -548,27 +602,45 @@ document.querySelectorAll('[data-p8-native-nav]').forEach(btn=>btn.addEventListe
 document.querySelectorAll('[data-p31]').forEach(button=>button.addEventListener('click',()=>{
  const role=directRoles[button.dataset.p31];if(role){void directCount(role);}else if(['bbBtn','rbBtn'].includes(button.dataset.p31)){showBonusForm(button.dataset.p31==='bbBtn'?'BB':'RB');}else if(button.dataset.p31==='quickComplete'){void directBonusAction('complete');}else if(button.dataset.p31==='undoBtn'){void directUndo();}else{setDirectStatus('未対応の入力操作です。保存は行っていません。');}
 }));
-async function directGames(quickDelta=null){
- if(p8WriteBlocked()){setDirectStatus("未照合の操作記録があります。保存記録を照合してください。");return;}
- const field=document.getElementById('p8-games'),raw=quickDelta===null?field.value.trim():String(quickDelta),n=Number(raw);
- if(!/^[1-9]\d*$/.test(raw)||!Number.isSafeInteger(n)){
-   setDirectStatus('ゲーム数は1以上の整数で入力してください。');return;
- }
- let api;try{api=frame.contentWindow?.__p8CountApi;if(!api?.state().ready){setDirectStatus('入力できません。台一覧で実戦の選択と入力状態を確認してください。');return;}}
- catch(_e){setDirectStatus('保存機能に接続できません。再入力せず、接続状態を確認してください。');return;}
- directPending=true;updateDirectButtons();setDirectStatus('ゲーム数を保存しています…');
+async function directGames(change=null){
+ if(p8WriteBlocked()){setDirectStatus('未照合の操作記録があります。保存記録を照合してください。');return;}
+ const field=document.getElementById('p8-games');
+ let api,target,current;
  try{
-   const result=await api.games(n,document.getElementById('p8-measured').checked);
+   api=frame.contentWindow?.__p8CountApi;
+   if(!api?.state().ready){setDirectStatus('実戦の選択と入力状態を確認してください。');return;}
+   current=api.gamePosition().current;
+ }catch(_e){setDirectStatus('保存機能に接続できません。再入力しないでください。');return;}
+ if(change!==null){
+   if(!Number.isSafeInteger(current)){setDirectStatus('先に遊技台の現在Gを直接入力してください。');return;}
+   target=current+change;
+ }else{
+   const raw=field.value.trim();
+   if(!/^(0|[1-9]\d*)$/.test(raw)){setDirectStatus('現在Gは0以上の整数で入力してください。');return;}
+   target=Number(raw);
+ }
+ if(!Number.isSafeInteger(target)||target<0||target>9999999){setDirectStatus('現在Gの範囲を確認してください。');return;}
+ // Candidate5: correction/decrease is left available, while new play progression
+ // and a same-value recording during an unfinished bonus are blocked.
+ let bonusState;
+ try{bonusState=api.bonusActions();}catch(_e){}
+ if(!bonusState||!bonusState.ready){setDirectStatus('ボーナス状態を確認できません。保存はしていません。');return;}
+ if((bonusState.completion||bonusState.pendingCount>0)&&(current===null||target>=current)){
+   await showIncompleteBonusWarning();return;
+ }
+ directPending=true;updateDirectButtons();setDirectStatus('現在Gを保存しています…');
+ try{
+   const result=await api.setCurrentGames(target,document.getElementById('p8-measured').checked);
    if(result.status==='saved-and-refreshed'){
-     field.value='';
-     setDirectStatus('ゲーム数の保存が完了しました。');sync();
-   }else if(result.status==='rejected')setDirectStatus('入力不可。実戦側の実戦状態を確認してください。');
-   else{directUncertain=true;setDirectStatus('ゲーム数の保存結果が不明です。再入力せず、下の「保存データを確認」を使ってください。');}
- }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再入力せず、下の「保存データを確認」を使ってください。');}
+     field.value='';setDirectStatus('現在G '+target+'G を保存しました。');sync();
+   }else if(result.status==='rejected')setDirectStatus(result.reason||'入力できません。実戦状態を確認してください。');
+   else{directUncertain=true;setDirectStatus('保存結果が不明です。再入力せず「保存データを確認」を使ってください。');}
+ }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再入力せず保存記録を照合してください。');}
  finally{directPending=false;updateDirectButtons();}
 }
 document.getElementById('p8-games-submit').addEventListener('click',()=>void directGames());
-for(const [id,n] of [['p8-quick50',50],['p8-quick100',100]])document.getElementById(id)?.addEventListener('click',()=>void directGames(n));
+document.getElementById('p8-games').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('p8-games').blur();void directGames();}});
+for(const [id,n] of [['p8-quick50',50],['p8-quick100',100],['p8-stage14-minus10',-10]])document.getElementById(id)?.addEventListener('click',()=>void directGames(n));
 // Stage 12: -50G is deliberately limited to cancelling the last +50G entry.
 // Existing journal cancellation preserves history and measured-G calculations.
 async function stage12Minus50(){
@@ -589,7 +661,7 @@ async function stage12Minus50(){
  }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再操作せず保存データを確認してください。');}
  finally{directPending=false;updateDirectButtons();}
 }
-document.getElementById('p8-minus50')?.addEventListener('click',()=>void stage12Minus50());
+// Stage14 Candidate3: hide the legacy -50G shortcut; retain P31 cancellation API for historical records.
 // UI preference only; never retroactively changes any GAMES_RECORDED event or inference denominator.
 const measuredEl=document.getElementById('p8-measured');
 const measuredPrefix='juglog_stage11_isolated_20261107_measure_session_v1:';
@@ -656,6 +728,13 @@ document.querySelector('.menu')?.addEventListener('click',()=>navigateD07F('sett
 // Completion type is derived from the P31 engine's rendered active bonus state.
 // Never infer BB/RB from lifetime BB/RB counts or from a previous session.
 const completeButton=document.querySelector('[data-p31="quickComplete"]');
+// Candidate5 fixed convenience button: a second entry to the exact same P31
+// completion transaction, never an independent write path.
+const fixedComplete=document.createElement('button');
+fixedComplete.id='stage14-fixed-complete';fixedComplete.type='button';fixedComplete.hidden=true;
+fixedComplete.setAttribute('aria-label','ボーナス消化完了を確認して保存');
+fixedComplete.addEventListener('click',()=>void directBonusAction(fixedComplete.dataset.action==='review'?'review':'complete'));
+document.body.append(fixedComplete);
 // Pending review remains in P31's native confirmation UI. Never auto-confirm.
 const reviewOpen=document.getElementById('p8-review-open');
 const pendingCount=document.getElementById('p8-pending-count');
@@ -689,14 +768,29 @@ function syncCompletion(){
  if(!completeButton)return;
  try{
   const info=frame.contentWindow?.__p8CountApi?.bonusActions();
-  const b=info?.completion;
-  if(!b||!['BB','RB'].includes(b.type))throw Error('no eligible bonus');
-  completeButton.textContent=b.type+'消化完了';
-  completeButton.setAttribute('aria-label',b.type+'を消化完了し、現在Gを0にする');
-  completeButton.disabled=!info.ready||p8WriteBlocked();
-  completeButton.title='確認して保存';
- }catch(_e){completeButton.textContent='消化完了（対象なし）';completeButton.disabled=true;completeButton.title='未消化ボーナスまたは入力権限を確認してください';}
+  if(!info)throw Error('no bonus state');
+  const b=info.completion;
+  const review=info.review;
+  const playVisible=!document.getElementById('panel-play')?.hidden;
+  const action=b?'complete':review?'review':null;
+  completeButton.textContent=b?b.type+'消化完了':'消化完了（対象なし）';
+  completeButton.disabled=!b||!info.ready||p8WriteBlocked();
+  completeButton.title=b?'確認して保存':'未消化ボーナスまたは入力権限を確認してください';
+  fixedComplete.hidden=!playVisible||!action;
+  fixedComplete.dataset.action=action||'';
+  fixedComplete.textContent=b?b.type+' 消化完了':review?review.type+' 保留確認':'';
+  fixedComplete.disabled=!info.ready||p8WriteBlocked();
+  fixedComplete.title=b?'消化完了を確認して保存':'保留ボーナスを確認後、消化完了を記録してください';
+  if(!action&&info.pendingCount>0&&playVisible){
+   // A blocked review must remain visible as a recovery cue, never silently vanish.
+   fixedComplete.hidden=false;
+   fixedComplete.disabled=true;
+   fixedComplete.textContent='保留ボーナスあり・状態確認が必要';
+   fixedComplete.title=info.reviewReason||'台一覧から実戦状態を確認してください';
+  }
+ }catch(_e){completeButton.textContent='消化完了（対象なし）';completeButton.disabled=true;completeButton.title='ボーナス状態を確認してください';fixedComplete.hidden=true;}
 }
+
 const map={totalG:'live-total',personalG:'live-personal',currentG:'live-current',bbN:'live-bb',rbN:'live-rb',grapeN:'live-grape',cherryN:'live-cherry',hallBBRate:'live-bb-rate',hallRBRate:'live-rb-rate',hallCombinedRate:'live-combined-rate',grapeRate:'live-grape-rate',cherryRate:'live-cherry-rate',hallProbBase:'live-prob-base'};
 const missing=id=>id==='live-prob-base'?'観測待ち':'—';
 let lastSignature='';
@@ -777,12 +871,18 @@ function renderSessionHistory(){
  const detail=api.snapshotFor(chosen.id);
  const heading=document.createElement('p');heading.textContent=`保存済み実戦 ${sessions.length}件・選択した実戦の訂正反映済みイベント`;
  const list=document.createElement('div');list.className='p8-history-sessions';
+ const historySessionsToggle=document.createElement('button');historySessionsToggle.type='button';historySessionsToggle.className='stage14-history-sessions-toggle';
+ let showAllSessions=false;
+ const updateHistorySessions=()=>{const buttons=list.querySelectorAll('.p8-history-session');buttons.forEach((button,index)=>{button.hidden=!showAllSessions&&index>=3;});historySessionsToggle.textContent=showAllSessions?'最新3件だけ表示':`実戦をすべて表示（${sessions.length}件）`;historySessionsToggle.setAttribute('aria-expanded',String(showAllSessions));};
+ historySessionsToggle.addEventListener('click',()=>{showAllSessions=!showAllSessions;updateHistorySessions();});
  for(const s of sessions){
   const btn=document.createElement('button');btn.type='button';btn.className='p8-history-session';
   btn.setAttribute('aria-pressed',String(s.id===chosen.id));
   btn.textContent=`${s.date||'日付不明'} ｜ ${s.store||'店舗未記録'} ｜ ${s.machine||'機種未記録'} ${s.number?s.number+'番':'台番号未登録'} ｜ ${s.personalG??'—'}G ｜ BB${s.bb??'—'} / RB${s.rb??'—'}${s.isActive?'（操作対象）':''}`;
   btn.addEventListener('click',()=>{historyDetailId=s.id;renderSessionHistory();});list.append(btn);
  }
+ updateHistorySessions();
+ if(sessions.length<=3)historySessionsToggle.hidden=true;
  // History selection changes the read-only preview only. Never silently switch
  // the P31 active session or apply a correction to another session.
  const actions=document.createElement('div');actions.className='p8-history-actions';
@@ -810,7 +910,7 @@ function renderSessionHistory(){
  });
  actions.append(edit,advice);
  // Individual cancellation/restoration uses P31's committed-event validator.
- const corrections=document.createElement('details');corrections.className='p8-history-corrections v122-folded-corrections';const correctionSummary=document.createElement('summary');correctionSummary.textContent='個別訂正・取消の履歴を表示';corrections.append(correctionSummary);
+ const corrections=document.createElement('div');corrections.className='p8-history-corrections v123-correction-history';const correctionSummary=document.createElement('button');correctionSummary.type='button';correctionSummary.className='v123-correction-toggle';correctionSummary.textContent='個別訂正・取消の履歴を表示';correctionSummary.setAttribute('aria-expanded','false');corrections.append(correctionSummary);let correctionRowCount=0;const showCorrections=(all)=>{corrections.querySelectorAll('.p8-correction-row').forEach((node,i)=>{node.hidden=!all&&i>=3;});correctionSummary.textContent=all?'履歴を閉じる（最新3件）':`訂正・取消の履歴をすべて表示（${correctionRowCount}件）`;correctionSummary.setAttribute('aria-expanded',String(all));};correctionSummary.addEventListener('click',()=>showCorrections(correctionSummary.getAttribute('aria-expanded')!=='true'));
  if(selectedActive){
    let capability;try{capability=frame.contentWindow?.__p8CorrectionApi?.entries();}catch(_e){}
    const h=document.createElement('h3');h.textContent='個別訂正・取消の復元';corrections.append(h);
@@ -822,7 +922,7 @@ function renderSessionHistory(){
        const line=document.createElement('div');line.className='p8-correction-row';
        const name=document.createElement('span');name.textContent=`#${item.sequence} ${item.description}`;
        const btn=document.createElement('button');btn.type='button';btn.textContent=item.action==='cancel'?'取消':'取消を復元';
-       btn.disabled=!item.eligible||p8WriteBlocked();btn.title=item.reason||'';
+       btn.disabled=!item.eligible||p8WriteBlocked();btn.title=item.reason||'';btn.dataset.stage14Sequence=String(item.sequence);btn.dataset.stage14Action=item.action;const reason=document.createElement('small');reason.className='stage14-correction-reason';reason.textContent=item.reason||'現在は訂正できません';reason.hidden=!!item.eligible;name.append(reason);
        btn.addEventListener('click',async()=>{
          // Corrections share the same write gate as count, bonus, Undo and session operations.
          if(btn.disabled||p8WriteBlocked()){
@@ -852,13 +952,13 @@ function renderSessionHistory(){
            }
          }finally{directPending=false;updateDirectButtons();renderSessionHistory();}
        });
-       line.append(name,btn);corrections.append(line);
+       line.append(name,btn);corrections.append(line);correctionRowCount++;line.hidden=correctionRowCount>3;
      }
    }else{const p=document.createElement('p');p.textContent='訂正機能に接続できません。';corrections.append(p);}
  }else{
    const p=document.createElement('p');p.textContent='この実戦は閲覧対象です。上の「この実戦を訂正対象にする」から切り替えてください。';corrections.append(p);
  }
- const detailTitle=document.createElement('h3');detailTitle.textContent=`${chosen.store||'店舗未記録'}・${chosen.number?chosen.number+'番台':'台番号未登録'}のイベント`;
+ if(correctionRowCount<=3){correctionSummary.hidden=true;}else{showCorrections(false);}const detailTitle=document.createElement('h3');detailTitle.textContent=`${chosen.store||'店舗未記録'}・${chosen.number?chosen.number+'番台':'台番号未登録'}のイベント`;
  const info=document.createElement('p');info.textContent=detail?.ok?`有効イベント ${detail.events.length}件（この一覧は読み取り専用）`:'イベント詳細を読み取れません。';
  const ol=document.createElement('ol');ol.className='p8-event-list';
  if(detail?.ok){const ev=detail.events;const confirmedIds=new Set(ev.filter(e=>e.type==='BONUS_REVIEW_CONFIRMED'&&e.bonusId).map(e=>e.bonusId));
@@ -883,7 +983,7 @@ function renderSessionHistory(){
   applyFold(true);
   eventToggle.addEventListener('click',()=>applyFold(eventToggle.getAttribute('aria-expanded')==='true'));
  }
- container.replaceChildren(heading,list,actions,corrections,detailTitle,info,...(collapsed?[eventToggle]:[]),ol);
+ container.replaceChildren(heading,list,...(sessions.length>3?[historySessionsToggle]:[]),actions,corrections,detailTitle,info,...(collapsed?[eventToggle]:[]),ol);
 }
 
 function syncDataTabs(){
@@ -898,18 +998,20 @@ function syncDataTabs(){
  const signature=JSON.stringify(snapshot);if(signature===lastViewSignature)return;lastViewSignature=signature;
  const s=snapshot.session,ev=snapshot.events;
  const rate=(count)=>s.personalG>0&&!s.hasUnmeasuredG&&s.measuredG===s.personalG&&count>0?'1/'+(s.measuredG/count).toFixed(2):'—';
- guess.innerHTML=`<p class="p8-provenance">データ元：選択中の実戦／確定記録</p><div class="p8-data-grid"><div>本人G<strong>${esc(s.personalG)}</strong></div><div>BB / RB<strong>${esc(s.bb)} / ${esc(s.rb)}</strong></div><div>ぶどう<strong>${esc(s.grape)}　${esc(rate(s.grape))}</strong></div><div>チェリー<strong>${esc(s.cherry)}　${esc(rate(s.cherry))}</strong></div></div><p>小役実測G：${esc(s.measuredG)} ／ 本人G：${esc(s.personalG)}</p><p>小役確率：${s.hasUnmeasuredG||s.measuredG!==s.personalG?'全ゲーム実測条件を満たさないため未算出':'全ゲーム実測時のみ算出'}</p><p class="p8-provenance">BB・RB限定の参考推測と、小役を含む暫定参考推測は別々に表示します。ぶどうは全ゲーム実測などの条件を満たす場合のみ使用し、従来のチェリー記録は使用しません。</p>`;
+ guess.innerHTML=`<p class="p8-provenance">データ元：選択中の実戦／確定記録</p><div class="p8-data-grid"><div>本人G<strong>${esc(s.personalG)}</strong></div><div>BB / RB<strong>${esc(s.bb)} / ${esc(s.rb)}</strong></div><div>ぶどう<strong>${esc(s.grape)}　${esc(rate(s.grape))}</strong></div><div>チェリー<strong>${esc(s.cherry)}　${esc(rate(s.cherry))}</strong></div></div><p>小役実測G：${esc(s.measuredG)} ／ 本人G：${esc(s.personalG)}</p><p>小役確率：${s.hasUnmeasuredG||s.measuredG!==s.personalG?'全ゲーム実測条件を満たさないため未算出':'全ゲーム実測時のみ算出'}</p><p class="p8-provenance">BB・RB限定の参考推測と、小役を含む暫定参考推測は別々に表示します。ぶどうは全ゲーム実測などの条件を満たす場合のみ使用し、チェリーは選択時のみ総合参考推測に使用します。</p>`;
 
  const hall=s.hallObservation;
  const useHall=!!hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;
- const bonusScope=useHall?{games:hall.totalG,bb:hall.bb,rb:hall.rb}:{games:s.personalG,bb:s.bb,rb:s.rb};
+ const liveHall=window.JGLStage13Estimator?.hallFromEvents(ev,s.id);
+ const hasLiveHall=!!liveHall?.ok && liveHall.games>0 && liveHall.bb+liveHall.rb<=liveHall.games;
+ const bonusScope=hasLiveHall?{games:liveHall.games,bb:liveHall.bb,rb:liveHall.rb}:useHall?{games:hall.totalG,bb:hall.bb,rb:hall.rb}:{games:s.personalG,bb:s.bb,rb:s.rb};
  const prediction=window.P8MachineEstimator?.estimate({machine:s.machine,...bonusScope});
  const extra=window.P8SmallRoleEstimator?.estimate({machine:prediction?.machineId,games:s.personalG,bb:s.bb,rb:s.rb,grape:s.grape,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG});
  const guessSection=document.createElement('section');guessSection.className='p8-machine-prediction';
  if(prediction?.ok){
   const h=document.createElement('h3');h.textContent=prediction.machine+'｜BB・RB限定参考推測';guessSection.append(h);
   const hallZeroStart=!!hall&&hall.totalG===0&&hall.currentG===0&&hall.bb===0&&hall.rb===0;
-  const scopeLabel=useHall?'ホール累計（同一観測）':hallZeroStart?'朝一0G開始・本人実戦':'本人実戦（ホール累計未登録）';
+  const scopeLabel=hasLiveHall?'ホール累計（本人追加を自動反映）':useHall?'ホール累計（同一観測）':hallZeroStart?'朝一0G開始・本人実戦':'本人実戦（ホール累計未登録）';
   const intro=document.createElement('p');intro.textContent=`${scopeLabel}｜対象 ${prediction.games}G｜BB ${prediction.bb}・RB ${prediction.rb}`;guessSection.append(intro);
   const table=document.createElement('table');table.className='p8-prob-table';
   const tbody=document.createElement('tbody');
@@ -928,16 +1030,50 @@ function syncDataTabs(){
  }else{
   const warn=document.createElement('p');warn.textContent='設定推測：'+(prediction?.reason||'推測エンジンを読み込めません。');guessSection.append(warn);
  }
- guess.append(guessSection);
- if(extra?.ok){
-  const small=document.createElement('section');small.className='p8-machine-prediction';
-  const title=document.createElement('h3');title.textContent='本人実戦のみ｜小役を含む参考推測（機種別・暫定値）';small.append(title);
-  const explanation=document.createElement('p');explanation.textContent=extra.notes.join('。')+'。'+extra.reference.notice+' BB・RBの公式値と、小役の非公式参考値に基づく同一事前重みの相対比較です。';small.append(explanation);
-  const t=document.createElement('table');t.className='p8-prob-table';const tb=document.createElement('tbody');
-  for(const row of extra.settings){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.textContent='設定'+row.setting;td.textContent=row.percent.toFixed(1)+'%';tr.append(th,td);tb.append(tr);}t.append(tb);small.append(t);
-  const source=document.createElement('p');source.className='p8-estimate-disclaimer';source.textContent='小役参考値：'+extra.sources.smallRoles+'。メーカー非公表・原著未照合。現行の旧チェリー記録は推測に使用しません。';small.append(source);
-  guess.append(small);
+ // BB/RB fallback is inserted only when unified estimate is unavailable.
+ // Stage13 isolated read-only combined estimate. No mutation of the engine data.
+ const measuredComplete=s.personalG>0&&!s.hasUnmeasuredG&&s.measuredG===s.personalG;
+ const stage13Machine=window.P8MachineEstimator?.identify(s.machine);
+ // Derive non-overlap cherries from existing counted cherries and confirmed bonus triggers.
+ // Unknown triggers are not subtracted and are disclosed as a reliability caveat.
+ const cherryRefAvailable=Array.isArray(window.JGLStage13References?.get(stage13Machine)?.nonOverlapCherry);
+ const cherryDerived=window.JGLStage13CherryAuto?.derive(ev,{cherry:s.cherry,grape:s.grape,
+   measuredG:s.measuredG,measuredComplete});
+ const cherryAvailable=cherryRefAvailable && cherryDerived?.ok===true;
+ const prefKey='juglog_stage13_cherry_option_fix2_v1:'+encodeURIComponent(s.id);
+ let remembered=false;try{remembered=window.localStorage.getItem(prefKey)==='true';}catch(_e){}
+ const cherryWanted=cherryAvailable && remembered;
+ const combined=window.JGLStage13Estimator?.estimate({machine:stage13Machine,...bonusScope,
+   measuredGames:measuredComplete?s.measuredG:undefined,grape:measuredComplete?s.grape:undefined,
+   nonOverlapCherry:cherryWanted?cherryDerived.nonOverlap:undefined,
+   nonOverlapVerified:cherryWanted});
+ {
+  const section=document.createElement('section');section.className='p8-machine-prediction';
+  const head=document.createElement('h3');head.textContent='設定推測（BB/RB・利用可能な小役）';section.append(head);
+  const desc=document.createElement('p');desc.textContent=combined?.ok?`BB/RB：${bonusScope.games}G・BB${bonusScope.bb}・RB${bonusScope.rb}／ぶどう：${combined.used.grape?s.measuredG+'G・'+s.grape+'回を使用':'未使用'}／非重複チェリー：${combined.used.nonOverlapCherry?'使用':'未使用'}`:'計算待ち：'+(combined?.reason||'推測データを確認できません。');
+  section.append(desc);
+  const choice=document.createElement('label');choice.className='jgl-cherry-choice';
+  const check=document.createElement('input');check.type='checkbox';check.checked=cherryWanted;
+  check.disabled=!cherryAvailable;check.setAttribute('aria-label','非重複チェリーを推測に含める');
+  check.addEventListener('change',()=>{
+    try{window.localStorage.setItem(prefKey,String(check.checked));}catch(_e){}
+    lastViewSignature='';syncDataTabs();
+  });
+  choice.append(check,document.createTextNode(' 非重複チェリーを推測に含める（任意）'));
+  section.append(choice);
+  const helper=document.createElement('p');helper.className='p8-estimate-disclaimer';
+  if(!cherryRefAvailable){helper.textContent='この機種はガリぞう氏の非重複チェリー参考値を確認できないため、推測には使用しません。';}
+  else if(!cherryDerived?.ok){helper.textContent=cherryDerived?.reason||'チェリー計算データがありません。';}
+  else {helper.textContent=`チェリー${cherryDerived.totalCherries}回 − 確認済みチェリー重複${cherryDerived.overlapping}回 ＝ 非重複チェリー${cherryDerived.nonOverlap}回（自動計算）`+
+    (cherryDerived.unknown>0?`。当選契機不明・未確認${cherryDerived.unknown}件は差し引いていません。推測精度は記録内容に依存します。`:'。推測精度は利用者の記録内容に依存します。');}
+  section.append(helper);
+  if(combined?.ok){const table=document.createElement('table');table.className='p8-prob-table';const tbody=document.createElement('tbody');
+  for(const row of combined.settings){const tr=document.createElement('tr'),th=document.createElement('th'),td=document.createElement('td');th.textContent='設定'+row.setting;td.textContent=row.percent.toFixed(1)+'%';tr.append(th,td);tbody.append(tr);}table.append(tbody);section.append(table);}
+  const note=document.createElement('p');note.className='p8-estimate-disclaimer';note.textContent='機種別ぶどう参考値は暫定値。非重複チェリーは総チェリー回数から確認済みチェリー重複当選を差し引いて自動算出し、任意で使用します。当選契機不明や未確認がある場合は参考精度に注意してください。参考割合は近似値で、設定や勝率を保証しません。';section.append(note);
+  if(combined?.ok){guess.append(section);}else{guess.append(guessSection);}
  }
+
+ // Legacy personal-only estimate intentionally omitted from the normal view; underlying data remains unchanged.
 
  // Use the same confirmed-bonus rule as the P31 projection. A pending award
  // is counted only if its BONUS_REVIEW_CONFIRMED event is effective.

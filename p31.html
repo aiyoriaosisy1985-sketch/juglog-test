@@ -2095,9 +2095,29 @@ async function append(items,operationId=UID(),prepared=null){if(!writer)throw Er
  validateCorrectionDependencies(committed,all);
  validateSessionLifecycle(committed,all);
  validateSessionRecordWrites(committed,all);
+ validateStage14Writes(committed,all);
  all.forEach((e,i)=>store.add({...e,commitSequence:last+i+1}));m.put({key:'sequence',value:last+all.length});await txPromise(t);return all}catch(e){if(t&&t.readyState==='active')t.abort();throw e}}
 function correctedEvents(ev){let cancelled=new Set();for(const e of ev){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}return ev.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type))}
-function replay(ev){const all=correctedEvents(ev);let sessions=new Map();const bonusIndexes=new Map();for(const e of all){let s=sessions.get(e.sessionId);if(e.type==='SESSION_CREATED'){s={id:e.sessionId,store:e.store,machine:e.machine,number:e.number,date:e.date,measuredG:0,hasUnmeasuredG:false,status:'ACTIVE',segment:e.segmentId,segments:1,g:0,current:null,hallTotalLive:null,grape:0,cherry:0,bonuses:[],snapshots:[]};sessions.set(e.sessionId,s);bonusIndexes.set(e.sessionId,new Map());continue}if(!s)continue;switch(e.type){case 'SEGMENT_STARTED':s.segment=e.segmentId;s.segments++;break;case 'GAMES_RECORDED':s.g+=e.delta;if(s.hallTotalLive!==null)s.hallTotalLive+=e.delta;if(e.measuredBoth===true)s.measuredG+=e.delta;else s.hasUnmeasuredG=true;if(s.current!==null)s.current+=e.delta;break;case 'GRAPE_COUNTED':s.grape++;break;case 'CHERRY_COUNTED':s.cherry++;break;case 'HALL_SNAPSHOT_RECORDED':s.snapshots.push(e);if(Number.isSafeInteger(e.totalG)&&e.totalG>=0)s.hallTotalLive=e.totalG;if(e.currentG!==null)s.current=e.currentG;break;case 'BONUS_AWARDED':{const b={...e,completed:false};s.bonuses.push(b);const idx=bonusIndexes.get(e.sessionId);if(!idx.has(e.bonusId))idx.set(e.bonusId,b);break}case 'BONUS_REVIEW_CONFIRMED':{const b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b&&b.pendingReview)b.pendingReview=false;break}case 'BONUS_COMPLETED':{let b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b)b.completed=true;s.current=0;break}case 'SESSION_PAUSED':s.status='PAUSED';break;case 'SESSION_RESUMED':s.status='ACTIVE';break;case 'SESSION_CLOSED_PENDING':s.status='CLOSED_PENDING';break;case 'SESSION_CLOSED_CONFIRMED':s.status='CLOSED_CONFIRMED';break;}}return sessions}
+function replay(ev){const all=correctedEvents(ev);let sessions=new Map();const bonusIndexes=new Map();for(const e of all){let s=sessions.get(e.sessionId);if(e.type==='SESSION_CREATED'){s={id:e.sessionId,store:e.store,machine:e.machine,number:e.number,date:e.date,measuredG:0,hasUnmeasuredG:false,status:'ACTIVE',segment:e.segmentId,segments:1,g:0,current:null,hallTotalLive:null,grape:0,cherry:0,bonuses:[],snapshots:[],nonOverlapCherry:undefined,nonOverlapCherryVerified:false};sessions.set(e.sessionId,s);bonusIndexes.set(e.sessionId,new Map());continue}if(!s)continue;switch(e.type){case 'SEGMENT_STARTED':s.segment=e.segmentId;s.segments++;break;case 'CURRENT_G_BASELINE':s.current=e.currentG;break;case 'GAMES_RECORDED':s.g+=e.delta;if(s.hallTotalLive!==null)s.hallTotalLive+=e.delta;if(e.measuredBoth===true)s.measuredG+=e.delta;else s.hasUnmeasuredG=true;if(s.current!==null)s.current+=e.delta;break;case 'GRAPE_COUNTED':s.grape++;break;case 'CHERRY_COUNTED':s.cherry++;break;case 'NON_OVERLAP_CHERRY_VERIFIED':break;case 'HALL_SNAPSHOT_RECORDED':s.snapshots.push(e);if(Number.isSafeInteger(e.totalG)&&e.totalG>=0){const zeroStart=e.totalG===0&&e.currentG===0&&e.bb===0&&e.rb===0;s.hallTotalLive=zeroStart?s.g:e.totalG;}if(e.currentG!==null)s.current=e.currentG;break;case 'BONUS_AWARDED':{const b={...e,completed:false};s.bonuses.push(b);const idx=bonusIndexes.get(e.sessionId);if(!idx.has(e.bonusId))idx.set(e.bonusId,b);break}case 'BONUS_REVIEW_CONFIRMED':{const b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b&&b.pendingReview)b.pendingReview=false;break}case 'BONUS_COMPLETED':{let b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b)b.completed=true;s.current=0;break}case 'SESSION_PAUSED':s.status='PAUSED';break;case 'SESSION_RESUMED':s.status='ACTIVE';break;case 'SESSION_CLOSED_PENDING':s.status='CLOSED_PENDING';break;case 'SESSION_CLOSED_CONFIRMED':s.status='CLOSED_CONFIRMED';break;}}
+ // Verification is valid only for the exact set of effective source events.
+ // A correction or a new count/bonus event invalidates it even when totals coincide.
+ const relevantTypes=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED']);
+ for(const [id,s] of sessions){
+  const rows=all.filter(e=>e.sessionId===id);
+  const att=rows.filter(e=>e.type==='NON_OVERLAP_CHERRY_VERIFIED').at(-1);
+  if(!att||!Array.isArray(att.sourceEventIds))continue;
+  const sourceIds=rows.filter(e=>relevantTypes.has(e.type)&&e.commitSequence<att.commitSequence).map(e=>e.eventId);
+  const currentIds=rows.filter(e=>relevantTypes.has(e.type)).map(e=>e.eventId);
+  const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
+  const valid=same(att.sourceEventIds,sourceIds)&&same(att.sourceEventIds,currentIds)&&
+    att.personalGames===s.g&&att.measuredGames===s.measuredG&&
+    att.grapes===s.grape&&att.totalCherries===s.cherry&&
+    att.allCherriesClassified===true&&Number.isSafeInteger(att.nonOverlapCherries)&&
+    att.nonOverlapCherries>=0&&att.nonOverlapCherries<=s.cherry&&
+    s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g&&s.grape+s.cherry<=s.g;
+  if(valid){s.nonOverlapCherry=att.nonOverlapCherries;s.nonOverlapCherryVerified=true;}
+ }
+ return sessions}
 const notificationHistory=[];const NOTIFICATION_LIMIT=30;
 function renderNotificationHistory(){
  const log=$('notificationLog');const limit=$('notificationDensity').value==='30'?30:10;
@@ -2305,7 +2325,7 @@ selectUiValue('graphMode',v45Ui.graphMode,['cumulative','timeline'],'cumulative'
 function restoreNativeMeasured(){try{$('measuredBoth').checked=!!active&&localStorage.getItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active)==='true'}catch{$('measuredBoth').checked=false;}}
 $('measuredBoth').addEventListener('change',()=>{if(active)try{localStorage.setItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active,String($('measuredBoth').checked))}catch{}});
 
-function nice(e){let p={SESSION_CREATED:`新規実戦 ${e.number?e.number+'番台':'台番号未登録'}`,SEGMENT_STARTED:'遊技区間開始',GAMES_RECORDED:`本人G +${e.delta}${e.measuredBoth?'（小役実測）':''}`,GRAPE_COUNTED:'ぶどう +1',CHERRY_COUNTED:'チェリー +1',HALL_SNAPSHOT_RECORDED:'ホール観測値を記録',BONUS_AWARDED:`${e.bonusType}当選（${e.trigger}）${e.pendingReview?'・保留':''}`,BONUS_REVIEW_CONFIRMED:'保留ボーナスの確認確定',BONUS_COMPLETED:'ボーナス消化完了',SESSION_PAUSED:'実戦中断',SESSION_RESUMED:'実戦再開',SESSION_CLOSED_PENDING:'未確定付き終了',SESSION_CLOSED_CONFIRMED:'実戦終了確定',EVENT_CANCELLED:'操作の取消',EVENT_RESTORED:'取消の復元',CASH_INVESTED:'現金投資',CASH_RECOVERED:'現金回収',MEDALS_INSERTED:'投入枚数（記録分）',MEDALS_PAID_OUT:'獲得枚数（記録分）',MEDALS_BALANCE_OBSERVED:'持ちメダル実測',NET_MEDALS_OBSERVED:'差枚実測',CARD_DEPOSIT:'貯メダル入庫',CARD_WITHDRAWAL:'貯メダル引出',CARD_BALANCE_OBSERVED:'貯メダル残高実測',PRESEAT_GRAPH_OBSERVED:'着席前グラフ・ぶどう参考逆算の入力条件'};return p[e.type]||e.type}
+function nice(e){let p={SESSION_CREATED:`新規実戦 ${e.number?e.number+'番台':'台番号未登録'}`,SEGMENT_STARTED:'遊技区間開始',CURRENT_G_BASELINE:`現在G初期値 ${e.currentG}`,GAMES_RECORDED:`本人G +${e.delta}${e.measuredBoth?'（小役実測）':''}`,GRAPE_COUNTED:'ぶどう +1',CHERRY_COUNTED:'チェリー +1',NON_OVERLAP_CHERRY_VERIFIED:'非重複チェリー確定回数の登録',HALL_SNAPSHOT_RECORDED:'ホール観測値を記録',BONUS_AWARDED:`${e.bonusType}当選（${e.trigger}）${e.pendingReview?'・保留':''}`,BONUS_REVIEW_CONFIRMED:'保留ボーナスの確認確定',BONUS_COMPLETED:'ボーナス消化完了',SESSION_PAUSED:'実戦中断',SESSION_RESUMED:'実戦再開',SESSION_CLOSED_PENDING:'未確定付き終了',SESSION_CLOSED_CONFIRMED:'実戦終了確定',EVENT_CANCELLED:'操作の取消',EVENT_RESTORED:'取消の復元',CASH_INVESTED:'現金投資',CASH_RECOVERED:'現金回収',MEDALS_INSERTED:'投入枚数（記録分）',MEDALS_PAID_OUT:'獲得枚数（記録分）',MEDALS_BALANCE_OBSERVED:'持ちメダル実測',NET_MEDALS_OBSERVED:'差枚実測',CARD_DEPOSIT:'貯メダル入庫',CARD_WITHDRAWAL:'貯メダル引出',CARD_BALANCE_OBSERVED:'貯メダル残高実測',PRESEAT_GRAPH_OBSERVED:'着席前グラフ・ぶどう参考逆算の入力条件'};return p[e.type]||e.type}
 function renderGuess(s){
   const engine=window.JissenhyoEstimator,mini=$('guessMini'),out=$('guessResult');
   const sources=$('guessSources');sources.replaceChildren();
@@ -2898,7 +2918,7 @@ window.__p8ViewsApi=Object.freeze({
    const s=project?.get(sessionId);
    if(!s)return {ok:false,reason:'session-not-found'};
    const effective=correctedEvents(view.filter(e=>e.sessionId===sessionId));
-   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,measuredBoth:e.type==='GAMES_RECORDED'?e.measuredBoth===true:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,recordedAt:e.recordedAt||null});
+   const fmt=e=>({sessionId:e.sessionId,type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,awardedAtCurrentG:e.type==='BONUS_AWARDED'?(e.awardedAtCurrentG??null):null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,trigger:e.type==='BONUS_AWARDED'?(e.trigger||'不明'):null,triggerVerification:e.type==='BONUS_AWARDED'?(e.triggerVerification||'unknown'):null,delta:e.type==='GAMES_RECORDED'?e.delta:null,measuredBoth:e.type==='GAMES_RECORDED'?e.measuredBoth===true:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,totalG:e.type==='HALL_SNAPSHOT_RECORDED'?e.totalG:null,bb:e.type==='HALL_SNAPSHOT_RECORDED'?e.bb:null,rb:e.type==='HALL_SNAPSHOT_RECORDED'?e.rb:null,recordedAt:e.recordedAt||null});
    return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g},events:effective.map(fmt)}));
  },
  snapshot(){
@@ -2906,12 +2926,29 @@ window.__p8ViewsApi=Object.freeze({
    if(!s)return Object.freeze({ok:false,reason:'no-selected-session'});
    const effective=correctedEvents(view.filter(e=>e.sessionId===active));
    const bonuses=s.bonuses.filter(b=>!b.pendingReview);
-   const fmt=e=>({type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,delta:e.type==='GAMES_RECORDED'?e.delta:null,measuredBoth:e.type==='GAMES_RECORDED'?e.measuredBoth===true:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,recordedAt:e.recordedAt||null});
+   const fmt=e=>({sessionId:e.sessionId,type:e.type,sequence:e.commitSequence??null,bonusType:e.bonusType||null,bonusId:e.bonusId||null,awardedAtCurrentG:e.type==='BONUS_AWARDED'?(e.awardedAtCurrentG??null):null,pendingReview:e.type==='BONUS_AWARDED'?e.pendingReview===true:null,trigger:e.type==='BONUS_AWARDED'?(e.trigger||'不明'):null,triggerVerification:e.type==='BONUS_AWARDED'?(e.triggerVerification||'unknown'):null,delta:e.type==='GAMES_RECORDED'?e.delta:null,measuredBoth:e.type==='GAMES_RECORDED'?e.measuredBoth===true:null,netMedals:e.type==='NET_MEDALS_OBSERVED'?e.amount:null,totalG:e.type==='HALL_SNAPSHOT_RECORDED'?e.totalG:null,bb:e.type==='HALL_SNAPSHOT_RECORDED'?e.bb:null,rb:e.type==='HALL_SNAPSHOT_RECORDED'?e.rb:null,recordedAt:e.recordedAt||null});
    // Read only: never merge a hall observation with personal-session counters.
    const latestHall=s.snapshots.at(-1);
    const hallValid=!!latestHall&&Number.isSafeInteger(latestHall.totalG)&&latestHall.totalG>0&&Number.isSafeInteger(latestHall.bb)&&latestHall.bb>=0&&Number.isSafeInteger(latestHall.rb)&&latestHall.rb>=0&&latestHall.bb+latestHall.rb<=latestHall.totalG;
-   const hallObservation=hallValid?{totalG:latestHall.totalG,bb:latestHall.bb,rb:latestHall.rb}:null;
-   return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG,bb:bonuses.filter(b=>b.bonusType==='BB').length,rb:bonuses.filter(b=>b.bonusType==='RB').length,grape:s.grape,cherry:s.cherry,hallObservation},events:effective.map(fmt)}));
+   const hallZeroStart=!!latestHall&&latestHall.totalG===0&&latestHall.currentG===0&&latestHall.bb===0&&latestHall.rb===0;const hallObservation=hallValid?{totalG:latestHall.totalG,bb:latestHall.bb,rb:latestHall.rb}:hallZeroStart?{totalG:0,currentG:0,bb:0,rb:0}:null;
+   return JSON.parse(JSON.stringify({ok:true,session:{id:s.id,store:s.store,machine:s.machine,number:s.number,date:s.date,status:s.status,personalG:s.g,measuredG:s.measuredG,hasUnmeasuredG:s.hasUnmeasuredG,bb:bonuses.filter(b=>b.bonusType==='BB').length,rb:bonuses.filter(b=>b.bonusType==='RB').length,grape:s.grape,cherry:s.cherry,nonOverlapCherry:s.nonOverlapCherry,nonOverlapCherryVerified:s.nonOverlapCherryVerified,hallObservation},events:effective.map(fmt)}));
+ }
+});
+// Stage13: append-only verified classification event, owned by P31 writer.
+// Never infer non-overlap counts from total cherries or unknown bonus triggers.
+window.__p8CherryVerificationApi=Object.freeze({
+ async verify(input){
+  const s=project?.get(active);
+  if(!s||!input||input.sessionId!==s.id)return {status:'rejected',reason:'実戦IDが一致しません'};
+  if(!writer||busy||pending.length||document.hidden||p8JournalRead())return {status:'rejected',reason:'保存処理が利用できません'};
+  if(s.g<=0||s.hasUnmeasuredG||s.measuredG!==s.g||s.grape+s.cherry>s.g)
+   return {status:'rejected',reason:'全ゲームの小役実測条件が揃っていません'};
+  if(input.allCherriesClassified!==true)return {status:'rejected',reason:'全チェリーの分類確認が必要です'};
+  const n=input.nonOverlapCherries;
+  if(!Number.isSafeInteger(n)||n<0||n>s.cherry)return {status:'rejected',reason:'非重複回数が総チェリー回数を超えています'};
+  const relevant=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED']);
+  const sourceEventIds=correctedEvents(view.filter(e=>e.sessionId===s.id)).filter(e=>relevant.has(e.type)).map(e=>e.eventId);
+  return await runForD07F([{type:'NON_OVERLAP_CHERRY_VERIFIED',nonOverlapCherries:n,allCherriesClassified:true,personalGames:s.g,measuredGames:s.measuredG,grapes:s.grape,totalCherries:s.cherry,sourceEventIds,segmentId:s.segment}]);
  }
 });
 // D07F correction capability: only committed events for the active session.
@@ -3063,6 +3100,59 @@ window.__p8HallApi=Object.freeze({
     catch(_e){return Object.freeze({status:'unknown'});}
   }
 });
+// Stage14 C2: identify a game record followed exclusively by fruit-count events.
+// The replacement is permitted only when the retained game record can still
+// account for all fruit counts after it. Bonus, hall, segment, and other events
+// are hard boundaries; nothing is silently rewritten or deleted.
+function stage14CorrectableGameTail(effective,sessionId,adjustment){
+ const rows=effective.filter(e=>e.sessionId===sessionId);
+ let at=rows.length-1;
+ while(at>=0&&['GRAPE_COUNTED','CHERRY_COUNTED'].includes(rows[at].type))at--;
+ const game=rows[at],fruit=rows.slice(at+1);
+ if(!game||game.type!=='GAMES_RECORDED'||!Number.isSafeInteger(game.delta)||game.delta<adjustment||adjustment<=0)
+   return {reason:'直近のゲーム記録だけ訂正できます。ボーナス・ホール観測などをまたぐ訂正はできません'};
+ if(fruit.length){
+   if(game.measuredBoth!==true||game.delta<=adjustment)
+     return {reason:'小役記録後は実測したG数を0Gに戻せません。入力値を確認してください'};
+   if(fruit.length>game.delta-adjustment)
+     return {reason:'訂正後の実測Gが記録済み小役回数を下回ります。小役記録を確認してください'};
+   if(fruit.some(e=>e.segmentId!==game.segmentId))
+     return {reason:'遊技区間をまたぐ訂正はできません'};
+ }
+ return {game,fruitCount:fruit.length};
+}
+// Stage14: Validate direct-count invariants inside the same DB transaction as append.
+// Older events without stage14 fields keep their previous semantics.
+function validateStage14Writes(committed,incoming){
+ const existing=replay(committed);
+ const effective=correctedEvents(committed);
+ for(const e of incoming){
+  if(e.type==='EVENT_CANCELLED'&&e.stage14CurrentExpected!==undefined){
+   const state=existing.get(e.sessionId);
+   const selected=stage14CorrectableGameTail(effective,e.sessionId,e.stage14CorrectionAmount);
+   if(!state||state.current!==e.stage14CurrentExpected||selected.game?.eventId!==e.targetEventId)
+     throw Error('訂正対象が変更されました');
+  }
+ }
+ for(const e of incoming){
+  if(e.type!=='CURRENT_G_BASELINE' && !(e.type==='GAMES_RECORDED' && e.stage14ExpectedCurrent!==undefined))continue;
+  const state=existing.get(e.sessionId);
+  if(!state||state.status!=='ACTIVE')throw Error('ゲーム数を記録できない実戦状態です');
+  if(e.type==='CURRENT_G_BASELINE'){
+   if(state.current!==null||!Number.isSafeInteger(e.currentG)||e.currentG<0||e.currentG>9999999)throw Error('初期現在G設定の条件が変わりました');
+   continue;
+  }
+  if(state.current!==e.stage14ExpectedCurrent)throw Error('現在Gが変更されました。画面を更新してください');
+  if(e.stage14CorrectionOf){
+   const selected=stage14CorrectableGameTail(effective,e.sessionId,e.stage14CorrectionAmount);
+   const target=selected.game?.eventId===e.stage14CorrectionOf?selected.game:null;
+   const cancel=incoming.find(x=>x.type==='EVENT_CANCELLED'&&x.targetEventId===e.stage14CorrectionOf);
+   if(!target||target.type!=='GAMES_RECORDED'||!cancel||e.measuredBoth!==target.measuredBoth||
+      !Number.isSafeInteger(e.delta)||e.delta<1||e.delta>=target.delta||
+      target.delta-e.delta!==e.stage14CorrectionAmount)throw Error('訂正対象のゲーム記録が変更されました');
+  }else if(e.delta<1)throw Error('直接指定の増分が不正です');
+ }
+}
 window.__p8CountApi = Object.freeze({
   state(){return Object.freeze({ready:!!writer && !busy && pending.length===0 && !!active && !document.hidden && !p8JournalRead(), busy:!!busy, pending:pending.length, hasSession:!!active, writer:!!writer});},
   async games(delta, measuredBoth){
@@ -3072,15 +3162,51 @@ window.__p8CountApi = Object.freeze({
       return await runForD07F([{type:'GAMES_RECORDED',delta,measuredBoth,segmentId:s.segment}]);
     }catch(_e){return Object.freeze({status:'unknown'});}
   },
+  gamePosition(){const s=project?.get(active);return Object.freeze({current:s?.current??null,personal:s?.g??null});},
+  async setCurrentGames(target,measuredBoth){
+    const s=project?.get(active);
+    if(!Number.isSafeInteger(target)||target<0||target>9999999||typeof measuredBoth!=='boolean'||
+      !s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead())
+      return Object.freeze({status:'rejected',reason:'実戦または入力値を確認してください'});
+    const current=s.current;
+    let events;
+    if(current===null){
+      events=[{type:'CURRENT_G_BASELINE',currentG:target,segmentId:s.segment}];
+    }else if(target===current){
+      return Object.freeze({status:'rejected',reason:'現在Gは変更されていません'});
+    }else if(target>current){
+      events=[{type:'GAMES_RECORDED',delta:target-current,measuredBoth,segmentId:s.segment,stage14ExpectedCurrent:current}];
+    }else{
+      // Fruit counts following the most recent G entry may remain if the
+      // adjusted measurement still accounts for every counted small role.
+      // A bonus, hall observation, or session change remains a hard boundary.
+      const adjustment=current-target;
+      const selected=stage14CorrectableGameTail(correctedEvents(view.filter(e=>e.sessionId===active)),active,adjustment);
+      if(!selected.game)return Object.freeze({status:'rejected',reason:selected.reason});
+      const last=selected.game;
+      if(last.delta===adjustment){
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment}];
+      }else{
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment},
+          {type:'GAMES_RECORDED',delta:last.delta-adjustment,measuredBoth:last.measuredBoth===true,
+            segmentId:last.segmentId,stage14ExpectedCurrent:current,stage14CorrectionOf:last.eventId,
+            stage14CorrectionAmount:adjustment}];
+      }
+    }
+    try{return await runForD07F(events);}catch(_e){return Object.freeze({status:'unknown'});}
+  },
   // D07F native bonus form calls the authoritative P31 event writer.
   // No direct IndexedDB access or synthetic click into the old P31 UI.
   async awardBonus(type,trigger){
     if(!['BB','RB'].includes(type)||!['不明','単独','チェリー重複'].includes(trigger)) return Object.freeze({status:'rejected'});
     const s=project?.get(active);
     if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead()) return Object.freeze({status:'rejected'});
-    const pendingReview=s.bonuses.some(b=>!b.completed);
+    if(s.bonuses.some(b=>!b.completed))return Object.freeze({status:'rejected',reason:'先に未消化ボーナスを完了し、保留を確認してください'});
+    const pendingReview=false;
     try{
-      return await runForD07F([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview}]);
+      return await runForD07F([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview,awardedAtCurrentG:Number.isSafeInteger(s.current)?s.current:null}]);
     }catch(_e){return Object.freeze({status:'unknown'});}
   },
   // D07F uses this projected state; IDs never come from the caller.
@@ -3100,10 +3226,11 @@ window.__p8CountApi = Object.freeze({
       review:firstPending&&!blocked?Object.freeze({type:firstPending.bonusType}):null,
       pendingCount,reviewReason});
   },
-  async bonusAction(action){
+  async bonusAction(action,expectedCurrent){
     if(action!=='complete'&&action!=='review')return Object.freeze({status:'rejected'});
     const s=project?.get(active);
     if(!s||s.status!=='ACTIVE'||!writer||busy||pending.length||document.hidden||p8JournalRead())return Object.freeze({status:'rejected'});
+    if(action==='complete'&&s.current!==expectedCurrent)return Object.freeze({status:'rejected',reason:'確認中に現在Gが変更されました'});
     const bonus=action==='complete'
       ? s.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview)
       : (s.bonuses.some(b=>!b.completed&&!b.pendingReview)?null:s.bonuses.find(b=>b.pendingReview));
@@ -3167,7 +3294,7 @@ window.__p8CountApi = Object.freeze({
   }
 });
 $('grapeBtn').onclick=()=>run([{type:'GRAPE_COUNTED',segmentId:project.get(active).segment}]);$('cherryBtn').onclick=()=>run([{type:'CHERRY_COUNTED',segmentId:project.get(active).segment}]);
-for(const type of ['BB','RB'])$(type.toLowerCase()+'Btn').onclick=()=>modal(`${type} 当選`, '<div class="field"><label for="triggerInput">当選契機</label><select id="triggerInput"><option value="不明" selected>不明・判別できず（標準）</option><option value="単独">単独（確認済み）</option><option value="チェリー重複">チェリー重複（確認済み）</option></select></div><p class="hint">チェリーを見逃した可能性がある場合は「不明」のまま保存してください。チェリー重複を選択しても、チェリー回数は自動加算されません。今回のチェリーをまだ記録していない場合のみ、チェリーボタンで1回追加してください。前回のボーナスが未消化なら保留として保存します。</p>',async()=>{const s=project.get(active),pendingReview=s.bonuses.some(b=>!b.completed),trigger=$('triggerInput').value;return await run([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview}])});
+for(const type of ['BB','RB'])$(type.toLowerCase()+'Btn').onclick=()=>modal(`${type} 当選`, '<div class="field"><label for="triggerInput">当選契機</label><select id="triggerInput"><option value="不明" selected>不明・判別できず（標準）</option><option value="単独">単独（確認済み）</option><option value="チェリー重複">チェリー重複（確認済み）</option></select></div><p class="hint">チェリーを見逃した可能性がある場合は「不明」のまま保存してください。チェリー重複を選択しても、チェリー回数は自動加算されません。今回のチェリーをまだ記録していない場合のみ、チェリーボタンで1回追加してください。前回のボーナスが未消化なら保留として保存します。</p>',async()=>{const s=project.get(active),pendingReview=s.bonuses.some(b=>!b.completed),trigger=$('triggerInput').value;return await run([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview,awardedAtCurrentG:Number.isSafeInteger(s.current)?s.current:null}])});
 async function addGames(delta){const s=project?.get(active);if(!s||s.status!=='ACTIVE'||!Number.isSafeInteger(delta)||delta<=0){alert('実戦中に1以上の整数Gを入力してください');return false}const ok=await run([{type:'GAMES_RECORDED',delta,measuredBoth:$('measuredBoth').checked,segmentId:s.segment}]);return ok}
 $('addGBtn').onclick=async()=>{try{const n=num('addG');if(!n){alert('1以上のゲーム数を入力してください');return}const original=$('addG').value;const success=await addGames(n);if(success&&$('addG').value===original)$('addG').value=''}catch(err){alert(err.message)}};
 $('quick50').onclick=()=>addGames(50);$('quick100').onclick=()=>addGames(100);
@@ -3245,7 +3372,7 @@ $('exportBtn').onclick=async()=>{const btn=$('exportBtn');if(pending.length||bus
 const BACKUP_EVENT_TYPES=new Set([
  'SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED',
  'SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED',
- 'GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED','HALL_SNAPSHOT_RECORDED',
+ 'GAMES_RECORDED','CURRENT_G_BASELINE','GRAPE_COUNTED','CHERRY_COUNTED','NON_OVERLAP_CHERRY_VERIFIED','HALL_SNAPSHOT_RECORDED',
  'BONUS_AWARDED','BONUS_REVIEW_CONFIRMED','BONUS_COMPLETED',
  'EVENT_CANCELLED','EVENT_RESTORED',
  'CASH_INVESTED','CASH_RECOVERED','MEDALS_INSERTED','MEDALS_PAID_OUT',
@@ -3255,14 +3382,17 @@ const BACKUP_EVENT_TYPES=new Set([
 ]);
 function validateBackupEventPayload(e){
  if(!BACKUP_EVENT_TYPES.has(e.type))throw Error('対応していないイベント種別があります');
+ if(e.type==='CURRENT_G_BASELINE'&&(!Number.isSafeInteger(e.currentG)||e.currentG<0||e.currentG>9999999))throw Error('現在G初期値が不正です');
  if(e.type==='GAMES_RECORDED'&&(!Number.isSafeInteger(e.delta)||e.delta<=0))throw Error('ゲーム数の増分が不正です');
+ if(e.type==='NON_OVERLAP_CHERRY_VERIFIED'&&(!Number.isSafeInteger(e.nonOverlapCherries)||e.nonOverlapCherries<0||!Number.isSafeInteger(e.personalGames)||!Number.isSafeInteger(e.measuredGames)||!Number.isSafeInteger(e.grapes)||!Number.isSafeInteger(e.totalCherries)||e.allCherriesClassified!==true||!Array.isArray(e.sourceEventIds)||e.sourceEventIds.length>20000||e.sourceEventIds.some(id=>typeof id!=='string'||id.length>128)))throw Error('非重複チェリー確認情報が不正です');
  if(e.type==='SESSION_CREATED'){
   if(typeof e.segmentId!=='string'||!e.segmentId||
    ['store','machine','date'].some(k=>typeof e[k]!=='string'||!e[k].trim())||typeof e.number!=='string'||e.number.length>30)throw Error('実戦作成情報が不足しています');
  }
  if(e.type==='SEGMENT_STARTED'&&(typeof e.segmentId!=='string'||!e.segmentId))throw Error('遊技区間IDが不正です');
  if(e.type==='BONUS_AWARDED'&&(
-  typeof e.bonusId!=='string'||!e.bonusId||!['BB','RB'].includes(e.bonusType)
+  typeof e.bonusId!=='string'||!e.bonusId||!['BB','RB'].includes(e.bonusType)||
+  (e.awardedAtCurrentG!==undefined&&e.awardedAtCurrentG!==null&&(!Number.isSafeInteger(e.awardedAtCurrentG)||e.awardedAtCurrentG<0))
  ))throw Error('ボーナス情報が不正です');
  if(['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(e.type)&&
   (typeof e.bonusId!=='string'||!e.bonusId))throw Error('ボーナス参照が不正です');

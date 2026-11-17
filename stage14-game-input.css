@@ -1,0 +1,7 @@
+/* Stage14: opt-in on-screen keypad, numeric keyboard remains available. */
+.stage14-keypad{margin:.55rem 0;border:1px solid rgba(133,165,146,.4);border-radius:12px;padding:.5rem .65rem;}
+.stage14-keypad summary{cursor:pointer;font-size:.9rem;font-weight:650;min-height:30px;}
+.stage14-keygrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:.5rem;}
+.stage14-keygrid button{min-height:43px;border-radius:9px;border:1px solid rgba(130,160,145,.45);background:var(--card,#12382e);color:var(--text,#fff);font-size:1.15rem;font-weight:600;touch-action:manipulation;}
+.stage14-keygrid button:active{opacity:.65;}
+.stage14-keyhelp{font-size:.78rem;opacity:.8;margin:.4rem 0 .1rem;}
