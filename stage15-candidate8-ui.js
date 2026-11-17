@@ -43,15 +43,23 @@
  modeOff.addEventListener('click',()=>setMode('off'));
  modeOn.addEventListener('click',()=>setMode('on'));
  function integer(id){const raw=$(id).value.trim();if(!/^-?\d+$/.test(raw))throw Error('G数・BB・RB・差枚を整数で入力してください');const n=Number(raw);if(!Number.isSafeInteger(n))throw Error('入力値が大きすぎます');return n}
+ function showError(message){result.replaceChildren();const label=document.createElement('p');label.className='jgl15-result-error';label.textContent=message;result.append(label)}
  function calculate(){
   try{
    const data={machine:machine.value,games:integer('jgl15-total'),bb:integer('jgl15-bb'),rb:integer('jgl15-rb'),net:integer('jgl15-net'),margin:Number($('jgl15-margin').value),source:$('jgl15-source').value,mode,baseline:$('jgl15-baseline').checked?'confirmed':'unknown',scope:$('jgl15-scope').checked?'confirmed':'unknown'};
    const engine=window.JissenhyoPreseat;if(!engine)throw Error('計算エンジンを読み込めません');
-   const out=engine.estimate(data);if(!out.ok){result.textContent='算出不可：'+out.reason;return}
-   const range='1/'+out.rateLow.toFixed(2)+'〜'+(out.rateHigh===null?'上限不明':'1/'+out.rateHigh.toFixed(2));
-   const kind=mode==='on'?'チェリーON（成立後1BET仮定）':'チェリーOFF（全G3BET換算）';
-   result.textContent=out.machine+'（'+out.modelReference+'）｜'+kind+'｜推定ぶどう：約'+Math.round(out.grapes).toLocaleString('ja-JP')+'回（1/'+out.grapeRate.toFixed(2)+'）｜参考幅：'+range+'。'+(mode==='on'?'通常時G：'+out.normalGames.toLocaleString('ja-JP')+'G。':'')+'実測値ではなく参考値です。'+(registry.get(machine.value)?.notice||'');
-  }catch(e){result.textContent='入力エラー：'+e.message}
+   const out=engine.estimate(data);if(!out.ok){showError('算出不可：'+out.reason);return}
+   const machineProfile=registry.get(machine.value);
+   const card=document.createElement('div');card.className='jgl15-result-card';card.setAttribute('role','group');card.setAttribute('aria-label','ぶどう参考逆算結果');
+   const heading=document.createElement('div');heading.className='jgl15-result-label';heading.textContent='推定ぶどう確率（参考値）';
+   const probability=document.createElement('strong');probability.className='jgl15-result-rate';probability.textContent='1/'+out.grapeRate.toFixed(2);
+   const count=document.createElement('div');count.className='jgl15-result-count';count.textContent='約'+Math.round(out.grapes).toLocaleString('ja-JP')+'回';
+   const range=document.createElement('div');range.className='jgl15-result-range';range.textContent='参考幅：1/'+out.rateLow.toFixed(2)+'〜'+(out.rateHigh===null?'上限不明':'1/'+out.rateHigh.toFixed(2));
+   card.append(heading,probability,count,range);
+   const detail=document.createElement('p');detail.className='jgl15-result-detail';
+   detail.textContent=out.machine+'（'+out.modelReference+'）｜'+(mode==='on'?'チェリーON（成立後1BET仮定）':'チェリーOFF（全G3BET換算）')+'。'+(mode==='on'?'通常時G：'+out.normalGames.toLocaleString('ja-JP')+'G。':'')+'実測値ではなく参考値です。'+(machineProfile?.notice||'');
+   result.replaceChildren(card,detail);
+  }catch(e){showError('入力エラー：'+e.message)}
  }
  calc.addEventListener('click',()=>{hasCalculated=true;calculate()});
  for(const id of ['jgl15-total','jgl15-bb','jgl15-rb','jgl15-net','jgl15-margin','jgl15-source','jgl15-baseline','jgl15-scope'])$(id).addEventListener('input',()=>{if(hasCalculated)calculate()});

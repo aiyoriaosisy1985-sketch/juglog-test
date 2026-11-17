@@ -425,7 +425,7 @@ function populateSessionSelect(){
   sessionSelect.replaceChildren();
   for(const item of state.sessions){
    const option=document.createElement('option');option.value=item.id;
-   option.textContent=`${item.date}｜${item.store}｜${item.number?item.number+'番台':'台番号未登録'} (${item.status})`;
+   option.textContent=`${item.date}｜${item.store}｜${item.number?item.number+'番台':'台番号未登録'}（${({ACTIVE:'実戦中',PAUSED:'一時中断中',CLOSED_PENDING:'実戦終了（確認待ち）',CLOSED_CONFIRMED:'実戦終了',CLOSED:'実戦終了'})[item.status]||item.status}）`;
    sessionSelect.append(option);
   }
   // P31 owns the active session. Never override its selection with a stale DOM value.
