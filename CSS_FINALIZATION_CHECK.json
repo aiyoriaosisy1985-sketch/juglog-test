@@ -1,0 +1,18 @@
+{
+  "source": "JGL_stage16_css_visual_pruned_work_20261117",
+  "changed_css_files": [
+    "stage16-main.css",
+    "stage16-p31.css"
+  ],
+  "exact_replacements": 9,
+  "declarations_removed": 10,
+  "final_cascade_entries_compared": 1926,
+  "same_final_declarations": true,
+  "remaining_conflicts": 7,
+  "javascript_checked": 27,
+  "html_unchanged": true,
+  "browser_checked": false,
+  "iphone_checked": false,
+  "github_updated": false,
+  "library_saved": false
+}

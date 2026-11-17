@@ -1,0 +1,642 @@
+/* Juglog Stage16 stylesheet consolidation. Source sections retain original cascade order. */
+
+/* ===== SOURCE: d07f-p31-bridge.css ===== */
+#p31-overlay[hidden]{display:none!important;}#p31-overlay{position:fixed;inset:0;z-index:10000;background:#05271f;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);}.p31-overlay-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 13px;color:#f5fef8;}.p31-overlay-head button{min-height:42px;padding:8px 14px;border:1px solid #81c8a6;background:#194d3b;color:#fff;border-radius:10px;}#p31-frame{border:0;flex:1;width:100%;background:#0b2f23;}.board .key[data-p31]{touch-action:manipulation;}.board .key[data-p31]:active{filter:brightness(1.35);transform:scale(.98);}.board .entry button{width:100%;min-height:46px;}.micro{line-height:1.4;}@media(prefers-reduced-motion:reduce){.board .key[data-p31]{transition:none!important;}}
+#p8-direct-status{margin:8px 10px;padding:8px 10px;border-radius:10px;background:#164c3b;color:#e3fbea;font-size:12px;line-height:1.45;}button[data-p31]:disabled{opacity:.55;filter:grayscale(.35);cursor:not-allowed;}
+.p8-games-form{display:grid;gap:8px;}.p8-games-form>input{min-height:44px;padding:10px;border-radius:10px;border:1px solid var(--line,#6d947c);background:var(--panel,#fff);color:var(--text,#102b1e);width:100%;box-sizing:border-box;}.p8-measure{display:flex;gap:8px;align-items:center;font-size:12px;}.p8-measure input{min-width:18px;min-height:18px;}.p8-games-form button:disabled{opacity:.45;cursor:not-allowed;}
+
+#p8-inspect-last{display:block;margin:8px auto;padding:10px 12px;max-width:100%;border-radius:10px;border:1px solid #79ad99;background:transparent;color:inherit;min-height:44px;}
+
+.p8-dataview{min-height:60px;color:inherit;font-size:14px;}.p8-data-grid{display:grid;}.p8-data-grid>div{border:1px solid #71a18b88;border-radius:12px;}.p8-data-grid strong{display:block;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}.p8-event-list{list-style:none;padding:0;overflow:auto;}.p8-event-list li{display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #80a89255;}.p8-event-list small{white-space:nowrap;color:inherit;opacity:.7;}.p8-dataview svg{max-width:100%;overflow:visible;}
+
+.p8-history-sessions{display:grid;}.p8-history-session{width:100%;text-align:left;border-radius:10px;border:1px solid var(--stroke,#64866f);background:transparent;color:inherit;line-height:1.5;min-height:44px;}.p8-history-session[aria-pressed="true"]{outline:2px solid #67bf91;outline-offset:1px;font-weight:700;}
+
+/* Phase 8 workbench: compact read-only bonus state and native review entry */
+.p8-bonus-state{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px;font-size:.84rem;}
+.p8-bonus-state>span{white-space:nowrap;}
+.p8-bonus-state strong{font-variant-numeric:tabular-nums;}
+.p8-bonus-state button{margin-left:auto;min-height:38px;padding:7px 13px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;font:inherit;}
+.p8-bonus-state button:disabled{opacity:.45;cursor:default;}
+
+/* Phase 8: session-management controls use the native P31 confirmation dialog. */
+.p8-session-actions{margin:12px 0;border:1px solid var(--line, #607080);}
+.p8-session-actions h2{margin:0 0 6px;font-size:1rem;}
+.p8-session-actions p{margin:4px 0 10px;font-size:.82rem;}
+.p8-session-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+.p8-session-buttons button{min-width:0;padding:10px 5px;border-radius:9px;border:1px solid var(--line, #607080);background:var(--surface, #243044);color:inherit;font:inherit;}
+.p8-session-buttons button:last-child{grid-column:1/-1;}
+#p8-session-status:empty{display:none;}
+
+/* v4.3: selected-history correction handoff, with session identity warning */
+.p8-history-actions{display:grid;margin:0 0 14px;}
+.p8-history-actions button{min-height:44px;padding:10px 12px;text-align:center;border:1px solid var(--line,#60846f);border-radius:10px;font:inherit;}
+.p8-history-advice{margin:0;font-size:.81rem;line-height:1.55;opacity:.85;}
+
+/* D07F native bonus confirmation; P31 remains the authoritative writer. */
+#p8-bonus-dialog{width:min(92vw,440px);max-height:90dvh;overflow:auto;border:1px solid var(--line,#53636a);border-radius:18px;background:var(--panel,#20292e);color:var(--text,#fff);padding:20px;box-shadow:0 20px 50px #0008;}
+#p8-bonus-dialog::backdrop{background:#0009;}
+.p8-bonus-form{display:grid;gap:12px;}
+.p8-bonus-form h2{margin:0;font-size:1.2rem;}
+.p8-bonus-form label{font-weight:700;}
+.p8-bonus-form select{width:100%;padding:12px;border-radius:9px;font-size:1rem;}
+.p8-bonus-form p{margin:0;line-height:1.5;font-size:.9rem;}
+.p8-bonus-actions{display:flex;gap:10px;justify-content:flex-end;}
+.p8-bonus-actions button{min-height:44px;padding:10px 14px;border-radius:10px;}
+
+/* v47: compact event correction controls */
+.p8-history-corrections{margin:12px 0;padding:10px;border:1px solid var(--line, #555);border-radius:12px;}.p8-correction-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line,#555);}.p8-correction-row span{overflow-wrap:anywhere;min-width:0;}.p8-correction-row button{flex-shrink:0;}
+
+.p8-session-switch{display:grid;}.p8-session-switch select,.p8-session-switch button{min-width:0;width:100%;padding:9px;border-radius:9px;border:1px solid var(--line,#607080);background:var(--surface,#243044);color:inherit;font:inherit;}
+
+/* v5.1: QA interface hierarchy; gameplay actions and app storage are unchanged. */
+.p8-legacy-tools{margin-top:14px;border-top:1px solid var(--line,#749b85);padding-top:10px;}
+.p8-legacy-tools summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:650;font-size:12px;opacity:.85;}
+.p8-legacy-tools[open] .p8-session-buttons{margin-top:8px;}
+#p8-data-tools>label[for=p8-direct-backup-file]{display:block;margin-top:14px;margin-bottom:6px;}
+#p8-data-tools #p8-direct-backup-file{display:block;max-width:100%;margin-bottom:10px;}
+#p8-data-tools #p8-direct-restore{min-height:44px;}
+.p8-session-actions>p:first-of-type{margin:0 0 12px;font-size:12px;line-height:1.5;}
+.p8-session-actions h2{margin-bottom:8px;}
+
+/* v5.2: scoped layout consistency for P31-connected controls; retain D07F keys */
+.p8-session-actions{padding:12px 13px;margin-block:10px;border-radius:15px;}
+.p8-session-buttons{gap:8px;}
+.p8-session-buttons button,.p8-session-switch button,.p8-history-actions button,.p8-correction-row button{min-height:44px;line-height:1.35;padding:9px 11px;touch-action:manipulation;}
+.p8-session-switch select{min-height:44px;}
+.p8-session-switch{gap:8px;margin-top:12px;}
+.p8-session-actions p,#p8-session-status{overflow-wrap:anywhere;line-height:1.45;}
+.p8-history-actions{gap:8px;margin-bottom:12px;}
+.p8-correction-row{gap:10px;padding-block:9px;}
+.p8-correction-row button{max-width:46%;white-space:normal;}
+#p8-data-tools #p8-direct-backup-file{min-height:44px;width:100%;}
+#p8-data-tools #p8-direct-restore{width:100%;padding:10px 12px;white-space:normal;}
+.p8-legacy-tools summary{line-height:1.4;}
+.p8-session-buttons button:focus-visible,.p8-session-switch :is(button,select):focus-visible,.p8-history-actions button:focus-visible,.p8-correction-row button:focus-visible,#p8-data-tools :is(button,input):focus-visible{outline:2px solid #f4d58e;outline-offset:2px;}
+@media(max-width:374px){.p8-session-actions{padding:10px;}.p8-session-buttons{gap:6px;}.p8-session-buttons button{padding-inline:6px;font-size:12px;}.p8-correction-row{flex-wrap:wrap;}.p8-correction-row button{max-width:none;}}
+
+/* v5.8.1: readable history action contrast in both themes. */
+.p8-history-actions button{background:#253248;color:#fff;}
+html[data-theme="light"] .p8-history-actions button{background:#253248;color:#fff;border-color:#607d96;}
+html[data-theme="light"] .p8-history-actions button:disabled{color:#d1d7df;}
+
+/* Stage 6 QA fix: session create form matches D07F rather than Safari defaults. */
+#p8-create-dialog{width:min(92vw,440px);max-width:calc(100vw - 24px);max-height:min(88dvh,760px);overflow:auto;overscroll-behavior:contain;box-sizing:border-box;margin:auto;padding:20px;border:1px solid #7bb99c;border-radius:18px;background:linear-gradient(160deg,#14513e,#062d23);color:#f5faf6;box-shadow:0 20px 50px #0009;}
+#p8-create-dialog::backdrop{background:#001d17b8;}
+#p8-create-dialog .p8-bonus-form{min-width:0;gap:12px;}
+#p8-create-dialog .p8-bonus-form label{display:grid;gap:5px;min-width:0;}
+#p8-create-dialog input{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;font:inherit;color:#f5faf6;background:#06382b;border:1px solid #80b49c;border-radius:10px;}
+#p8-create-dialog input:focus{outline:2px solid #ffe3a1;outline-offset:1px;}
+#p8-create-dialog .p8-bonus-actions{flex-wrap:wrap;}
+#p8-create-dialog .p8-bonus-actions button{background:linear-gradient(#1a7156,#0a4736);border:1px solid #81bca0;color:#f5faf6;font:inherit;font-weight:700;}
+#p8-create-dialog .p8-bonus-actions button:last-of-type{background:linear-gradient(#ffe9a0,#d7a94f);color:#163025;border-color:#ffe3a0;}
+html[data-theme=light] #p8-create-dialog{background:linear-gradient(#f4fbf5,#deede2);color:#173b31;}
+html[data-theme=light] #p8-create-dialog input{background:#fff;color:#173b31;border-color:#75a08d;}
+
+/* Phase 8 stage6 consolidated modal layout: iOS Safari safe input widths and keyboard viewport. */
+#p8-create-dialog,#p8-bonus-dialog{max-width:calc(100% - 24px);max-height:calc(100dvh - 32px);max-height:calc(var(--p8-visual-height, 100dvh) - 32px);box-sizing:border-box;overflow-x:hidden;overflow-y:auto;scroll-padding-bottom:80px;}
+#p8-create-dialog .p8-bonus-form,#p8-bonus-dialog .p8-bonus-form{min-width:0;max-width:100%;}
+#p8-create-dialog input[type=date]{display:block;width:100%;max-width:100%;min-width:0;-webkit-appearance:none;appearance:none;}
+#p8-create-dialog .p8-bonus-actions{position:relative;min-width:0;}
+#p8-create-dialog .p8-bonus-actions button{flex:1 1 120px;}
+#p8-create-dialog :is(input,select):focus{scroll-margin-bottom:95px;}
+
+#p8-review-reason:not(:empty){display:block;margin:4px 2px 8px;font-size:12px;line-height:1.5;color:var(--text,#fff);}
+
+/* BUG-005: center the new-session modal in the Safari visual viewport, not the document. */
+#p8-create-dialog[open]{position:fixed;left:50%;right:auto;bottom:auto;margin:0;transform:translate(-50%,-50%);width:min(92vw,440px);max-width:calc(100vw - 24px);overflow-y:auto;overscroll-behavior:contain;}
+
+
+/* ===== SOURCE: phase8-v23-quality.css ===== */
+/* Phase 8 v2.3: D07F 5-tab legibility and spatial rhythm. No event or storage logic changes. */
+#panel-guess.content,#panel-graph.content,#panel-history.content,#panel-settings.content{padding:12px 12px 22px;min-width:0;}
+#panel-guess .section-card,#panel-graph .section-card,#panel-history .section-card,#panel-settings .section-card{padding:13px 12px;border-radius:16px;}
+#panel-guess .heading,#panel-graph .heading,#panel-history .heading,#panel-settings .heading{margin-bottom:10px;}
+#panel-guess .heading h1,#panel-graph .heading h1,#panel-history .heading h1,#panel-settings .heading h1{line-height:1.25;}
+.p8-data-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:9px 0;}
+.p8-data-grid>div{min-width:0;padding:10px 9px;overflow-wrap:anywhere;}
+.p8-data-grid strong{font-size:clamp(16px,4.8vw,20px);line-height:1.25;margin-top:3px;}
+.p8-dataview{min-width:0;overflow-wrap:anywhere;line-height:1.5;}
+.p8-provenance{font-size:11px;line-height:1.5;opacity:.82;margin:6px 0;}
+.p8-history-sessions{margin:10px 0 14px;gap:7px;}
+.p8-history-session{padding:10px;overflow-wrap:anywhere;}
+.p8-event-list{margin:7px 0 0;max-height:440px;}
+.p8-event-list li{align-items:start;min-width:0;gap:8px;}
+.p8-event-list li span{min-width:0;overflow-wrap:anywhere;}
+.p8-event-list li small{flex:none;}
+#panel-settings .settings-row{min-width:0;gap:8px;padding:11px 0;}
+#panel-settings .settings-row>div{min-width:0;}
+#panel-settings .theme-pick{gap:5px;}
+#panel-settings .theme-pick button{padding:7px 8px;}
+@media(max-width:374px){#panel-guess.content,#panel-graph.content,#panel-history.content,#panel-settings.content{padding-inline:8px;}.p8-data-grid{gap:6px;}.p8-data-grid>div{padding:8px 7px;}.p8-event-list li{font-size:12px;}}
+
+
+/* ===== SOURCE: phase8-v24-quality.css ===== */
+/* Phase 8 v2.4 — D07F five-tab layout pass. Presentation only. */
+:root{--p8-tap-target:44px;}
+.shell,.board,.section-card,.entry,.rates,.keywrap{min-width:0;box-sizing:border-box;}
+.header{min-height:50px;gap:6px;padding:7px 11px;}
+.header .logo{min-width:0;overflow-wrap:anywhere;line-height:1.2;}
+.header-right{min-width:0;}
+.header-right :is(.device,.theme-switch){min-height:var(--p8-tap-target);}
+.board{margin-bottom:0;}
+#panel-play{padding-bottom:calc(84px + env(safe-area-inset-bottom));}
+#panel-play .heading{gap:8px;margin-bottom:10px;}
+#panel-play .heading h1{min-width:0;line-height:1.2;}
+#panel-play .statline{gap:7px;margin-bottom:10px;}
+#panel-play .stat{min-width:0;padding:10px 5px;border-radius:14px;}
+#panel-play .stat small{display:block;white-space:normal;line-height:1.25;}
+#panel-play .stat strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+#panel-play .entry{padding:10px 11px;margin-bottom:11px;}
+#panel-play .entrycontrols{gap:7px;}
+#panel-play .entrycontrols :is(input,button){min-height:var(--p8-tap-target);}
+#panel-play .button-grid{gap:10px;}
+#panel-play .keywrap{min-width:0;}
+#panel-play .key{position:relative;min-width:0;width:100%;touch-action:manipulation;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;overflow:hidden;}
+#panel-play .key .symbol,#panel-play .key .count{position:relative;min-width:0;max-width:100%;line-height:1.12;text-align:center;overflow-wrap:anywhere;}
+#panel-play .key .count{font-variant-numeric:tabular-nums;}
+#panel-play .key:active:not(:disabled){transform:translateY(2px) scale(.985);filter:brightness(1.12);}
+
+#panel-play .settlement .complete{min-width:0;}
+#panel-play .rates{margin-top:10px;padding:11px;}
+
+#panel-play .rate{min-width:0;}
+#panel-play .rate strong{font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+#panel-guess.content,#panel-graph.content,#panel-history.content,#panel-settings.content{padding-bottom:calc(84px + env(safe-area-inset-bottom));}
+#panel-guess .section-card,#panel-graph .section-card,#panel-history .section-card,#panel-settings .section-card{min-width:0;margin-bottom:9px;}
+#panel-guess .section-title,#panel-graph .section-title,#panel-history .section-title,#panel-settings .section-title{line-height:1.3;}
+.p8-data-grid,.p8-history-sessions{min-width:0;}
+.p8-event-list li{overflow-wrap:anywhere;}
+.bottom{padding-bottom:max(5px,env(safe-area-inset-bottom));}
+.bottom button{touch-action:manipulation;}
+
+:where(button,input,select):focus-visible{outline:3px solid #f2d586;outline-offset:2px;}
+html[data-theme=light] #panel-play .key .count{}
+html[data-theme=light] #panel-play .settlement .complete:disabled{opacity:.57;}
+@media(max-width:375px){
+ .header{padding-inline:8px;}
+ #panel-play .button-grid{gap:7px;}
+ #panel-play .key{padding-inline:4px;}
+ #panel-play .key .symbol{font-size:clamp(17px,5vw,23px);}
+ #panel-play .key .count{font-size:clamp(13px,3.7vw,18px);}
+ #panel-play .statline{gap:5px;}
+ #panel-play .stat{padding:8px 3px;}
+ #panel-play .rategrid{gap:4px;}
+ #panel-play .rate{padding:6px 3px;}
+}
+@media(prefers-reduced-motion:reduce){
+ #panel-play .key{transition:none;}
+}
+
+
+/* ===== SOURCE: phase8-v25-corrections.css ===== */
+/* v2.5: D07F layout corrections. No event logic changes. */
+/* Restore native D07F visual hierarchy. v2.4 generic flex rules incorrectly displaced counts/fruit. */
+#panel-play .button-grid .key{display:block;position:relative;height:clamp(94px,25vw,107px);overflow:hidden;min-width:0;padding:0;touch-action:manipulation;}
+#panel-play .button-grid .key .symbol{display:block;position:absolute;left:3px;right:3px;top:21px;line-height:1.02;text-align:center;overflow-wrap:normal;font-size:clamp(26px,8vw,49px);}
+#panel-play .button-grid .key:is(.grape,.cherry) .symbol{font-size:clamp(21px,6vw,32px);top:27px;letter-spacing:-.04em;}
+#panel-play .button-grid .key .count{display:block;position:absolute;left:3px;right:3px;bottom:8px;top:auto;line-height:1.1;text-align:center;overflow-wrap:normal;font-size:clamp(15px,4vw,18px);white-space:nowrap;}
+#panel-play .button-grid .key:active:not(:disabled){transform:translateY(2px) scale(.99);filter:brightness(1.08);}
+#panel-play .button-grid .key:disabled{opacity:.55;cursor:not-allowed;}
+/* Actual integrated game entry is .p8-games-form (not the old .entrycontrols). */
+#panel-play .p8-games-form{display:grid;min-width:0;}
+#panel-play .p8-games-form>label{min-width:0;}
+#panel-play .p8-games-form input[type=number]{width:100%;min-width:0;min-height:44px;box-sizing:border-box;}
+#panel-play .p8-games-form input[type=checkbox]{width:20px;height:20px;flex:0 0 20px;}
+#panel-play .p8-games-form .p8-measure{display:flex;align-items:center;gap:8px;white-space:normal;}
+#panel-play .p8-games-form button{min-height:44px;}
+/* The settlement panel has two controls, not the three columns in the D07F mock. */
+#panel-play .settlement{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px;}
+#panel-play .settlement .complete{width:100%;min-height:50px;height:auto;line-height:1.25;padding:8px 6px;white-space:normal;overflow-wrap:anywhere;}
+#panel-play .rategrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;}
+#panel-play .rategrid .rate{min-width:0;padding:5px 2px;font-size:clamp(10px,3vw,13px);overflow-wrap:anywhere;}
+#panel-play .rategrid .rate strong{font-size:clamp(15px,4vw,19px);}
+#panel-play .rategrid .rate:nth-child(3n){border-right:0;}
+#panel-play .rates-top{flex-wrap:wrap;}
+#panel-play .rates-top span{overflow-wrap:anywhere;}
+/* Five tabs compact spacing and readable controls across both themes. */
+#panel-guess .section-card,#panel-graph .section-card,#panel-history .section-card,#panel-settings .section-card{overflow-wrap:anywhere;}
+.bottom button{min-width:0;}
+.bottom button:active{transform:translateY(1px);filter:brightness(1.12);}
+@media(max-width:374px){#panel-play .button-grid{gap:8px;}#panel-play .button-grid .key .symbol{top:19px;}#panel-play .button-grid .key:is(.grape,.cherry) .symbol{top:26px;}#panel-play .button-grid .key .count{bottom:6px;}}
+@media(prefers-reduced-motion:reduce){#panel-play .button-grid .key,.bottom button{transition:none;}}
+
+
+/* ===== SOURCE: phase8-v27-audit.css ===== */
+/* v2.7 static-layout audit fixes; visual browser approval is still pending. */
+/* Preserve original D07F dark/light palette. Do not force counts to white. */
+html[data-theme=light] #panel-play .key .count{color:inherit;}
+/* The P31 buttons are absolutely positioned in the D07F key; keep the count below the symbol. */
+#panel-play .button-grid .key{isolation:isolate;}
+#panel-play .button-grid .key .symbol{max-width:calc(100% - 6px);overflow:hidden;text-overflow:clip;}
+#panel-play .button-grid .key .count{max-width:calc(100% - 6px);font-variant-numeric:tabular-nums;}
+/* In narrow widths, avoid reducing clickable controls below practical tap target. */
+#panel-play .settlement :is(button,.complete){min-height:48px;}
+.bottom button{min-height:52px;}
+/* Prevent browser text autosizing from selectively enlarging stats or controls. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+@media(max-width:359px){
+  #panel-play .button-grid{gap:5px;}
+  #panel-play .button-grid .key .symbol{font-size:clamp(21px,7vw,33px);}
+  #panel-play .button-grid .key:is(.grape,.cherry) .symbol{font-size:clamp(19px,5.5vw,26px);}
+  #panel-play .button-grid .key .count{font-size:14px;}
+}
+
+
+/* ===== SOURCE: phase8-v29-guess.css ===== */
+/* Machine-specific estimate card; scoped to the guess tab. */
+#panel-guess .p8-machine-prediction{margin-top:12px;padding:12px;border-radius:14px;border:1px solid currentColor;min-width:0;}
+#panel-guess .p8-machine-prediction h3{font-size:15px;margin:0 0 8px;line-height:1.4;}
+#panel-guess .p8-prob-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+#panel-guess .p8-prob-table :is(th,td){padding:7px 6px;border-bottom:1px solid #8885;}
+#panel-guess .p8-prob-table th{text-align:left;}
+#panel-guess .p8-prob-table td{text-align:right;font-weight:700;}
+#panel-guess .p8-machine-prediction p{line-height:1.6;overflow-wrap:anywhere;}
+
+
+/* ===== SOURCE: phase8-v32-guess.css ===== */
+/* v3.2: machine-estimate readability and accessible scaling, no event/storage changes */
+#panel-guess .p8-machine-prediction{overflow:hidden;}
+#panel-guess .p8-prob-table{table-layout:fixed;}
+#panel-guess .p8-prob-table th{width:32%;white-space:nowrap;}
+#panel-guess .p8-prob-table td{width:68%;display:flex;align-items:center;gap:10px;justify-content:flex-end;min-width:0;}
+#panel-guess .p8-estimate-bar{height:9px;background:rgba(128,128,128,.22);border-radius:99px;overflow:hidden;flex:1;min-width:20px;}
+#panel-guess .p8-estimate-fill{display:block;height:100%;border-radius:99px;background:#39a878;}
+#panel-guess .p8-estimate-percent{width:57px;text-align:right;flex:none;font-variant-numeric:tabular-nums;}
+#panel-guess .p8-estimate-disclaimer{font-size:12px;line-height:1.5;margin:10px 0;color:inherit;opacity:.87;}
+@media(max-width:355px){#panel-guess .p8-prob-table td{gap:5px;}#panel-guess .p8-estimate-percent{width:49px;}}
+@media(prefers-reduced-motion:reduce){#panel-guess .p8-estimate-fill{transition:none;}}
+
+
+/* ===== SOURCE: phase8-public-finish.css ===== */
+/* Phase 8 visual finish: reflection intensity only. Preserve D07F colors, geometry, counts and input behavior. */
+#panel-play .button-grid .key::after {
+  opacity: .42;
+}
+#panel-play .button-grid .key::before {
+  border-color: #ffffff7a;
+  box-shadow: inset 0 2px 4px #ffffff48, inset 0 -7px 10px #0004;
+}
+/* These changes are cosmetic. Do not change button hit areas, interactions or save logic. */
+
+
+/* ===== SOURCE: phase8-reference-table.css ===== */
+/* Read-only machine reference sheet. Scoped to guess tab. */
+#panel-guess .p8-reference{margin-top:12px;}
+#panel-guess .p8-ref-label{display:block;font-weight:750;font-size:12px;margin:8px 0 6px;}
+#panel-guess #p8-ref-machine{width:100%;min-height:43px;border-radius:11px;padding:8px 10px;font:inherit;color:inherit;background:var(--jc-surface,#123d30);border:1px solid #78aa94;}
+#panel-guess .p8-ref-scroll{overflow-x:auto;max-width:100%;margin-top:9px;-webkit-overflow-scrolling:touch;}
+#panel-guess .p8-ref-table{border-collapse:collapse;width:100%;min-width:315px;font-size:11px;font-variant-numeric:tabular-nums;}
+#panel-guess .p8-ref-table th,#panel-guess .p8-ref-table td{text-align:right;white-space:nowrap;border-bottom:1px solid #81aa9760;padding:10px 4px;}
+#panel-guess .p8-ref-table th:first-child,#panel-guess .p8-ref-table td:first-child{text-align:center;font-weight:800;}
+#panel-guess .p8-ref-table th{font-weight:800;}
+#panel-guess .p8-ref-foot{font-size:11px;line-height:1.55;overflow-wrap:anywhere;opacity:.85;margin:9px 0 0;}
+html[data-theme=light] #panel-guess #p8-ref-machine{background:#fff;color:#1d4737;border-color:#9cbaab;}
+@media(max-width:360px){#panel-guess .p8-ref-table{min-width:330px;}}
+
+
+/* ===== SOURCE: phase8-last-bonus-gap.css ===== */
+
+/* Read-only latest bonus gap: no change to D07F keys or existing rate cards. */
+.p8-last-gap{margin-top:8px;padding:9px 10px;border:1px solid #6fb59396;border-radius:13px;background:linear-gradient(145deg,#0c4535,#032a21);}
+.p8-last-gap h2{font-size:12px;margin:0 0 7px;color:#c0dccb;font-weight:800;}
+.p8-last-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.p8-last-gap-grid>div{border:1px solid #82b69c59;border-radius:10px;padding:8px 5px;text-align:center;min-width:0;}
+.p8-last-gap-grid span{display:block;font-size:12px;color:#d4e8da;}
+.p8-last-gap-grid strong{display:block;margin-top:4px;font-size:22px;font-variant-numeric:tabular-nums;}
+#p8-since-bb{color:#ff829e;}#p8-since-rb{color:#83c9ff;}
+html[data-theme=light] .p8-last-gap{background:linear-gradient(145deg,#eff9f0,#d9ebdf);border-color:#aac9b3;}
+html[data-theme=light] .p8-last-gap h2,html[data-theme=light] .p8-last-gap-grid span{color:#365747;}
+html[data-theme=light] .p8-last-gap-grid>div{border-color:#b2cebb;}
+html[data-theme=light] #p8-since-bb{color:#b51f4a;}html[data-theme=light] #p8-since-rb{color:#155d9a;}
+
+
+/* ===== SOURCE: phase8-hall-observation.css ===== */
+.p8-hall-panel{margin:16px 12px 0;padding:17px 15px;border:1px solid #6eaf94;border-radius:18px;background:#073b2e;color:#effaf1;}.p8-hall-panel h2{margin:0 0 8px;font-size:21px;}.p8-hall-panel p{font-size:13px;line-height:1.6;}.p8-hall-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}.p8-hall-fields label{min-width:0;font-size:14px;font-weight:700;}.p8-hall-fields input{display:block;min-width:0;width:100%;margin-top:6px;min-height:47px;padding:9px;border:1px solid #90c1a4;border-radius:10px;color:#123629;background:#f4fbf5;font-size:17px;}.p8-hall-panel button{min-height:46px;margin-top:12px;padding:8px 13px;border:1px solid #eed08d;border-radius:12px;color:#173124;background:#ffe2a2;font-weight:800;}.p8-hall-panel #p8-hall-status{min-height:20px;}html[data-theme=light] .p8-hall-panel{background:#eff8ef;color:#193f32;border-color:#a3c3b0;}
+
+/* ===== SOURCE: stage11-ui-repair-20261108.css ===== */
+/* Stage11 regression repairs: layout only; no storage/event changes. */
+#p8-create-machine-other-wrap[hidden]{display:none!important;}
+
+#panel-play .p8-games-form .p8-measure{margin-top:0;padding:3px 0 2px;line-height:1.3;min-height:32px;}
+
+#panel-play .button-grid .keywrap>.key{height:116px!important;overflow:hidden;}
+#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:52px;top:6px;}
+#panel-play .button-grid .key:is(.grape,.cherry) .count{bottom:25px!important;font-size:18px;}
+#panel-play .button-grid .key .key-rate{bottom:9px!important;line-height:1.2;font-size:12px;white-space:nowrap;pointer-events:none;}
+#panel-play .button-grid .key:is(.bb,.rb) .count{bottom:18px;}
+#panel-play .button-grid .key:is(.bb,.rb) .symbol{top:29px;}
+#panel-play .button-grid .fruit-minus{z-index:6;}
+#p8-hall-form{scroll-margin-top:18px;scroll-margin-bottom:calc(100px + env(safe-area-inset-bottom));}
+@media(max-width:374px){#panel-play .button-grid .keywrap>.key{height:111px!important;}#panel-play .button-grid .key:is(.grape,.cherry) .fruit{height:48px;}}
+#p8-hall-form .p8-hall-jump-target{outline:3px solid #ffe2a0;outline-offset:3px;}
+
+
+/* ===== SOURCE: stage12-ui-20261108.css ===== */
+/* Stage12 UI improvements; no ledger/storage logic changes. */
+#panel-play #p8-games{min-height:42px;height:42px;padding-top:6px;padding-bottom:6px;}
+
+/* Preserve minimum touch targets even when vertical whitespace is reduced. */
+
+
+/* Inputs: keep the glass-like design and correct light-theme contrast. */
+html[data-theme="light"] #panel-play input,
+html[data-theme="light"] #panel-play select,
+html[data-theme="light"] #panel-settings select{color:#183a2a!important;background:#fff!important;border-color:#8cae9a!important;}
+html[data-theme="light"] #panel-play .action,
+html[data-theme="light"] #panel-play .complete,
+html[data-theme="light"] #panel-play #p8-review-open,
+html[data-theme="light"] #panel-play #p8-inspect-last,
+html[data-theme="light"] #panel-play #p8-ack-saved{color:#18392b!important;text-shadow:none!important;}
+html[data-theme="light"] #panel-play .action.add{color:#fff!important;}
+html[data-theme="light"] #panel-play .rates-top,
+html[data-theme="light"] #panel-play .rate,
+html[data-theme="light"] #panel-play .p8-bonus-state{color:#193b2d!important;}
+/* Gentle champagne gold highlights; counters retain their established colors. */
+#panel-play .entry,#panel-play .rates,#panel-play .stat{border-color:rgba(210,176,103,.58);}
+#stage12-flash{position:fixed;inset:0;z-index:2147483640;pointer-events:none;opacity:0;transition:opacity .18s ease-out;}
+#stage12-flash.stage12-active{opacity:1;transition:none;}
+@media(prefers-reduced-motion:reduce){#stage12-flash{display:none;}}
+#panel-settings #stage12-font-size{min-height:44px;max-width:130px;border-radius:9px;padding:8px;}
+#panel-history .p8-event-toggle{width:100%;min-height:44px;margin:10px 0;border-radius:9px;}
+.p8-event-list li[hidden]{display:none!important;}
+html[data-stage12-font="small"] .tab-panel{font-size:.93em;}
+html[data-stage12-font="large"] .tab-panel{font-size:1.09em;}
+html[data-stage12-font="large"] .setting-desc{font-size:1em;}
+
+/* Stage 12: place correction/settlement actions directly under the four counters. */
+#panel-play .settlement{margin-top:8px;margin-bottom:8px;}
+#panel-play .settlement button{min-height:46px;}
+#stage12-zero-start{width:100%;min-height:46px;margin:5px 0 6px;padding:10px;border:1px solid #d3af68;border-radius:11px;background:rgba(199,158,78,.14);color:inherit;font-weight:700;}
+#stage12-zero-note{font-size:.87em;line-height:1.5;margin:0 0 12px;}
+
+/* Cancellation action is visually distinct from additions. */
+#p8-minus50{border:1px solid #c99b72;background:rgba(150,87,53,.16);min-height:44px;}
+
+
+/* ===== SOURCE: v122-refinements.css ===== */
+/* Juglog Ver.12.2 candidate — presentation only; P31 data engine unchanged. */
+:root { --v122-accent:#c8ad74; --v122-border:rgba(211,181,113,.74); }
+html[data-theme="light"]{ --v122-accent:#36745c; --v122-border:rgba(48,116,86,.7); }
+/* Main and nested panels, dark champagne gold / light metallic green. */
+.tab-panel.board,.tab-panel .section-card,#panel-play .entry,#panel-play .rates,
+#panel-play .p8-last-gap,#panel-play .p8-session-actions,
+#panel-play .p8-hall-panel,#panel-play .p8-bonus-state,
+#panel-history .p8-history-corrections,
+#panel-play .stat:not(.stat-jump-total){border-color:var(--v122-border)!important;}
+/* Keep colored counters and the blue total tile intact. */
+#panel-play .key,#panel-play .stat-jump-total{border-color:revert-layer;}
+/* Compact explicit input row; no duplicated submit button. */
+
+#panel-play .v122-game-entry-line input{min-width:0;width:100%;height:46px;min-height:46px;margin:0;font-size:16px;}
+#panel-play .v122-game-entry-line #p8-games-submit{min-height:46px;height:46px;white-space:nowrap;font-weight:800;}
+
+#panel-play .quick-game-actions button{min-height:46px;font-size:clamp(12px,3.5vw,15px);white-space:nowrap;padding-inline:2px;}
+
+#panel-play .quick-game-actions #p8-minus50{border-color:var(--v122-border);background:linear-gradient(145deg,#315e4f,#143a2e);color:#f0dfb9;}
+html[data-theme="light"] #panel-play .quick-game-actions #p8-minus50{background:linear-gradient(150deg,#d7eee1,#9ecbb8);border-color:#538f77;color:#174632!important;}
+/* Explicit color accessibility: no dark type on blue action buttons. */
+html[data-theme="light"] #panel-play #p8-quick50,
+html[data-theme="light"] #panel-play #p8-quick100{color:#fff!important;text-shadow:0 1px 2px #143b68!important;}
+html[data-theme="light"] #panel-play .p8-session-buttons button,
+html[data-theme="light"] #panel-play #p8-session-switch-btn,
+html[data-theme="light"] #panel-play .p8-session-switch select{color:#fff!important;text-shadow:none!important;}
+html[data-theme="light"] #panel-play .p8-session-switch select{background:#2a4e65!important;}
+html[data-theme="light"] #panel-play .p8-session-buttons button:disabled,
+html[data-theme="light"] #panel-play #p8-session-switch-btn:disabled{color:#a1b7af!important;background:#e8efeb!important;border-color:#94b5a5!important;opacity:1!important;}
+/* A row of three session controls; full-width correction/history below. */
+#panel-play .p8-session-actions>.p8-session-buttons{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
+#panel-play .p8-session-actions>.p8-session-buttons button{grid-column:auto;min-width:0;padding:9px 3px;white-space:nowrap;font-size:clamp(12px,3.4vw,15px);}
+#panel-play .p8-session-actions>.p8-session-buttons button:last-child{grid-column:1/-1;}
+/* Reconciliation controls: same row, active only when action requires it (disabled state preserves informative label). */
+#panel-play .v122-reconcile-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;margin:7px 0;}
+#panel-play .v122-reconcile-row button{display:block;width:100%;max-width:none;margin:0;min-height:46px;font-size:clamp(12px,3.4vw,14px);line-height:1.2;padding:7px 2px;white-space:nowrap;color:#e8d9b4;background:#194737;border:1px solid var(--v122-border);border-radius:10px;}
+html[data-theme="light"] #panel-play .v122-reconcile-row button{color:#19523b!important;background:#d6eade;border-color:#46896e;}
+#panel-play .v122-reconcile-row button:disabled{opacity:.58;}
+/* The history correction ledger is collapsed by default; no loss of audit/event data. */
+#panel-history details.v122-folded-corrections{padding:8px 12px;}
+#panel-history details.v122-folded-corrections>summary{cursor:pointer;list-style:none;min-height:46px;display:flex;align-items:center;padding:9px 12px;border-radius:9px;border:1px solid var(--v122-border);color:#efdcac;font-weight:750;}
+#panel-history details.v122-folded-corrections>summary::after{content:" ▾";margin-left:auto;}
+#panel-history details.v122-folded-corrections[open]>summary::after{content:" ▴";}
+html[data-theme="light"] #panel-history details.v122-folded-corrections>summary{background:#d7eadd;color:#19513c;}
+#panel-history .p8-event-toggle{color:#f0d99e;background:linear-gradient(145deg,#184838,#0c3228);border:1px solid var(--v122-border);font-weight:750;}
+html[data-theme="light"] #panel-history .p8-event-toggle{color:#225d45!important;background:linear-gradient(145deg,#d9f0e2,#aed5c1)!important;border:1px solid #6a9f86;}
+html[data-theme="light"] #panel-history .p8-correction-row button{color:#154b39!important;background:#d1e8dc;border:1px solid #5f9880;}
+html[data-theme="light"] #panel-history .p8-correction-row button:disabled{background:#e8eee9;border-color:#b7c9ba;opacity:1;}
+/* Theme-dependent checkboxes: maintain native hitboxes and checkbox checked state. */
+html[data-theme="dark"] input[type="checkbox"]{accent-color:#c7a869;}
+html[data-theme="light"] input[type="checkbox"]{accent-color:#3b9071;}
+/* Correction buttons preserve fruit-key hues. */
+html[data-theme="dark"] .button-grid .fruit-minus{color:#f7e5b3;border-color:#c8aa70;background:linear-gradient(140deg,#255542,#09281f);}
+html[data-theme="light"] .button-grid .fruit-minus{color:#184e3a;border-color:#4f947a;background:linear-gradient(145deg,#effaf1,#aad8c2);}
+/* Avoid theme-specific white native confirm; app-owned dialog uses nonblocking promise. */
+.v122-confirm{width:min(90vw,410px);max-height:80dvh;overflow:auto;margin:auto;border:1px solid #d5b875;border-radius:17px;background:#073d30;color:#f3f6ef;padding:20px;box-shadow:0 17px 45px #0008;}
+.v122-confirm::backdrop{background:#001b14b8;}
+.v122-confirm p{white-space:pre-line;font-size:16px;font-weight:700;line-height:1.6;margin:0 0 18px;}
+.v122-confirm-actions{display:flex;justify-content:flex-end;gap:10px;}
+.v122-confirm-actions button{min-height:46px;min-width:100px;border-radius:11px;border:1px solid #d6b876;font-size:15px;font-weight:750;background:#144e3a;color:#f0ddb0;}
+.v122-confirm-actions button:last-child{background:linear-gradient(155deg,#f9e7aa,#d3aa53);color:#133a2d;}
+html[data-theme="light"] .v122-confirm{background:#f0f8f1;color:#143f2e;border-color:#568e71;}
+html[data-theme="light"] .v122-confirm-actions button{background:#d9eee1;color:#20573f;border-color:#62967c;}
+html[data-theme="light"] .v122-confirm-actions button:last-child{background:linear-gradient(160deg,#c1e7d2,#82bca0);color:#173d2d;}
+@media(max-width:345px){#panel-play .quick-game-actions button{font-size:12px;}#panel-play .v122-reconcile-row button{font-size:11px;}}
+
+/* Match native inline-accent checkbox and avoid the saturated blue default. */
+html[data-theme="dark"] input[type="checkbox"]{accent-color:#c7a869!important;}
+html[data-theme="light"] input[type="checkbox"]{accent-color:#3b9071!important;}
+/* Ensure correction dialog is readable with large text preference. */
+html[data-stage12-font="large"] .v122-confirm p{font-size:17px;}
+@media (max-width:360px){#panel-play .v122-game-entry-line{grid-template-columns:minmax(0,2.3fr) minmax(66px,1fr);}#panel-play .quick-game-actions{gap:4px;}}
+
+
+/* ===== SOURCE: v123-refinements.css ===== */
+/* Ver.12.3: correction actions visible for latest three; safely expand in place. */
+#panel-history .v123-correction-history{padding:10px 12px;border-radius:12px;}
+#panel-history .v123-correction-history .v123-correction-toggle{display:block;width:100%;min-height:46px;padding:10px 12px;margin:0 0 12px;border:1px solid #c5a86e;border-radius:10px;background:linear-gradient(145deg,#174a3a,#0d3028);color:#f2dca8;text-align:center;font-weight:750;cursor:pointer;}
+#panel-history .v123-correction-history .v123-correction-toggle[hidden]{display:none;}
+#panel-history .v123-correction-history .p8-correction-row[hidden]{display:none!important;}
+html[data-theme="light"] #panel-history .v123-correction-history .v123-correction-toggle{background:linear-gradient(140deg,#deefe4,#a9d3bc);border-color:#629b7d;color:#20573f;}
+/* Inactive restore control labels remain legible without suggesting they are enabled. */
+html[data-theme="dark"] #panel-settings button:disabled{color:#b2c6ba!important;opacity:.75;}
+html[data-theme="light"] #panel-settings button:disabled{color:#547668!important;opacity:.82;}
+
+
+/* ===== SOURCE: v124-final-polish.css ===== */
+/* Juglog Ver.12.4 – known display gaps, no event engine or data changes. */
+/* Explicitly override #p8-games input for the dark theme. Numeric keypad and 46px hit area maintained. */
+html[data-theme="dark"] #panel-play .v122-game-entry-line input#p8-games {
+  -webkit-appearance:none; appearance:textfield; box-sizing:border-box;
+  background:linear-gradient(145deg,#174c3b,#0e362a) !important;
+  color:#f3f6ed !important;
+  border:1px solid #c4a76d !important;
+  box-shadow:inset 0 1px 3px #031c14b8,0 1px 0 #ffe3a422 !important;
+  caret-color:#ffe3ad !important;
+  opacity:1 !important;
+}
+html[data-theme="dark"] #panel-play input#p8-games::placeholder {color:#c2d4c5 !important;opacity:1;}
+html[data-theme="dark"] #panel-play input#p8-games:focus-visible {outline:2px solid #f0d58e;outline-offset:2px;}
+html[data-theme="light"] #panel-play .v122-game-entry-line input#p8-games {
+  background:#fffefa !important;color:#174b36 !important;border:1px solid #548f73 !important;
+  box-shadow:inset 0 1px 2px #20593a17 !important;opacity:1 !important;
+}
+html[data-theme="light"] #panel-play input#p8-games::placeholder{color:#587564 !important;opacity:1;}
+/* Disabled controls should remain distinguishable but readable. */
+html[data-theme="dark"] #p8-data-tools button:disabled,
+html[data-theme="dark"] #panel-settings button:disabled {
+  opacity:1 !important;color:#c1d3c4 !important;
+  background:linear-gradient(145deg,#254538,#17372c) !important;
+  border-color:#806e4c !important;filter:none !important;
+  cursor:not-allowed !important;
+}
+html[data-theme="light"] #p8-data-tools button:disabled,
+html[data-theme="light"] #panel-settings button:disabled {
+  opacity:1 !important;color:#526e5f !important;
+  background:#e5eee6 !important;border-color:#93b3a0 !important;
+  filter:none !important;cursor:not-allowed !important;
+}
+/* Keep correction/history visibility semantics from Ver.12.3 unchanged. */
+
+
+/* ===== SOURCE: v125-visibility-fixes.css ===== */
+/* Juglog Ver.12.5: QA evidence-based text contrast corrections only. */
+/* A: Five buttons shown after expanding the data-tools section. */
+html[data-theme="light"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:not(:disabled) {
+  color:#ffffff !important; -webkit-text-fill-color:#ffffff !important;
+  background:linear-gradient(145deg,#325371,#22364e) !important;
+  border-color:#829fad !important; text-shadow:none !important; opacity:1 !important;
+}
+html[data-theme="dark"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:not(:disabled) {
+  color:#f7f2e7 !important; -webkit-text-fill-color:#f7f2e7 !important;
+  background:linear-gradient(145deg,#334761,#1d2b3e) !important;
+  border-color:#bdad83 !important; text-shadow:none !important; opacity:1 !important;
+}
+html[data-theme="light"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:disabled {
+  color:#4d6959 !important; -webkit-text-fill-color:#4d6959 !important;
+  background:#e2ebe4 !important; border-color:#98b5a2 !important; opacity:1 !important;
+}
+html[data-theme="dark"] #panel-settings #p8-data-tools .p8-legacy-tools[open] .p8-session-buttons button:disabled {
+  color:#becac1 !important; -webkit-text-fill-color:#becac1 !important;
+  background:#254136 !important; border-color:#6c826d !important; opacity:1 !important;
+}
+/* B: Real-medals note in the graph: previously very low contrast against pale green. */
+html[data-theme="light"] #panel-graph #p8-net-graph .p8-net-note {color:#285643 !important; opacity:1 !important;}
+html[data-theme="dark"] #panel-graph #p8-net-graph .p8-net-note {color:#d0dfd4 !important; opacity:1 !important;}
+/* C: Disabled history correction controls: subdued but legible. */
+html[data-theme="light"] #panel-history .p8-correction-row button:disabled {
+  color:#4e6c5d !important; -webkit-text-fill-color:#4e6c5d !important;
+  background:#e2ede5 !important; border-color:#8da99a !important;
+  opacity:1 !important; filter:none !important; text-shadow:none !important;
+}
+html[data-theme="dark"] #panel-history .p8-correction-row button:disabled {
+  color:#c5d1c6 !important; -webkit-text-fill-color:#c5d1c6 !important;
+  background:#244235 !important; border-color:#798d7b !important;
+  opacity:1 !important; filter:none !important; text-shadow:none !important;
+}
+
+
+/* ===== SOURCE: stage13-cherry-option.css ===== */
+.jgl-cherry-choice{display:flex;align-items:center;gap:10px;margin:10px 0 6px;font-size:.95rem;line-height:1.5;}.jgl-cherry-choice input{width:19px;height:19px;accent-color:#3cae83;flex:none;}.jgl-cherry-choice:has(input:disabled){opacity:.65;}
+
+
+/* ===== SOURCE: stage14-game-input.css ===== */
+/* Stage14: opt-in on-screen keypad, numeric keyboard remains available. */
+.stage14-keypad{margin:.55rem 0;border:1px solid rgba(133,165,146,.4);border-radius:12px;padding:.5rem .65rem;}
+.stage14-keypad summary{cursor:pointer;font-size:.9rem;font-weight:650;min-height:30px;}
+.stage14-keygrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:.5rem;}
+.stage14-keygrid button{min-height:43px;border-radius:9px;border:1px solid rgba(130,160,145,.45);background:var(--card,#12382e);color:var(--text,#fff);font-size:1.15rem;font-weight:600;touch-action:manipulation;}
+.stage14-keygrid button:active{opacity:.65;}
+.stage14-keyhelp{font-size:.78rem;opacity:.8;margin:.4rem 0 .1rem;}
+
+
+/* ===== SOURCE: stage14-candidate2.css ===== */
+/* Stage14 Candidate2 UI changes only; event processing stays on the authoritative P31 API. */
+.stage14-input-feedback{margin:7px 0 12px;min-height:1.2em;font-size:13px;font-weight:600;color:var(--text,#fff);overflow-wrap:anywhere;}
+.stage14-bonus-confirm p{display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center;margin:0 0 14px;}
+.stage14-bonus-confirm p>strong:first-child{font-size:19px;}
+.stage14-modal-caption{font-size:14px;opacity:.88;}
+.stage14-modal-current{display:block;font-size:clamp(32px,8vw,46px);line-height:1.15;min-width:55%;border:2px solid #eac16f;background:#17483c;color:#ffe49a;border-radius:12px;padding:12px 24px;font-variant-numeric:tabular-nums;}
+.stage14-modal-warning{font-size:14px;line-height:1.5;}
+.stage14-correction-reason{display:block;font-size:12px;opacity:.8;line-height:1.4;margin-top:5px;}
+#p8-estimated-net svg,#stage12-bonus-timeline svg{overflow:visible;}
+
+
+/* ===== SOURCE: stage14-candidate3.css ===== */
+/* Stage14 Candidate3: native iOS numeric keyboard and compact input controls. */
+#panel-play #p8-games{font-size:16px;min-width:0;touch-action:manipulation;}
+#panel-play #p8-games:focus-visible{outline:2px solid #eac16f;outline-offset:2px;}
+#panel-play .quick-game-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+#panel-play .quick-game-actions button{min-width:0;}
+
+
+/* ===== SOURCE: stage14-candidate4.css ===== */
+/* Stage14 Candidate4: reduce unused space and clarify controls; no change to P31 event logic. */
+#panel-play .p8-games-form{gap:5px;}
+#panel-play .stage14-input-feedback:empty{display:none;margin:0;min-height:0;padding:0;}
+#panel-play .stage14-input-feedback:not(:empty){margin:3px 0 4px;min-height:0;}
+#panel-play .p8-measure{padding:3px 0;margin:0;min-height:32px;}
+#panel-play .quick-game-actions{margin-top:1px;}
+#panel-play #p8-stage14-minus10{border:1px solid #ffadb4!important;background:linear-gradient(160deg,#a83d50,#681c30)!important;color:#fff5f6!important;text-shadow:0 1px 2px #43121d;}
+html[data-theme="light"] #panel-play #p8-stage14-minus10{border-color:#bb5364!important;background:linear-gradient(160deg,#d96978,#a52e4e)!important;color:#fff!important;}
+#panel-play #p8-stage14-minus10:focus-visible{outline:3px solid #ffe5ac;outline-offset:2px;}
+#panel-history .stage14-history-sessions-toggle{width:100%;min-height:44px;margin:-5px 0 16px;padding:10px 12px;border-radius:11px;border:1px solid #c6a96b;background:linear-gradient(150deg,#235c47,#123d32);color:#f8ebc7;font-weight:700;font-size:14px;cursor:pointer;}
+html[data-theme="light"] #panel-history .stage14-history-sessions-toggle{background:linear-gradient(145deg,#dcece1,#a6ccb5);color:#20543a;border-color:#669e7d;}
+#panel-history .stage14-history-sessions-toggle[hidden],#panel-history .p8-history-session[hidden]{display:none!important;}
+
+
+/* ===== SOURCE: stage14-candidate5.css ===== */
+/* Candidate5: completion shortcut follows the five-tab bottom navigation, never overlaps it. */
+#stage14-fixed-complete{position:fixed;z-index:45;bottom:calc(79px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100% - 30px),410px);min-height:50px;padding:10px 18px;border:2px solid #f7d891;border-radius:14px;background:linear-gradient(135deg,#cfa344,#94661f);color:#161c13;font-size:17px;font-weight:800;box-shadow:0 4px 22px #00180eb0;touch-action:manipulation;}
+#stage14-fixed-complete[hidden]{display:none!important;}
+#stage14-fixed-complete:disabled{opacity:.55;}
+html[data-theme="light"] #stage14-fixed-complete{background:linear-gradient(130deg,#ffe2a0,#d4a84d);border-color:#8e6c29;}
+
+
+/* ===== SOURCE: stage15-candidate8-ui.css ===== */
+/* Stage15 Candidate8: isolated UI additions, never reposition existing counter rows. */
+#panel-play .p8-counter-heading{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;min-height:42px;}
+#panel-play .p8-counter-heading h1{min-width:0;white-space:nowrap;margin:0;font-size:clamp(17px,5vw,23px);}
+#jgl15-grape-open{white-space:nowrap;min-height:42px;border:1px solid #e2c67b;border-radius:10px;background:#a9d83e;color:#193716;font-size:clamp(11px,2.7vw,13px);font-weight:850;padding:0 7px;box-shadow:inset 0 1px 1px #edffac,0 3px 5px #001f18;}
+#panel-play .p8-counter-heading #p8-create-session{white-space:nowrap;min-height:42px;max-width:100%;font-size:clamp(11px,2.8vw,14px);padding-inline:6px;}
+#panel-play .v122-game-entry-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(76px,auto) 46px;gap:6px;align-items:stretch;}
+#panel-play .v122-game-entry-line #p8-games-submit{width:auto;min-width:76px;padding:0 5px;font-size:clamp(11px,3vw,14px);}
+#panel-play #jgl15-keypad-open{width:46px;min-width:46px;height:46px;min-height:46px;font-size:24px;line-height:1;background:linear-gradient(#326b9c,#113d65);color:#fff;border:1px solid #9dcdf6;border-radius:10px;padding:0;}
+#jgl15-grape-open:focus-visible,#jgl15-keypad-open:focus-visible{outline:3px solid #fff2a7;outline-offset:2px;}
+@media(max-width:374px){#panel-play .p8-counter-heading{gap:4px;}#jgl15-grape-open{padding-inline:4px;font-size:10px;}#panel-play .p8-counter-heading #p8-create-session{font-size:11px;padding-inline:4px;}#panel-play .p8-counter-heading h1{font-size:17px;}#panel-play .v122-game-entry-line{gap:4px;grid-template-columns:minmax(0,1fr) minmax(72px,auto) 44px;}#panel-play #jgl15-keypad-open{width:44px;min-width:44px;}}
+.jgl15-grape-panel{margin-top:14px;padding:14px 11px;border:1px solid #b9df6e;border-radius:15px;background:#093b2e;color:#f8fff5;scroll-margin-top:18px;}
+.jgl15-grape-panel[hidden]{display:none!important;}.jgl15-grape-panel h2{font-size:17px;margin:0 0 7px;color:#d9f4ac;}.jgl15-help{font-size:12px;line-height:1.6;color:#d6e5d9;}
+.jgl15-sim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}.jgl15-sim-grid label{display:grid;gap:4px;font-size:12px;}.jgl15-sim-grid input,.jgl15-sim-grid select{min-width:0;width:100%;min-height:44px;background:#0e4b3a;color:#fff;border:1px solid #9cc6a5;border-radius:8px;padding:7px;font-size:16px;}
+.jgl15-confirm{display:flex;gap:8px;align-items:center;font-size:12px;margin:12px 0;}.jgl15-confirm input{width:19px;height:19px;flex-shrink:0;}
+#jgl15-sim-calc{min-height:44px;width:100%;background:#a9d83e;color:#163615;border:1px solid #ddec90;font-weight:800;border-radius:9px;}
+#jgl15-sim-result{margin-top:12px;padding:12px;background:#0c503e;border-radius:9px;line-height:1.6;overflow-wrap:anywhere;}
+#jgl15-keypad-dialog{width:min(92vw,340px);max-height:88dvh;overflow:auto;border:1px solid #d9bf74;border-radius:16px;background:#073b2f;color:#fff;padding:16px;box-shadow:0 12px 55px #000b;}
+#jgl15-keypad-dialog::backdrop{background:#0009;}.jgl15-keypad-title{text-align:center;font-weight:800;font-size:17px;}
+#jgl15-keypad-value{display:block;text-align:right;border:1px solid #86b79d;background:#00291f;color:#f9e6b0;padding:12px 14px;border-radius:10px;font-size:28px;font-weight:850;margin:12px 0;min-height:62px;}
+.jgl15-keypad-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}.jgl15-keypad-grid button{min-height:51px;border-radius:9px;border:1px solid #70b49a;background:#175d49;color:white;font-size:22px;font-weight:800;}
+.jgl15-keypad-actions{display:grid;grid-template-columns:1fr 1.5fr;gap:8px;margin-top:12px;}.jgl15-keypad-actions button{min-height:45px;border-radius:8px;border:1px solid #b8d0bb;background:#18513f;color:white;font-size:13px;font-weight:700;}#jgl15-keypad-apply{background:#a9d83e;color:#163615;}
+html[data-theme="light"] .jgl15-grape-panel{background:#e5f0df;color:#214833;}html[data-theme="light"] .jgl15-help{color:#3c604a;}html[data-theme="light"] .jgl15-sim-grid input,html[data-theme="light"] .jgl15-sim-grid select{background:#fff;color:#173d2b;border-color:#8aab98;}html[data-theme="light"] #jgl15-sim-result{background:#d0e6d3;color:#173d2b;}
+
+/* Stage15 Candidate9: mode toggle inside the lower reference-only panel. */
+.jgl15-mode-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 4px;min-height:44px;font-size:14px;font-weight:800;}
+.jgl15-mode-buttons{display:grid;grid-template-columns:repeat(2,minmax(64px,1fr));gap:5px;}
+.jgl15-mode-buttons button{min-height:42px;padding:5px 13px;border-radius:9px;border:1px solid #a4c4ad;background:#124a3a;color:#def5e6;font-weight:800;}
+.jgl15-mode-buttons button.is-selected{background:#a9d83e;border-color:#e2c67b;color:#193716;}
+html[data-theme="light"] .jgl15-mode-buttons button:not(.is-selected){background:#d6e6dc;color:#234a37;border-color:#8dab9a;}
+
+/* Candidate10: machine model selector and explicit reference provenance. */
+#jgl15-machine-note{display:block;font-size:11px;line-height:1.5;color:#d3e7d2;font-weight:400;}
+html[data-theme="light"] #jgl15-machine-note{color:#315c41;}
+
+/* Stage15 Candidate16: display-only result emphasis; preserve original inputs and counter placement. */
+#jgl15-sim-result{padding:10px 0;background:transparent;border-radius:9px;width:100%;box-sizing:border-box;}
+.jgl15-result-card{border:2px solid #d7bf7c;border-radius:14px;background:linear-gradient(145deg,#155a45,#0b4033);padding:16px 8px;text-align:center;color:#fff;box-shadow:inset 0 1px 0 #edf9ca33;}
+.jgl15-result-label{color:#d8e9d4;font-size:13px;font-weight:700;}
+.jgl15-result-rate{display:block;font-size:clamp(34px,10vw,48px);line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:.02em;margin:5px 0;}
+.jgl15-result-count{color:#def5a6;font-size:19px;font-weight:800;}
+.jgl15-result-range{font-size:14px;margin-top:9px;color:#e4efe1;font-variant-numeric:tabular-nums;}
+.jgl15-result-detail{font-size:12px;line-height:1.65;margin:12px 3px 1px;color:#d6e5d9;overflow-wrap:anywhere;}
+.jgl15-result-error{font-size:14px;line-height:1.5;margin:0;color:#f9e7bc;}
+html[data-theme="light"] #jgl15-sim-result{background:transparent;}
+html[data-theme="light"] .jgl15-result-card{background:linear-gradient(150deg,#d6edcb,#b0d5b6);border-color:#c7a866;color:#143d2b;}
+html[data-theme="light"] .jgl15-result-label,html[data-theme="light"] .jgl15-result-range{color:#214e36;}
+html[data-theme="light"] .jgl15-result-count{color:#28522a;}
+html[data-theme="light"] .jgl15-result-detail{color:#345a43;}
+

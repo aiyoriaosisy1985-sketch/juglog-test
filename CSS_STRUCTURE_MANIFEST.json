@@ -1,0 +1,39 @@
+{
+  "stage16-main.css": [
+    "d07f-p31-bridge.css",
+    "phase8-v23-quality.css",
+    "phase8-v24-quality.css",
+    "phase8-v25-corrections.css",
+    "phase8-v27-audit.css",
+    "phase8-v29-guess.css",
+    "phase8-v32-guess.css",
+    "phase8-public-finish.css",
+    "phase8-reference-table.css",
+    "phase8-last-bonus-gap.css",
+    "phase8-hall-observation.css",
+    "stage11-ui-repair-20261108.css",
+    "stage12-ui-20261108.css",
+    "v122-refinements.css",
+    "v123-refinements.css",
+    "v124-final-polish.css",
+    "v125-visibility-fixes.css",
+    "stage13-cherry-option.css",
+    "stage14-game-input.css",
+    "stage14-candidate2.css",
+    "stage14-candidate3.css",
+    "stage14-candidate4.css",
+    "stage14-candidate5.css",
+    "stage15-candidate8-ui.css"
+  ],
+  "stage16-post.css": [
+    "phase8-ledger.css",
+    "phase8-net-graph.css",
+    "stage12-bonus-timeline.css"
+  ],
+  "stage16-p31.css": [
+    "play-material-svg.css",
+    "play-redesign.css",
+    "p8-control-bridge.css"
+  ],
+  "status": "Static structural bundle only, no browser or device approval"
+}

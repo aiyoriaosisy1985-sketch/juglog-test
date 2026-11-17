@@ -1,0 +1,9 @@
+/* Ver.12.3: correction actions visible for latest three; safely expand in place. */
+#panel-history .v123-correction-history{padding:10px 12px;border-radius:12px}
+#panel-history .v123-correction-history .v123-correction-toggle{display:block;width:100%;min-height:46px;padding:10px 12px;margin:0 0 12px;border:1px solid #c5a86e;border-radius:10px;background:linear-gradient(145deg,#174a3a,#0d3028);color:#f2dca8;text-align:center;font-weight:750;cursor:pointer}
+#panel-history .v123-correction-history .v123-correction-toggle[hidden]{display:none}
+#panel-history .v123-correction-history .p8-correction-row[hidden]{display:none!important}
+html[data-theme="light"] #panel-history .v123-correction-history .v123-correction-toggle{background:linear-gradient(140deg,#deefe4,#a9d3bc);border-color:#629b7d;color:#20573f}
+/* Inactive restore control labels remain legible without suggesting they are enabled. */
+html[data-theme="dark"] #panel-settings button:disabled{color:#b2c6ba!important;opacity:.75}
+html[data-theme="light"] #panel-settings button:disabled{color:#547668!important;opacity:.82}

@@ -1,0 +1,1441 @@
+{
+  "stats": {
+    "stage16-main.css": {
+      "pruned_conflicting_declarations": 0,
+      "rule_count": 467,
+      "bytes_before": 53301,
+      "bytes_after": 53301
+    },
+    "stage16-post.css": {
+      "pruned_conflicting_declarations": 0,
+      "rule_count": 25,
+      "bytes_before": 2277,
+      "bytes_after": 2277
+    },
+    "stage16-p31.css": {
+      "pruned_conflicting_declarations": 109,
+      "rule_count": 324,
+      "bytes_before": 42734,
+      "bytes_after": 35197
+    }
+  },
+  "removed": [
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(159deg,#174d3a,#092e22)",
+      "kept_value": "radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 70% at 23% -22%,#ceffdf36,transparent 75%),linear-gradient(150deg,#174a39,#0b3026 85%)",
+      "kept_value": "radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 105% 72% at 23% -23%,#c4ffdf3d,transparent 77%),linear-gradient(160deg,#1b5743,#0b3529 81%)",
+      "kept_value": "radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 70% at 23% -25%,#b4ffda4b,transparent 76%),linear-gradient(155deg,#1b5844,#0b3027)",
+      "kept_value": "radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(151deg,#1a4c39,#0b3127)",
+      "kept_value": "radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #528f75",
+      "kept_value": "1px solid #599d7e"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #cfffe46a,0 4px 9px #0006",
+      "kept_value": "inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #cbffe676,inset 0 -2px 2px #00160faa,0 7px 16px #0006",
+      "kept_value": "inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #d9ffe988,inset 0 -2px 2px #001810,0 5px 14px #0005",
+      "kept_value": "inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #c7ffdf8c,inset 0 -2px 3px #00181055,0 5px 13px #0006",
+      "kept_value": "inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #c0ffe04f,0 4px 10px #0004",
+      "kept_value": "inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "10px",
+      "kept_value": "5px 7px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "9px",
+      "kept_value": "5px 7px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "7px 9px",
+      "kept_value": "5px 7px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(160deg,#1b5943,#0c3024)",
+      "kept_value": "radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 116% 77% at 25% -32%,#bdffe157,transparent 74%),linear-gradient(152deg,#236c50 0%,#114432 57%,#092b21 100%)",
+      "kept_value": "radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 66% at 32% -28%,#e6fff38c,transparent 72%),linear-gradient(154deg,#256c51,#124934 59%,#08271f)",
+      "kept_value": "radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse at 28% -45%,#dbffe35c 0%,transparent 70%),linear-gradient(150deg,#22654c,#103e30 70%,#092a22)",
+      "kept_value": "radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 0 #d7ffe78a,0 3px 9px #0005",
+      "kept_value": "inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #d8ffe584,inset 0 -2px 2px #001a11a0,0 4px 0 #06251b,0 8px 15px #0007",
+      "kept_value": "inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 2px #e2ffee93,inset 0 -2px 3px #00180eb3,0 3px 0 #08291e,0 7px 14px #0006",
+      "kept_value": "inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #d6ffe2a6,inset 0 -2px 2px #001910,0 3px 0 #07261b,0 7px 14px #0007",
+      "kept_value": "inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1.5px 1px #ffffff80,inset 0 -2px 2px #00181090,0 4px 7px #0006",
+      "kept_value": "inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "11px 3px 9px",
+      "kept_value": "4px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "7px 3px",
+      "kept_value": "4px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "5px 3px",
+      "kept_value": "4px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #5faa8a",
+      "kept_value": "1px solid #5b9a7e"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #4d9278",
+      "kept_value": "1px solid #5b9a7e"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi.hall-total",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(155deg,#2368a1,#103857)",
+      "kept_value": "radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi.hall-total",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 75% at 22% -35%,#d2f4ff9a,transparent 75%),linear-gradient(158deg,#3179b6 0%,#174b7a 55%,#0d2b4d 100%)",
+      "kept_value": "radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi.hall-total",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 66% at 30% -26%,#e5f7ff9e,transparent 72%),linear-gradient(152deg,#2b77b7,#184b81 59%,#0b294b)",
+      "kept_value": "radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi.hall-total",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse at 28% -45%,#e0f5ff99,transparent 70%),linear-gradient(145deg,#26669c,#173d6c 72%,#112e51)",
+      "kept_value": "radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .top-g-stats .kpi.hall-total",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 2px #e0f6ffa8,inset 0 -2px 3px #001535ac,0 3px 0 #0e3254,0 7px 14px #0007",
+      "kept_value": "inset 0 1px 1px #fff9,inset 0 -2px 2px #0015288f,0 3px 0 #092848,0 7px 12px #0007"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "header",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "6px 11px 7px",
+      "kept_value": "5px 11px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "13px",
+      "kept_value": "6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "12px",
+      "kept_value": "6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "10px",
+      "kept_value": "6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "7px",
+      "kept_value": "6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 0 #b2ffdf8a,0 12px 24px #0008",
+      "kept_value": "inset 0 1px 0 #caffdb77,0 10px 25px #0008"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #e6ffe177,0 12px 27px #0008",
+      "kept_value": "inset 0 1px 0 #caffdb77,0 10px 25px #0008"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 0 #e7fff579,inset 0 -1px 1px #01150c,0 8px 26px #0008",
+      "kept_value": "inset 0 1px 0 #caffdb77,0 10px 25px #0008"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 30% at 30% -14%,#9ce7b540,transparent 75%),linear-gradient(153deg,#113a2e,#09281f 66%,#061d18)",
+      "kept_value": "radial-gradient(ellipse 105% 30% at 45% -10%,#378f694b,transparent 100%),linear-gradient(154deg,#113c2e,#09291f 56%,#071d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 105% 35% at 31% -12%,#8dffbd35,transparent 82%),linear-gradient(161deg,#124032 0%,#092e25 58%,#07261d 100%)",
+      "kept_value": "radial-gradient(ellipse 105% 30% at 45% -10%,#378f694b,transparent 100%),linear-gradient(154deg,#113c2e,#09291f 56%,#071d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 105% 65% at 44% -33%,#9df8bc3d,transparent 75%),linear-gradient(148deg,#144938,#092d23 62%,#061b16)",
+      "kept_value": "radial-gradient(ellipse 105% 30% at 45% -10%,#378f694b,transparent 100%),linear-gradient(154deg,#113c2e,#09291f 56%,#071d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #4a9375",
+      "kept_value": "1px solid #4c9f7c"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel>.row:first-child",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "1px 2px 8px",
+      "kept_value": "0 1px 2px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel>.row:first-child",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "0 2px 4px",
+      "kept_value": "0 1px 2px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .tap",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "12px 48px 29px 6px",
+      "kept_value": "10px 48px 31px 8px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .tap",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "7px 51px 28px 7px",
+      "kept_value": "10px 48px 31px 8px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-symbol",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "filter",
+      "removed_value": "drop-shadow(0 3px 3px #0009)",
+      "kept_value": "drop-shadow(0 2px 2px #0019)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-symbol",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "filter",
+      "removed_value": "drop-shadow(0 3px 2px #000a)",
+      "kept_value": "drop-shadow(0 2px 2px #0019)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-symbol",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "filter",
+      "removed_value": "drop-shadow(0 2px 1px #0007)",
+      "kept_value": "drop-shadow(0 2px 2px #0019)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-footer",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "text-shadow",
+      "removed_value": "0 1px 3px #001710bf",
+      "kept_value": "0 1px 2px #001e"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #fff8,inset 0 -2px 2px #000a,0 3px 0 #07120e,0 7px 9px #000a",
+      "kept_value": "inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #fff8,inset 0 -2px 3px #000b,0 3px 0 #061710,0 5px 8px #000a",
+      "kept_value": "inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 2px #fff7,inset 0 -2px 2px #000b,0 3px 0 #05130d,0 6px 8px #000a",
+      "kept_value": "inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #fffb,0 3px 0 #03100d,0 5px 7px #0009",
+      "kept_value": "inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(143deg,#52655e,#21312c 45%,#0b1411)",
+      "kept_value": "linear-gradient(145deg,#51625e,#1b2c25 51%,#091410)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 93% 50% at 50% 0%,#60766a9c,transparent 85%),linear-gradient(152deg,#2e4139,#0c1712)",
+      "kept_value": "linear-gradient(145deg,#51625e,#1b2c25 51%,#091410)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(145deg,#354b40,#14241f 60%,#0c1611)",
+      "kept_value": "linear-gradient(145deg,#51625e,#1b2c25 51%,#091410)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #f6fff1e8",
+      "kept_value": "1px solid #e8fff1e6"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card .record-minus",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #edf9e2d0",
+      "kept_value": "1px solid #e8fff1e6"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "margin",
+      "removed_value": "7px 0 9px",
+      "kept_value": "3px 0"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "margin",
+      "removed_value": "7px 0 8px",
+      "kept_value": "3px 0"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "margin",
+      "removed_value": "5px 0 5px",
+      "kept_value": "3px 0"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "10px 5px",
+      "kept_value": "5px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "8px 4px",
+      "kept_value": "5px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "6px 4px",
+      "kept_value": "5px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 1px #c9ffe677,inset 0 -2px 2px #00180d,0 6px 13px #0006",
+      "kept_value": "inset 0 1px 1px #e1ffde8a,0 4px 11px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #eaffea87,inset 0 -2px 2px #00171080,0 4px 10px #0005",
+      "kept_value": "inset 0 1px 1px #e1ffde8a,0 4px 11px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 0 #d7ffe359,0 3px 8px #0005",
+      "kept_value": "inset 0 1px 1px #e1ffde8a,0 4px 11px #0005"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 120% 65% at 21% -28%,#bbffdc42,transparent 75%),linear-gradient(151deg,#215842,#0b3528 78%)",
+      "kept_value": "radial-gradient(ellipse 95% 60% at 24% -23%,#c9ffd32e,transparent 75%),linear-gradient(156deg,#205440,#10382a)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 110% 70% at 22% -27%,#b4ffe358,transparent 76%),linear-gradient(154deg,#19513f,#0a3025)",
+      "kept_value": "radial-gradient(ellipse 95% 60% at 24% -23%,#c9ffd32e,transparent 75%),linear-gradient(156deg,#205440,#10382a)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(156deg,#1b4938,#0b2f24)",
+      "kept_value": "radial-gradient(ellipse 95% 60% at 24% -23%,#c9ffd32e,transparent 75%),linear-gradient(156deg,#205440,#10382a)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #68a688",
+      "kept_value": "1px solid #538b71"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(#104333,#051e18)",
+      "kept_value": "linear-gradient(180deg,#103f2f,#041d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(180deg,#124838,#082a21 72%,#051a15)",
+      "kept_value": "linear-gradient(180deg,#103f2f,#041d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(180deg,#174a3a,#06261d 78%,#061b16)",
+      "kept_value": "linear-gradient(180deg,#103f2f,#041d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(180deg,#10392d,#08261e)",
+      "kept_value": "linear-gradient(180deg,#103f2f,#041d17)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "0 -7px 17px #000a,inset 0 1px 1px #c7ffdf32",
+      "kept_value": "0 -6px 18px #0009,inset 0 1px 1px #dcffd742"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "0 -6px 20px #0009,inset 0 1px 1px #d8ffe53d",
+      "kept_value": "0 -6px 18px #0009,inset 0 1px 1px #dcffd742"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "0 -5px 18px #0009",
+      "kept_value": "0 -6px 18px #0009,inset 0 1px 1px #dcffd742"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 2px #fff9de,inset 0 -2px 2px #81502291,0 4px 0 #825a25,0 8px 14px #0008",
+      "kept_value": "inset 0 2px 1px #fffde8,inset 0 -2px 2px #7d521b73,0 3px 0 #9e7236,0 6px 11px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 2px 2px #fffde6,inset 0 -2px 2px #8c602b70,0 3px 0 #996b30,0 7px 12px #0006",
+      "kept_value": "inset 0 2px 1px #fffde8,inset 0 -2px 2px #7d521b73,0 3px 0 #9e7236,0 6px 11px #0006"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse 110% 72% at 22% -19%,#fffdf2c9,transparent 77%),linear-gradient(158deg,#ffdf9a,#f0c983 60%,#cc9f4f)",
+      "kept_value": "radial-gradient(ellipse 120% 70% at 24% -25%,#fffbe8d9,transparent 77%),linear-gradient(158deg,#ffeab4,#f0c780 62%,#cb9e53)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(148deg,#2c5941,#103626)",
+      "kept_value": "linear-gradient(150deg,#365d46,#133a2d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(163deg,#3a684c,#123b2c)",
+      "kept_value": "linear-gradient(150deg,#365d46,#133a2d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(150deg,#335f47,#0d3024)",
+      "kept_value": "linear-gradient(150deg,#365d46,#133a2d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(158deg,#365d43,#15382b)",
+      "kept_value": "linear-gradient(150deg,#365d46,#133a2d)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #e2ffe273,0 5px 10px #0006",
+      "kept_value": "inset 0 1px 1px #efffe08f,0 3px 8px #0007"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #f4ffdc8a,0 5px 10px #0005",
+      "kept_value": "inset 0 1px 1px #efffe08f,0 3px 8px #0007"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": ".tabs button.active",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #fff5,0 3px 8px #0005",
+      "kept_value": "inset 0 1px 1px #efffe08f,0 3px 8px #0007"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "8px",
+      "kept_value": "5px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "5px 7px",
+      "kept_value": "4px 6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "4px 7px",
+      "kept_value": "4px 6px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "margin",
+      "removed_value": "2px 0 3px",
+      "kept_value": "-6px 0 1px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "margin",
+      "removed_value": "1px 0 1px",
+      "kept_value": "-6px 0 1px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .kpi",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:375px)"
+        ]
+      ],
+      "property": "padding",
+      "removed_value": "4px 3px",
+      "kept_value": "3px 3px"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .game-controls input",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 3px 6px #001810b6,inset 0 1px 1px #83cca238",
+      "kept_value": "inset 0 2px 5px #00150fc7,inset 0 1px 0 #b6e7cd3d"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card::before",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(180deg,#fff8,#ffffff60 46%,transparent 100%)",
+      "kept_value": "linear-gradient(180deg,#ffffffb7 0%,#ffffff54 45%,transparent 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card::before",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(180deg,#ffffffe3, #ffffff38 49%, transparent)",
+      "kept_value": "linear-gradient(180deg,#ffffffb7 0%,#ffffff54 45%,transparent 100%)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card::after",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #fff9",
+      "kept_value": "1px solid #ffffff89"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card::after",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #fffb,inset 0 -3px 2px #001b2c55",
+      "kept_value": "inset 0 1px 1px #fff9,inset 0 -1px 1px #0018"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .action-board.sp .record-card::after",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #fff8,inset 0 -2px 2px #0006",
+      "kept_value": "inset 0 1px 1px #fff9,inset 0 -1px 1px #0018"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel:first-child",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "linear-gradient(155deg,#154536 0%,#0c3126 45%,#09271f 100%)",
+      "kept_value": "radial-gradient(ellipse 95% 33% at 35% -13%,#6ec69438,transparent 86%),linear-gradient(156deg,#114431,#092d23 58%,#071d18)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play #playing>.panel:first-child",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 0 #eaffd84c,0 8px 22px #0008",
+      "kept_value": "inset 0 1px #cbf9d26e,0 11px 28px #0008"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "background",
+      "removed_value": "radial-gradient(ellipse at 23% -30%,#fffdeac2,transparent 68%),linear-gradient(155deg,#ffe7aa,#ebc47a 71%,#c4954c)",
+      "kept_value": "radial-gradient(ellipse 110% 85% at 18% -32%,#fffdecdf,transparent 74%),linear-gradient(154deg,#ffe3a2,#eac479 72%,#ca9c53)"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "border",
+      "removed_value": "1px solid #ffe2a8",
+      "kept_value": "1px solid #ffe7a9"
+    },
+    {
+      "file": "stage16-p31.css",
+      "selector": "#tab-play .four.sp .quick-complete",
+      "context": [
+        [
+          "media",
+          "(orientation:portrait) and (max-width:600px)"
+        ]
+      ],
+      "property": "box-shadow",
+      "removed_value": "inset 0 1px 1px #fff9,0 3px 0 #9a723a,0 6px 10px #0006",
+      "kept_value": "inset 0 1.5px 1px #ffffe8,inset 0 -2px 1px #93601f88,0 3px 0 #a16f2e,0 6px 10px #0007"
+    }
+  ]
+}

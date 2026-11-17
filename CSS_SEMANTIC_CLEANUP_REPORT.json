@@ -1,0 +1,101 @@
+{
+  "stage16-main.css": {
+    "removed_exact_declarations": 0,
+    "rules_preserved": 467,
+    "bytes_before": 52904,
+    "bytes_after": 53301,
+    "examples": []
+  },
+  "stage16-post.css": {
+    "removed_exact_declarations": 0,
+    "rules_preserved": 25,
+    "bytes_before": 2252,
+    "bytes_after": 2277,
+    "examples": []
+  },
+  "stage16-p31.css": {
+    "removed_exact_declarations": 64,
+    "rules_preserved": 324,
+    "bytes_before": 47575,
+    "bytes_after": 46272,
+    "examples": [
+      {
+        "selector": "#tab-play .game-controls",
+        "property": "border-radius",
+        "value": "20px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .game-controls",
+        "property": "margin-bottom",
+        "value": "4px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .game-controls",
+        "property": "border-radius",
+        "value": "20px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .top-g-stats .kpi",
+        "property": "border-radius",
+        "value": "19px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .top-g-stats .kpi",
+        "property": "gap",
+        "value": "1px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .top-g-stats .kpi",
+        "property": "border-radius",
+        "value": "19px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      },
+      {
+        "selector": "#tab-play .top-g-stats .kpi",
+        "property": "border-radius",
+        "value": "17px",
+        "context": [
+          [
+            "media",
+            "(orientation:portrait) and (max-width:600px)"
+          ]
+        ]
+      }
+    ]
+  }
+}
