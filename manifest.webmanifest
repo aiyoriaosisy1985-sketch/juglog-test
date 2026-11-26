@@ -1,7 +1,7 @@
 {
   "id": "./index.html",
-  "name": "Juglog",
-  "short_name": "Juglog",
+  "name": "Juglog Stage19 TEST",
+  "short_name": "Juglog TEST",
   "description": "ジャグラー実戦記録・推測・収支管理",
   "start_url": "./index.html",
   "scope": "./",

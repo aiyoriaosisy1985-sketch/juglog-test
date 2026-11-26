@@ -1,0 +1,457 @@
+/* Juglog Stage16 stylesheet consolidation. Source sections retain original cascade order. */
+
+/* ===== SOURCE: play-material-svg.css ===== */
+/* MATERIAL-SVG concept: true vector-drawn face, HTML events and labels unchanged. */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play#tab-play #playing#playing .action-board.sp .record-card{background-color:transparent!important;background-size:100% 100%!important;background-repeat:no-repeat!important;background-position:center!important;border:0!important;border-radius:23px!important;box-shadow:0 3px 0 #05190f,0 9px 13px #0009!important;overflow:hidden!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.bb{background-image:url("./visual-assets/key-bb.svg")!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.rb{background-image:url("./visual-assets/key-rb.svg")!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.grape{background-image:url("./visual-assets/key-grape.svg")!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card.cherry{background-image:url("./visual-assets/key-cherry.svg")!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card::before,#tab-play#tab-play #playing#playing .action-board.sp .record-card::after{display:none!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card .record-minus{background:linear-gradient(155deg,#31423a,#0b1814)!important;border:1px solid #eaffee9c!important;box-shadow:inset 0 1px 1px #e8ffe977,0 2px 6px #000b!important;}
+#tab-play#tab-play #playing#playing .action-board.sp .record-card .record-footer{text-shadow:0 2px 3px #00170faa!important;}
+
+
+
+}
+
+
+/* ===== SOURCE: play-redesign.css ===== */
+/* P31 PLAY REDESIGN R1 – a single dedicated visual layer, no functional rules */
+:root{--glass-edge:#68a88e;--glass-white:#ffffffc5;--glass-depth:#00130e;}
+#tab-play #playing>.panel{background:radial-gradient(ellipse 100% 28% at 50% -8%,#267f5b68,transparent 100%),linear-gradient(155deg,#103b2e 0%,#09291f 51%,#06221b 100%)!important;border:1px solid #499477!important;border-radius:24px!important;padding:13px!important;box-shadow:inset 0 1px 0 #a5f4c64d,0 10px 30px #0008!important;}
+#tab-play #playing>.panel>.row:first-child{padding:3px 4px 11px!important;gap:8px!important;}
+#tab-play #playing>.panel>.row:first-child h2{font-size:clamp(20px,5.7vw,27px)!important;letter-spacing:.01em;text-shadow:0 2px 5px #0006!important;}
+#tab-play .top-g-stats{gap:9px!important;margin-bottom:10px!important;}
+#tab-play .top-g-stats .kpi{min-width:0!important;border-radius:18px!important;padding:13px 5px!important;border:1px solid #559e80!important;background:radial-gradient(ellipse 110% 58% at 25% -17%,#b5ffcd51,transparent 85%),linear-gradient(160deg,#21674d,#104331 58%,#0a2d23)!important;box-shadow:inset 0 2px 1px #d8ffe584,inset 0 -3px 3px #001a11a0,0 4px 0 #06251b,0 7px 13px #0007!important;}
+#tab-play .top-g-stats .kpi.hall-total{border-color:#73aeed!important;background:radial-gradient(ellipse 105% 56% at 22% -8%,#d7f3ff85,transparent 80%),linear-gradient(155deg,#286bad,#164275 56%,#092e5d)!important;box-shadow:inset 0 2px 1px #e1f6ff91,inset 0 -3px 3px #011936aa,0 4px 0 #102d50,0 7px 13px #0008!important;}
+#tab-play .top-g-stats small{font-size:12px!important;color:#d4e3dc!important;white-space:nowrap!important;}
+#tab-play .top-g-stats strong{font-size:clamp(20px,6vw,27px)!important;line-height:1.3!important;color:white!important;font-variant-numeric:tabular-nums!important;}
+#tab-play .game-controls{border-radius:21px!important;padding:11px!important;margin:0 0 13px!important;background:radial-gradient(ellipse 110% 75% at 31% -20%,#79e9ac30,transparent 76%),linear-gradient(160deg,#164e3b,#0d3429)!important;border:1px solid #4c9477!important;box-shadow:inset 0 2px 1px #cbffe676,inset 0 -2px 2px #00160faa,0 6px 14px #0005!important;}
+#tab-play .game-controls :is(input,button){border-radius:13px!important;min-height:45px!important;}
+#tab-play .game-controls button{box-shadow:inset 0 1px 1px #ffffff56,0 3px 0 #051e16,0 5px 7px #0005!important;}
+#tab-play .action-board.sp{gap:13px!important;margin-bottom:14px!important;}
+#tab-play .action-board.sp :is(.action-right,.action-left){gap:13px!important;}
+#tab-play .action-board.sp .record-card{position:relative!important;isolation:isolate!important;overflow:visible!important;border:1px solid color-mix(in srgb,var(--v5-edge,#85ffc0) 68%,#fff 32%)!important;border-radius:25px!important;background:radial-gradient(ellipse 110% 67% at 24% -31%,#ffffffa8,transparent 73%),radial-gradient(ellipse 62% 40% at 96% 94%,#001d2280,transparent 85%),linear-gradient(160deg,var(--v5-top) -8%,var(--v5-mid) 29%,var(--v5-base) 65%,var(--v5-dark) 110%)!important;box-shadow:inset 0 2px 2px #fffa,inset 2px 1px 2px #fff7,inset -1px 0 1px #0004,inset 0 -3px 2px #0007,0 5px 0 var(--v5-dark),0 7px 3px #000a,0 13px 18px #0009!important;transition:transform .12s ease,filter .12s ease!important;}
+#tab-play .action-board.sp .record-card:before{content:""!important;position:absolute!important;inset:5px 6px auto!important;height:46%!important;border-radius:19px 19px 47% 47%!important;background:linear-gradient(180deg,#ffffffb9 0%,#ffffff4b 51%,transparent 100%)!important;opacity:.70!important;pointer-events:none!important;z-index:0!important;}
+#tab-play .action-board.sp .record-card:after{content:""!important;position:absolute!important;inset:5px!important;border-radius:19px!important;border:1px solid #ffffff75!important;background:radial-gradient(ellipse 62% 13% at 17% 98%,#fff8,transparent 96%),radial-gradient(ellipse 38% 11% at 87% 98%,#fff7,transparent 98%)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0019!important;pointer-events:none!important;z-index:0!important;}
+#tab-play .action-board.sp .record-card .tap{position:relative!important;z-index:1!important;background:transparent!important;box-shadow:none!important;border:0!important;border-radius:23px!important;padding:10px 49px 34px 9px!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:105px!important;}
+#tab-play .action-board.sp .record-card .record-symbol{display:flex!important;justify-content:center!important;align-items:center!important;filter:drop-shadow(0 3px 2px #0018)!important;text-shadow:0 3px 3px #0008!important;max-width:100%!important;}
+#tab-play .action-board.sp .record-card .record-footer{position:absolute!important;z-index:2!important;bottom:9px!important;left:6px!important;right:6px!important;line-height:1.1!important;font-size:clamp(14px,4.6vw,20px)!important;text-align:center!important;font-weight:850!important;white-space:nowrap!important;pointer-events:none!important;text-shadow:0 2px 3px #001a!important;}
+#tab-play .action-board.sp .record-card .record-minus{position:absolute!important;z-index:4!important;top:9px!important;right:9px!important;width:44px!important;height:44px!important;border-radius:13px!important;background:linear-gradient(150deg,#485b55 0%,#182b25 52%,#070f0d 100%)!important;border:1px solid #f3fff5d9!important;box-shadow:inset 0 2px 2px #fff7,inset 0 -2px 2px #000a,0 3px 0 #051510,0 6px 8px #0009!important;color:white!important;}
+#tab-play .action-board.sp .record-card:has(.tap:active){transform:translateY(3px)!important;filter:brightness(.94)!important;}
+#tab-play .four.sp .kpi{border-radius:17px!important;background:radial-gradient(ellipse 105% 67% at 21% -28%,#91ffc132,transparent 79%),linear-gradient(150deg,#194d3c,#0b3227)!important;border:1px solid #538c75!important;box-shadow:inset 0 2px 1px #c9ffe677,inset 0 -2px 2px #00180d,0 5px 12px #0005!important;}
+#tab-play .quick-complete{border-radius:15px!important;border:1px solid #fff0c6!important;background:radial-gradient(ellipse 125% 71% at 22% -15%,#fffef1df,transparent 75%),linear-gradient(155deg,#ffe2a3,#edc67d 62%,#bc8c3d)!important;box-shadow:inset 0 2px 2px #fff9de,inset 0 -2px 2px #81502291,0 4px 0 #825a25,0 7px 13px #0008!important;color:#152e24!important;font-weight:850!important;}
+.tabs{background:linear-gradient(180deg,#123f30,#061d17)!important;border-top:1px solid #559f80!important;box-shadow:0 -8px 19px #0008,inset 0 1px 0 #e7ffe72b!important;}
+.tabs button.active{border-radius:17px!important;background:radial-gradient(ellipse 95% 60% at 20% -14%,#b5eb9766,transparent 72%),linear-gradient(158deg,#315a41,#123a2a)!important;box-shadow:inset 0 2px 1px #e9ffd199,inset 0 -2px 2px #00170d,0 5px 10px #0007!important;}
+.tabs .nav-icon{width:21px!important;height:21px!important;flex:none!important;}
+@media(max-width:375px){#tab-play .action-board.sp{gap:10px!important;}#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important;}#tab-play .action-board.sp .record-card .tap{padding-right:46px!important;}}
+@media(prefers-reduced-motion:reduce){#tab-play .action-board.sp .record-card{transition:none!important;}}
+
+/* R2: screen-space architecture, not more sheen. Uses existing DOM and events. */
+@media (orientation:portrait) and (max-width:600px){
+  
+  header .sub,header small{line-height:1.15!important;}
+  main{padding:5px 10px calc(82px + env(safe-area-inset-bottom))!important;}
+  #tab-play #playing>.panel{margin:5px 0 11px!important;}
+  
+  
+  
+  
+  
+  #tab-play .game-controls .game-input-row{gap:6px!important;}
+  
+  #tab-play .game-controls .measure-check{font-size:11.5px!important;}
+  
+  
+  
+  
+  #tab-play .action-board.sp .record-card .record-symbol{max-height:71px!important;line-height:1!important;}
+  
+  
+  #tab-play .action-board.sp .record-card .record-minus{width:44px!important;height:44px!important;}
+  
+  #tab-play .four.sp .kpi{min-width:0!important;}
+  #tab-play .four.sp .uncompleted-kpi{min-width:0!important;}
+  
+  .tabs{padding-bottom:max(5px,env(safe-area-inset-bottom))!important;}
+}
+@media (orientation:portrait) and (max-width:375px){
+  #tab-play .action-board.sp .record-card .tap{padding-right:48px!important;}
+  
+  #tab-play .top-g-stats small{font-size:11px!important;}
+}
+
+/* R3: balanced surface architecture, no functional selectors modified */
+@media (orientation:portrait) and (max-width:600px){
+
+#tab-play .top-g-stats .kpi{display:flex!important;flex-direction:column!important;justify-content:center!important;}
+
+
+#tab-play .action-board.sp :is(.action-right,.action-left){gap:12px!important;}
+#tab-play .action-board.sp .record-card{border:1px solid color-mix(in srgb,var(--v5-edge) 66%,white)!important;background:radial-gradient(ellipse 126% 58% at 21% -22%,#fff9,transparent 73%),radial-gradient(ellipse 85% 80% at 76% 108%,#00172555,transparent 82%),linear-gradient(153deg,var(--v5-top),var(--v5-mid) 32%,var(--v5-base) 73%,var(--v5-dark))!important;box-shadow:inset 0 2px 1px #ffffffbd,inset 1px 0 1px #ffffff8a,inset 0 -3px 2px #001c2a77,0 4px 0 var(--v5-dark),0 7px 5px #0009,0 13px 20px #0007!important;}
+
+
+
+
+
+#tab-play .quick-complete{min-height:52px!important;}
+}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp :is(.action-right,.action-left){gap:10px!important;}}
+
+/* R4: product-level hierarchy and tactile surfaces; all event semantics untouched */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding:5px 11px!important;}
+ 
+ #tab-play #playing>.panel{border-radius:24px!important;}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #tab-play .action-board.sp .record-card:after{inset:4px!important;border-radius:21px!important;}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ .tabs button.active{border:1px solid #c5a75a!important;}
+}
+@media (orientation:portrait) and (max-width:375px){
+ 
+ 
+ 
+}
+
+/* R5: protect action visibility while retaining touch sizes; portrait only */
+@media (orientation:portrait) and (max-width:600px){
+ 
+ 
+ 
+ 
+ #tab-play .top-g-stats strong{font-size:clamp(20px,5.5vw,24px)!important;line-height:1.15!important;}
+ 
+ #tab-play .game-controls :is(input,button){min-height:43px!important;}
+ 
+ 
+ 
+ 
+ #tab-play .action-board.sp .record-card .tap{padding-bottom:28px!important;}
+ 
+ 
+ 
+ 
+}
+@media (orientation:portrait) and (max-width:375px){
+ 
+ 
+ 
+}
+
+/* 360px: reclaim vertical space without shrinking 44px cancel/completion targets */
+@media (orientation:portrait) and (max-width:375px){
+ 
+ #tab-play .top-g-stats .kpi{padding:3px 2px!important;}
+ 
+ 
+ #tab-play .game-controls .measure-check{margin-top:1px!important;}
+ 
+ 
+ 
+ 
+ 
+}
+
+/* R6: small-phone layout calibration: keep every critical action >=44px */
+@media (orientation:portrait) and (max-width:375px){
+ header{padding-top:2px!important;padding-bottom:2px!important;}
+ #tab-play #playing>.panel>.row:first-child{padding-bottom:2px!important;}
+ 
+ 
+ #tab-play .game-controls .measure-check{font-size:11.5px!important;line-height:1.14!important;}
+ #tab-play .action-board.sp .record-card{border-radius:22px!important;}
+ 
+ #tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:48px!important;max-height:48px!important;}
+ #tab-play .action-board.sp .record-card .record-footer{bottom:6px!important;}
+ 
+ 
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:46px!important;}
+}
+
+@media (orientation:portrait) and (max-width:375px){
+ 
+ 
+ 
+ 
+ 
+ #tab-play .action-board.sp .record-card .record-minus{min-width:44px!important;min-height:44px!important;}
+}
+
+/* R7 / portrait density: reduce only structural whitespace, preserve record and cancel tap targets */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding-block:3px!important;}
+ main{padding-top:2px!important;}
+ #tab-play #playing>.panel{margin-top:2px!important;}
+ #tab-play #playing>.panel>.row:first-child{padding:0 1px 2px!important;}
+ #tab-play .top-g-stats{margin:0 0 4px!important;}
+ #tab-play .top-g-stats .kpi{padding:4px 3px!important;gap:1px!important;min-height:58px!important;}
+ #tab-play .game-controls{padding:5px 7px!important;}
+ #tab-play .game-controls .game-input-row{margin-top:3px!important;}
+ 
+ #tab-play .action-board.sp{gap:7px!important;}
+ 
+ #tab-play .four.sp{margin:3px 0!important;gap:6px!important;}
+ #tab-play .four.sp .kpi{padding:5px 3px!important;}
+ 
+ 
+}
+@media (orientation:portrait) and (max-width:375px){
+ 
+ 
+ #tab-play .game-controls{padding:4px 6px!important;}
+ #tab-play .action-board.sp{gap:5px!important;margin:2px 0!important;}
+ 
+ #tab-play .four.sp{margin:-6px 0 1px!important;}
+ #tab-play .four.sp .kpi{padding:3px 3px!important;}
+}
+
+/* R9: product-surface redesign pass, preserving the verified R8 geometry.
+   Material hierarchy: enamel input tiles, pearlescent top counters, gently curved buttons. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel{
+  
+  border-color:#5f9c7f!important;
+  }
+ #tab-play .top-g-stats .kpi{
+  
+  border-color:#68ad8b!important;
+  }
+ 
+ 
+ #tab-play .game-controls input{
+  background:linear-gradient(175deg,#0a2a21,#103d2f)!important;
+  border:1px solid #47856b!important;
+  }
+ 
+ #tab-play .action-board.sp .record-card:before{
+  border-radius:18px 18px 49% 49%!important;
+  background:linear-gradient(#fff 0%,#ffffff69 48%,transparent 100%)!important;}
+ #tab-play .action-board.sp .record-card:after{
+  border-color:#ffffff93!important;
+  background:radial-gradient(ellipse 52% 13% at 16% 99%,#fff7,transparent 98%),radial-gradient(ellipse 48% 10% at 90% 98%,#fff6,transparent 99%)!important;}
+ 
+ 
+ #tab-play .quick-complete{
+  
+  border-color:#ffecc0!important;
+  }
+ .tabs{border-top-color:#75b295!important;}
+ 
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing .action-board.sp{margin-bottom:0px!important;}
+}
+
+
+/* R10 — PRODUCT COMPONENT REBUILD: real clickable surface, compact portrait proportions */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play #playing>.panel { border:1px solid #4c9f7c!important;box-shadow:inset 0 1px 0 #caffdb77,0 10px 25px #0008!important;}
+
+
+
+#tab-play .game-controls{border:1px solid #599d7e!important;}
+#tab-play .game-controls input{border-radius:12px!important;box-shadow:inset 0 2px 5px #00150fc7,inset 0 1px 0 #b6e7cd3d!important;}
+#tab-play .action-board.sp{column-gap:13px!important;}
+
+#tab-play .action-board.sp .record-card{isolation:isolate!important;overflow:hidden!important;height:116px!important;min-height:116px!important;}
+#tab-play .action-board.sp .record-card::before{top:4px!important;left:5px!important;right:5px!important;}
+
+#tab-play .action-board.sp .record-card .tap{height:111px!important;min-height:111px!important;padding:10px 48px 31px 8px!important;display:flex!important;justify-content:center!important;align-items:center!important;}
+
+#tab-play .action-board.sp .record-card .record-symbol .fruit-icon{height:62px!important;max-height:62px!important;}
+#tab-play .action-board.sp .record-card .record-footer{font-size:clamp(15px,4.4vw,19px)!important;}
+#tab-play .action-board.sp .record-card .record-minus{top:8px!important;right:8px!important;}
+
+#tab-play .quick-complete{background:radial-gradient(ellipse 120% 70% at 24% -25%,#fffbe8d9,transparent 77%),linear-gradient(158deg,#ffeab4,#f0c780 62%,#cb9e53)!important;border:1px solid #ffe9b6!important;box-shadow:inset 0 2px 1px #fffde8,inset 0 -2px 2px #7d521b73,0 3px 0 #9e7236,0 6px 11px #0006!important;}
+
+.tabs button.active{border-color:#e0c46c!important;}
+}
+@media (orientation:portrait) and (max-width:375px){#tab-play .action-board.sp{column-gap:9px!important;}}
+/* R10 safety fit: compress decorative margins, preserve touch targets. */
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .four.sp{margin-bottom:0!important;}
+ 
+}
+@media (orientation:portrait) and (max-width:375px){
+ 
+ #tab-play #playing .game-controls{margin-top:3px!important;}
+ 
+ #tab-play #playing .four.sp{margin-top:4px!important;}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing .top-g-stats{margin-bottom:1px!important;}
+ #tab-play #playing .game-controls{margin-bottom:1px!important;}
+ #tab-play #playing .action-board.sp{margin-top:0!important;}
+}
+
+/* R11 DESIGN REFINEMENT – breathing room for critical completion control.
+   Preserve 44px cancel buttons, bonus layout and full-size four recording keys. */
+@media (orientation:portrait) and (max-width:600px){
+ header{padding-top:1px!important;padding-bottom:1px!important;}
+ #tab-play #playing>.panel{padding:6px!important;}
+ #tab-play #playing>.panel>.row:first-child{padding-bottom:0!important;margin-bottom:0!important;}
+ 
+ #tab-play .top-g-stats .kpi{padding-top:3px!important;padding-bottom:3px!important;}
+ #tab-play .game-controls{padding-top:4px!important;padding-bottom:4px!important;}
+ #tab-play .game-controls .measure-check{line-height:1.08!important;margin-top:1px!important;}
+ #tab-play .action-board.sp{row-gap:7px!important;}
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:7px!important;}
+ 
+ #tab-play .four.sp .kpi{padding-top:2px!important;padding-bottom:2px!important;}
+ #tab-play .four.sp .uncompleted-kpi .quick-complete{min-height:48px!important;}
+ 
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .top-g-stats .kpi{min-height:48px!important;}
+ #tab-play #playing>.panel{padding:5px!important;}
+ #tab-play .action-board.sp .record-card{height:109px!important;min-height:109px!important;}
+ #tab-play .action-board.sp .record-card .tap{height:104px!important;min-height:104px!important;}
+}
+
+/* R11 final measured spacing: compact inner button-row gutters, not touch boxes. */
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play .action-board.sp :is(.action-left,.action-right){gap:4px!important;}
+ 
+}
+
+/* R12 — cohesive geometry system, not extra sparkle.  Visuals-only layer. */
+@media (orientation:portrait) and (max-width:600px) {
+ #tab-play #playing>.panel:first-child{
+   
+   border:1px solid #588e73!important;
+   
+   
+ }
+ #tab-play #playing>.panel:first-child>.row:first-child h2{
+   
+   text-shadow:0 2px 4px #001e19!important;
+ }
+ 
+ 
+ 
+ #tab-play .game-input-row :is(button,input){border-radius:11px!important;}
+ #tab-play .action-board.sp .record-card{
+   
+   box-shadow:inset 0 1px 1px #ffffff70,inset 0 -2px 1px #0005,0 5px 0 var(--v5-dark),0 9px 13px #0009!important;
+ }
+ 
+ 
+ #tab-play .action-board.sp .record-card .record-footer{
+   letter-spacing:.005em!important;
+   
+ }
+ 
+ #tab-play .four.sp .kpi{
+   
+   border-color:#47745f!important;
+   
+ }
+ 
+ .tabs{
+   border-color:#3f775f!important;}
+ 
+}
+
+/* R13 structural design: unified operations deck, hall odds after primary actions */
+@media (orientation:portrait) and (max-width:600px){
+#tab-play #playing>.panel{background:radial-gradient(ellipse 105% 30% at 45% -10%,#378f694b,transparent 100%),linear-gradient(154deg,#113c2e,#09291f 56%,#071d17)!important;}
+#tab-play .play-command-deck{position:relative;isolation:isolate;display:flow-root;padding:0;margin:0 0 6px;border-radius:20px;background:linear-gradient(180deg,#164d3a20,transparent 50%);}
+#tab-play .play-command-deck>.game-controls{margin-bottom:9px!important;}
+#tab-play .play-command-deck>.action-board.sp{margin-bottom:7px!important;}
+#tab-play .play-command-deck>.four.sp{margin:0 0 2px!important;gap:7px!important;}
+#tab-play .hall-prob{margin:7px 0!important;border-radius:16px!important;}
+
+
+
+#tab-play .action-board.sp .record-card:before{opacity:.53!important;height:41%!important;}
+}
+@media (orientation:portrait) and (max-width:375px){
+#tab-play .play-command-deck>.game-controls{margin-bottom:7px!important;}
+#tab-play .play-command-deck>.action-board.sp{margin-bottom:5px!important;}
+#tab-play .play-command-deck>.four.sp{gap:6px!important;}
+}
+
+/* R14: 360px vertical safety margin; preserve all tap target geometry. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel:first-child{padding-top:5px!important;padding-bottom:6px!important;}
+ #tab-play .top-g-stats{margin-bottom:3px!important;}
+ #tab-play .game-controls{margin-top:0!important;margin-bottom:4px!important;}
+ #tab-play .action-board.sp{margin-top:0!important;margin-bottom:3px!important;}
+ #tab-play .four.sp{margin-top:0!important;margin-bottom:0!important;}
+ #tab-play .hall-prob{margin-top:8px!important;}
+}
+@media (orientation:portrait) and (max-width:375px){
+ #tab-play #playing>.panel:first-child{padding-top:3px!important;padding-bottom:4px!important;}
+ #tab-play .top-g-stats{margin-bottom:1px!important;}
+ #tab-play .game-controls{margin-bottom:1px!important;}
+ #tab-play .action-board.sp{margin-bottom:1px!important;}
+ #tab-play .four.sp{margin-top:-3px!important;}
+}
+
+/* R15: unified material system — deliberately replaces the visible surface of the deck.
+   Visual-only; retain the button dimensions, ids and event bindings. */
+@media (orientation:portrait) and (max-width:600px){
+ #tab-play #playing>.panel:first-child{border-radius:23px!important;background:radial-gradient(ellipse 95% 33% at 35% -13%,#6ec69438,transparent 86%),linear-gradient(156deg,#114431,#092d23 58%,#071d18)!important;border-color:#549679!important;box-shadow:inset 0 1px #cbf9d26e,0 11px 28px #0008!important;}
+ #tab-play #playing>.panel:first-child>.row:first-child h2{font-size:clamp(19px,5.7vw,23px)!important;font-weight:820!important;letter-spacing:-.025em!important;}
+ #tab-play .top-g-stats{gap:8px!important;}
+ #tab-play .top-g-stats .kpi{border-radius:19px!important;background:radial-gradient(ellipse 100% 63% at 32% -20%,#d3ffef45,transparent 78%),linear-gradient(148deg,#23614b 0%,#124432 47%,#0a2b23 100%)!important;border:1px solid #5b9a7e!important;box-shadow:inset 0 1.5px 1px #edffe598,inset 0 -2px 2px #001d1588,0 3px 0 #07261c,0 6px 12px #0006!important;}
+ #tab-play .top-g-stats .kpi.hall-total{border-color:#75b6ec!important;background:radial-gradient(ellipse 95% 65% at 30% -15%,#dbf2ff82,transparent 76%),linear-gradient(150deg,#286cb1,#144977 57%,#0b2c4f)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0015288f,0 3px 0 #092848,0 7px 12px #0007!important;}
+ #tab-play .game-controls{border-radius:20px!important;border-color:#468e72!important;background:radial-gradient(ellipse 120% 80% at 30% -35%,#b3ffdb34,transparent 73%),linear-gradient(152deg,#1a513d,#0c3026 74%,#08241d)!important;box-shadow:inset 0 1px 1px #e2ffdb75,inset 0 -1px 1px #0019,0 5px 12px #0005!important;}
+ #tab-play .game-input-row :is(input,button){border-radius:12px!important;}
+ #tab-play .action-board.sp .record-card{border-radius:26px!important;border:1px solid color-mix(in srgb,var(--v5-edge) 67%,#ffffff 33%)!important;background:radial-gradient(ellipse 125% 85% at 26% -49%,#ffffffe2 0%,#ffffff2b 45%,transparent 68%),linear-gradient(156deg,var(--v5-top),var(--v5-mid) 35%,var(--v5-base) 73%,var(--v5-dark))!important;box-shadow:inset 0 1.6px 1px #fffba,inset 1px 0 2px #fff7,inset 0 -3px 3px #0006,0 4px 0 var(--v5-dark),0 7px 4px #0009,0 12px 16px #0009!important;}
+ #tab-play .action-board.sp .record-card::before{inset:5px 6px auto!important;height:47%!important;border-radius:20px 20px 50% 50%!important;background:linear-gradient(180deg,#ffffffb7 0%,#ffffff54 45%,transparent 100%)!important;opacity:.43!important;}
+ #tab-play .action-board.sp .record-card::after{inset:4px!important;border-radius:21px!important;border:1px solid #ffffff89!important;background:radial-gradient(ellipse 56% 13% at 16% 97%,#fff6,transparent 100%),radial-gradient(ellipse 48% 14% at 88% 96%,#fff5,transparent 100%)!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -1px 1px #0018!important;}
+ #tab-play .action-board.sp .record-card .record-symbol{text-shadow:0 2px 3px #001b!important;filter:drop-shadow(0 2px 2px #0019)!important;}
+ #tab-play .action-board.sp .record-card .record-footer{bottom:8px!important;font-variant-numeric:tabular-nums!important;font-weight:850!important;text-shadow:0 1px 2px #001e!important;}
+ #tab-play .action-board.sp .record-card .record-minus{border-radius:14px!important;border:1px solid #e8fff1e6!important;background:linear-gradient(145deg,#51625e,#1b2c25 51%,#091410)!important;box-shadow:inset 0 1.5px 1px #fff7,inset 0 -2px 1px #000a,0 3px 0 #08140f,0 5px 7px #000a!important;min-width:44px!important;min-height:44px!important;}
+ #tab-play .four.sp .kpi{border-radius:17px!important;background:radial-gradient(ellipse 95% 60% at 24% -23%,#c9ffd32e,transparent 75%),linear-gradient(156deg,#205440,#10382a)!important;border:1px solid #538b71!important;box-shadow:inset 0 1px 1px #e1ffde8a,0 4px 11px #0005!important;}
+ #tab-play .four.sp .quick-complete{border-radius:14px!important;background:radial-gradient(ellipse 110% 85% at 18% -32%,#fffdecdf,transparent 74%),linear-gradient(154deg,#ffe3a2,#eac479 72%,#ca9c53)!important;border:1px solid #ffe7a9!important;box-shadow:inset 0 1.5px 1px #ffffe8,inset 0 -2px 1px #93601f88,0 3px 0 #a16f2e,0 6px 10px #0007!important;}
+ .tabs{background:linear-gradient(180deg,#103f2f,#041d17)!important;border-top:1px solid #568e70!important;box-shadow:0 -6px 18px #0009,inset 0 1px 1px #dcffd742!important;}
+ .tabs button.active{border-radius:15px!important;background:linear-gradient(150deg,#365d46,#133a2d)!important;box-shadow:inset 0 1px 1px #efffe08f,0 3px 8px #0007!important;}
+}
+
+
+/* ===== SOURCE: p8-control-bridge.css ===== */
+
+#p8-d07f-controls{position:relative;z-index:2;margin:14px auto;padding:14px;max-width:450px;border:1px solid #69a88e;border-radius:18px;background:linear-gradient(140deg,#063e30,#01291e);color:#f4fff6;font:14px -apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 8px 22px #0006;}
+#p8-d07f-controls .p8-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+#p8-d07f-controls .p8-head strong{font-size:20px;font-weight:800;}
+#p8-d07f-controls .p8-head em{color:#adf4c2;font-style:normal;font-size:12px;}
+#p8-d07f-controls p{font-size:12px;color:#d1e6db;line-height:1.5;}
+#p8-d07f-controls .p8-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:12px 0;}
+#p8-d07f-controls .p8-stats div{border:1px solid #549b7c;background:#0c4837;border-radius:11px;padding:9px 4px;text-align:center;font-size:12px;}
+#p8-d07f-controls .p8-stats b{display:block;margin-top:4px;font-size:21px;overflow-wrap:anywhere;}
+#p8-d07f-controls .p8-actions{display:grid;gap:7px;}
+#p8-d07f-controls button{border:1px solid #80c6a5;border-radius:12px;padding:11px 5px;background:#136344;color:#fff;font-weight:800;min-height:46px;touch-action:manipulation;}
+#p8-d07f-controls button:active{transform:scale(.97);filter:brightness(1.2);}
+#p8-d07f-controls button:disabled{opacity:.45;cursor:not-allowed;}
+#p8-d07f-controls #p8-native-link{width:100%;background:#193b39;}
+#p8-d07f-controls.collapsed .p8-stats,#p8-d07f-controls.collapsed .p8-actions{display:none;}
+
+#p8-d07f-controls .p8-actions{grid-template-columns:repeat(3,minmax(0,1fr));}
+#p8-d07f-controls .p8-game{display:grid;gap:8px;margin:10px 0;}
+#p8-d07f-controls .p8-game input[type=number]{width:100%;box-sizing:border-box;border:1px solid #80c6a5;border-radius:8px;background:#eef8f0;color:#0c3021;min-height:44px;padding:9px;}
+#p8-d07f-controls .p8-check{display:flex;align-items:center;gap:8px;}
+#p8-d07f-controls #p8-rearm{width:100%;background:#465339;margin:8px 0;}
+#p8-d07f-controls .p8-status{word-break:break-word;}
+#p8-d07f-controls.collapsed .p8-game,#p8-d07f-controls.collapsed #p8-rearm{display:none;}
+

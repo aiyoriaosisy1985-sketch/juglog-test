@@ -1,39 +1,30 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1423"><title>【Phase 8隔離検証】P31派生エンジン｜本番使用禁止</title><style>
-:root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;color:#182231;background:#f5f6f8}*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}header{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;z-index:2;padding:12px 16px}main{max-width:680px;margin:auto;padding:14px 14px 85px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.between{justify-content:space-between}.panel{background:white;border:1px solid #e2e4e9;border-radius:17px;padding:16px;margin:11px 0;box-shadow:0 2px 6px #00000006}h1{font-size:19px;margin:0}h2{font-size:17px;margin:0 0 12px}small,.muted{color:#5f6a77}button,input,select{font:inherit}button{border:1px solid #cfd5da;background:white;border-radius:11px;padding:11px 13px;color:#182231;cursor:pointer}button:disabled{opacity:.4}button.primary{background:#152d4d;color:white;border:0}input,select{padding:11px;border-radius:10px;border:1px solid #ccd1d7;width:100%;background:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.kpi{background:#f5f7f8;padding:10px;border-radius:12px;text-align:center}.kpi strong{display:block;font-size:22px}.tap{height:99px;border:0;border-radius:17px;color:white;font-weight:800;font-size:22px;display:flex;flex-direction:column;justify-content:center;align-items:center}.tap span{font-size:12px;font-weight:500;margin-top:8px}.grape{background:#319261}.cherry{background:#d56588}.bb{background:#d94343}.rb{background:#3079ba}.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom);z-index:3}.tabs button{flex:1;border:0;font-size:14px;border-radius:0;padding:14px 3px}.tabs .active{color:#166441;border-top:3px solid #166441;font-weight:bold}.warning{background:#fff4df;padding:12px;border-radius:11px;color:#80551a}.danger{background:#fff0ee;color:#a72b24;padding:12px;border-radius:11px}.ok{color:#117044}.tag{border-radius:99px;background:#eef1f4;padding:4px 9px;font-size:12px}.hidden{display:none!important}.event{padding:9px 0;border-bottom:1px solid #eef0f3;display:flex;justify-content:space-between;gap:10px}.event:last-child{border:0}.event button{padding:5px 9px;font-size:12px}.sp{margin-top:10px}label{font-size:13px;display:block;margin-bottom:5px;font-weight:600}.field{margin-bottom:12px}fieldset{border:0;padding:0;margin:0}.hint{font-size:12px;line-height:1.5}#alerts>div{margin-top:9px}.grow{flex:1}details summary{cursor:pointer;font-weight:650}pre{overflow:auto;font-size:12px} @media(min-width:620px){.grid{grid-template-columns:repeat(4,1fr)}}
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1423"><title>TEST｜【Phase 8隔離検証】P31派生エンジン｜本番使用禁止</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;color:#182231;background:#f5f6f8}*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}header{position:sticky;top:0;background:#fff;border-bottom:1px solid #ddd;z-index:2;padding:12px 16px}main{margin:auto;padding:14px 14px 85px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.between{justify-content:space-between}.panel{background:white;border:1px solid #e2e4e9;border-radius:17px;padding:16px;margin:11px 0}h1{font-size:19px;margin:0}h2{font-size:17px;margin:0 0 12px}small,.muted{color:#5f6a77}button,input,select{font:inherit}button{border:1px solid #cfd5da;background:white;padding:11px 13px;color:#182231;cursor:pointer}button:disabled{opacity:.4}button.primary{background:#152d4d;border:0}input,select{padding:11px;border-radius:10px;border:1px solid #ccd1d7;width:100%;background:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.kpi{background:#f5f7f8;border-radius:12px;text-align:center}.kpi strong{display:block}.tap{border:0;color:white;font-weight:800;display:flex;flex-direction:column;justify-content:center;align-items:center}.grape{background:#319261}.cherry{background:#d56588}.bb{background:#d94343}.rb{background:#3079ba}.tabs{background:#fff;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom)}.tabs button{flex:1}.tabs .active{border-top:3px solid #166441;font-weight:bold}.warning{background:#fff4df;padding:12px;border-radius:11px}.danger{background:#fff0ee;padding:12px;border-radius:11px}.tag{border-radius:99px;background:#eef1f4;padding:4px 9px;font-size:12px}.hidden{display:none!important}.event{padding:9px 0;border-bottom:1px solid #eef0f3;display:flex;justify-content:space-between;gap:10px}.event:last-child{border:0}.event button{padding:5px 9px;font-size:12px}.sp{margin-top:10px}label{font-size:13px;display:block;margin-bottom:5px;font-weight:600}.field{margin-bottom:12px}fieldset{border:0;padding:0;margin:0}.hint{font-size:12px}#alerts>div{margin-top:9px}.grow{flex:1}details summary{cursor:pointer;font-weight:650}pre{overflow:auto;font-size:12px} @media(min-width:620px){.grid{grid-template-columns:repeat(4,1fr)}}
 
 /* Theme v3: saturated action surfaces, dark baseline; light mode preserves identity colors. */
-:root{color-scheme:dark;--bg:#080e19;--surface:#162132;--surface2:#202e40;--txt:#f8fbff;--muted:#b9c7d9;--line:#334660;--field:#233247;--header:#061e40;--nav:#121c2b}
-html[data-theme="light"]{color-scheme:light;--bg:#f6f8fc;--surface:#fff;--surface2:#e9eef7;--txt:#142236;--muted:#586477;--line:#cdd6e3;--field:#fff;--header:#06458d;--nav:#fff}
-@media (prefers-color-scheme:light){html[data-theme="auto"]{color-scheme:light;--bg:#f6f8fc;--surface:#fff;--surface2:#e9eef7;--txt:#142236;--muted:#586477;--line:#cdd6e3;--field:#fff;--header:#06458d;--nav:#fff}}
-html{background:var(--bg);color:var(--txt)}body{background:var(--bg);color:var(--txt)}header{background:var(--header);border-bottom:1px solid var(--line);color:white}header .muted{color:#dbe9ff}header button{background:#152b4c;color:white;border-color:#577096}main{max-width:680px}.panel{background:var(--surface);border-color:var(--line);box-shadow:none}.muted,small{color:var(--muted)}button{background:var(--field);color:var(--txt);border-color:var(--line)}button.primary{background:#ff8800;color:#fff;font-weight:750}input,select{background:var(--field);border-color:var(--line);color:var(--txt)}.kpi{background:var(--surface2);color:var(--txt)}.kpi strong{font-size:clamp(20px,5vw,38px);font-variant-numeric:tabular-nums}.four{gap:7px}.kpi{padding:12px 5px}.kpi small{font-size:11px}.tap{height:118px;border:1px solid #ffffff29;font-size:33px;box-shadow:inset 0 1px #ffffff30}.tap span{font-size:17px;font-weight:800;margin-top:2px}.grape{background:#00b738}.cherry{background:#fa2471}.bb{background:#f00713;font-size:54px}.rb{background:#075df6;font-size:54px}.tabs{background:var(--nav);border-color:var(--line)}.tabs button{color:var(--muted);background:transparent}.tabs .active{background:#045ad1;color:white;border-top:3px solid #7dbeff}.tag{background:var(--surface2);color:var(--txt)}.event{border-color:var(--line)}.fruit-stat{background:linear-gradient(135deg,#064d35,#052e27);border:1px solid #0dbb75;color:white}.cherry-stat{background:linear-gradient(135deg,#63304e,#34192d);border-color:#ac3e7c}.fruit-stat small{color:#fff}.fruit-stat span{display:block;border-top:1px solid #ffffff70;padding-top:6px;font-size:12px}.fruit-stat b{display:block;font-size:clamp(17px,4vw,27px);margin-top:3px}.measure-check{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:13px}.measure-check input{width:20px;height:20px;flex:none}.warning{background:#61420d;color:#fff}.danger{background:#661c1c;color:white}.ok{color:#42eea0}dialog{background:var(--surface);color:var(--txt)}.hint{line-height:1.6}
-@media(max-width:420px){header{padding:10px 12px}main{padding:9px 9px 82px}.panel{padding:12px;margin:9px 0}.tap{height:104px}.four .kpi strong{font-size:23px}}
-
-.action-board{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action-left,.action-right{display:grid;gap:10px}.action-left{align-content:start}.action-right{align-content:start}.action-left .tap,.action-right .tap{width:100%}
+@media (prefers-color-scheme:light){html[data-theme="auto"]{--bg:#f6f8fc;--surface:#fff;--surface2:#e9eef7;--txt:#142236;--muted:#586477;--line:#cdd6e3;--field:#fff;--header:#06458d;--nav:#fff}}
+html{background:var(--bg);color:var(--txt)}header{background:var(--header);border-bottom:1px solid var(--line);color:white}header button{background:#152b4c;color:white;border-color:#577096}.panel{background:var(--surface);border-color:var(--line);box-shadow:none}.muted,small{color:var(--muted)}button{background:var(--field);color:var(--txt);border-color:var(--line)}button.primary{background:#ff8800;font-weight:750}input,select{background:var(--field);border-color:var(--line);color:var(--txt)}.kpi{background:var(--surface2);color:var(--txt)}.kpi strong{font-size:clamp(20px,5vw,38px);font-variant-numeric:tabular-nums}.four{gap:7px}.kpi{padding:12px 5px}.kpi small{font-size:11px}.tap{height:118px;border:1px solid #ffffff29;font-size:33px;box-shadow:inset 0 1px #ffffff30}.tap span{font-size:17px;font-weight:800;margin-top:2px}.grape{background:#00b738}.cherry{background:#fa2471}.bb{background:#f00713;font-size:54px}.rb{background:#075df6;font-size:54px}.tabs{border-color:var(--line)}.tabs .active{background:#045ad1;border-top:3px solid #7dbeff}.event{border-color:var(--line)}.fruit-stat{background:linear-gradient(135deg,#064d35,#052e27);border:1px solid #0dbb75;color:white}.cherry-stat{background:linear-gradient(135deg,#63304e,#34192d);border-color:#ac3e7c}.fruit-stat small{color:#fff}.fruit-stat span{display:block;border-top:1px solid #ffffff70;padding-top:6px;font-size:12px}.fruit-stat b{display:block;font-size:clamp(17px,4vw,27px);margin-top:3px}.measure-check{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:13px}.measure-check input{width:20px;height:20px;flex:none}.warning{background:#61420d;color:#fff}.danger{background:#661c1c;color:white}.ok{color:#42eea0}dialog{background:var(--surface);color:var(--txt)}.hint{line-height:1.6}
+@media(max-width:420px){header{padding:10px 12px}main{padding:9px 9px 82px}.panel{padding:12px;margin:9px 0}.tap{height:104px}.four .kpi strong{font-size:23px}}.action-left,.action-right{gap:10px}.action-left{align-content:start}.action-right{align-content:start}.action-left .tap,.action-right .tap{width:100%}
 @media (orientation:landscape) and (min-width:700px){
-  main{max-width:1320px;padding:10px 12px 82px}
-  #playing{display:grid;grid-template-columns:minmax(150px,1fr) minmax(290px,2.75fr) minmax(150px,1fr);gap:9px;align-items:stretch}
-  #playing>.panel:first-child{display:contents}
-  #playing>.panel:first-child>.row{grid-column:2;grid-row:1;align-self:center;min-height:34px}
-  #playing>.panel:first-child>.top-g-stats{grid-column:2;grid-row:2}
-  #playing>.panel:first-child>.game-controls{grid-column:2;grid-row:3;margin-top:0}
-  #playing>.panel:first-child>.four.sp{grid-column:2;grid-row:4;margin-top:0}
-  #playing>.panel:first-child>.quick-complete{grid-column:2;grid-row:5}
-  #playing>.panel:first-child>p.hint{grid-column:2;grid-row:6;margin:0;font-size:11px}
-  #playing .action-board{display:contents}
-  #playing .action-left{grid-column:3;grid-row:1 / 7;display:grid;grid-template-rows:1fr 1fr;gap:10px;margin:0}
-  #playing .action-right{grid-column:1;grid-row:1 / 7;display:grid;grid-template-rows:1fr 1fr;gap:10px;margin:0}
-  #playing .action-left .tap,#playing .action-right .tap{height:100%;min-height:130px;padding:9px 3px}
+  main{padding:10px 12px 82px}
+  #playing{grid-template-columns:minmax(150px,1fr) minmax(290px,2.75fr) minmax(150px,1fr)}
+  #playing>.panel:first-child>.row{align-self:center}
+  #playing>.panel:first-child>.game-controls{margin-top:0}
+  #playing>.panel:first-child>.four.sp{margin-top:0}
+  #playing>.panel:first-child>p.hint{grid-column:2;margin:0;font-size:11px}
+  #playing .action-left{grid-row:1 / 7;margin:0}
+  #playing .action-right{grid-row:1 / 7;margin:0}
+  #playing .action-left .tap,#playing .action-right .tap{height:100%;padding:9px 3px}
   #playing .action-left .tap{font-size:clamp(21px,3vw,36px)}
   #playing .action-left .tap span{font-size:clamp(11px,1.6vw,18px)}
   #playing .action-right .tap{font-size:clamp(48px,6vw,76px)}
-  #playing>.panel:nth-child(2){grid-column:1 / 3;grid-row:7;margin:0}
-  #playing>.panel:nth-child(3){grid-column:3;grid-row:7;margin:0}
+  #playing>.panel:nth-child(2){grid-column:1 / 3;margin:0}
+  #playing>.panel:nth-child(3){grid-column:3;margin:0}
   #playing .four{grid-template-columns:repeat(4,minmax(0,1fr))}
   #playing .kpi{padding:9px 3px;min-width:0}
   #playing .kpi small{font-size:clamp(9px,1.2vw,13px)}
   #playing .kpi strong{font-size:clamp(18px,2.65vw,34px)}
   #playing .fruit-stat b{font-size:clamp(15px,2.25vw,27px)}
-  #playing .action-left .tap,#playing .action-right .tap{min-height:145px}
 }
 
 /* v7: top G summary, quick-add, individual small-role correction */
@@ -43,8 +34,8 @@ html{background:var(--bg);color:var(--txt)}body{background:var(--bg);color:var(-
 
 /* Phase 2: compact setting inference and bonus count in play */
 .bonus-counts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.guess-mini{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:10px}.guess-mini .row{gap:12px}.guess-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.guess-rank{background:var(--surface2);border:1px solid var(--line);border-radius:13px;padding:13px}.guess-rank strong{display:block;font-size:clamp(24px,5vw,34px)}.guess-rank b{font-size:clamp(22px,4vw,30px);color:#6cbbff}.guess-row{display:grid;grid-template-columns:55px 1fr 62px;align-items:center;gap:8px;margin:11px 0}.guess-track{height:15px;background:var(--surface2);border-radius:9px;overflow:hidden}.guess-fill{height:100%;background:#3b93e8;border-radius:9px}.guess-row:first-of-type .guess-fill{background:#ff9900}.guess-warning{margin-top:10px;font-size:12px;color:var(--muted)}.guess-source{display:block;overflow-wrap:anywhere;margin:6px 0;color:#8bc4ff}.guess-mini button{padding:5px 9px;font-size:12px}
-@media(orientation:landscape) and (min-width:700px){#playing>.panel:first-child>.bonus-counts{grid-column:2;grid-row:4;margin:0}#playing>.panel:first-child>.four.sp{grid-row:6}#playing>.panel:first-child>.guess-mini{grid-column:2;grid-row:6;margin:0}#playing>.panel:first-child>.quick-complete{grid-row:5}#playing>.panel:first-child>p.hint{grid-row:8}#playing .action-left,#playing .action-right{grid-row:1 / 9}#playing>.panel:nth-child(2){grid-row:9}#playing>.panel:nth-child(3){grid-row:9}}
-@media(orientation:portrait){#playing>.panel:first-child{display:flex;flex-direction:column}#playing>.panel:first-child>.action-board{order:9;margin-top:12px}#playing>.panel:first-child>.action-board .action-left{grid-column:1 / -1;grid-row:2;display:grid;grid-template-columns:1fr 1fr}#playing>.panel:first-child>.action-board .action-right{grid-column:1 / -1;grid-row:1;display:grid;grid-template-columns:1fr 1fr}#playing>.panel:first-child>.four{order:5}#playing>.panel:first-child>.bonus-counts{order:2}#playing>.panel:first-child>.game-controls{order:3}#playing>.panel:first-child>.guess-mini{order:6}#playing>.panel:first-child>.quick-complete{order:7}#playing>.panel:first-child>p.hint{order:8}#playing>.panel:first-child>.top-g-stats{order:1}#playing>.panel:first-child>.row{order:0}#playing .tap{height:96px}}
+@media(orientation:landscape) and (min-width:700px){#playing>.panel:first-child>.bonus-counts{margin:0}#playing>.panel:first-child>.guess-mini{margin:0}#playing>.panel:nth-child(2){grid-row:9}#playing>.panel:nth-child(3){grid-row:9}}
+@media(orientation:portrait){#playing>.panel:first-child{display:flex}#playing>.panel:first-child>.action-board .action-left{grid-column:1 / -1;grid-template-columns:1fr 1fr}#playing>.panel:first-child>.action-board .action-right{grid-column:1 / -1;grid-template-columns:1fr 1fr}#playing>.panel:first-child>.four{order:5}#playing .tap{height:96px}}
 
 /* v9: transparent evidence and grouped posterior, no extra likelihood */
 .guess-group-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
@@ -113,19 +104,13 @@ html[data-theme="light"] .record-footer{background:#ffffff80}html[data-theme="li
 @media(prefers-color-scheme:light){html[data-theme="auto"] .record-card.bb{--record-bg:#ffd4dc;--record-fg:#bd1830}html[data-theme="auto"] .record-card.rb{--record-bg:#cde4ff;--record-fg:#0752ba}html[data-theme="auto"] .record-card.grape{--record-bg:#cdf2d9;--record-fg:#087836}html[data-theme="auto"] .record-card.cherry{--record-bg:#ffcde1;--record-fg:#c6004d}html[data-theme="auto"] .record-footer{background:#ffffff80}}
 #playing>.panel:first-child>.four.sp .fruit-stat{display:none}
 @media(orientation:landscape) and (min-width:700px){
- #playing>.panel:first-child>.hall-prob{grid-column:2;grid-row:3;margin-top:0}
- #playing>.panel:first-child>.game-controls{grid-row:4}
- #playing>.panel:first-child>.four.sp{grid-row:6}
- #playing>.panel:first-child>.guess-mini{grid-row:7}
- #playing>.panel:first-child>.quick-complete{grid-row:5}
+ #playing>.panel:first-child>.hall-prob{margin-top:0}
  #playing>.panel:first-child>p.hint{grid-row:8}
- #playing .action-board{display:contents}
- #playing .action-left{display:grid;grid-column:3;grid-row:1/9;grid-template-rows:1fr 1fr;gap:8px}
- #playing .action-right{display:grid;grid-column:1;grid-row:1/9;grid-template-rows:1fr 1fr;gap:8px}
- #playing .record-card{height:100%;min-height:125px;grid-column:auto;grid-row:auto}
+ #playing .action-left{display:grid;grid-row:1/9;grid-template-rows:1fr 1fr;gap:8px}
+ #playing .action-right{display:grid;grid-row:1/9;grid-template-rows:1fr 1fr;gap:8px}
+ #playing .record-card{height:100%;grid-column:auto;grid-row:auto}
  #playing .record-card .tap{height:100%;min-height:0;width:100%;font-size:clamp(45px,6vw,78px);padding:0 5px 22px}
  #playing .record-card .fruit-icon{width:clamp(60px,7vw,88px);height:clamp(60px,7vw,88px)}
- #playing .record-footer{font-size:15px} #playing .record-footer b{font-size:13px}
 }
 
 /* v26: keep touch targets stable; do not stretch them to the tallest auxiliary panel */
@@ -138,29 +123,15 @@ html[data-theme="light"] .record-footer{background:#ffffff80}html[data-theme="li
 #playing .play-help summary{font-size:12px}
 @media (orientation:portrait){
  #playing>.panel:first-child>.action-board{order:5;margin-top:10px}
- #playing>.panel:first-child>.four.sp{order:8}
- #playing>.panel:first-child>.guess-mini{order:9}
- #playing>.panel:first-child>.play-help{order:10}
- #playing>.panel:first-child>.quick-complete{order:4}
- #playing>.panel:first-child>.bonus-counts{order:7}
  #playing .record-card{height:160px}
 }
 @media (orientation:landscape) and (min-width:700px){
- #playing{align-items:start;grid-template-columns:minmax(152px,1fr) minmax(290px,2.35fr) minmax(152px,1fr);grid-auto-rows:min-content}
+ #playing{grid-template-columns:minmax(152px,1fr) minmax(290px,2.35fr) minmax(152px,1fr)}
  #playing .action-board{display:contents}
- #playing .action-left,#playing .action-right{align-self:start;display:flex;flex-direction:column;gap:9px;grid-row:1 / 9;min-height:0}
- #playing .action-right{grid-column:1}
- #playing .action-left{grid-column:3}
- #playing .record-card{height:145px!important;flex:0 0 145px;min-height:145px;max-height:145px;align-self:stretch}
- #playing .record-card .tap{height:100%!important;min-height:0!important;max-height:100%}
- #playing>.panel:first-child>.top-g-stats{grid-column:2;grid-row:2}
- #playing>.panel:first-child>.hall-prob{grid-column:2;grid-row:3;margin:0}
- #playing>.panel:first-child>.game-controls{grid-column:2;grid-row:4}
- #playing>.panel:first-child>.quick-complete{grid-column:2;grid-row:5}
- #playing>.panel:first-child>.bonus-counts{grid-column:2;grid-row:6}
- #playing>.panel:first-child>.four.sp{grid-column:2;grid-row:7}
- #playing>.panel:first-child>.guess-mini{grid-column:2;grid-row:8}
- #playing>.panel:first-child>.play-help{grid-column:2;grid-row:9}
+ #playing .action-left,#playing .action-right{align-self:start;display:flex;flex-direction:column;grid-row:1 / 9;min-height:0}
+ #playing .record-card{height:145px!important;flex:0 0 145px;max-height:145px;align-self:stretch}
+ #playing .record-card .tap{max-height:100%}
+ #playing>.panel:first-child>.hall-prob{margin:0}
  #playing>.panel:nth-child(n+2){grid-row:auto;grid-column:1/-1;align-self:start}
  #playing .supporting-panel{grid-column:1/-1}
  #playing .record-footer{font-size:14px;gap:5px}
@@ -171,7 +142,7 @@ html[data-theme="light"] .record-footer{background:#ffffff80}html[data-theme="li
 @media (orientation:landscape) and (min-width:700px){
   #playing{display:grid;grid-template-columns:minmax(145px,1fr) minmax(300px,2.7fr) minmax(145px,1fr);grid-template-rows:repeat(11,max-content);grid-auto-rows:max-content;gap:8px;align-items:start}
   #playing>.panel:first-child{display:contents}
-  #playing>.panel:first-child>.row{grid-column:2;grid-row:1;min-height:30px}
+  #playing>.panel:first-child>.row{grid-column:2;grid-row:1}
   #playing>.panel:first-child>.top-g-stats{grid-column:2;grid-row:2}
   #playing>.panel:first-child>.hall-prob{grid-column:2;grid-row:3}
   #playing>.panel:first-child>.game-controls{grid-column:2;grid-row:4}
@@ -225,9 +196,9 @@ html[data-theme="light"] .game-input-row button.quick{color:#fff!important}
 html[data-theme="light"] .prob-grid>div:nth-child(2) small{color:#1756aa}
 @media (prefers-color-scheme:light){html[data-theme="auto"] .prob-grid>div:nth-child(2) small{color:#1756aa}}
 @media (orientation:portrait) and (max-width:430px){
-  #playing .game-input-row{grid-template-columns:minmax(0,1fr) 63px 64px 70px;gap:5px}
+  #playing .game-input-row{grid-template-columns:minmax(0,1fr) 63px 64px 70px}
   #playing .game-input-row input{padding-left:8px;padding-right:4px;font-size:16px}
-  #playing .game-input-row button{font-size:13px;padding:9px 2px}
+  #playing .game-input-row button{padding:9px 2px}
   #playing .record-card .record-minus{border-radius:11px}
 }
 
@@ -253,8 +224,8 @@ html[data-theme="light"] .prob-grid>div:nth-child(2) small{color:#1756aa}
 #playing .bonus-guide{margin:2px 0 10px;padding:8px 10px;background:var(--surface2);border:1px solid var(--line);border-radius:10px}
 #playing .bonus-guide summary{font-size:13px;line-height:1.6;min-height:30px;display:list-item}
 #playing .bonus-guide p{margin:9px 0 3px;line-height:1.7}
-#playing #bonuses .event{min-height:43px;align-items:center;gap:8px}
-#playing #bonuses .event button{min-height:40px;min-width:64px}
+#playing #bonuses .event{align-items:center;gap:8px}
+#playing #bonuses .event button{min-width:64px}
 #playing .tabs button:focus-visible,#playing button:focus-visible{outline:3px solid #f89b19;outline-offset:2px}
 /* v33: bonus history readability. No changes to event processing or persistence. */
 #playing .bonus-list-caption{font-size:12px;margin:10px 0 2px}#playing #bonuses{display:flex;flex-direction:column;gap:0}
@@ -291,13 +262,10 @@ html[data-theme="light"] .guess-rank b{color:#07519c}html[data-theme="light"] .g
 /* v46 visual overhaul: one coherent desktop/landscape layout overrides legacy grid rows.
    This layer changes presentation only; all event and persistence logic remains untouched. */
 :root{--ui-radius:16px}
-html{ -webkit-text-size-adjust:100% }
-body{line-height:1.45}
-main{width:100%;max-width:820px}
+main{width:100%}
 .panel{border-radius:var(--ui-radius);overflow-wrap:anywhere}
 .panel h2{letter-spacing:.01em}
 .tabs{box-shadow:0 -5px 28px #0002}
-.tabs button{min-height:50px}
 input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #72bdff;outline-offset:2px}
 #tab-guess,#tab-graphs,#tab-history,#tab-settings{max-width:820px;margin:0 auto}
 #tab-guess>.panel,#tab-graphs>.panel,#tab-history>.panel,#tab-settings>.panel{padding:clamp(14px,2.2vw,24px);margin:12px 0}
@@ -309,30 +277,24 @@ input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visi
  header{padding:9px 16px}
  header .row.between{max-width:1320px;margin:auto}
  main{max-width:1320px;padding:12px 16px 90px}
- #playing:not(.hidden){display:flex!important;flex-direction:column;gap:12px;align-items:stretch}
+ #playing:not(.hidden){flex-direction:column;gap:12px;align-items:stretch}
  #playing>.panel:first-child{display:flex!important;flex-direction:column;position:relative;margin:0;padding:14px clamp(165px,20vw,215px) 16px;min-height:460px;gap:9px;overflow:visible}
- #playing>.panel:first-child>.row{min-height:30px;margin:0!important}
- #playing>.panel:first-child>.top-g-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0!important}
- #playing>.panel:first-child>.hall-prob{margin:0!important}
- #playing>.panel:first-child>.game-controls{margin:0!important}
- #playing>.panel:first-child>.bonus-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0!important}
- #playing>.panel:first-child>.four.sp{margin:0!important}
- #playing>.panel:first-child>.guess-mini{margin:0!important}
- #playing>.panel:first-child>.play-help{margin:0!important}
- #playing>.panel:first-child>.quick-complete:not([hidden]){margin:0!important}
+ #playing>.panel:first-child>.row{min-height:30px}
+ #playing>.panel:first-child>.top-g-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ #playing>.panel:first-child>.bonus-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  #playing>.panel:first-child>.action-board{display:block!important;position:absolute;inset:58px 0 auto;pointer-events:none}
  #playing>.panel:first-child>.action-board>.action-right,
  #playing>.panel:first-child>.action-board>.action-left{display:flex!important;position:absolute;top:0;flex-direction:column;gap:12px;align-items:stretch;justify-content:start;min-height:0!important;width:clamp(142px,17vw,190px);margin:0!important;pointer-events:auto}
  #playing>.panel:first-child>.action-board>.action-right{left:14px}
  #playing>.panel:first-child>.action-board>.action-left{right:14px}
  #playing>.panel:first-child>.action-board .record-card{width:100%;height:clamp(150px,15vw,182px)!important;min-height:0!important;max-height:none!important;flex:none!important}
- #playing>.panel:first-child>.action-board .tap{height:100%!important;width:100%;font-size:clamp(39px,5vw,64px);min-height:0!important;padding:0 5px 22px}
+ #playing>.panel:first-child>.action-board .tap{width:100%;font-size:clamp(39px,5vw,64px);padding:0 5px 22px}
  #playing>.panel:first-child>.action-board .fruit-icon{width:clamp(55px,6vw,84px);height:clamp(55px,6vw,84px)}
  #playing>.panel:first-child>.action-board .record-footer{font-size:15px}
  #playing>.panel:first-child>.action-board .record-minus{min-width:42px;min-height:42px}
  #playing>.panel:first-child>.game-controls .game-input-row{grid-template-columns:minmax(0,1fr) minmax(57px,auto) minmax(62px,auto) minmax(70px,auto)}
  #playing>.panel:first-child>.game-controls button{font-size:clamp(12px,1.25vw,16px)}
- #playing>.panel.hall-panel,#playing>.panel.supporting-panel,#playing>.panel:last-child{grid-column:auto!important;grid-row:auto!important;margin:0!important;width:100%}
+ #playing>.panel.hall-panel,#playing>.panel.supporting-panel,#playing>.panel:last-child{grid-column:auto!important;grid-row:auto!important;width:100%}
  #playing>.panel.hall-panel{order:1}
  #playing>.panel.supporting-panel{order:2}
  #playing>.panel:last-child{order:3}
@@ -455,16 +417,13 @@ input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visi
 /* v46.8 unified visual rhythm across five tabs; presentation only.
    Keep all application IDs, states and event handlers unchanged. */
 :root{--ui-section-gap:10px;--ui-content-line:1.48}
-main>section{min-width:0}
-main>section>.panel{min-width:0;overflow-wrap:anywhere}
-main>section>.panel h2{line-height:1.35;letter-spacing:.01em}
+main>section>.panel{overflow-wrap:anywhere}
 main>section>.panel p.hint{line-height:1.55}
 main>section>.panel details>summary{padding:3px 0;line-height:1.45;overflow-wrap:anywhere}
 main>section>.panel details[open]>summary{margin-bottom:9px}
 main>section>.panel .grid>*,main>section>.panel .four>*{min-width:0}
 main>section>.panel input,main>section>.panel select{min-width:0;max-width:100%}
 #tab-guess #guessResult,#tab-guess #preseatResult,#tab-graphs .graph-wrap,#tab-history #sessionHistoryRows,#tab-settings #auditDetails{min-width:0;overflow-wrap:anywhere}
-#tab-graphs .graph-wrap{max-width:100%;overflow-x:auto}
 #tab-history #historyRows .event,#tab-history #sessionHistoryRows .event{align-items:flex-start}
 #tab-history #historyRows .event>*{min-width:0}
 #tab-settings #v43TestItems,#tab-settings #auditSummary,#tab-settings #backupOverview{overflow-wrap:anywhere}
@@ -508,8 +467,8 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{line-height:1.48;letter-spacing:.005em}
 main{padding-bottom:calc(93px + env(safe-area-inset-bottom));}
 main>section{padding-bottom:5px}
-main>section>.panel{border-radius:var(--ui-radius-lg);border:1px solid var(--line);margin-block:12px;background:var(--surface);box-shadow:0 4px 15px rgba(0,0,0,.08)}
-main>section>.panel h2{font-size:clamp(17px,4.5vw,21px);font-weight:790;line-height:1.38;letter-spacing:.002em;margin-bottom:10px}
+main>section>.panel{border-radius:var(--ui-radius-lg);margin-block:12px;background:var(--surface);box-shadow:0 4px 15px rgba(0,0,0,.08)}
+main>section>.panel h2{margin-bottom:10px}
 main>section>.panel h3{line-height:1.4}
 main>section>.panel>p.hint{margin-top:4px;margin-bottom:14px;color:var(--muted);font-size:13px;line-height:1.66}
 main>section>.panel label{line-height:1.48}
@@ -521,25 +480,23 @@ main>section input,main>section select{font-size:16px}
 main>section details{border-radius:12px}
 main>section details>summary{cursor:pointer;font-weight:660}
 main>section .hint{overflow-wrap:anywhere}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));border-top:1px solid var(--line);background:var(--nav);box-shadow:0 -9px 30px rgba(0,0,0,.18)}
-.tabs button{min-width:0;min-height:51px;padding:9px 2px;border:0;border-radius:12px;font-size:13px;font-weight:740;letter-spacing:.015em;line-height:1.25;white-space:nowrap}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));border-top:1px solid var(--line);box-shadow:0 -9px 30px rgba(0,0,0,.18)}
+.tabs button{padding:9px 2px;border:0;border-radius:12px;font-size:13px;line-height:1.25;white-space:nowrap}
 .tabs .active{border-top:0;background:var(--ui-accent);color:#071527;box-shadow:0 2px 10px rgba(76,154,255,.28)}
 html[data-theme="light"] .tabs .active{color:#fff;background:#155cb4}
 @media(prefers-color-scheme:light){html[data-theme="auto"] .tabs .active{color:#fff;background:#155cb4}}
-#tab-play .top-g-stats{gap:7px}
-#tab-play .top-g-stats .kpi{min-width:0;padding:12px 5px;border:1px solid var(--line);border-radius:13px}
-#tab-play .top-g-stats .kpi strong{display:block;font-size:clamp(21px,5.8vw,37px);font-variant-numeric:tabular-nums;line-height:1.2}
+#tab-play .top-g-stats .kpi{border:1px solid var(--line);border-radius:13px}
+#tab-play .top-g-stats .kpi strong{display:block;font-size:clamp(21px,5.8vw,37px)}
 #tab-play .top-g-stats .kpi small{display:block;font-size:clamp(10px,2.7vw,12px);white-space:normal;line-height:1.35}
 #tab-play .game-controls{border-radius:14px}
 #tab-play .record-card{border-radius:17px;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 2px 0 rgba(255,255,255,.12),0 3px 9px rgba(0,0,0,.11)}
 #tab-play .record-card .tap{touch-action:manipulation}
 #tab-play .record-card .record-minus{border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.11)}
 #tab-guess .guess-group,#tab-guess .guess-evidence{border-radius:14px}
-#tab-graphs .graph-wrap{border-radius:14px;min-width:0}
 #tab-history .event{border-radius:12px;min-width:0}
 #tab-settings #pendingAuditPanel,#tab-settings #v43ValidationPanel,#tab-settings #notificationPanel,#tab-settings #checkpointPanel{border-style:dashed}
 #tab-settings #pendingAuditPanel h2,#tab-settings #v43ValidationPanel h2{font-size:16px}
-@media(max-width:390px){main{padding-left:9px;padding-right:9px}.tabs{gap:2px;padding-left:5px;padding-right:5px}.tabs button{font-size:12px;padding-inline:1px}#tab-play .top-g-stats{gap:5px}}
+@media(max-width:390px){main{padding-left:9px;padding-right:9px}.tabs{gap:2px;padding-left:5px;padding-right:5px}.tabs button{padding-inline:1px}#tab-play .top-g-stats{gap:5px}}
 @media(orientation:landscape) and (min-width:700px){main{padding-bottom:calc(88px + env(safe-area-inset-bottom))}#playing>.panel:first-child{box-shadow:none}#playing .record-card{min-height:0}#playing .action-left .tap,#playing .action-right .tap{min-height:145px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}main>section button{transition:none}}
 
@@ -560,11 +517,10 @@ html[data-theme="light"] .tabs .active{color:#fff;background:#155cb4}
 #tab-play #addGBtn{border-color:#d07b17}
 #tab-play .measure-check{line-height:1.45;align-items:flex-start}
 #tab-play .measure-check input{margin-top:1px;flex-shrink:0}
-#tab-play .action-board .record-card{isolation:isolate}
 #tab-play .action-board .record-card .record-symbol{line-height:1;pointer-events:none}
 #tab-play .action-board .record-card .record-footer{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-#tab-play .action-board .record-card .record-minus{display:grid;place-items:center;touch-action:manipulation}
-#tab-play .action-board .record-card .tap{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#tab-play .action-board .record-card .record-minus{display:grid;place-items:center}
+#tab-play .action-board .record-card .tap{-webkit-tap-highlight-color:transparent}
 #tab-play .guess-mini{border-radius:12px;line-height:1.5;overflow-wrap:anywhere}
 #tab-play .hall-panel>details,#tab-play .supporting-panel>details{min-width:0}
 @media (orientation:portrait) and (max-width:430px){
@@ -639,7 +595,7 @@ html[data-theme="light"] .tabs .active{color:#fff;background:#155cb4}
 #tab-graphs .graph-stat{min-width:0;display:flex;flex-direction:column;justify-content:center;min-height:82px;padding:12px 7px;border-radius:14px;overflow-wrap:anywhere}
 #tab-graphs .graph-stat strong{font-size:clamp(20px,5.5vw,29px);line-height:1.22;font-weight:830;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
 #tab-graphs .graph-stat small{font-size:clamp(10px,2.6vw,12px);line-height:1.45;margin-top:4px}
-#tab-graphs .graph-wrap{width:100%;max-width:100%;min-width:0;padding:clamp(9px,2.5vw,16px);border:1px solid var(--line);border-radius:16px;background:var(--surface2);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+#tab-graphs .graph-wrap{width:100%;max-width:100%;min-width:0;border:1px solid var(--line);background:var(--surface2);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 #tab-graphs .graph-wrap svg{display:block;width:100%;max-width:100%;height:auto;max-height:380px;overflow:visible}
 #tab-graphs .graph-legend{display:flex;flex-wrap:wrap;align-items:center;gap:9px 15px;margin:13px 0 3px;line-height:1.5;font-size:12px}
 #tab-graphs .graph-legend span{white-space:normal;min-width:0;display:inline-flex;align-items:center;gap:6px}
@@ -698,8 +654,8 @@ html[data-theme="light"] .tabs .active{color:#fff;background:#155cb4}
 #tab-settings>.panel select,#tab-settings>.panel input{max-width:100%}
 #tab-settings>.panel .row{flex-wrap:wrap;row-gap:10px}
 #tab-settings #backupOverview,#tab-settings #leaseInfo,#tab-settings #auditSummary{line-height:1.65;overflow-wrap:anywhere}
-#tab-settings .settings-advanced-group{margin:14px 0 22px;border:1px solid var(--line,rgba(126,148,175,.35));border-radius:14px;padding:0 12px 12px;min-width:0}
-#tab-settings .settings-advanced-group>summary{cursor:pointer;list-style-position:inside;min-height:50px;display:list-item;padding:16px 4px;font-weight:700;font-size:15px;line-height:1.45}
+#tab-settings .settings-advanced-group{margin:14px 0 22px;border:1px solid var(--line,rgba(126,148,175,.35));min-width:0}
+#tab-settings .settings-advanced-group>summary{list-style-position:inside;display:list-item;padding:16px 4px;font-size:15px}
 #tab-settings .settings-advanced-group>summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 #tab-settings .settings-advanced-group>.panel{margin:12px 0;padding:clamp(12px,2.2vw,18px)}
 #tab-settings .settings-advanced-group>.muted{font-size:12px;line-height:1.6;margin:0 3px 12px}
@@ -752,7 +708,7 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
 .tabs button.active,.tabs .active{color:var(--premium-accent);background:rgba(213,183,118,.085);border-top:2px solid var(--premium-accent);font-weight:800}
 .tag{background:var(--surface2);color:var(--txt);border:1px solid var(--premium-border)}
 .event{border-bottom-color:var(--line);line-height:1.55}
-#tab-graphs svg{max-width:100%;height:auto}
+#tab-graphs svg{height:auto}
 #tab-graphs .graph-legend,#tab-graphs .graph-stat{letter-spacing:.005em}
 :where(main>section button,input,select,textarea,.tabs button):focus-visible{outline:3px solid var(--premium-accent);outline-offset:2px}
 @media(max-width:390px){main>section>.panel{padding:14px;margin-block:10px}.tabs button{font-size:12px;letter-spacing:0}.kpi{padding:10px 4px}}
@@ -833,10 +789,9 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
 /* BUTTON QUALITY PASS 03 — presentation only; retain all IDs and event handlers. */
 #tab-play .action-board{gap:11px!important}
 #tab-play .action-board .record-card{
-  position:relative;overflow:hidden;border-radius:18px!important;
+  position:relative;overflow:hidden;
   border:1px solid rgba(255,255,255,.2)!important;
   box-shadow:0 5px 13px rgba(0,0,0,.19), inset 0 1px rgba(255,255,255,.19)!important;
-  isolation:isolate;
 }
 #tab-play .action-board .record-card::before{
   content:"";position:absolute;top:0;left:0;right:0;height:44%;
@@ -861,10 +816,9 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
   color:#fff!important;font-weight:700!important;text-align:center;
 }
 #tab-play .action-board .record-card .record-footer strong{font-variant-numeric:tabular-nums;font-weight:900}
-#tab-play .action-board .record-card .record-minus{
-  z-index:4!important;min-width:38px;min-height:38px;
+#tab-play .action-board .record-card .record-minus{min-width:38px;min-height:38px;
   border:1px solid rgba(255,255,255,.24)!important;
-  background:rgba(8,18,16,.27)!important;color:#fff!important;
+  background:rgba(8,18,16,.27)!important;
   backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
 }
 #tab-play .action-board .record-card .record-minus:focus-visible{outline:3px solid #fff4b7!important}
@@ -902,12 +856,10 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
 /* TAP SAFETY PASS 05 — clearly distinguish record and undo targets; CSS only. */
 #tab-play .action-board .record-card .tap{cursor:pointer;-webkit-user-select:none;user-select:none}
 #tab-play .action-board .record-card .record-minus{
-  top:7px!important;right:7px!important;width:37px!important;height:37px!important;
-  min-width:37px!important;min-height:37px!important;border-radius:12px!important;
   font-size:24px!important;font-weight:800!important;line-height:1!important;
   background:rgba(15,23,25,.72)!important;border:1.5px solid rgba(255,255,255,.66)!important;
   box-shadow:0 2px 7px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.12)!important;
-  cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
 }
 #tab-play .action-board .record-card .record-minus:active:not(:disabled){background:rgba(94,26,33,.95)!important;transform:scale(.94)}
 #tab-play .action-board .record-card .record-minus:disabled{opacity:.38!important;filter:grayscale(.3);cursor:default}
@@ -923,7 +875,7 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
   top:5px!important;right:5px!important;
   width:44px!important;height:44px!important;
   min-width:44px!important;min-height:44px!important;
-  padding:0!important;border-radius:13px!important;
+  padding:0!important;
   background:rgba(10,26,24,.88)!important;
   border:2px solid rgba(255,255,255,.82)!important;
   color:#fff!important;
@@ -953,7 +905,7 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
   #tab-play #playing>.panel:first-child>.hall-prob{order:5;margin-top:9px!important}
   #tab-play #playing>.panel:first-child>.guess-mini{order:6;margin-top:8px}
   #tab-play #playing>.panel:first-child>.play-help{order:7}
-  #tab-play .top-g-stats .kpi{padding-top:7px!important;padding-bottom:7px!important}
+  #tab-play .top-g-stats .kpi{padding-bottom:7px!important}
   #tab-play .game-controls .measure-check{margin-top:4px!important}
   #tab-play .record-card{height:clamp(113px,32vw,132px)!important}
   #tab-play .record-card .tap{min-height:68px!important}
@@ -1001,7 +953,7 @@ input,select,textarea{background:var(--field);border:1px solid var(--line);borde
 #tab-settings .settings-advanced-group[open]>summary{margin-bottom:9px;}
 #tab-guess button:focus-visible,#tab-graphs button:focus-visible,#tab-history button:focus-visible,#tab-settings button:focus-visible,
 #tab-guess select:focus-visible,#tab-graphs select:focus-visible,#tab-history select:focus-visible,#tab-settings select:focus-visible{outline:3px solid #e5c683;outline-offset:2px;}
-@media(max-width:390px){#tab-guess>.panel,#tab-graphs>.panel,#tab-history>.panel,#tab-settings>.panel{padding:12px;border-radius:14px;}#tab-graphs .graph-wrap{padding:5px 2px;}#tab-guess button,#tab-history button,#tab-settings button{font-size:13px;}}
+@media(max-width:390px){#tab-guess>.panel,#tab-graphs>.panel,#tab-history>.panel,#tab-settings>.panel{border-radius:14px;}#tab-graphs .graph-wrap{padding:5px 2px;}#tab-guess button,#tab-history button,#tab-settings button{font-size:13px;}}
 @media(orientation:landscape) and (max-height:520px){#tab-guess>.panel,#tab-graphs>.panel,#tab-history>.panel,#tab-settings>.panel{padding:12px;margin-bottom:9px;}}
 
 
@@ -1042,8 +994,7 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 #tab-play #playing .action-board .record-card.rb{--shell-top:#68beff;--shell-mid:#176bd3;--shell-bottom:#0745ac;--shell-edge:#082c64}
 #tab-play #playing .action-board .record-card.grape{--shell-top:#63eeb1;--shell-mid:#089961;--shell-bottom:#087d4a;--shell-edge:#084b32}
 #tab-play #playing .action-board .record-card.cherry{--shell-top:#ff81ad;--shell-mid:#dd2069;--shell-bottom:#b60b51;--shell-edge:#69082f}
-#tab-play #playing .action-board .record-card{
- isolation:isolate;overflow:visible;border-radius:19px;position:relative;
+#tab-play #playing .action-board .record-card{overflow:visible;border-radius:19px;position:relative;
  border:1px solid color-mix(in srgb,var(--shell-top) 73%,white 27%);
  background:linear-gradient(165deg,var(--shell-top) -20%,var(--shell-mid) 35%,var(--shell-bottom) 100%)!important;
  box-shadow:inset 0 2px 1px #ffffffac,inset 2px 0 3px #ffffff2e,inset -2px 0 3px #090c1d30,inset 0 -5px 5px #1709135c,0 5px 0 var(--shell-edge),0 9px 12px #00000048;
@@ -1059,23 +1010,19 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
  box-shadow:inset 0 1px 2px #ffffff1e,inset 0 -2px 1px #0b102024;
 }
 #tab-play #playing .action-board .record-card .tap{
- z-index:2;background:transparent!important;box-shadow:none!important;
- border:0!important; padding:4px 8px 25px!important;text-shadow:0 2px 3px #00000052;
+ z-index:2; padding:4px 8px 25px!important;text-shadow:0 2px 3px #00000052;
  transition:transform .12s ease,filter .12s ease;
 }
 #tab-play #playing .action-board .record-card .tap:active{transform:translateY(2px);filter:brightness(.89)}
 #tab-play #playing .action-board .record-card .record-footer{
- position:absolute!important;z-index:3!important;top:auto!important;bottom:7px!important;left:9px!important;right:9px!important;
- display:flex!important;align-items:center!important;justify-content:center!important;min-height:26px!important;
- padding:0 3px!important;background:transparent!important;border:0!important;box-shadow:none!important;
+ padding:0 3px!important;
  color:#fff;font-size:clamp(16px,4.1vw,21px);font-weight:800;text-shadow:0 2px 3px #0008;
 }
 #tab-play #playing .action-board .record-card .record-footer b{font-size:clamp(12px,3.15vw,16px)}
 #tab-play #playing .action-board .record-card .record-minus{
- position:absolute;z-index:5!important;right:5px;top:5px;width:44px!important;height:44px!important;
- min-width:44px!important;min-height:44px!important;padding:0!important;
- background:linear-gradient(155deg,#404746,#13191b 84%)!important;color:white!important;
- border:2px solid #dce7e5!important;border-radius:12px!important;
+ position:absolute;right:5px;top:5px;padding:0!important;
+ background:linear-gradient(155deg,#404746,#13191b 84%)!important;
+ border:2px solid #dce7e5!important;
  box-shadow:inset 0 1px 1px #ffffff4d,0 3px 6px #0009!important;text-shadow:none;
 }
 #tab-play #playing .action-board .record-card .record-minus::before{display:none!important}
@@ -1096,39 +1043,27 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 #tab-play #playing .action-board .record-card.grape{--shell-top:#7af2bc;--shell-mid:#0da66b;--shell-bottom:#087d53;--shell-edge:#064b31;--glow:122,242,188}
 #tab-play #playing .action-board .record-card.cherry{--shell-top:#ff94b8;--shell-mid:#e32672;--shell-bottom:#b70c54;--shell-edge:#6d0a35;--glow:255,148,191}
 #tab-play #playing .action-board .record-card{
- border-radius:21px!important;overflow:visible!important;isolation:isolate;
  border:1px solid rgba(var(--glow),.73)!important;
  background:linear-gradient(160deg,var(--shell-top) -30%,var(--shell-mid) 32%,var(--shell-bottom) 100%)!important;
  box-shadow:inset 0 2px 2px #ffffff8f,inset 2px 0 2px #ffffff3c,inset -2px 0 3px #08121a43,inset 0 -8px 6px #11091b47,0 5px 0 var(--shell-edge),0 7px 0 #061611c9,0 13px 16px #0009,0 2px 13px rgba(var(--glow),.11)!important;
 }
-#tab-play #playing .action-board .record-card::before{
- content:""!important;position:absolute!important;inset:3px 4px auto 4px!important;height:50%!important;
- border-radius:17px 17px 42% 42%!important;pointer-events:none!important;z-index:1!important;
+#tab-play #playing .action-board .record-card::before{inset:3px 4px auto 4px!important;
+ border-radius:17px 17px 42% 42%!important;
  background:linear-gradient(180deg,#fff8 0%,#ffffff46 27%,#ffffff13 65%,transparent 100%)!important;
- opacity:.72!important;transform:none!important;
 }
-#tab-play #playing .action-board .record-card::after{
- content:""!important;position:absolute!important;inset:4px!important;pointer-events:none!important;z-index:1!important;
- border-radius:16px!important;border:1px solid #ffffff63!important;
+#tab-play #playing .action-board .record-card::after{inset:4px!important;border:1px solid #ffffff63!important;
  box-shadow:inset 0 1px 0 #ffffff6b,inset 0 -2px 1px #0e06172d,0 0 0 1px #0000000e!important;
- background:none!important;opacity:1!important;
+ background:none!important;
 }
-#tab-play #playing .action-board .record-card .tap{
- position:relative!important;z-index:2!important;background:transparent!important;border:0!important;
- box-shadow:none!important;color:#fff!important;text-shadow:0 2px 3px #100c1b6b!important;
+#tab-play #playing .action-board .record-card .tap{text-shadow:0 2px 3px #100c1b6b!important;
  padding:5px 12px 29px!important;
 }
 #tab-play #playing .action-board .record-card .record-symbol{filter:drop-shadow(0 2px 1px #00000030)}
-#tab-play #playing .action-board .record-card .record-footer{
- position:absolute!important;z-index:4!important;top:auto!important;bottom:7px!important;left:10px!important;right:10px!important;
- background:transparent!important;box-shadow:none!important;border:0!important;padding:0 2px!important;
- display:flex!important;justify-content:center!important;align-items:center!important;min-height:26px!important;
- color:#fff!important;font-variant-numeric:tabular-nums;text-shadow:0 2px 3px #0007!important;
+#tab-play #playing .action-board .record-card .record-footer{padding:0 2px!important;
+ display:flex!important;justify-content:center!important;align-items:center!important;font-variant-numeric:tabular-nums;text-shadow:0 2px 3px #0007!important;
 }
 #tab-play #playing .action-board .record-card .record-minus{
- z-index:6!important;position:absolute!important;top:6px!important;right:6px!important;
- width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;
- border:2px solid #f1f3f0!important;border-radius:13px!important;
+ border:2px solid #f1f3f0!important;
  background:linear-gradient(155deg,#485251 0%,#161d20 80%)!important;
  box-shadow:inset 0 1px 2px #ffffff62,0 2px 0 #111,0 5px 8px #0009!important;
  color:#fff!important;
@@ -1141,23 +1076,22 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 #tab-play #playing{--premium-rim:#6eab8c;--premium-text:#eefcf5}
 #tab-play #playing>.panel:first-child{
  background:linear-gradient(158deg,#0c3c2d 0%,#092d22 49%,#071f19 100%)!important;
- border:1px solid #508e70!important;border-radius:21px!important;
+ border:1px solid #508e70!important;
  box-shadow:inset 0 1px 0 #bbffe34a,inset 0 0 26px #3eb58a0a,0 14px 27px #0005!important;
 }
 #tab-play #playing .top-g-stats .kpi,
 #tab-play #playing .four .kpi{
- border:1px solid #447c65!important;border-radius:17px!important;
+ border:1px solid #447c65!important;
  background:linear-gradient(157deg,#245d49 0%,#124333 28%,#092b22 100%)!important;
  box-shadow:inset 0 2px 1px #ffffff27,inset 1px 0 1px #ffffff18,inset 0 -3px 7px #0003,0 4px 8px #0004!important;
 }
-#tab-play #playing .top-g-stats .kpi:first-child{
- border-color:#65a9ed!important;background:linear-gradient(153deg,#275b89 0%,#11395f 46%,#102746 100%)!important;
+#tab-play #playing .top-g-stats .kpi:first-child{background:linear-gradient(153deg,#275b89 0%,#11395f 46%,#102746 100%)!important;
  box-shadow:inset 0 2px 1px #ffffff48,inset 0 -3px 6px #0003,0 4px 10px #0005!important;
 }
 #tab-play #playing .top-g-stats .kpi strong{color:#fff!important;text-shadow:0 2px 3px #0006!important}
 #tab-play #playing .game-controls{
  background:linear-gradient(145deg,#19503e,#0d3529 70%,#092a22)!important;
- border:1px solid #477e67!important;border-radius:18px!important;
+ border:1px solid #477e67!important;
  box-shadow:inset 0 1px 0 #ffffff23,inset 0 -2px 4px #0002,0 5px 12px #0003!important;
 }
 #tab-play #playing .game-controls input{
@@ -1176,51 +1110,40 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 #tab-play #playing .action-board .record-card.grape{--premium-a:#a4f8d0;--premium-b:#27c67f;--premium-c:#00955b;--premium-d:#075838;--premium-light:#d8fff0}
 #tab-play #playing .action-board .record-card.cherry{--premium-a:#ffb5cf;--premium-b:#f24284;--premium-c:#cb0b60;--premium-d:#760836;--premium-light:#ffe0ed}
 #tab-play #playing .action-board .record-card{
- position:relative!important;border-radius:22px!important;isolation:isolate!important;
  background:radial-gradient(ellipse at 16% -12%,#ffffff95 0%,#ffffff00 39%),linear-gradient(151deg,var(--premium-a) -18%,var(--premium-b) 26%,var(--premium-c) 70%,var(--premium-d) 135%)!important;
  border:1px solid var(--premium-a)!important;
  box-shadow:inset 0 2px 1px #ffffffad,inset 2px 0 2px #ffffff40,inset -2px 0 2px #0003,inset 0 -5px 5px #0004,0 5px 0 var(--premium-d),0 7px 1px #02130e,0 14px 18px #0009!important;
 }
 #tab-play #playing .action-board .record-card::before{
- content:""!important;position:absolute!important;inset:3px 5px auto!important;height:40%!important;
  background:linear-gradient(180deg,#ffffffa8 0%,#ffffff54 18%,#ffffff16 80%,transparent 100%)!important;
- border-radius:17px 17px 48% 48%!important;opacity:.63!important;pointer-events:none!important;z-index:1!important;
+ border-radius:17px 17px 48% 48%!important;
 }
-#tab-play #playing .action-board .record-card::after{
- content:""!important;position:absolute!important;inset:5px!important;border:1px solid #ffffff80!important;
- border-radius:17px!important;background:transparent!important;opacity:1!important;
+#tab-play #playing .action-board .record-card::after{border:1px solid #ffffff80!important;opacity:1!important;
  box-shadow:inset 0 1px 0 #ffffff8c,inset 0 -2px 1px #0a122633!important;
- pointer-events:none!important;z-index:1!important;
 }
 #tab-play #playing .action-board .record-card .tap{
- position:relative!important;z-index:2!important;background:transparent!important;border:none!important;
- box-shadow:none!important;color:white!important;padding:8px 8px 32px!important;
+ position:relative!important;border:none!important;color:white!important;padding:8px 8px 32px!important;
  text-shadow:0 3px 3px #0007!important;
 }
-#tab-play #playing .action-board .record-card .record-footer{
- top:auto!important;bottom:8px!important;left:7px!important;right:7px!important;
- background:transparent!important;border:none!important;box-shadow:none!important;
- color:#fff!important;text-shadow:0 2px 3px #0008!important;
- font-size:clamp(17px,4.1vw,22px)!important;min-height:22px!important;
+#tab-play #playing .action-board .record-card .record-footer{border:none!important;text-shadow:0 2px 3px #0008!important;
+ font-size:clamp(17px,4.1vw,22px)!important;
  padding:0 4px!important;
 }
 #tab-play #playing .action-board .record-card .record-footer b{font-size:clamp(11px,3vw,16px)!important}
 #tab-play #playing .action-board .record-card .record-minus{
- z-index:7!important;top:7px!important;right:7px!important;width:44px!important;height:44px!important;
  background:linear-gradient(155deg,#4b5452 0%,#1c2627 53%,#0c1416 100%)!important;
- border:2px solid #e3ede9!important;border-radius:13px!important;
+ border:2px solid #e3ede9!important;
  box-shadow:inset 0 1px 1px #ffffff77,inset 0 -2px 3px #0007,0 3px 1px #0006,0 6px 8px #0008!important;
 }
 #tab-play #playing .action-board .record-card .record-symbol{filter:drop-shadow(0 2px 1px #0004)!important}
 #tab-play #playing .quick-complete{
- border:1px solid #477a63!important;border-radius:17px!important;
+ border:1px solid #477a63!important;
  background:linear-gradient(160deg,#164837,#0a2e23)!important;
  box-shadow:inset 0 1px #ffffff25,0 4px 8px #0003!important;
 }
 #tab-play #playing .quick-complete button{
- border:1px solid #fff2b7!important;border-radius:14px!important;
- background:linear-gradient(165deg,#fff2b3 0%,#ecc778 48%,#bf8d33 100%)!important;
- color:#102c24!important;font-weight:850!important;
+ border:1px solid #fff2b7!important;
+ background:linear-gradient(165deg,#fff2b3 0%,#ecc778 48%,#bf8d33 100%)!important;font-weight:850!important;
  box-shadow:inset 0 2px 1px #fff9,inset 0 -2px 3px #805f1e4d,0 4px 9px #0006!important;
 }
 .tabs{
@@ -1228,21 +1151,20 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
  background:linear-gradient(180deg,#093629 0%,#06261d 100%)!important;
  box-shadow:0 -5px 19px #0005,inset 0 1px 1px #a8f9cf26!important;
 }
-.tabs button{min-width:0!important;border:1px solid transparent!important;border-radius:13px!important}
+.tabs button{border:1px solid transparent!important}
 .tabs button.active{
- border-color:#c5a45b!important;color:#f4ce78!important;
  background:linear-gradient(152deg,#305c43 0%,#14362a 100%)!important;
  box-shadow:inset 0 1px 1px #fff4,0 2px 9px #0006!important;
 }
 .tabs button.active .nav-icon{color:#edc66b!important}
-@media(max-width:370px){#tab-play #playing .action-board .record-card .record-minus{right:5px!important;top:5px!important}}
+@media(max-width:370px){}
 @media(prefers-reduced-motion:reduce){#tab-play #playing .action-board .tap{transition:none!important}}
 
 
 /* P31 PRODUCT FINISH V5 — consolidated visual treatment; no state/logic changes */
 #tab-play #playing>.panel:first-child{
  background:radial-gradient(ellipse 110% 40% at 52% -4%,rgba(35,129,88,.30),transparent 72%),linear-gradient(155deg,#083b2c,#06281f 62%,#041f19)!important;
- border:1px solid #468b68!important;border-radius:23px!important;
+ border:1px solid #468b68!important;
  box-shadow:inset 0 1px 0 #d4ffe354,inset 0 -2px 7px #0005,0 14px 36px #0005!important;
 }
 #tab-play #playing .top-g-stats .kpi,
@@ -1252,73 +1174,57 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
  box-shadow:inset 0 2px 1px #d2ffe45e,inset 1px 0 2px #a6ffcc20,inset 0 -3px 4px #00120d6e,0 5px 9px #0005!important;
 }
 #tab-play #playing .top-g-stats .kpi:first-child{border-color:#82b8fa!important;background:radial-gradient(ellipse 90% 58% at 15% 0%,#a9e3ff46,transparent 82%),linear-gradient(155deg,#245f9a,#103d75 58%,#0a2650)!important;box-shadow:inset 0 2px 1px #e3f8ffa3,inset 0 -3px 3px #061b3c8c,0 5px 10px #0006!important}
-#tab-play #playing .game-controls{border:1px solid #55957a!important;border-radius:19px!important;background:radial-gradient(ellipse at 16% -5%,#7fffc218,transparent 72%),linear-gradient(165deg,#144b39,#0a3127 78%)!important;box-shadow:inset 0 1px 1px #ccffe75e,inset 0 -2px 3px #00120e68,0 5px 13px #0005!important}
+#tab-play #playing .game-controls{border:1px solid #55957a!important;background:radial-gradient(ellipse at 16% -5%,#7fffc218,transparent 72%),linear-gradient(165deg,#144b39,#0a3127 78%)!important;box-shadow:inset 0 1px 1px #ccffe75e,inset 0 -2px 3px #00120e68,0 5px 13px #0005!important}
 #tab-play #playing .game-controls input{border-radius:13px!important;background:linear-gradient(#07261f,#0e392c)!important;box-shadow:inset 0 2px 6px #00120daa,inset 0 1px 1px #0008!important}
 #tab-play #playing .game-controls button{border-radius:12px!important;box-shadow:inset 0 2px 1px #e1fff16e,inset 0 -3px 1px #001c1680,0 4px 6px #0005!important}
 #tab-play #playing .action-board .record-card.bb{--v5-top:#ff8593;--v5-mid:#ee2343;--v5-base:#bb1030;--v5-dark:#71091f;--v5-edge:#ffb9c1}
 #tab-play #playing .action-board .record-card.rb{--v5-top:#8fd9ff;--v5-mid:#1987ff;--v5-base:#065acc;--v5-dark:#082f70;--v5-edge:#b6e8ff}
 #tab-play #playing .action-board .record-card.grape{--v5-top:#a5ffd2;--v5-mid:#12d787;--v5-base:#008c54;--v5-dark:#065333;--v5-edge:#b9ffe0}
 #tab-play #playing .action-board .record-card.cherry{--v5-top:#ffaccf;--v5-mid:#f52b79;--v5-base:#bb0b55;--v5-dark:#71062f;--v5-edge:#ffd3e4}
-#tab-play #playing .action-board .record-card{
- isolation:isolate!important;border-radius:23px!important;overflow:hidden!important;
- border:1px solid var(--v5-edge)!important;
+#tab-play #playing .action-board .record-card{overflow:hidden!important;
  background:radial-gradient(ellipse 86% 47% at 23% 1%,#ffffff7d 0%,#ffffff22 45%,transparent 100%),linear-gradient(162deg,var(--v5-top) -31%,var(--v5-mid) 25%,var(--v5-base) 70%,var(--v5-dark) 117%)!important;
  box-shadow:inset 0 2px 1px #ffffffbd,inset 2px 0 2px #ffffff45,inset -2px 0 3px #00171638,inset 0 -5px 4px #00151179,0 5px 0 var(--v5-dark),0 7px 1px #020d0b,0 12px 17px #0008!important;
 }
 #tab-play #playing .action-board .record-card::before{
- content:""!important;pointer-events:none!important;position:absolute!important;z-index:1!important;
- top:4px!important;left:5px!important;right:5px!important;height:54%!important;inset:auto!important;
- border-radius:20px 20px 48% 48%!important;
- background:linear-gradient(178deg,#ffffff8a 0%,#ffffff3a 32%,#ffffff07 72%,transparent 100%)!important;opacity:.69!important;
+ background:linear-gradient(178deg,#ffffff8a 0%,#ffffff3a 32%,#ffffff07 72%,transparent 100%)!important;
  transform:translate(5px,4px)!important;width:calc(100% - 10px)!important;
 }
 #tab-play #playing .action-board .record-card::after{
- content:""!important;inset:5px!important;position:absolute!important;z-index:1!important;pointer-events:none!important;
- border:1px solid #ffffff71!important;border-radius:18px!important;background:transparent!important;
+ border:1px solid #ffffff71!important;background:transparent!important;
  box-shadow:inset 0 2px 0 #ffffff7d,inset 0 -2px 1px #00120e72!important;
 }
-#tab-play #playing .action-board .record-card .tap{position:absolute!important;z-index:3!important;padding:8px 7px 32px!important;color:#fff!important;text-shadow:0 2px 2px #0008,0 4px 5px #0003!important;}
-#tab-play #playing .action-board .record-card .record-footer{position:absolute!important;z-index:4!important;bottom:9px!important;left:10px!important;right:10px!important;top:auto!important;background:transparent!important;box-shadow:none!important;border:0!important;min-height:19px!important;color:#fff!important;text-shadow:0 2px 3px #0009!important;letter-spacing:.1px!important}
-#tab-play #playing .action-board .record-card .record-minus{z-index:8!important;right:7px!important;top:7px!important;min-width:44px!important;min-height:44px!important;width:44px!important;height:44px!important;border:2px solid #e7f4ef!important;border-radius:13px!important;background:linear-gradient(155deg,#535d59,#152423 52%,#091513)!important;box-shadow:inset 0 2px 2px #ffffff62,inset 0 -3px 4px #000a,0 4px 6px #000a!important}
+#tab-play #playing .action-board .record-card .tap{padding:8px 7px 32px!important;color:#fff!important;text-shadow:0 2px 2px #0008,0 4px 5px #0003!important;}
+#tab-play #playing .action-board .record-card .record-footer{background:transparent!important;box-shadow:none!important;border:0!important;min-height:19px!important;color:#fff!important;text-shadow:0 2px 3px #0009!important}
+#tab-play #playing .action-board .record-card .record-minus{border:2px solid #e7f4ef!important;background:linear-gradient(155deg,#535d59,#152423 52%,#091513)!important;box-shadow:inset 0 2px 2px #ffffff62,inset 0 -3px 4px #000a,0 4px 6px #000a!important}
 #tab-play #playing .action-board .record-card .record-minus:active{filter:brightness(.8)!important}
 #tab-play #playing .quick-complete{border:1px solid #518c70!important;background:linear-gradient(155deg,#14503d,#092c23)!important;box-shadow:inset 0 1px 1px #ffffff59,0 5px 11px #0004!important}
-#tab-play #playing .quick-complete button{background:radial-gradient(ellipse 90% 62% at 22% 0%,#fff9d5b8,transparent 86%),linear-gradient(164deg,#ffeab0,#edc46c 55%,#c58e31)!important;border:1px solid #fff0bb!important;border-radius:15px!important;box-shadow:inset 0 2px 1px #fffbe0,inset 0 -3px 3px #83531378,0 5px 9px #0006!important;color:#122e22!important}
+#tab-play #playing .quick-complete button{background:radial-gradient(ellipse 90% 62% at 22% 0%,#fff9d5b8,transparent 86%),linear-gradient(164deg,#ffeab0,#edc46c 55%,#c58e31)!important;border:1px solid #fff0bb!important;box-shadow:inset 0 2px 1px #fffbe0,inset 0 -3px 3px #83531378,0 5px 9px #0006!important;color:#122e22!important}
 .tabs{background:radial-gradient(ellipse 100% 110% at 50% 0%,#1a614535,transparent 70%),linear-gradient(180deg,#0d3b2d,#04231b)!important;border-top:1px solid #62a081!important;box-shadow:0 -5px 18px #0009,inset 0 1px 1px #c2ffe43f!important}
 .tabs button{border-radius:13px!important}
 .tabs button.active{background:linear-gradient(155deg,#315f44,#0e2e24)!important;border:1px solid #d6b25e!important;box-shadow:inset 0 2px 1px #ffffff63,inset 0 -3px 2px #05150d77,0 3px 7px #0008!important}
-.tabs .nav-icon{width:21px!important;height:21px!important}
 @media(max-width:370px){#tab-play #playing .action-board .record-card .record-minus{top:5px!important;right:5px!important}}
 
 
 /* P31 visual coherence v6: restrained sculpted finish, presentation only */
 #tab-play #playing .action-board .record-card{
  --sheen:rgba(255,255,255,.48);
- border-radius:22px!important;
  background:radial-gradient(ellipse 105% 72% at 24% -7%,rgba(255,255,255,.43),transparent 66%),linear-gradient(162deg,var(--v5-top) -37%,var(--v5-mid) 24%,var(--v5-base) 66%,var(--v5-dark) 123%)!important;
- border:1px solid var(--v5-edge)!important;
  box-shadow:inset 0 2px 1px #fff9,inset 2px 0 2px #fff4,inset -2px 0 4px #031b1a44,inset 0 -5px 4px #0015107a,0 5px 0 var(--v5-dark),0 7px 0 #03120f,0 12px 18px #0009!important;
 }
 #tab-play #playing .action-board .record-card::before{
- inset:4px 6px auto!important;width:auto!important;transform:none!important;height:41%!important;
  border-radius:17px 17px 52% 52%!important;
  background:linear-gradient(180deg,#ffffff87 0%,#ffffff2b 49%,transparent 100%)!important;
- opacity:.72!important;
 }
-#tab-play #playing .action-board .record-card::after{
- inset:5px!important;border-radius:17px!important;border-color:#ffffff65!important;
+#tab-play #playing .action-board .record-card::after{border-color:#ffffff65!important;
  box-shadow:inset 0 2px 1px #fffc,inset 0 -2px 1px #00170f90!important;
 }
 #tab-play #playing .action-board .record-card .tap{
  padding:12px 46px 31px 8px!important;
- text-shadow:0 2px 3px #0007!important;
 }
 #tab-play #playing .action-board .record-card .record-footer{
- bottom:9px!important;left:13px!important;right:13px!important;
- font-variant-numeric:tabular-nums!important;
  text-shadow:0 2px 3px #00140c9c!important;
 }
-#tab-play #playing .action-board .record-card .record-minus{
- border-radius:13px!important;background:linear-gradient(155deg,#424e49,#182621 51%,#0a1413)!important;
+#tab-play #playing .action-board .record-card .record-minus{background:linear-gradient(155deg,#424e49,#182621 51%,#0a1413)!important;
  border:2px solid #edf8f4!important;
  box-shadow:inset 0 2px 1px #ffffff5c,inset 0 -3px 3px #0008,0 4px 7px #0008!important;
 }
@@ -1338,36 +1244,30 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 .tabs button.active{box-shadow:inset 0 1px 1px #ffffff5c,inset 0 -2px 2px #0008,0 3px 7px #0006!important}
 
 /* PRODUCT FINISH V7 — cohesive sculpted visual system; CSS only, 2026-10-19 */
-#tab-play #playing .action-board{gap:13px!important}
 #tab-play #playing .action-board .action-left,#tab-play #playing .action-board .action-right{gap:13px!important}
 #tab-play #playing .action-board .record-card{
- --v7-rim:rgba(255,255,255,.67);position:relative!important;isolation:isolate!important;
- border-radius:27px!important; border:1px solid var(--v5-edge)!important;
+ --v7-rim:rgba(255,255,255,.67);
  background:radial-gradient(ellipse 95% 55% at 21% -13%,rgba(255,255,255,.66),rgba(255,255,255,.11) 65%,transparent 100%),linear-gradient(158deg,var(--v5-top) -36%,var(--v5-mid) 25%,var(--v5-base) 68%,var(--v5-dark) 118%)!important;
  box-shadow:inset 0 2px 2px #ffffffa8,inset 2px 0 2px #ffffff38,inset -2px 0 4px #0003,inset 0 -3px 2px #00110e8c,0 5px 0 var(--v5-dark),0 6px 1px #0009,0 13px 16px #0008!important;
 }
 #tab-play #playing .action-board .record-card::before{
- content:""!important;position:absolute!important;z-index:1!important;pointer-events:none!important;
- inset:4px 6px auto!important;width:auto!important;transform:none!important;height:46%!important;
+ inset:4px 6px auto!important;width:auto!important;transform:none!important;
  border-radius:22px 22px 45% 45%!important;
  background:linear-gradient(181deg,rgba(255,255,255,.63),rgba(255,255,255,.23) 48%,rgba(255,255,255,0) 100%)!important;
- opacity:.73!important;
 }
-#tab-play #playing .action-board .record-card::after{
- content:""!important;position:absolute!important;pointer-events:none!important;z-index:1!important;
- inset:6px!important;border-radius:20px!important;border:1px solid rgba(255,255,255,.57)!important;
+#tab-play #playing .action-board .record-card::after{border:1px solid rgba(255,255,255,.57)!important;
  background:radial-gradient(ellipse 40% 16% at 12% 94%,#fff5,transparent 100%),radial-gradient(ellipse 33% 18% at 92% 92%,#fff4,transparent 100%)!important;
  box-shadow:inset 0 1px 1px #fffa,inset 0 -2px 2px #00120c77!important;
 }
 #tab-play #playing .action-board .record-card .tap{z-index:3!important;padding:13px 47px 35px 9px!important;text-shadow:0 2px 3px #00140e75!important}
-#tab-play #playing .action-board .record-card .record-footer{z-index:4!important;bottom:10px!important;left:13px!important;right:13px!important;top:auto!important;letter-spacing:.12px!important;font-variant-numeric:tabular-nums!important;text-shadow:0 2px 2px #00170dab!important}
-#tab-play #playing .action-board .record-card .record-minus{z-index:8!important;top:8px!important;right:8px!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;border:2px solid #f4faf6!important;border-radius:14px!important;background:linear-gradient(153deg,#4d5854 0%,#1a2a27 48%,#081512 100%)!important;box-shadow:inset 0 2px 1px #ffffff65,inset 0 -2px 3px #0009,0 3px 0 #04100e,0 5px 7px #000b!important}
-#tab-play #playing .top-g-stats .kpi{border-radius:19px!important;background:radial-gradient(ellipse 90% 67% at 21% -12%,#fff3,transparent 72%),linear-gradient(155deg,#1e5a43,#0b3529 63%,#082b20)!important;box-shadow:inset 0 2px 1px #caffdf7a,inset 0 -2px 2px #0005,0 5px 11px #0006!important}
-#tab-play #playing .game-controls{border-radius:21px!important;background:radial-gradient(ellipse 100% 70% at 14% -24%,#ffffff31,transparent 70%),linear-gradient(158deg,#195540,#083024)!important;box-shadow:inset 0 2px 1px #daffeb78,0 7px 13px #0005!important}
-#tab-play #playing .quick-complete{border-radius:19px!important;background:linear-gradient(150deg,#19503c,#0b3025)!important;box-shadow:inset 0 1px 1px #fff4,0 6px 10px #0006!important}
+#tab-play #playing .action-board .record-card .record-footer{top:auto!important;letter-spacing:.12px!important;font-variant-numeric:tabular-nums!important;text-shadow:0 2px 2px #00170dab!important}
+#tab-play #playing .action-board .record-card .record-minus{min-width:44px!important;min-height:44px!important;border:2px solid #f4faf6!important;background:linear-gradient(153deg,#4d5854 0%,#1a2a27 48%,#081512 100%)!important;box-shadow:inset 0 2px 1px #ffffff65,inset 0 -2px 3px #0009,0 3px 0 #04100e,0 5px 7px #000b!important}
+#tab-play #playing .top-g-stats .kpi{background:radial-gradient(ellipse 90% 67% at 21% -12%,#fff3,transparent 72%),linear-gradient(155deg,#1e5a43,#0b3529 63%,#082b20)!important;box-shadow:inset 0 2px 1px #caffdf7a,inset 0 -2px 2px #0005,0 5px 11px #0006!important}
+#tab-play #playing .game-controls{background:radial-gradient(ellipse 100% 70% at 14% -24%,#ffffff31,transparent 70%),linear-gradient(158deg,#195540,#083024)!important;box-shadow:inset 0 2px 1px #daffeb78,0 7px 13px #0005!important}
+#tab-play #playing .quick-complete{background:linear-gradient(150deg,#19503c,#0b3025)!important;box-shadow:inset 0 1px 1px #fff4,0 6px 10px #0006!important}
 #tab-play #playing .quick-complete button{border-radius:16px!important;background:radial-gradient(ellipse 90% 58% at 26% 0%,#fff9e3cb,transparent 87%),linear-gradient(164deg,#ffedb6,#ebc36a 58%,#c18c35)!important;box-shadow:inset 0 2px 1px #fffce4,inset 0 -3px 3px #895d23a0,0 4px 0 #875e2e,0 8px 12px #0006!important}
 .tabs{background:linear-gradient(180deg,#15503a,#04241b 80%)!important;border-top:1px solid #5a9f7c!important;box-shadow:0 -7px 18px #0009,inset 0 1px 1px #d3ffe74a!important}
-.tabs button.active{border-radius:17px!important;border:1px solid #d8b866!important;background:linear-gradient(150deg,#32543e,#0a2e23)!important;box-shadow:inset 0 2px 1px #fff5,inset 0 -2px 2px #0005,0 5px 12px #0008!important}
+.tabs button.active{border:1px solid #d8b866!important;background:linear-gradient(150deg,#32543e,#0a2e23)!important;box-shadow:inset 0 2px 1px #fff5,inset 0 -2px 2px #0005,0 5px 12px #0008!important}
 @media(max-width:370px){#tab-play #playing .action-board .record-card .record-minus{top:6px!important;right:6px!important}}
 
 
@@ -1375,21 +1275,20 @@ html[data-theme="light"] #tab-history,html[data-theme="light"] #tab-settings{
 :root{--v8-shine:rgba(225,255,237,.43);--v8-line:#4c9a77;--v8-gold:#dbb45b}
 html:not([data-theme="light"]) body{background:radial-gradient(ellipse 110% 35% at 50% -8%,#14523f 0%,#06251c 55%,#031710 100%) fixed!important}
 header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparent 100%),linear-gradient(160deg,#0b4232,#06281e 85%)!important;box-shadow:inset 0 -1px 0 #7cc7a144!important}
-#tab-play #playing>.panel:first-child{border-radius:24px!important;border:1px solid #41775f!important;background:linear-gradient(160deg,#124b39 0%,#092a20 55%,#061f19 100%)!important;box-shadow:inset 0 1px 0 #b0ffcf4b,0 13px 28px #0008!important}
-#tab-play #playing .top-g-stats .kpi{border:1px solid #3d8867!important;border-radius:20px!important;background:radial-gradient(ellipse 110% 62% at 11% -12%,#ffffff54,transparent 72%),linear-gradient(155deg,#15583f,#0e3b2d 62%,#082b22)!important;box-shadow:inset 0 2px 1px #ffffff78,inset 0 -3px 3px #001e18a3,0 3px 0 #032017,0 7px 12px #0006!important}
-#tab-play #playing .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 110% 75% at 9% -7%,#ffffff67,transparent 73%),linear-gradient(155deg,#22558a,#112e5c 65%,#0a1b39)!important;border-color:#3f8fd9!important}
-#tab-play #playing .game-controls{border:1px solid #397e5f!important;border-radius:23px!important;background:radial-gradient(ellipse 95% 48% at 15% -15%,#ffffff38,transparent 85%),linear-gradient(150deg,#164e39,#082c21)!important;box-shadow:inset 0 2px 1px #b5f9d664,0 5px 13px #0005!important}
+#tab-play #playing>.panel:first-child{border:1px solid #41775f!important;background:linear-gradient(160deg,#124b39 0%,#092a20 55%,#061f19 100%)!important;box-shadow:inset 0 1px 0 #b0ffcf4b,0 13px 28px #0008!important}
+#tab-play #playing .top-g-stats .kpi{border:1px solid #3d8867!important;background:radial-gradient(ellipse 110% 62% at 11% -12%,#ffffff54,transparent 72%),linear-gradient(155deg,#15583f,#0e3b2d 62%,#082b22)!important;box-shadow:inset 0 2px 1px #ffffff78,inset 0 -3px 3px #001e18a3,0 3px 0 #032017,0 7px 12px #0006!important}
+#tab-play #playing .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 110% 75% at 9% -7%,#ffffff67,transparent 73%),linear-gradient(155deg,#22558a,#112e5c 65%,#0a1b39)!important}
+#tab-play #playing .game-controls{border:1px solid #397e5f!important;background:radial-gradient(ellipse 95% 48% at 15% -15%,#ffffff38,transparent 85%),linear-gradient(150deg,#164e39,#082c21)!important;box-shadow:inset 0 2px 1px #b5f9d664,0 5px 13px #0005!important}
 #tab-play #playing .game-input-row input{border-radius:14px!important;box-shadow:inset 0 2px 5px #0005!important}
 #tab-play #playing .game-input-row button{border-radius:14px!important;box-shadow:inset 0 2px 1px #fff5,inset 0 -2px 2px #0006,0 3px 5px #0005!important}
-#tab-play #playing .action-board{gap:13px!important;margin-top:15px!important}
-#tab-play #playing .action-board .record-card{border-radius:25px!important;border:1px solid var(--v5-edge)!important;background:radial-gradient(ellipse 95% 70% at 14% -25%,#fff9,transparent 80%),linear-gradient(156deg,var(--v5-top) -10%,var(--v5-mid) 31%,var(--v5-base) 70%,var(--v5-dark) 116%)!important;box-shadow:inset 0 2px 2px #fffc,inset 1px 0 2px #fff6,inset -2px 0 3px #0003,inset 0 -3px 3px #0007,0 5px 0 var(--v5-dark),0 8px 4px #0008,0 14px 17px #0008!important}
-#tab-play #playing .action-board .record-card::before{inset:3px 5px auto!important;height:42%!important;border-radius:21px 21px 44% 44%!important;background:linear-gradient(180deg,#ffffffb8 0%,#ffffff49 39%,transparent 100%)!important;opacity:.57!important}
-#tab-play #playing .action-board .record-card::after{inset:6px!important;border-radius:19px!important;border:1px solid #ffffff78!important;background:radial-gradient(ellipse 30% 11% at 10% 95%,#fff8,transparent 100%),radial-gradient(ellipse 30% 11% at 90% 95%,#fff6,transparent 100%)!important;box-shadow:inset 0 1px 1px #fffb,inset 0 -2px 2px #0005!important}
+#tab-play #playing .action-board .record-card{background:radial-gradient(ellipse 95% 70% at 14% -25%,#fff9,transparent 80%),linear-gradient(156deg,var(--v5-top) -10%,var(--v5-mid) 31%,var(--v5-base) 70%,var(--v5-dark) 116%)!important;box-shadow:inset 0 2px 2px #fffc,inset 1px 0 2px #fff6,inset -2px 0 3px #0003,inset 0 -3px 3px #0007,0 5px 0 var(--v5-dark),0 8px 4px #0008,0 14px 17px #0008!important}
+#tab-play #playing .action-board .record-card::before{inset:3px 5px auto!important;border-radius:21px 21px 44% 44%!important;background:linear-gradient(180deg,#ffffffb8 0%,#ffffff49 39%,transparent 100%)!important}
+#tab-play #playing .action-board .record-card::after{inset:6px!important;border:1px solid #ffffff78!important;background:radial-gradient(ellipse 30% 11% at 10% 95%,#fff8,transparent 100%),radial-gradient(ellipse 30% 11% at 90% 95%,#fff6,transparent 100%)!important;box-shadow:inset 0 1px 1px #fffb,inset 0 -2px 2px #0005!important}
 #tab-play #playing .action-board .record-card .tap{padding:8px 50px 37px 8px!important;text-shadow:0 2px 3px #0007!important}
-#tab-play #playing .action-board .record-card .record-footer{bottom:9px!important;font-size:clamp(15px,4.1vw,20px)!important;text-shadow:0 2px 2px #0008!important}
-#tab-play #playing .action-board .record-card .record-minus{border-radius:13px!important;background:linear-gradient(152deg,#4a5551,#1a2925 51%,#06110e)!important;box-shadow:inset 0 2px 1px #ffffff68,inset 0 -2px 2px #0009,0 3px 0 #05110d,0 6px 7px #0008!important}
+#tab-play #playing .action-board .record-card .record-footer{font-size:clamp(15px,4.1vw,20px)!important;text-shadow:0 2px 2px #0008!important}
+#tab-play #playing .action-board .record-card .record-minus{background:linear-gradient(152deg,#4a5551,#1a2925 51%,#06110e)!important;box-shadow:inset 0 2px 1px #ffffff68,inset 0 -2px 2px #0009,0 3px 0 #05110d,0 6px 7px #0008!important}
 #tab-play #playing .four.sp>.kpi,#tab-play #playing .uncompleted-kpi{border-radius:18px!important;background:linear-gradient(155deg,#184938,#0b3126)!important;border:1px solid #437a61!important;box-shadow:inset 0 1px 1px #edffe64b,inset 0 -2px 2px #0004,0 5px 10px #0005!important}
-#tab-play #playing .quick-complete{border-radius:17px!important;border:1px solid #e3be6f!important;background:radial-gradient(ellipse 80% 65% at 18% -9%,#fffde8d4,transparent 85%),linear-gradient(158deg,#ffe4a2,#eec478 66%,#c49646)!important;color:#16271d!important;box-shadow:inset 0 2px 2px #fffde1,inset 0 -2px 2px #98672389,0 4px 0 #8b6128,0 7px 12px #0006!important}
+#tab-play #playing .quick-complete{border:1px solid #e3be6f!important;background:radial-gradient(ellipse 80% 65% at 18% -9%,#fffde8d4,transparent 85%),linear-gradient(158deg,#ffe4a2,#eec478 66%,#c49646)!important;box-shadow:inset 0 2px 2px #fffde1,inset 0 -2px 2px #98672389,0 4px 0 #8b6128,0 7px 12px #0006!important}
 .tabs{background:linear-gradient(180deg,#124536,#04241b 88%)!important;box-shadow:0 -7px 15px #0009,inset 0 1px 1px #ffffff45!important}
 .tabs button.active{color:#f3cb75!important;border-color:#d8b767!important;background:linear-gradient(145deg,#2a523d,#0a3326)!important;box-shadow:inset 0 1px 1px #ffffff6a,inset 0 -3px 2px #0004,0 4px 8px #0007!important}
 @media(max-width:375px){#tab-play #playing .action-board .record-card .tap{padding-right:47px!important}}
@@ -1397,13 +1296,12 @@ header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparen
 
 /* PRODUCT SURFACE V9 — cohesive tactile finish, visual-only */
 #tab-play #playing>.panel:first-child{
-  border:1px solid #44816a!important;border-radius:25px!important;
+  border:1px solid #44816a!important;
   background:radial-gradient(ellipse 105% 42% at 38% -12%,#7dd0a329,transparent 78%),
     linear-gradient(162deg,#144b39,#092c22 68%,#061d17)!important;
   box-shadow:inset 0 1px 0 #d9ffe769, inset 0 -1px 0 #00130c, 0 11px 26px #0007!important;
 }
 #tab-play #playing .top-g-stats .kpi{
-  border-radius:19px!important;
   background:radial-gradient(ellipse 110% 70% at 35% -32%,#d7ffe36e,transparent 76%),
     linear-gradient(157deg,#1e6550,#0d4435 45%,#092a22 100%)!important;
   box-shadow:inset 0 1.5px 1px #caffdf9a,inset 0 -2px 2px #001e1888,0 3px 0 #052219,0 7px 12px #0005!important;
@@ -1418,10 +1316,8 @@ header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparen
   border-color:#4e9275!important;
   box-shadow:inset 0 1.5px 0 #b6ffd77d,inset 0 -1px 0 #0006,0 6px 14px #0005!important;
 }
-#tab-play #playing .action-board{gap:13px!important}
 #tab-play #playing .action-board .record-card{
   border:1px solid color-mix(in srgb,var(--v5-edge) 76%,white 24%)!important;
-  border-radius:25px!important;
   background:radial-gradient(ellipse 112% 60% at 20% -26%,#fff9,transparent 72%),
    radial-gradient(ellipse 72% 65% at 86% 94%,#00132255,transparent 88%),
    linear-gradient(163deg,var(--v5-top) -4%,var(--v5-mid) 36%,var(--v5-base) 70%,var(--v5-dark) 110%)!important;
@@ -1430,13 +1326,11 @@ header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparen
   transform:translateZ(0);
 }
 #tab-play #playing .action-board .record-card::before{
-  inset:4px 5px auto!important;height:37%!important;
+  inset:4px 5px auto!important;
   border-radius:19px 19px 48% 48%!important;
   background:linear-gradient(180deg,#ffffffb3 0%,#ffffff4e 40%,transparent 100%)!important;
-  opacity:.56!important;
 }
 #tab-play #playing .action-board .record-card::after{
-  inset:5px!important;border-radius:20px!important;
   border:1px solid #ffffff83!important;
   background:radial-gradient(ellipse 55% 15% at 16% 98%,#fff8,transparent 100%),
    radial-gradient(ellipse 45% 15% at 88% 98%,#fff6,transparent 100%)!important;
@@ -1447,12 +1341,11 @@ header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparen
   text-shadow:0 2px 3px #0017!important;
 }
 #tab-play #playing .action-board .record-card .record-footer{
-  bottom:9px!important;font-weight:800!important;
   font-size:clamp(14px,4.3vw,20px)!important;
   text-shadow:0 1px 2px #001a15aa!important;
 }
 #tab-play #playing .action-board .record-card .record-minus{
-  border:1px solid #e8f5edbd!important;border-radius:13px!important;
+  border:1px solid #e8f5edbd!important;
   background:linear-gradient(155deg,#445851,#14241f 57%,#08130f)!important;
   box-shadow:inset 0 2px 1px #ffffff65,inset 0 -2px 2px #0009,0 3px 0 #04110d,0 5px 7px #0009!important;
 }
@@ -1472,21 +1365,17 @@ header{background:radial-gradient(ellipse 75% 95% at 15% 0%,#17614a91,transparen
   box-shadow:inset 0 1px 0 #e2ffd17d,inset 0 -2px 2px #0018,0 3px 8px #0005!important}
 
 /* V10 — integrated flagship skin; cosmetic only, keep event bindings */
-#tab-play #playing .action-board .record-card{border-radius:26px!important;overflow:visible!important;isolation:isolate!important;
+#tab-play #playing .action-board .record-card{
 box-shadow:inset 0 2px 1px #ffffffae,inset 1px 0 1px #ffffff70,inset 0 -3px 2px #0006,0 5px 0 var(--v5-dark),0 9px 7px #0009,0 17px 21px #0008!important;}
-#tab-play #playing .action-board .record-card .tap{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:4px 46px 31px 17px!important;border-radius:inherit!important;box-sizing:border-box!important;}
-#tab-play #playing .action-board .record-card .record-symbol{position:absolute!important;left:8px!important;right:55px!important;display:flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;margin:0!important;line-height:1!important;font-size:clamp(37px,11vw,51px)!important;letter-spacing:-.045em!important;font-weight:850!important;text-shadow:0 2px 3px #0019,0 -1px #ffffff23!important;transform:none!important;}
-#tab-play #playing .action-board .record-card .record-symbol .fruit-icon{max-width:66px!important;max-height:68px!important;width: min(17vw,66px)!important;height: min(17vw,68px)!important;filter:drop-shadow(0 2px 1px #0019)!important;}
-#tab-play #playing .action-board .record-card .record-minus{position:absolute!important;top:10px!important;right:10px!important;z-index:8!important;width:44px!important;height:44px!important;display:grid!important;place-items:center!important;font-size:27px!important;line-height:1!important;}
-#tab-play #playing .action-board .record-card .record-footer{position:absolute!important;z-index:7!important;bottom:7px!important;left:9px!important;right:9px!important;pointer-events:none!important;font-size:clamp(15px,4.4vw,19px)!important;text-align:center!important;line-height:1.15!important;}
-#tab-play #playing .action-board .record-card::before{pointer-events:none!important;z-index:2!important;border-radius:21px 21px 50% 50%!important;opacity:.36!important;}
-#tab-play #playing .action-board .record-card::after{pointer-events:none!important;z-index:2!important;}
-#tab-play #playing .action-board{gap:14px!important;margin-top:13px!important;margin-bottom:17px!important;}
-#tab-play #playing .top-g-stats{gap:10px!important;}
+#tab-play #playing .action-board .record-card .tap{justify-content:flex-start!important;padding:4px 46px 31px 17px!important;box-sizing:border-box!important;}
+#tab-play #playing .action-board .record-card .record-symbol{width:auto!important;min-width:0!important;margin:0!important;font-size:clamp(37px,11vw,51px)!important;text-shadow:0 2px 3px #0019,0 -1px #ffffff23!important;transform:none!important;}
+#tab-play #playing .action-board .record-card .record-symbol .fruit-icon{width: min(17vw,66px)!important;height: min(17vw,68px)!important;filter:drop-shadow(0 2px 1px #0019)!important;}
+#tab-play #playing .action-board .record-card .record-footer{font-size:clamp(15px,4.4vw,19px)!important;}
+#tab-play #playing .action-board .record-card::before{border-radius:21px 21px 50% 50%!important;}
+#tab-play #playing .action-board{margin-top:13px!important;margin-bottom:17px!important;}
 #tab-play #playing .top-g-stats .kpi{border:1px solid #64ad8f8c!important;}
 #tab-play #playing .game-controls .game-input-row button{border-radius:13px!important;box-shadow:inset 0 1px 1px #d9fff178,0 3px 0 #092218,0 5px 8px #0006!important;}
-#tab-play #playing .quick-complete{border-radius:17px!important;color:#192b1d!important;font-weight:850!important;}
-.tabs .nav-icon{width:21px!important;height:21px!important;flex:none!important}
+#tab-play #playing .quick-complete{font-weight:850!important;}
 .tabs button{min-width:0!important;}
 @media(max-width:370px){#tab-play #playing .action-board .record-card .tap{padding-left:12px!important;padding-right:47px!important}
 #tab-play #playing .action-board .record-card .record-symbol{font-size:37px!important}
@@ -1494,41 +1383,31 @@ box-shadow:inset 0 2px 1px #ffffffae,inset 1px 0 1px #ffffff70,inset 0 -3px 2px 
 
 /* V11 unified product appearance: one authoritative finishing layer */
 #tab-play #playing > .panel:first-child{
- border:1px solid #458c70!important;border-radius:23px!important;
+ border:1px solid #458c70!important;
  background: radial-gradient(ellipse 100% 40% at 30% -10%,#94e8b124,transparent 80%),linear-gradient(156deg,#124c39,#082c21 67%,#071c17)!important;
  box-shadow:inset 0 2px 0 #9af1c455,inset 0 -1px 0 #00180e,0 9px 28px #0008!important;
 }
-#tab-play #playing .top-g-stats .kpi{
- border-radius:18px!important;border:1px solid #478e71!important;
+#tab-play #playing .top-g-stats .kpi{border:1px solid #478e71!important;
  background:radial-gradient(ellipse 100% 70% at 20% -35%,#d4ffe175,transparent 80%),linear-gradient(145deg,#1d664d,#104434 50%,#0a2b21)!important;
  box-shadow:inset 0 2px 1px #d8ffe280,inset 0 -2px 2px #001b1299,0 4px 0 #05291d,0 8px 14px #0007!important;
 }
 #tab-play #playing .top-g-stats .kpi.hall-total{
  background:radial-gradient(ellipse 100% 70% at 22% -25%,#dbf4ff84,transparent 76%),linear-gradient(150deg,#245fa0,#164377 55%,#0d284c)!important;
- border-color:#619be2!important;
 }
-#tab-play #playing .game-controls{
- border-radius:20px!important;border:1px solid #45886e!important;
+#tab-play #playing .game-controls{border:1px solid #45886e!important;
  background:radial-gradient(ellipse 105% 46% at 26% -20%,#deffe131,transparent 80%),linear-gradient(165deg,#1b5841,#0a3025)!important;
  box-shadow:inset 0 2px 0 #b1fada63,inset 0 -2px 2px #00150c,0 7px 18px #0006!important;
 }
-#tab-play #playing .action-board{gap:13px!important}
 #tab-play #playing .action-board .record-card{
- position:relative!important;isolation:isolate!important;overflow:visible!important;
- border-radius:27px!important;border:1px solid var(--v5-edge)!important;
+ position:relative!important;isolation:isolate!important;border:1px solid var(--v5-edge)!important;
  background:radial-gradient(ellipse 140% 90% at 8% -35%,#ffffffcc,transparent 66%),linear-gradient(155deg,var(--v5-top) 0%,var(--v5-mid) 36%,var(--v5-base) 70%,var(--v5-dark) 100%)!important;
  box-shadow:inset 0 2px 1px #ffffffaa,inset 1px 0 1px #ffffff65,inset -1px 0 1px #0002,inset 0 -3px 2px #0018,0 5px 0 var(--v5-dark),0 9px 7px #0009,0 16px 24px #0006!important;
 }
-#tab-play #playing .action-board .record-card::before{
- content:""!important;pointer-events:none!important;position:absolute!important;
- top:5px!important;left:6px!important;right:6px!important;height:39%!important;inset:auto!important;
- top:5px!important;left:6px!important;right:6px!important;
- border-radius:20px 20px 48% 48%!important;z-index:2!important;
- background:linear-gradient(180deg,#ffffffbd,#ffffff38 42%,transparent)!important;opacity:.53!important;
+#tab-play #playing .action-board .record-card::before{inset:auto!important;z-index:2!important;
+ background:linear-gradient(180deg,#ffffffbd,#ffffff38 42%,transparent)!important;
 }
 #tab-play #playing .action-board .record-card::after{
- content:""!important;pointer-events:none!important;position:absolute!important;inset:5px!important;
- border:1px solid #ffffff9c!important;border-radius:21px!important;z-index:2!important;
+ border:1px solid #ffffff9c!important;z-index:2!important;
  background:radial-gradient(ellipse 34% 15% at 15% 100%,#fff8,transparent),radial-gradient(ellipse 31% 13% at 90% 100%,#fff6,transparent)!important;
  box-shadow:inset 0 1px 0 #fff6,inset 0 -2px 1px #0003!important;
 }
@@ -1541,21 +1420,20 @@ box-shadow:inset 0 2px 1px #ffffffae,inset 1px 0 1px #ffffff70,inset 0 -3px 2px 
  position:absolute!important;left:10px!important;right:57px!important;top:42%!important;
  transform:translateY(-50%)!important;text-align:center!important;
  display:flex!important;align-items:center!important;justify-content:center!important;
- font-weight:850!important;font-size:clamp(33px,10.7vw,48px)!important;line-height:1!important;
- text-shadow:0 2px 3px #0006!important;letter-spacing:-.025em!important;
+ font-weight:850!important;font-size:clamp(33px,10.7vw,48px)!important;line-height:1!important;letter-spacing:-.025em!important;
 }
 #tab-play #playing .action-board .record-card .record-symbol .fruit-icon{
  max-width:71px!important;max-height:68px!important;width:min(18vw,71px)!important;height:min(18vw,68px)!important;
  filter:drop-shadow(0 2px 2px #0018)!important;
 }
 #tab-play #playing .action-board .record-card .record-footer{
- position:absolute!important;left:9px!important;right:9px!important;bottom:8px!important;z-index:7!important;
+ position:absolute!important;left:9px!important;right:9px!important;
  text-align:center!important;pointer-events:none!important;line-height:1.1!important;
- font-size:clamp(15px,4.6vw,19px)!important;font-weight:800!important;text-shadow:0 2px 2px #0019!important;
+ font-size:clamp(15px,4.6vw,19px)!important;text-shadow:0 2px 2px #0019!important;
 }
 #tab-play #playing .action-board .record-card .record-minus{
- position:absolute!important;right:9px!important;top:9px!important;z-index:9!important;
- width:44px!important;height:44px!important;border-radius:13px!important;
+ position:absolute!important;
+ width:44px!important;height:44px!important;
  display:grid!important;place-items:center!important;font-size:26px!important;line-height:1!important;
  color:white!important;border:1.5px solid #f0fff5d9!important;
  background:linear-gradient(155deg,#34473e,#16241e 50%,#08120d)!important;
@@ -1563,31 +1441,30 @@ box-shadow:inset 0 2px 1px #ffffffae,inset 1px 0 1px #ffffff70,inset 0 -3px 2px 
 }
 #tab-play #playing .action-board .record-card:active{transform:translateY(2px)!important;filter:brightness(.96)!important}
 #tab-play #playing .quick-complete{
- border:1px solid #fae4ae!important;border-radius:17px!important;
+ border:1px solid #fae4ae!important;
  background:radial-gradient(ellipse 80% 90% at 20% -25%,#fffdf4e5,transparent 82%),linear-gradient(158deg,#fbe09e,#ecc375 67%,#c99a4c)!important;
  color:#122c20!important;box-shadow:inset 0 2px 1px #fffce8,inset 0 -2px 1px #895e277c,0 4px 0 #8e6129,0 7px 14px #0006!important;
 }
 .tabs{background:linear-gradient(180deg,#104332,#061e18)!important;border-top:1px solid #4e9b78!important;box-shadow:0 -7px 19px #0007,inset 0 1px 0 #b5f1d42c!important}
-.tabs button.active{border:1px solid #c8a960!important;border-radius:16px!important;background:linear-gradient(160deg,#34543d,#153628 72%,#0d261c)!important;box-shadow:inset 0 2px 1px #efffd355,inset 0 -2px 1px #0008,0 4px 10px #0005!important}
+.tabs button.active{border:1px solid #c8a960!important;background:linear-gradient(160deg,#34543d,#153628 72%,#0d261c)!important;box-shadow:inset 0 2px 1px #efffd355,inset 0 -2px 1px #0008,0 4px 10px #0005!important}
 @media(max-width:370px){#tab-play #playing .action-board .record-card .record-symbol{font-size:clamp(32px,10vw,40px)!important;right:53px!important}}
 
 /* P31 PRODUCT SURFACE V12 — visual system only, functional DOM unchanged */
 :root{--surface-soft:#194939;--edge-light:#6eb693;--surface-shadow:#0008}
 /* retain the isolated candidate warning while giving the real controls usable space */
-#tab-play #playing>.panel:first-child{border-radius:23px!important;padding:12px!important;background:linear-gradient(148deg,#14523b 0%,#0b382b 48%,#08241c 100%)!important;border:1px solid #56a27f!important;box-shadow:inset 0 1px #d4ffe155,0 14px 27px #0008!important}
-#tab-play #playing .top-g-stats{gap:9px!important;margin:10px 0!important}
-#tab-play #playing .top-g-stats .kpi{border-radius:18px!important;min-width:0!important;padding:10px 5px!important;border:1px solid #6aaf8e!important;background:radial-gradient(ellipse 90% 68% at 27% -10%,#fff5,transparent 88%),linear-gradient(153deg,#21614c,#114836 50%,#0c3026)!important;box-shadow:inset 0 2px 1px #d4ffe182,inset 0 -2px 2px #0019,0 4px 0 #06251c,0 7px 11px #0006!important}
-#tab-play #playing .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 90% 68% at 27% -10%,#ffffff89,transparent 86%),linear-gradient(158deg,#316eab,#174a85 56%,#0c2d59)!important;border-color:#6ba8ec!important}
+#tab-play #playing>.panel:first-child{padding:12px!important;background:linear-gradient(148deg,#14523b 0%,#0b382b 48%,#08241c 100%)!important;border:1px solid #56a27f!important;box-shadow:inset 0 1px #d4ffe155,0 14px 27px #0008!important}
+#tab-play #playing .top-g-stats{margin:10px 0!important}
+#tab-play #playing .top-g-stats .kpi{min-width:0!important;border:1px solid #6aaf8e!important;background:radial-gradient(ellipse 90% 68% at 27% -10%,#fff5,transparent 88%),linear-gradient(153deg,#21614c,#114836 50%,#0c3026)!important;box-shadow:inset 0 2px 1px #d4ffe182,inset 0 -2px 2px #0019,0 4px 0 #06251c,0 7px 11px #0006!important}
+#tab-play #playing .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 90% 68% at 27% -10%,#ffffff89,transparent 86%),linear-gradient(158deg,#316eab,#174a85 56%,#0c2d59)!important}
 #tab-play #playing .top-g-stats .kpi strong{font-size:clamp(19px,5.8vw,28px)!important;letter-spacing:-.035em!important;text-shadow:0 2px 4px #0005}
-#tab-play #playing .game-controls{padding:9px 11px!important;margin-bottom:10px!important;border-radius:20px!important;border:1px solid #609c7c!important;background:linear-gradient(147deg,#20543e,#0e392c 56%,#0b3024)!important;box-shadow:inset 0 2px 1px #eaffde55,inset 0 -2px 2px #0017,0 7px 11px #0005!important}
-#tab-play #playing .action-board{gap:11px!important}
-#tab-play #playing .action-board .record-card{border-radius:25px!important;border:1px solid #fff9!important;overflow:visible!important;isolation:isolate;background:radial-gradient(ellipse 120% 48% at 25% -18%,#ffffffd9,transparent 78%),linear-gradient(160deg,var(--v5-top),var(--v5-mid) 33%,var(--v5-base) 70%,var(--v5-dark))!important;box-shadow:inset 0 2px 2px #fff9,inset 2px 0 1px #fff5,inset -1px 0 1px #0005,inset 0 -3px 2px #0005,0 5px 0 var(--v5-dark),0 8px 5px #0008,0 15px 20px #0007!important}
-#tab-play #playing .action-board .record-card::before{top:4px!important;left:6px!important;right:6px!important;height:39%!important;border-radius:20px 20px 48% 48%!important;background:linear-gradient(180deg,#fff9,transparent)!important;opacity:.62!important}
-#tab-play #playing .action-board .record-card::after{inset:5px!important;border-radius:19px!important;border:1px solid #fffc!important;background:radial-gradient(ellipse 42% 8% at 18% 96%,#fffa,transparent),radial-gradient(ellipse 42% 8% at 85% 96%,#fff7,transparent)!important;box-shadow:inset 0 2px 1px #fff9,inset 0 -2px 2px #0005!important}
+#tab-play #playing .game-controls{padding:9px 11px!important;border:1px solid #609c7c!important;background:linear-gradient(147deg,#20543e,#0e392c 56%,#0b3024)!important;box-shadow:inset 0 2px 1px #eaffde55,inset 0 -2px 2px #0017,0 7px 11px #0005!important}
+#tab-play #playing .action-board .record-card{border:1px solid #fff9!important;overflow:visible!important;isolation:isolate;background:radial-gradient(ellipse 120% 48% at 25% -18%,#ffffffd9,transparent 78%),linear-gradient(160deg,var(--v5-top),var(--v5-mid) 33%,var(--v5-base) 70%,var(--v5-dark))!important;box-shadow:inset 0 2px 2px #fff9,inset 2px 0 1px #fff5,inset -1px 0 1px #0005,inset 0 -3px 2px #0005,0 5px 0 var(--v5-dark),0 8px 5px #0008,0 15px 20px #0007!important}
+#tab-play #playing .action-board .record-card::before{border-radius:20px 20px 48% 48%!important;background:linear-gradient(180deg,#fff9,transparent)!important}
+#tab-play #playing .action-board .record-card::after{border:1px solid #fffc!important;background:radial-gradient(ellipse 42% 8% at 18% 96%,#fffa,transparent),radial-gradient(ellipse 42% 8% at 85% 96%,#fff7,transparent)!important;box-shadow:inset 0 2px 1px #fff9,inset 0 -2px 2px #0005!important}
 #tab-play #playing .action-board .record-card .record-symbol{font-size:clamp(32px,9.6vw,49px)!important;letter-spacing:-.045em!important;text-shadow:0 2px 3px #0006!important}
-#tab-play #playing .action-board .record-card .record-footer{font-size:clamp(16px,5vw,20px)!important;bottom:10px!important;text-shadow:0 2px 3px #0006!important}
+#tab-play #playing .action-board .record-card .record-footer{font-size:clamp(16px,5vw,20px)!important;text-shadow:0 2px 3px #0006!important}
 #tab-play #playing .action-board .record-card .record-minus{right:10px!important;top:10px!important;border:1.5px solid #fff!important;background:linear-gradient(145deg,#465850,#182720 53%,#0b120f)!important;box-shadow:inset 0 2px 1px #fff7,inset 0 -2px 2px #0008,0 3px 0 #07120e,0 6px 8px #0009!important}
-#tab-play #playing .quick-complete{border-radius:17px!important;background:radial-gradient(ellipse 110% 56% at 24% -15%,#fffef2db,transparent 82%),linear-gradient(160deg,#f9e0a0,#eec57e 61%,#cf9d50)!important;box-shadow:inset 0 2px 1px #fffbe5,inset 0 -2px 1px #61431d9a,0 4px 0 #956525,0 9px 15px #0007!important}
+#tab-play #playing .quick-complete{background:radial-gradient(ellipse 110% 56% at 24% -15%,#fffef2db,transparent 82%),linear-gradient(160deg,#f9e0a0,#eec57e 61%,#cf9d50)!important;box-shadow:inset 0 2px 1px #fffbe5,inset 0 -2px 1px #61431d9a,0 4px 0 #956525,0 9px 15px #0007!important}
 .tabs{background:linear-gradient(180deg,#124330,#061c16)!important;border-top:1px solid #74b78c!important;box-shadow:0 -8px 20px #0008,inset 0 1px #cfffe437!important}
 .tabs button.active{border:1px solid #d7b66b!important;background:linear-gradient(155deg,#3d6249,#122d22)!important;box-shadow:inset 0 2px 1px #fff9,0 3px 9px #0006!important}
 @media(max-width:370px){#tab-play #playing .action-board{gap:9px!important}#tab-play #playing .action-board .record-card .record-symbol{font-size:clamp(30px,9.5vw,38px)!important}}
@@ -1596,7 +1473,7 @@ box-shadow:inset 0 2px 1px #ffffffae,inset 1px 0 1px #ffffff70,inset 0 -3px 2px 
 body > .qa-isolation-warning{font-size:10px!important;line-height:1.3!important;padding:4px 10px!important;letter-spacing:.01em!important;background:linear-gradient(90deg,#5a2d09,#784117)!important}
 header{padding:8px 13px 6px!important;background:linear-gradient(150deg,#064230,#04261e 76%,#03231b)!important;border-bottom:1px solid #398163!important;box-shadow:0 3px 9px #0006!important}
 header .row.between{gap:9px!important;align-items:center!important}
-header h1{font-size:19px!important;line-height:1.12!important;margin:0 0 2px!important;letter-spacing:.015em!important}
+header h1{font-size:19px!important;line-height:1.12!important;margin:0 0 2px!important}
 header h1 .development-version{display:block!important;font-weight:450!important;font-size:9px!important;line-height:1.2!important;color:#b2d0bf!important;margin-top:2px!important}
 header #activeSummary{line-height:1.2!important;font-size:10px!important;min-height:0!important;margin:0!important}
 header #sessionsBtn{min-height:38px!important;padding:7px 12px!important;border-radius:12px!important}
@@ -1604,22 +1481,17 @@ header .emergency-export-panel{margin:4px 0 0!important;padding:3px 8px!importan
 header .emergency-export-panel summary{font-size:10px!important;line-height:1.35!important;padding:2px 0!important;color:#d7eae0!important}
 header #alerts:empty{display:none!important}
 main{padding-top:9px!important}
-#tab-play #playing>.panel:first-child{padding:13px 12px!important;border-radius:22px!important}
+#tab-play #playing>.panel:first-child{padding:13px 12px!important}
 #tab-play #playing>.panel:first-child h2{font-size:19px!important;letter-spacing:.015em!important}
-#tab-play #playing .top-g-stats{gap:7px!important;margin-top:10px!important;margin-bottom:10px!important}
-#tab-play #playing .top-g-stats .kpi{min-height:75px!important;padding:10px 5px!important;border-radius:17px!important}
+#tab-play #playing .top-g-stats{margin-top:10px!important;margin-bottom:10px!important}
+#tab-play #playing .top-g-stats .kpi{min-height:75px!important;padding:10px 5px!important}
 #tab-play #playing .top-g-stats .kpi small{font-size:11px!important}
 #tab-play #playing .top-g-stats .kpi strong{font-size:clamp(21px,5.9vw,27px)!important}
-#tab-play #playing .game-controls{border-radius:18px!important;padding:9px 10px!important;margin-bottom:11px!important}
+#tab-play #playing .game-controls{padding:9px 10px!important;margin-bottom:11px!important}
 #tab-play #playing .action-board{gap:11px!important}
-#tab-play #playing .action-board .record-card{border-radius:22px!important}
 #tab-play #playing .action-board .record-card::before{border-radius:18px 18px 40% 40%!important}
-#tab-play #playing .action-board .record-card::after{border-radius:18px!important}
-#tab-play #playing .action-board .record-card .tap{padding-right:50px!important}
-#tab-play #playing .action-board .record-card .record-footer{bottom:8px!important}
-#tab-play #playing .quick-complete{border-radius:13px!important}
 .tabs{background:linear-gradient(180deg,#104333,#05261d 84%)!important}
-.tabs .nav-icon{height:21px!important;width:21px!important;flex:none!important}
+.tabs .nav-icon{flex:none!important}
 .tabs .nav-label{font-size:11px!important;line-height:1.1!important}
 @media(max-width:375px){header h1{font-size:18px!important}header .development-version{font-size:8px!important}#tab-play #playing>.panel:first-child{padding:10px 9px!important}}
 
@@ -1629,25 +1501,24 @@ header h1{letter-spacing:.015em!important;text-shadow:0 2px 4px #0006!important}
 header .development-version{opacity:.7!important;font-size:10px!important;line-height:1.2!important}
 .qa-isolation-warning{font-size:11px!important;line-height:1.15!important;padding:6px 10px!important;text-align:center!important}
 #tab-play #playing>.panel:first-child{border-radius:23px!important;box-shadow:inset 0 1px 0 #d8ffdd54,0 14px 28px #0006!important}
-#tab-play #playing .top-g-stats .kpi{border-radius:19px!important;box-shadow:inset 0 1px 1px #d1ffe078,inset 0 -2px 2px #0007,0 5px 12px #0005!important}
-#tab-play #playing .action-board .record-card{border-radius:24px!important;box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0008,0 5px 0 var(--v5-dark),0 10px 15px #0007!important}
+#tab-play #playing .top-g-stats .kpi{box-shadow:inset 0 1px 1px #d1ffe078,inset 0 -2px 2px #0007,0 5px 12px #0005!important}
+#tab-play #playing .action-board .record-card{box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 2px #0008,0 5px 0 var(--v5-dark),0 10px 15px #0007!important}
 #tab-play #playing .action-board .record-card .record-minus{z-index:5!important;box-shadow:inset 0 1px 0 #fff7,0 3px 0 #07120f,0 5px 9px #0009!important}
-#tab-play #playing .action-board .record-card .record-footer{z-index:4!important;bottom:9px!important}
+#tab-play #playing .action-board .record-card .record-footer{z-index:4!important}
 .tabs{box-shadow:0 -8px 24px #0009,inset 0 1px 0 #ccffdf2c!important}
 
 /* P31 VISUAL V15: cohesive finish, no event or data behavior changes */
 #tab-play .top-g-stats .kpi {
-  border-radius: 18px!important;
+  
   border:1px solid #4b9778!important;
   background:radial-gradient(ellipse 115% 60% at 25% -22%,#d8ffe53b,transparent 78%),linear-gradient(152deg,#1d5947,#0c3529 70%,#092a21)!important;
   box-shadow:inset 0 1px 1px #f2fff2a0,inset 0 -2px 2px #001d15,0 5px 11px #0006!important;
 }
 #tab-play .top-g-stats .kpi.hall-total{
- background:radial-gradient(ellipse 115% 65% at 20% -20%,#d8eaff69,transparent 70%),linear-gradient(155deg,#1e5c9a,#123965 68%,#102a4b)!important;
- border-color:#5a9ddb!important
+ background:radial-gradient(ellipse 115% 65% at 20% -20%,#d8eaff69,transparent 70%),linear-gradient(155deg,#1e5c9a,#123965 68%,#102a4b)!important
 }
 #tab-play .game-controls{
- border:1px solid #448b71!important;border-radius:22px!important;
+ border:1px solid #448b71!important;
  background:radial-gradient(ellipse 110% 70% at 25% -35%,#effff128,transparent 80%),linear-gradient(160deg,#14503c,#0b2e24)!important;
  box-shadow:inset 0 1px 1px #d0ffe76b,0 6px 12px #0005!important
 }
@@ -1682,7 +1553,7 @@ header .development-version{opacity:.7!important;font-size:10px!important;line-h
  box-shadow:inset 0 2px 2px #fff6,inset 0 -2px 2px #0009,0 3px 0 #06130f,0 6px 9px #0009!important;
 }
 #tab-play .quick-complete {
- border-radius:16px!important;
+ 
  background:radial-gradient(ellipse 130% 75% at 20% -17%,#fffff0d9,transparent 74%),linear-gradient(158deg,#ffe3a5,#edc77c 65%,#c89e55)!important;
  box-shadow:inset 0 2px 1px #fffbd4,inset 0 -3px 2px #91612b8f,0 3px 0 #996d34,0 8px 13px #0007!important;
 }
@@ -1751,21 +1622,21 @@ header .development-version{opacity:.7!important;font-size:10px!important;line-h
 .tabs button.active {background:linear-gradient(160deg,#355844,#123629)!important;box-shadow:inset 0 1px 1px #eaffdb90,0 5px 12px #0007!important}
 
 /* V17 cohesive sculpted controls. Presentation only. */
-#tab-play .action-board.sp .record-card {isolation:isolate;overflow:visible!important;border-radius:27px!important;min-height:124px!important; border:2px solid color-mix(in srgb,var(--v5-edge) 78%,white 22%)!important; background:linear-gradient(165deg,var(--v5-top) 0%,var(--v5-mid) 33%,var(--v5-base) 73%,var(--v5-dark) 100%)!important;box-shadow:inset 0 2px 1px #fff8,inset 0 -3px 2px #0018,0 5px 0 var(--v5-dark),0 11px 13px #0008,0 16px 22px #0005!important;}
-#tab-play .action-board.sp .record-card:before {content:''!important;position:absolute!important;pointer-events:none!important;left:5px!important;right:5px!important;top:4px!important;height:49%!important;border-radius:22px 22px 55% 55%!important;background:linear-gradient(180deg,#ffffffbc,#ffffff2b 53%,transparent 100%)!important;opacity:.70!important;z-index:1!important;}
-#tab-play .action-board.sp .record-card:after {content:''!important;position:absolute!important;pointer-events:none!important;inset:5px!important;border-radius:21px!important;border:1px solid #ffffff80!important;background:radial-gradient(ellipse 55% 13% at 15% 98%,#ffffff77,transparent 98%),radial-gradient(ellipse 50% 14% at 88% 98%,#ffffff55,transparent 98%)!important;box-shadow:inset 0 2px 1px #fff7,inset 0 -2px 1px #0005!important;z-index:1!important;}
-#tab-play .action-board.sp .record-card .tap {position:relative!important;z-index:2!important;padding:12px 52px 34px 14px!important; text-shadow:0 2px 3px #0006!important;}
+#tab-play .action-board.sp .record-card {isolation:isolate;overflow:visible!important;min-height:124px!important; border:2px solid color-mix(in srgb,var(--v5-edge) 78%,white 22%)!important; background:linear-gradient(165deg,var(--v5-top) 0%,var(--v5-mid) 33%,var(--v5-base) 73%,var(--v5-dark) 100%)!important;box-shadow:inset 0 2px 1px #fff8,inset 0 -3px 2px #0018,0 5px 0 var(--v5-dark),0 11px 13px #0008,0 16px 22px #0005!important;}
+#tab-play .action-board.sp .record-card:before {content:''!important;position:absolute!important;pointer-events:none!important;left:5px!important;right:5px!important;top:4px!important;background:linear-gradient(180deg,#ffffffbc,#ffffff2b 53%,transparent 100%)!important;opacity:.70!important;z-index:1!important;}
+#tab-play .action-board.sp .record-card:after {content:''!important;position:absolute!important;pointer-events:none!important;inset:5px!important;border:1px solid #ffffff80!important;background:radial-gradient(ellipse 55% 13% at 15% 98%,#ffffff77,transparent 98%),radial-gradient(ellipse 50% 14% at 88% 98%,#ffffff55,transparent 98%)!important;box-shadow:inset 0 2px 1px #fff7,inset 0 -2px 1px #0005!important;z-index:1!important;}
+#tab-play .action-board.sp .record-card .tap {position:relative!important;z-index:2!important; text-shadow:0 2px 3px #0006!important;}
 #tab-play .action-board.sp .record-card .record-symbol{font-size:clamp(34px,9.2vw,53px)!important;line-height:1!important;letter-spacing:-.035em!important;text-shadow:0 2px 3px #0006!important;}
 #tab-play .action-board.sp .record-card.grape .record-symbol,#tab-play .action-board.sp .record-card.cherry .record-symbol {font-size:clamp(47px,11vw,60px)!important;}
-#tab-play .action-board.sp .record-card .record-footer{position:absolute!important;z-index:3!important;bottom:8px!important;left:50px!important;right:50px!important;text-align:center!important;white-space:nowrap!important;font-size:clamp(13px,4vw,19px)!important;line-height:1.1!important;text-shadow:0 1px 2px #0009!important;}
-#tab-play .action-board.sp .record-card .record-minus {position:absolute!important;z-index:5!important;right:8px!important;top:8px!important;width:44px!important;height:44px!important;border-radius:13px!important;background:linear-gradient(153deg,#566962,#25312c 37%,#111b17 100%)!important;border:1.5px solid #eafff2!important;box-shadow:inset 0 2px 2px #ffffff61,inset 0 -2px 2px #0008,0 3px 0 #08130f,0 6px 8px #0008!important;}
+#tab-play .action-board.sp .record-card .record-footer{position:absolute!important;z-index:3!important;bottom:8px!important;left:50px!important;right:50px!important;text-align:center!important;white-space:nowrap!important;text-shadow:0 1px 2px #0009!important;}
+#tab-play .action-board.sp .record-card .record-minus {position:absolute!important;z-index:5!important;right:8px!important;top:8px!important;background:linear-gradient(153deg,#566962,#25312c 37%,#111b17 100%)!important;border:1.5px solid #eafff2!important;box-shadow:inset 0 2px 2px #ffffff61,inset 0 -2px 2px #0008,0 3px 0 #08130f,0 6px 8px #0008!important;}
 #tab-play .action-board.sp .record-card:active {transform:translateY(2px)!important;box-shadow:inset 0 2px 2px #fff7,inset 0 -3px 2px #0008,0 2px 0 var(--v5-dark),0 5px 8px #0008!important;}
-#tab-play .top-g-stats .kpi{border-radius:21px!important;border:1px solid #5a9c7f!important;background:radial-gradient(ellipse 90% 55% at 35% -18%,#eeffe76e,transparent 83%),linear-gradient(160deg,#1d5a43,#0d3629 70%,#092b21)!important;box-shadow:inset 0 1px 1px #eaffea8a,inset 0 -2px 1px #001d1580,0 4px 0 #05251b,0 8px 13px #0005!important;}
+#tab-play .top-g-stats .kpi{border:1px solid #5a9c7f!important;background:radial-gradient(ellipse 90% 55% at 35% -18%,#eeffe76e,transparent 83%),linear-gradient(160deg,#1d5a43,#0d3629 70%,#092b21)!important;box-shadow:inset 0 1px 1px #eaffea8a,inset 0 -2px 1px #001d1580,0 4px 0 #05251b,0 8px 13px #0005!important;}
 #tab-play .top-g-stats .kpi.hall-total{background:radial-gradient(ellipse 90% 57% at 35% -18%,#eeffff7a,transparent 82%),linear-gradient(160deg,#2366a1,#173b68 75%,#112d4e)!important;border-color:#79b7f2!important;}
-#tab-play .game-controls{border-radius:23px!important; border:1px solid #549579!important; background:radial-gradient(ellipse 110% 60% at 25% -30%,#efffe84b,transparent 80%),linear-gradient(155deg,#18543e,#0b3025)!important;box-shadow:inset 0 1px 1px #e8ffe991,inset 0 -2px 1px #001e17,0 7px 12px #0005!important;}
-#tab-play .quick-complete{border-radius:18px!important;background:radial-gradient(ellipse 120% 78% at 25% -20%,#ffffffd2,transparent 78%),linear-gradient(150deg,#ffe6ab,#f4d08b 63%,#cba059)!important;border:1px solid #fff0b7!important;box-shadow:inset 0 2px 1px #fff8db,inset 0 -2px 2px #956c3799,0 4px 0 #986c36,0 9px 13px #0006!important;}
+#tab-play .game-controls{ border:1px solid #549579!important; background:radial-gradient(ellipse 110% 60% at 25% -30%,#efffe84b,transparent 80%),linear-gradient(155deg,#18543e,#0b3025)!important;box-shadow:inset 0 1px 1px #e8ffe991,inset 0 -2px 1px #001e17,0 7px 12px #0005!important;}
+#tab-play .quick-complete{background:radial-gradient(ellipse 120% 78% at 25% -20%,#ffffffd2,transparent 78%),linear-gradient(150deg,#ffe6ab,#f4d08b 63%,#cba059)!important;border:1px solid #fff0b7!important;box-shadow:inset 0 2px 1px #fff8db,inset 0 -2px 2px #956c3799,0 4px 0 #986c36,0 9px 13px #0006!important;}
 .tabs{background:linear-gradient(180deg,#124432,#05271e)!important;border-top:1px solid #6fac86!important;box-shadow:0 -8px 18px #0008,inset 0 1px 1px #ffffff26!important;}
-.tabs button.active{background:linear-gradient(155deg,#426047,#133d2c)!important;border-radius:18px!important;box-shadow:inset 0 1px 1px #efffdd6b,inset 0 -2px 1px #0007,0 4px 9px #0005!important;}
+.tabs button.active{background:linear-gradient(155deg,#426047,#133d2c)!important;box-shadow:inset 0 1px 1px #efffdd6b,inset 0 -2px 1px #0007,0 4px 9px #0005!important;}
 @media(max-width:375px){#tab-play .action-board.sp .record-card .record-symbol{font-size:34px!important}#tab-play .action-board.sp .record-card .record-footer{left:44px!important;right:44px!important;font-size:13px!important}}
 
 /* R8: Small-screen clearance without reducing touch targets or changing logic. */
@@ -1781,7 +1652,39 @@ header .development-version{opacity:.7!important;font-size:10px!important;line-h
     body:has(input:focus, textarea:focus, select:focus) .tabs { visibility:hidden!important; pointer-events:none!important; }
   }
 }
-</style><link rel="stylesheet" href="./play-material-svg.css"/><link rel="stylesheet" href="play-redesign.css"/><link rel="stylesheet" href="./p8-control-bridge.css"></head><body><div id="phase8-isolation-notice" role="status" style="position:relative;z-index:20;padding:8px 12px;background:#604512;color:#fffbe8;font:600 13px/1.4 system-ui;text-align:center">Phase 8 隔離検証：P31派生版の元ロジックを使用／正式D07F未統合／本番利用禁止</div>
+
+/* Stage17 Candidate3: emergency export overlay must not shift the play screen. */
+#emergencyExportPanel:not([hidden]){
+ position:fixed;top:calc(env(safe-area-inset-top) + 64px);
+ left:10px;right:10px;max-width:520px;margin:0 auto;
+ z-index:1100;padding:12px;border:2px solid #cc7979;border-radius:12px;
+ background:var(--surface,#173a2e);box-shadow:0 12px 35px #0008;
+}
+
+/* Stage17 Candidate4: transient critical alerts are viewport overlays, never layout children.
+   Errors remain visible and actionable; the emergency panel stays accessible. */
+body>header #alerts:not(:empty){
+ position:fixed!important;
+ top:calc(env(safe-area-inset-top) + 78px)!important;
+ left:12px!important;right:12px!important;
+ width:auto!important;max-width:560px!important;
+ margin:0 auto!important;
+ max-height:35vh;overflow-y:auto;
+ z-index:1201!important;
+ filter:drop-shadow(0 8px 18px #0008);
+}
+body>header #alerts:empty{display:none!important;}
+body>header #emergencyExportPanel:not([hidden]){
+ position:fixed!important;
+ top:auto!important;
+ bottom:calc(env(safe-area-inset-bottom) + 64px)!important;
+ left:12px!important;right:12px!important;
+ width:auto!important;max-width:560px!important;
+ margin:0 auto!important;
+ max-height:40vh;overflow-y:auto;
+ z-index:1200!important;
+}
+</style><link rel="stylesheet" href="stage16-p31.css?v=stage16-structure-20261117"></head><body><div id="phase8-isolation-notice" role="status" style="position:relative;z-index:20;padding:8px 12px;background:#604512;color:#fffbe8;font:600 13px/1.4 system-ui;text-align:center">Phase 8 隔離検証：P31派生版の元ロジックを使用／正式D07F未統合／本番利用禁止</div>
 <div role="status" class="qa-isolation-warning" style="position:relative;z-index:99999;background:#6a2e00;color:white;font:600 12px system-ui;padding:5px;text-align:center">P31隔離検証版・実戦データ入力禁止（架空データのみ）</div><header><div class="row between"><div><h1>ジャグログ <small class="development-version">Phase 3 開発 v46.9 フォーカス表示調整版</small></h1><div id="activeSummary" class="muted" style="font-size:12px">読み込み中</div></div><button id="sessionsBtn">台一覧</button></div><div id="alerts"></div><details id="emergencyImportPanel" class="emergency-export-panel"><summary>緊急退避JSONを照合（読み取り専用・復元しない）</summary><p class="muted">緊急退避専用JSONだけを選択してください。通常の実戦バックアップとは形式が異なります。選択しても記録は追加・変更されません。</p><input id="emergencyImportFile" type="file" accept=".json,application/json" aria-label="緊急退避JSONファイル"><button type="button" id="emergencyImportCheckBtn">退避JSONを検証・保存済み記録と照合</button><pre id="emergencyImportResult" role="status" aria-live="polite" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">ファイルを選択して照合してください。</pre></details><div id="emergencyExportPanel" class="emergency-export-panel" hidden><button type="button" id="emergencyExportBtn" class="danger">未保存操作を緊急退避JSONに書き出す</button><p id="emergencyExportStatus" class="muted">保存に失敗した操作を退避します。通常の実戦バックアップではありません。保存完了はファイル側で確認してください。</p></div></header><main>
 <section id="tab-play"><div id="noSession" class="panel"><h2>実戦を始める</h2><p class="muted">最初に店舗・機種を登録してください。台番号は任意です。</p><button class="primary" id="newBtn">新規実戦を作成</button></div><div id="playing" class="hidden"><div class="panel"><div class="row between"><h2>実戦カウント</h2><span id="saveStatus" class="tag">準備中</span></div><div class="top-g-stats"><div class="kpi hall-total"><small>総ゲーム数</small><strong id="totalG">—</strong></div><div class="kpi"><small>本人G</small><strong id="personalG">0</strong></div><div class="kpi"><small>現在G</small><strong id="currentG">—</strong></div></div><div class="game-controls"><div class="row between"><label for="addG">G数追加</label><span class="muted hint">本人消化Gを加算</span></div><div class="game-input-row"><input id="addG" type="number" min="1" step="1" inputmode="numeric" placeholder="G数（例23）" aria-label="本人消化ゲーム数を手入力"><button id="addGBtn" class="primary">追加</button><button id="quick50" class="quick">+50G</button><button id="quick100" class="quick">+100G</button></div><label class="measure-check"><input id="measuredBoth" type="checkbox">追加Gの全ゲームでぶどう・チェリーを実測した</label></div><div class="action-board sp"><div class="action-right"><div class="record-card bb"><button type="button" class="tap bb" id="bbBtn" aria-label="BBを記録"><span class="record-symbol">BB</span></button><button type="button" class="record-minus" id="bbMinus" aria-label="直近のBB記録を取消">−</button><div class="record-footer"><strong id="bbN">0</strong></div></div><div class="record-card rb"><button type="button" class="tap rb" id="rbBtn" aria-label="RBを記録"><span class="record-symbol">RB</span></button><button type="button" class="record-minus" id="rbMinus" aria-label="直近のRB記録を取消">−</button><div class="record-footer"><strong id="rbN">0</strong></div></div></div><div class="action-left"><div class="record-card grape"><button type="button" class="tap grape" id="grapeBtn" aria-label="ぶどうを記録"><span class="record-symbol"><svg viewBox="0 0 100 100" class="fruit-icon" aria-hidden="true" fill="currentColor"><path d="M52 20Q44 7 54 3L59 7Q54 13 57 20ZM50 20Q60 1 85 14Q70 35 50 20Z"/><circle cx="35" cy="34" r="13"/><circle cx="63" cy="34" r="13"/><circle cx="24" cy="53" r="13"/><circle cx="50" cy="53" r="13"/><circle cx="76" cy="53" r="13"/><circle cx="38" cy="73" r="13"/><circle cx="63" cy="73" r="13"/><circle cx="51" cy="90" r="9"/></svg></span></button><button type="button" class="record-minus" id="grapeMinus" aria-label="直近のぶどう記録を取消">−</button><div class="record-footer"><strong id="grapeN">0</strong><span class="stat-divider" aria-hidden="true"></span><b id="grapeRate">—</b></div></div><div class="record-card cherry"><button type="button" class="tap cherry" id="cherryBtn" aria-label="チェリーを記録"><span class="record-symbol"><svg viewBox="0 0 100 100" class="fruit-icon" aria-hidden="true" fill="currentColor"><path d="M50 21Q30 33 28 56M50 21Q71 33 73 56" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 21Q61 0 82 14Q70 31 50 21Z"/><circle cx="28" cy="71" r="21"/><circle cx="72" cy="71" r="21"/></svg></span></button><button type="button" class="record-minus" id="cherryMinus" aria-label="直近のチェリー記録を取消">−</button><div class="record-footer"><strong id="cherryN">0</strong><span class="stat-divider" aria-hidden="true"></span><b id="cherryRate">—</b></div></div></div></div><div class="four sp"><div class="kpi"><small>保留BB/RB</small><strong id="pendingN">0</strong></div><div class="kpi uncompleted-kpi"><div class="uncompleted-value"><small>未消化</small><strong id="uncompletedN">0</strong></div><button id="quickComplete" type="button" class="quick-complete" hidden>消化完了</button></div></div><div class="hall-prob" id="hallProb"><div class="prob-head">総ゲーム数基準の当選確率 <span id="hallProbBase">未観測</span></div><div class="prob-grid"><div><small>BB</small><strong id="hallBBRate">—</strong></div><div><small>RB</small><strong id="hallRBRate">—</strong></div><div><small>合算</small><strong id="hallCombinedRate">—</strong></div></div></div><div class="guess-mini" id="guessMini"><span class="muted">設定推測：実績入力後に表示します</span></div><details class="play-help"><summary>小役計算・当選契機の注意事項</summary><p class="hint muted">小役率＝本人G ÷ 回数（全Gで実測した場合のみ）。未測定Gがあれば小役は推測に使用しません。チェリー重複の登録だけではチェリーは自動加算されません。今回のチェリーをまだ記録していない場合だけ、チェリーを+1してください。契機不明は無理に単独と判定しません。</p></details></div><div class="panel hall-panel"><h2>ホール観測（本人Gとは別）</h2><details><summary>ホール表示値を記録（本人Gとは別）</summary><div class="grid sp"><div><label>累計G</label><input type="number" min="0" id="hallG" placeholder="不明なら空欄"></div><div><label>現在G</label><input type="number" min="0" id="hallCurrent" placeholder="不明なら空欄"></div><div><label>累計BB</label><input type="number" min="0" id="hallBB" placeholder="不明なら空欄"></div><div><label>累計RB</label><input type="number" min="0" id="hallRB" placeholder="不明なら空欄"></div></div><button id="snapshotBtn" class="sp">観測値を保存</button></details><div id="hallView" class="hint muted sp"></div></div><div class="panel supporting-panel"><details><summary>収支・差枚の実測入力</summary><p class="hint muted">現金とメダルは別管理。会員カードへの貯玉は現金回収に含めません。差枚は確認できた実測値だけを入力してください。</p><div class="finance-summary" id="financeMini"></div><div class="finance-form sp"><div><label for="financeType">記録する項目</label><select id="financeType"><option value="CASH_INVESTED">現金投資（円）</option><option value="CASH_RECOVERED">現金回収（円）</option><option value="MEDALS_BALANCE_OBSERVED">持ちメダル残高（枚）</option><option value="NET_MEDALS_OBSERVED">累計差枚の実測（±枚）</option><option value="MEDALS_INSERTED">投入枚数（枚・記録分）</option><option value="MEDALS_PAID_OUT">獲得枚数（枚・記録分）</option></select></div><div><label for="financeAmount">金額・枚数</label><input id="financeAmount" type="number" step="1" inputmode="numeric" placeholder="例：1000"></div><button id="financeAddBtn" class="primary">実測値を保存</button></div><p class="hint muted sp">投入・獲得枚数の記録が一部だけの場合、その差を実際の差枚とは扱いません。実測差枚はグラフに点として表示します。</p></details></div><div class="panel supporting-panel"><details><summary>会員カード・貯メダル</summary><p class="hint muted">店舗ごとに管理。入庫・引出はメダルの移動であり、現金回収や差枚に加算しません。残高は実測値を基点に追跡します。</p><div id="cardMini" class="finance-summary"></div><div class="finance-form sp"><div><label for="cardLabel">カードの識別名（同じ店舗で区別）</label><input id="cardLabel" type="text" maxlength="60" value="会員カード" placeholder="会員カード"></div><div><label for="cardType">操作</label><select id="cardType"><option value="CARD_DEPOSIT">貯メダル入庫（枚）</option><option value="CARD_WITHDRAWAL">貯メダル引出（枚）</option><option value="CARD_BALANCE_OBSERVED">残高を確認（枚）</option></select></div><div><label for="cardAmount">枚数</label><input id="cardAmount" type="number" step="1" min="0" inputmode="numeric" placeholder="例：208"></div><button id="cardAddBtn" class="primary">会員カードの記録を保存</button></div><p class="hint muted sp">最初にカードの残高を確認して入力すると、その後の入庫・引出を反映した残高を表示できます。残高未確認なら推測しません。</p></details></div><div class="panel"><div class="row between"><h2>ボーナス状態</h2><button id="undoBtn">直前の操作を取消</button></div><details class="bonus-guide"><summary>保留ボーナスの操作手順</summary><p class="hint muted">保留がある場合：先のボーナスを消化完了 → 「保留を確認」 → 消化完了の順に操作します。確認だけでは現在Gは0になりません。</p></details><div class="bonus-list-caption muted hint">ボーナス履歴（新しい順）</div><div id="bonuses"></div><div class="row sp session-actions" aria-label="実戦の中断・再開・終了"><button id="pauseBtn">一時中断</button><button id="resumeBtn">再開（新しい区間）</button><button id="closeBtn">実戦終了</button></div></div></div></section>
 <section id="tab-history" class="hidden"><div class="panel" id="intervalPanel"><h2>実戦の区間分析（P7・読み取り専用）</h2><p class="hint muted">保存イベント連番で開始〜終了を指定します。取消済み操作は除外し、保留ボーナスは確認済みのものだけ集計します。ホール累計や別の実戦は混ぜません。</p><div class="row sp" style="flex-wrap:wrap;gap:10px"><div><label for="intervalStart">開始連番</label><input type="number" min="1" step="1" id="intervalStart" inputmode="numeric" style="max-width:160px" placeholder="例：1"></div><div><label for="intervalEnd">終了連番</label><input type="number" min="1" step="1" id="intervalEnd" inputmode="numeric" style="max-width:160px" placeholder="例：100"></div><button id="intervalAnalyzeBtn" type="button">この区間を集計</button></div><div id="intervalResult" class="sp hint" aria-live="polite">実戦を選択して区間を指定してください。</div><div class="sp" style="border-top:1px solid var(--line,#5a6470);padding-top:10px"><h3>チェックポイント区間比較（P8・読み取り専用）</h3><p class="hint muted">各区間は「開始地点の直後」から「終了地点まで」です。連番は全実戦共通です。チェックポイントの保存連番が同じ場合、その間のイベントは0件です。実戦の編集・推測結果には反映しません。</p><div class="row sp" style="flex-wrap:wrap;gap:10px"><div><label for="intervalCompareAStart">区間A・開始地点</label><select id="intervalCompareAStart"></select></div><div><label for="intervalCompareAEnd">区間A・終了地点</label><select id="intervalCompareAEnd"></select></div><div><label for="intervalCompareBStart">区間B・開始地点</label><select id="intervalCompareBStart"></select></div><div><label for="intervalCompareBEnd">区間B・終了地点</label><select id="intervalCompareBEnd"></select></div><button type="button" id="intervalCompareBtn">2区間を比較</button></div><div id="intervalCompareResult" class="sp hint" aria-live="polite">チェックポイントを保存すると、区間を選択できます。</div></div></div><div class="panel"><h2>実戦履歴・収支</h2><p class="hint muted">実戦ごとの本人G・ボーナス・記録分の現金収支を一覧表示。未入力の投資・回収は補完しません。</p><div id="sessionHistorySummary" class="finance-summary"></div><div id="sessionHistoryRows" class="sp"></div></div><div class="panel"><h2>会員カード残高・履歴</h2><p class="hint muted">店舗・カード別に表示。残高実測前は不明です。現金収支とは合算しません。</p><div id="cardOverview"></div><div id="cardRows" class="sp"></div></div><div class="panel" id="checkpointPanel"><h2>チェックポイント（開発プレビュー）</h2><p class="hint muted">選択中の実戦の現時点の数値を記録します。実戦イベントや設定推測には加算されません。通常JSONバックアップに含まれます。保存後はJSONファイルの存在を確認してください。実DBでの復元検証は未完了です。</p><label for="checkpointNote">メモ（任意・100文字まで）</label><input id="checkpointNote" type="text" maxlength="100" placeholder="例：3000G時点で様子見"><button id="checkpointAddBtn" class="sp" type="button">現在の状態をチェックポイントに保存</button><div id="checkpointStatus" class="hint sp" aria-live="polite"></div><div id="checkpointRows" class="sp"></div></div><div class="panel"><h2>イベント履歴</h2><label for="historyScope">表示対象</label><select id="historyScope"><option value="all">全実戦</option><option value="active">選択中の実戦</option></select><div id="historyRows" class="sp"></div><button id="historyMoreBtn" class="sp" type="button" hidden aria-expanded="false"></button></div></section><section id="tab-guess" class="hidden"><div class="panel"><h2>着席前｜差枚からぶどうを参考逆算</h2><p class="hint muted">ホール現地のデータ表示機・データサイトのどちらにも対応。グラフを目視で読んだ数値を入力します。<strong>本人実測のぶどう・設定推測には混ぜません。</strong></p>
@@ -1934,7 +1837,7 @@ module.exports={inspectInput,classifyBatchSnapshot,classifyBatchIndexedDB,batchP
 return module.exports;})();
 return modules.batch;})();</script>
 <script src="./interval-analysis.js"></script><script src="./emergency-recovery.js"></script><script src="./safety-test.js"></script><script src="./guess-engine.js"></script><script src="./graph-engine.js"></script><script src="./finance-engine.js"></script><script src="./card-engine.js"></script><script src="./audit-engine.js"></script><script src="./preseat-engine.js"></script><script>
-(()=>{'use strict';const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage11_isolated_20261107_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage11_isolated_20261107_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage11_isolated_20261107_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
+(()=>{'use strict';const themeSaved=(()=>{try{return localStorage.getItem('juglog_stage19_test_20261126_theme')||'auto'}catch{return 'auto'}})();document.documentElement.dataset.theme=['auto','light','dark'].includes(themeSaved)?themeSaved:'auto';const $=id=>document.getElementById(id),UID=()=>crypto.randomUUID(), DB='juglog_stage19_test_20261126_db',clientId=UID();let leaseReason='入力権限を確認しています',leaseWaitSeconds=null;let db=null,active=(()=>{try{return localStorage.getItem('juglog_stage19_test_20261126_active_session')||null}catch{return null}})(),writer=false,epoch=null,leaseChecking=false,leaseTask=null,busy=false,pending=[],view=[],project=null,historyExpanded=false,currentTab='play',validatedImport=null,guessScope='personal';
 function txPromise(t){return new Promise((res,rej)=>{t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('transaction aborted'))})}function req(r){return new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}function openDb(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,2);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains('events')){const es=d.createObjectStore('events',{keyPath:'eventId'});es.createIndex('commitSequence','commitSequence',{unique:true});es.createIndex('operationId','operationId',{unique:false});}else{const es=r.transaction.objectStore('events');if(!es.indexNames.contains('operationId'))es.createIndex('operationId','operationId',{unique:false})}if(!d.objectStoreNames.contains('metadata'))d.createObjectStore('metadata',{keyPath:'key'});};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}const getMeta=async key=>{const t=db.transaction('metadata','readonly');return(await req(t.objectStore('metadata').get(key)))?.value};async function putMeta(key,value){const t=db.transaction('metadata','readwrite');t.objectStore('metadata').put({key,value});await txPromise(t)}async function allEvents(){const t=db.transaction('events','readonly');const a=await req(t.objectStore('events').getAll());return a.sort((x,y)=>x.commitSequence-y.commitSequence)}
 async function claim(force=false){const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),prev=(await req(s.get('lease')))?.value,now=Date.now(),alive=prev&&prev.expiresAt>now&&prev.ownerId!==clientId;if(alive&&!force){await txPromise(t);writer=false;epoch=null;leaseReason='別画面に入力権限があります';leaseWaitSeconds=Math.max(1,Math.ceil((prev.expiresAt-now)/1000));return false}if(alive&&force){t.abort();throw Error('別画面の入力権限が有効です')}epoch=prev?.ownerId===clientId?prev.epoch:(prev?.epoch||0)+1;s.put({key:'lease',value:{ownerId:clientId,epoch,expiresAt:now+12000,updatedAt:now}});await txPromise(t);writer=true;leaseReason='';leaseWaitSeconds=null;return true}
 async function heartbeat(){if(!db||!writer||document.hidden)return;try{const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),p=(await req(s.get('lease')))?.value,now=Date.now();if(!p||p.ownerId!==clientId||p.epoch!==epoch||p.expiresAt<=now){t.abort();writer=false;epoch=null;leaseReason=!p?'入力権限記録が見つかりません':p.ownerId!==clientId?'別画面に入力権限が移りました':p.epoch!==epoch?'入力権限の世代が変わりました':'入力権限の期限が切れました';leaseWaitSeconds=p?.expiresAt>now?Math.ceil((p.expiresAt-now)/1000):null;render();return}p.expiresAt=now+12000;p.updatedAt=now;s.put({key:'lease',value:p});await txPromise(t)}catch{writer=false;epoch=null;leaseReason='入力権限の更新に失敗しました。保存状態を確認してください';leaseWaitSeconds=null;render()}}
@@ -1983,17 +1886,19 @@ async function prepareLeaseForWrite(){
 async function releaseLease(){if(!db||!writer||pending.length||busy)return;try{const t=db.transaction('metadata','readwrite'),s=t.objectStore('metadata'),p=(await req(s.get('lease')))?.value;if(p?.ownerId===clientId&&p.epoch===epoch){p.expiresAt=0;p.updatedAt=Date.now();s.put({key:'lease',value:p})}await txPromise(t)}catch{}}
 
 // P15: validate cancellation/restore against the committed history inside the write transaction.
-function validateCorrectionDependencies(history, upcoming){
+function validateCorrectionDependencies(history, upcoming, persistedSessionsSnapshot){
+ const corrections=upcoming.filter(e=>['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
+ // Normal gameplay has no correction dependency to validate; avoid sorting and replaying all history.
+ if(corrections.length===0)return true;
  const ordered=history.slice().sort((a,b)=>a.commitSequence-b.commitSequence);
  const byId=new Map(ordered.map(e=>[e.eventId,e]));
  const cancelled=new Set();
  for(const e of ordered){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}
  const effective=ordered.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
- const corrections=upcoming.filter(e=>['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type));
  if(corrections.length>1)throw Error('複数の訂正は一操作ずつ保存してください');
  // Stage 8: Recheck the PERSISTED lifecycle state inside the same readwrite transaction.
  // Closed sessions permit only narrowly scoped history correction, never new gameplay.
- const persistedSessions=replay(ordered);
+ const persistedSessions=persistedSessionsSnapshot??replay(ordered);
  const closedCorrectionTypes=new Set(['GAMES_RECORDED','GRAPE_COUNTED','CHERRY_COUNTED']);
  for(const e of corrections){
   const target=byId.get(e.targetEventId);
@@ -2024,10 +1929,10 @@ function validateCorrectionDependencies(history, upcoming){
  return true;
 }
 // P18: fail closed on stale lifecycle transitions, under the same write transaction as append.
-function validateSessionLifecycle(committed, incoming){
+function validateSessionLifecycle(committed, incoming, persistedSessionsSnapshot){
  const lifecycle=new Set(['SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED','SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED']);
  if(!incoming.some(e=>lifecycle.has(e.type)))return true;
- const sessions=replay(committed);
+ const sessions=persistedSessionsSnapshot??replay(committed);
  const bySession=new Map();
  for(const e of incoming){if(!e.sessionId||typeof e.sessionId!=='string')throw Error('実戦IDが不正です');
   if(!bySession.has(e.sessionId))bySession.set(e.sessionId,[]);bySession.get(e.sessionId).push(e)}
@@ -2053,10 +1958,10 @@ function validateSessionLifecycle(committed, incoming){
 }
 // BUG-007: Authorize new records using the persisted session state INSIDE the append transaction.
 // Corrections retain the existing dependency checks; lifecycle transitions have their own validator.
-function validateSessionRecordWrites(committed,incoming){
+function validateSessionRecordWrites(committed,incoming,persistedSessionsSnapshot){
  const lifecycle=new Set(['SESSION_CREATED','SESSION_PAUSED','SESSION_RESUMED','SEGMENT_STARTED','SESSION_CLOSED_PENDING','SESSION_CLOSED_CONFIRMED']);
  const correction=new Set(['EVENT_CANCELLED','EVENT_RESTORED']);
- const sessions=replay(committed);
+ const sessions=persistedSessionsSnapshot??replay(committed);
  for(const e of incoming){
   if(lifecycle.has(e.type)||correction.has(e.type))continue;
   if(!e.sessionId||typeof e.sessionId!=='string')throw Error('記録先の実戦IDが不正です');
@@ -2092,10 +1997,14 @@ async function append(items,operationId=UID(),prepared=null){if(!writer)throw Er
  // P15: all committed events and dependency states are read in this same readwrite transaction.
  // The existing lease and operation-id checks above stay authoritative.
  const committed=(await req(store.getAll())).sort((a,b)=>a.commitSequence-b.commitSequence);
- validateCorrectionDependencies(committed,all);
- validateSessionLifecycle(committed,all);
- validateSessionRecordWrites(committed,all);
- validateStage14Writes(committed,all);
+ // Replay persisted state only once for all safety validators.
+ const persistedSessions=replay(committed);
+ validateCorrectionDependencies(committed,all,persistedSessions);
+ validateSessionLifecycle(committed,all,persistedSessions);
+ validateSessionRecordWrites(committed,all,persistedSessions);
+ validateStage14Writes(committed,all,persistedSessions);
+ validateStage19Award(committed,all,persistedSessions);
+ validateStage19BonusAction(committed,all,persistedSessions);
  all.forEach((e,i)=>store.add({...e,commitSequence:last+i+1}));m.put({key:'sequence',value:last+all.length});await txPromise(t);return all}catch(e){if(t&&t.readyState==='active')t.abort();throw e}}
 function correctedEvents(ev){let cancelled=new Set();for(const e of ev){if(e.type==='EVENT_CANCELLED')cancelled.add(e.targetEventId);if(e.type==='EVENT_RESTORED')cancelled.delete(e.targetEventId)}return ev.filter(e=>!cancelled.has(e.eventId)&&!['EVENT_CANCELLED','EVENT_RESTORED'].includes(e.type))}
 function replay(ev){const all=correctedEvents(ev);let sessions=new Map();const bonusIndexes=new Map();for(const e of all){let s=sessions.get(e.sessionId);if(e.type==='SESSION_CREATED'){s={id:e.sessionId,store:e.store,machine:e.machine,number:e.number,date:e.date,measuredG:0,hasUnmeasuredG:false,status:'ACTIVE',segment:e.segmentId,segments:1,g:0,current:null,hallTotalLive:null,grape:0,cherry:0,bonuses:[],snapshots:[],nonOverlapCherry:undefined,nonOverlapCherryVerified:false};sessions.set(e.sessionId,s);bonusIndexes.set(e.sessionId,new Map());continue}if(!s)continue;switch(e.type){case 'SEGMENT_STARTED':s.segment=e.segmentId;s.segments++;break;case 'CURRENT_G_BASELINE':s.current=e.currentG;break;case 'GAMES_RECORDED':s.g+=e.delta;if(s.hallTotalLive!==null)s.hallTotalLive+=e.delta;if(e.measuredBoth===true)s.measuredG+=e.delta;else s.hasUnmeasuredG=true;if(s.current!==null)s.current+=e.delta;break;case 'GRAPE_COUNTED':s.grape++;break;case 'CHERRY_COUNTED':s.cherry++;break;case 'NON_OVERLAP_CHERRY_VERIFIED':break;case 'HALL_SNAPSHOT_RECORDED':s.snapshots.push(e);if(Number.isSafeInteger(e.totalG)&&e.totalG>=0){const zeroStart=e.totalG===0&&e.currentG===0&&e.bb===0&&e.rb===0;s.hallTotalLive=zeroStart?s.g:e.totalG;}if(e.currentG!==null)s.current=e.currentG;break;case 'BONUS_AWARDED':{const b={...e,completed:false};s.bonuses.push(b);const idx=bonusIndexes.get(e.sessionId);if(!idx.has(e.bonusId))idx.set(e.bonusId,b);break}case 'BONUS_REVIEW_CONFIRMED':{const b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b&&b.pendingReview)b.pendingReview=false;break}case 'BONUS_COMPLETED':{let b=bonusIndexes.get(e.sessionId)?.get(e.bonusId);if(b)b.completed=true;s.current=0;break}case 'SESSION_PAUSED':s.status='PAUSED';break;case 'SESSION_RESUMED':s.status='ACTIVE';break;case 'SESSION_CLOSED_PENDING':s.status='CLOSED_PENDING';break;case 'SESSION_CLOSED_CONFIRMED':s.status='CLOSED_CONFIRMED';break;}}
@@ -2133,7 +2042,25 @@ function notifyInApp(message,level='info'){
 }
 $('notificationDensity').onchange=renderNotificationHistory;
 $('notificationClear').onclick=()=>{notificationHistory.length=0;renderNotificationHistory()};
-function showAlert(msg,kind='warning'){const e=document.createElement('div');e.className=kind;e.textContent=msg;$('alerts').replaceChildren(e)}function clearAlert(){$('alerts').replaceChildren()}function syncEmergencyExport(){const p=$('emergencyExportPanel');if(!p)return;p.hidden=pending.length===0;$('emergencyExportBtn').disabled=pending.length===0;}function updateQueue(){syncEmergencyExport();if(pending.length){showAlert(`未保存 ${pending.length}件：画面終了で失われる可能性があります。`,'danger')}else clearAlert()}// P4: advisory acceptance-time anchor. Read-only snapshot; never authorizes recovery.
+function showAlert(msg,kind='warning'){const e=document.createElement('div');e.className=kind;e.textContent=msg;$('alerts').replaceChildren(e)}function clearAlert(){$('alerts').replaceChildren()}// Stage17 Candidate3: do not flash the emergency-export panel during ordinary fast writes.
+// The pending queue and safety gates are unchanged; a sustained pending operation still exposes export.
+let stage17EmergencyDisplayTimer=null;
+function syncEmergencyExport(){
+ const panel=$('emergencyExportPanel'),button=$('emergencyExportBtn');
+ if(!panel||!button)return;
+ const hasPending=pending.length>0;
+ button.disabled=!hasPending;
+ if(!hasPending){
+  if(stage17EmergencyDisplayTimer!==null){clearTimeout(stage17EmergencyDisplayTimer);stage17EmergencyDisplayTimer=null;}
+  panel.hidden=true;
+  return;
+ }
+ if(!panel.hidden||stage17EmergencyDisplayTimer!==null)return;
+ stage17EmergencyDisplayTimer=setTimeout(()=>{
+  stage17EmergencyDisplayTimer=null;
+  if(pending.length>0){panel.hidden=false;button.disabled=false;}
+ },750);
+}function updateQueue(){syncEmergencyExport();if(pending.length){showAlert(`未保存 ${pending.length}件：画面終了で失われる可能性があります。`,'danger')}else clearAlert()}// P4: advisory acceptance-time anchor. Read-only snapshot; never authorizes recovery.
 async function captureAcceptanceAnchor(operationId,prepared){
  if(!db||!writer||document.hidden||!epoch)throw Error('入力受付時点の保存状態を確認できません');
  const t=db.transaction(['metadata','events'],'readonly');
@@ -2200,8 +2127,8 @@ async function retryQueue(){
  }finally{busy=false;render()}
 }
 // P5 experimental checkpoints: independent metadata entries, never appended to events.
-const checkpointKey='juglog_stage11_isolated_20261107_checkpoint_preview';
-const checkpointPendingKey='juglog_stage11_isolated_20261107_checkpoint_pending';
+const checkpointKey='juglog_stage19_test_20261126_checkpoint_preview';
+const checkpointPendingKey='juglog_stage19_test_20261126_checkpoint_pending';
 // Fail closed if storage is unavailable: do not create an untraceable checkpoint.
 function readCheckpointPending(){
  try{const raw=localStorage.getItem(checkpointPendingKey);if(!raw)return null;const p=JSON.parse(raw);if(!p||p.version!==1||!p.snapshot||typeof p.snapshot.id!=='string'||!p.snapshot.id)throw Error('invalid');return p}
@@ -2306,7 +2233,7 @@ async function saveCheckpoint(){
 $('checkpointAddBtn').onclick=saveCheckpoint;
 async function refresh(){view=await allEvents();project=replay(view);if(!active||!project.has(active))active=[...project.keys()].at(-1)||null;await loadCheckpoints();restoreV45Ui();render()}
 /* v45 UI-only preferences. Never write preference changes into IndexedDB event records. */
-const v45UiKey='juglog_stage11_isolated_20261107_ui_preferences';
+const v45UiKey='juglog_stage19_test_20261126_ui_preferences';
 let v45Ui={};try{const saved=JSON.parse(localStorage.getItem(v45UiKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))v45Ui=saved}catch{}
 function storeV45Ui(){try{localStorage.setItem(v45UiKey,JSON.stringify(v45Ui))}catch{/* UI preferences are noncritical */}}
 function selectUiValue(id,value,choices,fallback){$(id).value=choices.includes(value)?value:fallback}
@@ -2322,8 +2249,8 @@ function recordV45Inference(){
  v45Ui.sessions[active]={scope:$('guessScope').value,mode:$('guessMode').value};storeV45Ui();
 }
 selectUiValue('graphMode',v45Ui.graphMode,['cumulative','timeline'],'cumulative');
-function restoreNativeMeasured(){try{$('measuredBoth').checked=!!active&&localStorage.getItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active)==='true'}catch{$('measuredBoth').checked=false;}}
-$('measuredBoth').addEventListener('change',()=>{if(active)try{localStorage.setItem('juglog_stage11_isolated_20261107_measure_session_v1:'+active,String($('measuredBoth').checked))}catch{}});
+function restoreNativeMeasured(){try{$('measuredBoth').checked=!!active&&localStorage.getItem('juglog_stage19_test_20261126_measure_session_v1:'+active)==='true'}catch{$('measuredBoth').checked=false;}}
+$('measuredBoth').addEventListener('change',()=>{if(active)try{localStorage.setItem('juglog_stage19_test_20261126_measure_session_v1:'+active,String($('measuredBoth').checked))}catch{}});
 
 function nice(e){let p={SESSION_CREATED:`新規実戦 ${e.number?e.number+'番台':'台番号未登録'}`,SEGMENT_STARTED:'遊技区間開始',CURRENT_G_BASELINE:`現在G初期値 ${e.currentG}`,GAMES_RECORDED:`本人G +${e.delta}${e.measuredBoth?'（小役実測）':''}`,GRAPE_COUNTED:'ぶどう +1',CHERRY_COUNTED:'チェリー +1',NON_OVERLAP_CHERRY_VERIFIED:'非重複チェリー確定回数の登録',HALL_SNAPSHOT_RECORDED:'ホール観測値を記録',BONUS_AWARDED:`${e.bonusType}当選（${e.trigger}）${e.pendingReview?'・保留':''}`,BONUS_REVIEW_CONFIRMED:'保留ボーナスの確認確定',BONUS_COMPLETED:'ボーナス消化完了',SESSION_PAUSED:'実戦中断',SESSION_RESUMED:'実戦再開',SESSION_CLOSED_PENDING:'未確定付き終了',SESSION_CLOSED_CONFIRMED:'実戦終了確定',EVENT_CANCELLED:'操作の取消',EVENT_RESTORED:'取消の復元',CASH_INVESTED:'現金投資',CASH_RECOVERED:'現金回収',MEDALS_INSERTED:'投入枚数（記録分）',MEDALS_PAID_OUT:'獲得枚数（記録分）',MEDALS_BALANCE_OBSERVED:'持ちメダル実測',NET_MEDALS_OBSERVED:'差枚実測',CARD_DEPOSIT:'貯メダル入庫',CARD_WITHDRAWAL:'貯メダル引出',CARD_BALANCE_OBSERVED:'貯メダル残高実測',PRESEAT_GRAPH_OBSERVED:'着席前グラフ・ぶどう参考逆算の入力条件'};return p[e.type]||e.type}
 function renderGuess(s){
@@ -2660,7 +2587,69 @@ function renderIntervalCompare(){
  }catch(e){out.textContent='比較できません：'+e.message}
 }
 $('intervalCompareBtn').addEventListener('click',renderIntervalCompare);
-function render(){if(project){try{if(active&&project.has(active))localStorage.setItem('juglog_stage11_isolated_20261107_active_session',active);else localStorage.removeItem('juglog_stage11_isolated_20261107_active_session') }catch{}}window.dispatchEvent(new CustomEvent('juglog:p31:state-v1',{detail:Object.freeze({writer:!!writer,busy:!!busy,pending:pending.length,active:!!active,visible:!document.hidden})}));syncEmergencyExport();const s=project?.get(active);$('activeSummary').textContent=s?`${s.store}｜${s.machine}｜${s.number}番台 ｜ ${s.status}`:'実戦未選択';$('noSession').classList.toggle('hidden',!!s);$('playing').classList.toggle('hidden',!s);$('saveStatus').textContent=pending.length?`未保存 ${pending.length}`:writer?'保存済み':'閲覧専用';if(!writer){$('saveStatus').textContent='閲覧専用：'+leaseReason;}$('saveStatus').title=writer?'この画面で入力可能です。':`${leaseReason}。自動的に再確認します。`;$('saveStatus').setAttribute('aria-label',writer?'保存済み・入力可能':`閲覧専用：${leaseReason}`);if(s){$('totalG').textContent=(s.hallTotalLive??s.g).toLocaleString();$('personalG').textContent=s.g.toLocaleString();$('currentG').textContent=s.current??'—';$('grapeN').textContent=s.grape;$('cherryN').textContent=s.cherry;const rateReady=s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g;$('grapeRate').textContent=rateReady&&s.grape>0?'1/'+(s.measuredG/s.grape).toFixed(2):'—';$('cherryRate').textContent=rateReady&&s.cherry>0?'1/'+(s.measuredG/s.cherry).toFixed(2):'—';$('bbN').textContent=s.bonuses.filter(b=>b.bonusType==='BB'&&!b.pendingReview).length;$('rbN').textContent=s.bonuses.filter(b=>b.bonusType==='RB'&&!b.pendingReview).length;$('pendingN').textContent=s.bonuses.filter(b=>b.pendingReview).length;$('uncompletedN').textContent=s.bonuses.filter(b=>!b.completed).length;const hall=s.snapshots.at(-1),hallOK=hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;const hr=(v)=>hallOK&&v>0?'1/'+(hall.totalG/v).toFixed(1):'—';$('hallBBRate').textContent=hr(hall?.bb);$('hallRBRate').textContent=hr(hall?.rb);$('hallCombinedRate').textContent=hr((hall?.bb??0)+(hall?.rb??0));$('hallProbBase').textContent=hallOK?hall.totalG.toLocaleString()+'G基準':'同一観測のG・BB・RBが必要';const snap=s.snapshots.at(-1);$('hallView').textContent=snap?`最終観測：累計G ${snap.totalG??'不明'}／現在G ${snap.currentG??'不明'}／BB ${snap.bb??'不明'}／RB ${snap.rb??'不明'}`:'ホール観測値は未入力';$('bonuses').replaceChildren();const bonusSessionEvents=view.filter(e=>e.sessionId===active),bonusEffectiveEvents=correctedEvents(bonusSessionEvents),bonusLastEffective=bonusEffectiveEvents.at(-1),bonusCompletionById=new Map(bonusEffectiveEvents.filter(e=>e.type==='BONUS_COMPLETED').map(e=>[e.bonusId,e])),firstPendingBonus=s.bonuses.find(x=>x.pendingReview),hasBlockingBonus=s.bonuses.some(x=>!x.completed&&!x.pendingReview);const bonusFragment=document.createDocumentFragment();s.bonuses.slice().reverse().forEach(b=>{const line=document.createElement('div');line.className='event';const label=document.createElement('span');label.textContent=`${b.bonusType}｜${b.triggerVerification==='confirmed'?b.trigger+'（確認済み）':b.trigger==='不明'?'契機不明':b.trigger+'（旧版・未検証）'}｜${b.pendingReview?'保留':b.completed?'消化済み':'未消化'}`;line.append(label);if(b.pendingReview){
+// Stage17 Candidate2: cache only expensive projections when the persisted event-view
+// object, selected session and the relevant UI preferences have not changed.
+// Every render still updates live counters, writer/lease/busy status and controls.
+// A fresh refresh() replaces view, so data modifications always invalidate this cache.
+let stage17HeavyView=null,stage17HeavyActive=null,stage17GuessKey=null,stage17CardKey=null;
+function stage17RenderHeavy(s){
+ const changed=stage17HeavyView!==view||stage17HeavyActive!==active;
+ const guessKey=$('guessScope').value+'\u0000'+$('guessMode').value;
+ const cardKey=$('cardLabel').value;
+ if(changed||stage17GuessKey!==guessKey)renderGuess(s);
+ if(changed)renderFinance(s);
+ else{
+  const enabled=!!s&&writer&&!busy&&!pending.length;
+  $('financeAddBtn').disabled=!enabled;
+  document.querySelectorAll('#financeRows button').forEach(b=>{b.disabled=!enabled});
+ }
+ if(changed||stage17CardKey!==cardKey)renderCards(s);
+ else{
+  const enabled=!!s&&s.status==='ACTIVE'&&writer&&!busy&&!pending.length&&!document.hidden&&!p8JournalRead();
+  $('cardAddBtn').disabled=!enabled;
+  document.querySelectorAll('#cardRows button').forEach(b=>{b.disabled=!writer||busy||pending.length>0});
+ }
+ // Set the cache only after all rendering completes successfully.
+ stage17HeavyView=view;stage17HeavyActive=active;stage17GuessKey=guessKey;stage17CardKey=cardKey;
+}
+// Stage17 Candidate5: allow the Play screen to paint and enable input before
+// rendering heavy summaries that are not required for the first count.
+// A future state update is read at execution time so stale results are never shown.
+let stage17InitialHeavyPending=true;
+let stage17InitialHeavyScheduled=false;
+function stage17FlushInitialHeavy(){
+ if(!stage17InitialHeavyPending)return;
+ stage17InitialHeavyPending=false;
+ stage17InitialHeavyScheduled=false;
+ if(!project)return;
+ stage17RenderHeavy(project.get(active));
+}
+function stage17ScheduleInitialHeavy(){
+ if(stage17InitialHeavyScheduled)return;
+ stage17InitialHeavyScheduled=true;
+ // A rendering opportunity is given to the Play screen before heavy summaries.
+ requestAnimationFrame(()=>setTimeout(()=>{
+  if(!stage17InitialHeavyPending)return;
+  try{stage17FlushInitialHeavy()}catch(err){
+   console.error('Stage17 deferred summaries failed',err);
+   // Keep the UI truthful: the summary update is incomplete; prevent stale cache.
+   stage17HeavyView=null;
+  }
+ },0));
+}
+function stage17RenderHeavyForCurrentTab(s){
+ if(stage17InitialHeavyPending&&currentTab==='play'){
+  stage17ScheduleInitialHeavy();
+  return;
+ }
+ // If the user opens another tab before the deferred job, render immediately.
+ if(stage17InitialHeavyPending){
+  stage17InitialHeavyPending=false;
+  stage17InitialHeavyScheduled=false;
+ }
+ stage17RenderHeavy(s);
+}
+function render(){if(project){try{if(active&&project.has(active))localStorage.setItem('juglog_stage19_test_20261126_active_session',active);else localStorage.removeItem('juglog_stage19_test_20261126_active_session') }catch{}}window.dispatchEvent(new CustomEvent('juglog:p31:state-v1',{detail:Object.freeze({writer:!!writer,busy:!!busy,pending:pending.length,active:!!active,visible:!document.hidden})}));syncEmergencyExport();const s=project?.get(active);$('activeSummary').textContent=s?`${s.store}｜${s.machine}｜${s.number}番台 ｜ ${s.status}`:'実戦未選択';$('noSession').classList.toggle('hidden',!!s);$('playing').classList.toggle('hidden',!s);$('saveStatus').textContent=pending.length?`未保存 ${pending.length}`:writer?'保存済み':'閲覧専用';if(!writer){$('saveStatus').textContent='閲覧専用：'+leaseReason;}$('saveStatus').title=writer?'この画面で入力可能です。':`${leaseReason}。自動的に再確認します。`;$('saveStatus').setAttribute('aria-label',writer?'保存済み・入力可能':`閲覧専用：${leaseReason}`);if(s){$('totalG').textContent=(s.hallTotalLive??s.g).toLocaleString();$('personalG').textContent=s.g.toLocaleString();$('currentG').textContent=s.current??'—';$('grapeN').textContent=s.grape;$('cherryN').textContent=s.cherry;const rateReady=s.g>0&&!s.hasUnmeasuredG&&s.measuredG===s.g;$('grapeRate').textContent=rateReady&&s.grape>0?'1/'+(s.measuredG/s.grape).toFixed(2):'—';$('cherryRate').textContent=rateReady&&s.cherry>0?'1/'+(s.measuredG/s.cherry).toFixed(2):'—';$('bbN').textContent=s.bonuses.filter(b=>b.bonusType==='BB'&&!b.pendingReview).length;$('rbN').textContent=s.bonuses.filter(b=>b.bonusType==='RB'&&!b.pendingReview).length;$('pendingN').textContent=s.bonuses.filter(b=>b.pendingReview).length;$('uncompletedN').textContent=s.bonuses.filter(b=>!b.completed).length;const hall=s.snapshots.at(-1),hallOK=hall&&Number.isSafeInteger(hall.totalG)&&hall.totalG>0&&Number.isSafeInteger(hall.bb)&&hall.bb>=0&&Number.isSafeInteger(hall.rb)&&hall.rb>=0&&hall.bb+hall.rb<=hall.totalG;const hr=(v)=>hallOK&&v>0?'1/'+(hall.totalG/v).toFixed(1):'—';$('hallBBRate').textContent=hr(hall?.bb);$('hallRBRate').textContent=hr(hall?.rb);$('hallCombinedRate').textContent=hr((hall?.bb??0)+(hall?.rb??0));$('hallProbBase').textContent=hallOK?hall.totalG.toLocaleString()+'G基準':'同一観測のG・BB・RBが必要';const snap=s.snapshots.at(-1);$('hallView').textContent=snap?`最終観測：累計G ${snap.totalG??'不明'}／現在G ${snap.currentG??'不明'}／BB ${snap.bb??'不明'}／RB ${snap.rb??'不明'}`:'ホール観測値は未入力';$('bonuses').replaceChildren();const bonusSessionEvents=view.filter(e=>e.sessionId===active),bonusEffectiveEvents=correctedEvents(bonusSessionEvents),bonusLastEffective=bonusEffectiveEvents.at(-1),bonusCompletionById=new Map(bonusEffectiveEvents.filter(e=>e.type==='BONUS_COMPLETED').map(e=>[e.bonusId,e])),firstPendingBonus=s.bonuses.find(x=>x.pendingReview),hasBlockingBonus=s.bonuses.some(x=>!x.completed&&!x.pendingReview);const bonusFragment=document.createDocumentFragment();s.bonuses.slice().reverse().forEach(b=>{const line=document.createElement('div');line.className='event';const label=document.createElement('span');label.textContent=`${b.bonusType}｜${b.triggerVerification==='confirmed'?b.trigger+'（確認済み）':b.trigger==='不明'?'契機不明':b.trigger+'（旧版・未検証）'}｜${b.pendingReview?'保留':b.completed?'消化済み':'未消化'}`;line.append(label);if(b.pendingReview){
  const confirmBtn=document.createElement('button');confirmBtn.textContent='保留を確認';
  const firstPending=firstPendingBonus;
  const blocking=hasBlockingBonus;
@@ -2681,7 +2670,7 @@ function render(){if(project){try{if(active&&project.has(active))localStorage.se
   };line.append(btn);
  }
  }else if(!b.completed){const btn=document.createElement('button');btn.textContent='消化完了';btn.disabled=!writer||busy||!!pending.length||s.status!=='ACTIVE';btn.onclick=()=>{const now=project?.get(active);if(!now||now.status!=='ACTIVE'||!now.bonuses.some(x=>x.bonusId===b.bonusId&&!x.completed&&!x.pendingReview))return;if(confirm(b.bonusType+'を消化完了し、現在Gを0にしますか？'))run([{type:'BONUS_COMPLETED',bonusId:b.bonusId,completedSegmentId:now.segment}])};line.append(btn)}bonusFragment.append(line)});$('bonuses').append(bonusFragment);['grapeBtn','cherryBtn','bbBtn','rbBtn','addGBtn','quick50','quick100','grapeMinus','cherryMinus','bbMinus','rbMinus','snapshotBtn','pauseBtn','resumeBtn','closeBtn','undoBtn'].forEach(id=>$(id).disabled=!writer||busy||pending.length>0||(s.status!=='ACTIVE'&&!['resumeBtn','undoBtn'].includes(id))||(s.status==='ACTIVE'&&id==='resumeBtn'));const outstanding=s.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);$('quickComplete').hidden=!outstanding;$('quickComplete').disabled=!writer||busy||pending.length>0||s.status!=='ACTIVE';$('quickComplete').textContent=outstanding?outstanding.bonusType+' 消化完了':'';$('quickComplete').title=outstanding?'消化完了で現在Gを0にします':'';$('quickComplete').setAttribute('aria-label',outstanding?outstanding.bonusType+'を消化完了し、現在Gを0にする':'消化完了');}
-if(currentTab==='history'){renderInterval();drawCheckpoints();$('historyRows').replaceChildren();const historyVisible=[];let historyCount=0;const historyShowAll=$('historyScope').value==='all'||!active;for(let i=view.length-1;i>=0;i--){const e=view[i];if(!historyShowAll&&e.sessionId!==active)continue;historyCount++;if(historyExpanded||historyVisible.length<10)historyVisible.push(e)}const historyMore=$('historyMoreBtn');historyMore.hidden=historyCount<=10;historyMore.textContent=historyExpanded?'古い履歴を折りたたむ':`過去の履歴をすべて表示（残り${historyCount-10}件）`;historyMore.setAttribute('aria-expanded',String(historyExpanded));const historyFragment=document.createDocumentFragment();historyVisible.forEach(e=>{const d=document.createElement('div');d.className='event';const text=document.createElement('span');text.textContent=`#${e.commitSequence} ${nice(e)}`;d.append(text);if(e.type==='EVENT_CANCELLED'){const b=document.createElement('button');b.textContent='取消を復元';b.disabled=!writer;b.onclick=()=>{const target=view.find(x=>x.eventId===e.targetEventId);const relevant=view.filter(x=>x.sessionId===e.sessionId);const state=new Set();for(const x of relevant){if(x.type==='EVENT_CANCELLED')state.add(x.targetEventId);if(x.type==='EVENT_RESTORED')state.delete(x.targetEventId)}if(!target||!state.has(e.targetEventId)){alert('この操作は現在取消済みではありません。');return}if(target.type==='BONUS_COMPLETED'&&view.at(-1)?.eventId!==e.eventId){alert('消化完了の取消後に操作があるため、復元できません。');return}if(target.type==='BONUS_AWARDED'&&(replay(relevant).get(e.sessionId)?.bonuses.some(x=>x.bonusId===target.bonusId)||correctedEvents(relevant).some(x=>['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(x.type)&&x.bonusId===target.bonusId))){alert('同一ボーナスまたは依存操作が有効なため、復元を保留します。');return}if(confirm('取消した操作を復元しますか？'))run([{type:'EVENT_RESTORED',targetEventId:e.targetEventId}])};d.append(b)}historyFragment.append(d)});$('historyRows').append(historyFragment);} $('leaseInfo').textContent=writer?`入力権限あり（世代 ${epoch}）。3秒ごとに更新します。`:`閲覧専用：${leaseReason}。${leaseWaitSeconds!==null?`前回確認時の期限まで約${leaseWaitSeconds}秒。`:''}表示中は入力できません。自動再確認は3秒間隔です。`; $('takeoverBtn').disabled=writer;renderGuess(s);if(currentTab==='graphs')renderGraphs(s);renderFinance(s);renderCards(s);if(currentTab==='history')renderSessionHistory();if(currentTab==='settings')renderAudit();if(currentTab==='guess')renderPreseatHistory()}
+if(currentTab==='history'){renderInterval();drawCheckpoints();$('historyRows').replaceChildren();const historyVisible=[];let historyCount=0;const historyShowAll=$('historyScope').value==='all'||!active;for(let i=view.length-1;i>=0;i--){const e=view[i];if(!historyShowAll&&e.sessionId!==active)continue;historyCount++;if(historyExpanded||historyVisible.length<10)historyVisible.push(e)}const historyMore=$('historyMoreBtn');historyMore.hidden=historyCount<=10;historyMore.textContent=historyExpanded?'古い履歴を折りたたむ':`過去の履歴をすべて表示（残り${historyCount-10}件）`;historyMore.setAttribute('aria-expanded',String(historyExpanded));const historyFragment=document.createDocumentFragment();historyVisible.forEach(e=>{const d=document.createElement('div');d.className='event';const text=document.createElement('span');text.textContent=`#${e.commitSequence} ${nice(e)}`;d.append(text);if(e.type==='EVENT_CANCELLED'){const b=document.createElement('button');b.textContent='取消を復元';b.disabled=!writer;b.onclick=()=>{const target=view.find(x=>x.eventId===e.targetEventId);const relevant=view.filter(x=>x.sessionId===e.sessionId);const state=new Set();for(const x of relevant){if(x.type==='EVENT_CANCELLED')state.add(x.targetEventId);if(x.type==='EVENT_RESTORED')state.delete(x.targetEventId)}if(!target||!state.has(e.targetEventId)){alert('この操作は現在取消済みではありません。');return}if(target.type==='BONUS_COMPLETED'&&view.at(-1)?.eventId!==e.eventId){alert('消化完了の取消後に操作があるため、復元できません。');return}if(target.type==='BONUS_AWARDED'&&(replay(relevant).get(e.sessionId)?.bonuses.some(x=>x.bonusId===target.bonusId)||correctedEvents(relevant).some(x=>['BONUS_COMPLETED','BONUS_REVIEW_CONFIRMED'].includes(x.type)&&x.bonusId===target.bonusId))){alert('同一ボーナスまたは依存操作が有効なため、復元を保留します。');return}if(confirm('取消した操作を復元しますか？'))run([{type:'EVENT_RESTORED',targetEventId:e.targetEventId}])};d.append(b)}historyFragment.append(d)});$('historyRows').append(historyFragment);} $('leaseInfo').textContent=writer?`入力権限あり（世代 ${epoch}）。3秒ごとに更新します。`:`閲覧専用：${leaseReason}。${leaseWaitSeconds!==null?`前回確認時の期限まで約${leaseWaitSeconds}秒。`:''}表示中は入力できません。自動再確認は3秒間隔です。`; $('takeoverBtn').disabled=writer;stage17RenderHeavyForCurrentTab(s);if(currentTab==='graphs')renderGraphs(s);if(currentTab==='history')renderSessionHistory();if(currentTab==='settings')renderAudit();if(currentTab==='guess')renderPreseatHistory()}
 function switchTab(tab){if(tab==='settings'&&db)void renderBackupOverview();const changed=currentTab!==tab;currentTab=tab;document.querySelectorAll('main>section').forEach(el=>el.classList.toggle('hidden',el.id!==`tab-${tab}`));document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));if(changed&&project)render()}document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 function modal(title,html,onOk){$('modal').querySelector('button[value="cancel"]').style.display='';$('modalOk').textContent='確定';$('modalTitle').textContent=title;$('modalContent').innerHTML=html;const dialog=$('modal');const machineSelect=$('machineSelect');if(machineSelect){machineSelect.onchange=()=>{$('machineInput').hidden=machineSelect.value!=='other';};}dialog.showModal();const form=dialog.querySelector('form');form.onsubmit=e=>{if(e.submitter?.value!=='ok')return;e.preventDefault();Promise.resolve(onOk()).then(ok=>{if(ok!==false)dialog.close()}).catch(err=>showAlert(err.message,'danger'))}}
 function num(id){const val=$(id).value.trim();if(!val)return null;const n=Number(val);if(!Number.isSafeInteger(n)||n<0)throw Error('数値は0以上の整数で入力してください');return n}
@@ -2707,28 +2696,28 @@ const v43Cases=[
  ['v41-04','終了済み実戦の再開前に確認ダイアログ'],
  ['v41-05','ライトテーマの設定推測確率が判読可能']
 ];
-const v43CheckStorage='juglog_stage11_isolated_20261107_checks';let v43Checked={};try{v43Checked=JSON.parse(localStorage.getItem(v43CheckStorage)||'{}')}catch{};
+const v43CheckStorage='juglog_stage19_test_20261126_checks';let v43Checked={};try{v43Checked=JSON.parse(localStorage.getItem(v43CheckStorage)||'{}')}catch{};
 function renderV43Checks(){const container=$('v43TestItems');container.replaceChildren();for(const [id,label] of v43Cases){const row=document.createElement('label');row.className='measure-check';row.style.cssText='padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer;font-weight:400';const input=document.createElement('input');input.type='checkbox';input.checked=!!v43Checked[id];input.dataset.caseId=id;input.onchange=()=>{v43Checked[id]=input.checked;try{localStorage.setItem(v43CheckStorage,JSON.stringify(v43Checked))}catch{};updateV43CheckSummary()};const txt=document.createElement('span');txt.textContent=`${id}｜${label}`;row.append(input,txt);container.append(row)}updateV43CheckSummary()}
 function updateV43CheckSummary(){const n=v43Cases.filter(([id])=>v43Checked[id]).length;$('v43TestSummary').textContent=`確認済み ${n} / ${v43Cases.length} 項目。未確認は合格扱いにしません。`}
 $('v43CopyReport').onclick=async()=>{const lines=['ジャグログ Phase 3 開発 v43 統合検証｜手動チェック結果',`作成日時：${new Date().toLocaleString('ja-JP')}`,...v43Cases.map(([id,label])=>`${v43Checked[id]?'[確認]':'[未確認]'} ${id} ${label}`),'注意：チェックは利用者による申告であり、自動試験の合格を意味しません。'];const val=lines.join('\n');try{await navigator.clipboard.writeText(val);alert('検証結果をコピーしました。')}catch{prompt('検証結果をコピーしてください',val)}};
 $('v43ResetChecks').onclick=()=>{if(!confirm('検証チェックのみリセットします。実戦データは変更しません。よろしいですか？'))return;v43Checked={};try{localStorage.removeItem(v43CheckStorage)}catch{};renderV43Checks()};renderV43Checks();
 /* P13 noncritical UI preference only: no IndexedDB or event-store writes. */
-const minusGuardKey='juglog_stage11_isolated_20261107_minus_guard';
+const minusGuardKey='juglog_stage19_test_20261126_minus_guard';
 function setMinusGuard(enabled){document.documentElement.dataset.minusGuard=enabled?'on':'off';$('minusGuard').checked=enabled;}
 let minusGuardSaved=false;try{minusGuardSaved=localStorage.getItem(minusGuardKey)==='on'}catch{}
 setMinusGuard(minusGuardSaved);
 $('minusGuard').onchange=e=>{const enabled=!!e.target.checked;setMinusGuard(enabled);try{localStorage.setItem(minusGuardKey,enabled?'on':'off')}catch{}};
-$('themeMode').value=document.documentElement.dataset.theme;$('themeMode').onchange=e=>{const mode=e.target.value;document.documentElement.dataset.theme=mode;try{localStorage.setItem('juglog_stage11_isolated_20261107_theme',mode)}catch{}};
+$('themeMode').value=document.documentElement.dataset.theme;$('themeMode').onchange=e=>{const mode=e.target.value;document.documentElement.dataset.theme=mode;try{localStorage.setItem('juglog_stage19_test_20261126_theme',mode)}catch{}};
 function canChangeSessionContext(){if(busy||pending.length){showAlert('保存処理中または未保存の操作があります。保存を再試行するか緊急退避してから台切替・新規実戦作成を行ってください。','danger');return false}return true}
-$('newBtn').onclick=()=>{if(!canChangeSessionContext())return;modal('実戦を作成','<div class="field"><label>日付</label><input id="dateInput" type="date" value="'+new Date().toLocaleDateString('sv-SE')+'"></div><div class="field"><label>店舗</label><input id="storeInput" placeholder="店舗名"></div><div class="field"><label>機種</label><select id="machineSelect"><option value="マイジャグラーV">マイジャグラーV</option><option value="マイジャグラーVI">マイジャグラーVI</option><option value="ネオアイムジャグラーEX">ネオアイムジャグラーEX</option><option value="ファンキージャグラー2">ファンキージャグラー2</option><option value="ゴーゴージャグラー3">ゴーゴージャグラー3</option><option value="ミスタージャグラー">ミスタージャグラー</option><option value="ウルトラミラクルジャグラー">ウルトラミラクルジャグラー</option><option value="ジャグラーガールズSS">ジャグラーガールズSS</option><option value="ハッピージャグラーVⅢ">ハッピージャグラーVⅢ</option><option value="other">その他（手入力）</option></select><input id="machineInput" maxlength="120" placeholder="機種名を入力" hidden></div><div class="field"><label>台番号（任意）</label><input id="numberInput" placeholder="未入力でも可" inputmode="numeric"></div><div class="field"><label><input id="createMeasuredBoth" type="checkbox">この実戦では追加した全Gの小役を実測する（途中変更可）</label></div>',async()=>{const store=$('storeInput').value.trim(),machine=($('machineSelect').value==='other'?$('machineInput').value:$('machineSelect').value).trim(),number=$('numberInput').value.trim(),date=$('dateInput').value;if(!store||!machine||!date){alert('日付・店舗・機種を入力してください');return false}const sessionId=UID(),segmentId=UID();const saved=await run([{type:'SESSION_CREATED',sessionId,segmentId,store,machine,number,date}]);if(!saved)return false;active=sessionId;try{localStorage.setItem('juglog_stage11_isolated_20261107_measure_session_v1:'+sessionId,String($('createMeasuredBoth').checked))}catch{}$('measuredBoth').checked=$('createMeasuredBoth').checked;restoreV45Ui();render()})};
+$('newBtn').onclick=()=>{if(!canChangeSessionContext())return;modal('実戦を作成','<div class="field"><label>日付</label><input id="dateInput" type="date" value="'+new Date().toLocaleDateString('sv-SE')+'"></div><div class="field"><label>店舗</label><input id="storeInput" placeholder="店舗名"></div><div class="field"><label>機種</label><select id="machineSelect"><option value="マイジャグラーV">マイジャグラーV</option><option value="マイジャグラーVI">マイジャグラーVI</option><option value="ネオアイムジャグラーEX">ネオアイムジャグラーEX</option><option value="ファンキージャグラー2">ファンキージャグラー2</option><option value="ゴーゴージャグラー3">ゴーゴージャグラー3</option><option value="ミスタージャグラー">ミスタージャグラー</option><option value="ウルトラミラクルジャグラー">ウルトラミラクルジャグラー</option><option value="ジャグラーガールズSS">ジャグラーガールズSS</option><option value="ハッピージャグラーVⅢ">ハッピージャグラーVⅢ</option><option value="other">その他（手入力）</option></select><input id="machineInput" maxlength="120" placeholder="機種名を入力" hidden></div><div class="field"><label>台番号（任意）</label><input id="numberInput" placeholder="未入力でも可" inputmode="numeric"></div><div class="field"><label><input id="createMeasuredBoth" type="checkbox">この実戦では追加した全Gの小役を実測する（途中変更可）</label></div>',async()=>{const store=$('storeInput').value.trim(),machine=($('machineSelect').value==='other'?$('machineInput').value:$('machineSelect').value).trim(),number=$('numberInput').value.trim(),date=$('dateInput').value;if(!store||!machine||!date){alert('日付・店舗・機種を入力してください');return false}const sessionId=UID(),segmentId=UID();const saved=await run([{type:'SESSION_CREATED',sessionId,segmentId,store,machine,number,date}]);if(!saved)return false;active=sessionId;try{localStorage.setItem('juglog_stage19_test_20261126_measure_session_v1:'+sessionId,String($('createMeasuredBoth').checked))}catch{}$('measuredBoth').checked=$('createMeasuredBoth').checked;restoreV45Ui();render()})};
 $('sessionsBtn').onclick=()=>{if(!canChangeSessionContext())return;let html='<div style="max-height:55vh;overflow:auto">';for(const s of project?.values()||[])html+=`<p><button class="selectSession" data-id="${s.id}">${escapeHtml(s.store)}｜${escapeHtml(s.number)}番台（${s.status}）</button></p>`;html+='</div><p><button id="newSessionFromList">＋ 新規実戦を作成</button></p>';modal('台一覧',html,()=>true);$('modalOk').textContent='閉じる';$('modal').querySelector('button[value="cancel"]').style.display='none';$('newSessionFromList').onclick=()=>{$('modal').close();$('newBtn').click()};document.querySelectorAll('.selectSession').forEach(b=>b.onclick=()=>{if(!canChangeSessionContext())return;active=b.dataset.id;restoreV45Ui();$('modal').close();switchTab('play');render()})};function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 // Phase 8 isolated accepted-operation journal, stored before P31 append.
 // This does not write to the event store and is NOT a guarantee of commit.
-const P8_JOURNAL_KEY='juglog_stage11_isolated_20261107_attempt_journal';
+const P8_JOURNAL_KEY='juglog_stage19_test_20261126_attempt_journal';
 // A durable, identity-only reconciliation receipt survives Safari reload.
 // It never authorizes a replay/write; the DB and effective view must match.
-const P8_RECEIPT_KEY='juglog_stage11_isolated_20261107_last_confirmed_receipt_v1';
+const P8_RECEIPT_KEY='juglog_stage19_test_20261126_last_confirmed_receipt_v1';
 function p8ReceiptRead(){
  try{const raw=localStorage.getItem(P8_RECEIPT_KEY);if(!raw)return null;
   const row=JSON.parse(raw);return p8ValidRecoveryPayload(row)?row:{invalid:true};
@@ -3123,8 +3112,14 @@ function stage14CorrectableGameTail(effective,sessionId,adjustment){
 }
 // Stage14: Validate direct-count invariants inside the same DB transaction as append.
 // Older events without stage14 fields keep their previous semantics.
-function validateStage14Writes(committed,incoming){
- const existing=replay(committed);
+function validateStage14Writes(committed,incoming,persistedSessionsSnapshot){
+ // Stage14 checks apply only to a subset of current-G writes and corrections.
+ const needsStage14=incoming.some(e=>
+   (e.type==='EVENT_CANCELLED'&&e.stage14CurrentExpected!==undefined)||
+   e.type==='CURRENT_G_BASELINE'||
+   (e.type==='GAMES_RECORDED'&&e.stage14ExpectedCurrent!==undefined));
+ if(!needsStage14)return;
+ const existing=persistedSessionsSnapshot??replay(committed);
  const effective=correctedEvents(committed);
  for(const e of incoming){
   if(e.type==='EVENT_CANCELLED'&&e.stage14CurrentExpected!==undefined){
@@ -3152,6 +3147,71 @@ function validateStage14Writes(committed,incoming){
       target.delta-e.delta!==e.stage14CorrectionAmount)throw Error('訂正対象のゲーム記録が変更されました');
   }else if(e.delta<1)throw Error('直接指定の増分が不正です');
  }
+}
+// Stage19: construct the same current-G events as Stage14 without writing.
+function stage19GameEvents(s,target,measuredBoth,history,sessionId){
+    const current=s.current;
+    let events;
+    if(current===null){
+      events=[{type:'CURRENT_G_BASELINE',currentG:target,segmentId:s.segment}];
+    }else if(target===current){
+      return {events:[]};
+    }else if(target>current){
+      events=[{type:'GAMES_RECORDED',delta:target-current,measuredBoth,segmentId:s.segment,stage14ExpectedCurrent:current}];
+    }else{
+      // Fruit counts following the most recent G entry may remain if the
+      // adjusted measurement still accounts for every counted small role.
+      // A bonus, hall observation, or session change remains a hard boundary.
+      const adjustment=current-target;
+      const selected=stage14CorrectableGameTail(correctedEvents(history.filter(e=>e.sessionId===sessionId)),sessionId,adjustment);
+      if(!selected.game)return {reason:selected.reason};
+      const last=selected.game;
+      if(last.delta===adjustment){
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment}];
+      }else{
+        events=[{type:'EVENT_CANCELLED',targetEventId:last.eventId,stage14CurrentExpected:current,
+          stage14CorrectionAmount:adjustment},
+          {type:'GAMES_RECORDED',delta:last.delta-adjustment,measuredBoth:last.measuredBoth===true,
+            segmentId:last.segmentId,stage14ExpectedCurrent:current,stage14CorrectionOf:last.eventId,
+            stage14CorrectionAmount:adjustment}];
+      }
+    }
+    return {events};
+}
+// Validate the complete stage19 operation under the authoritative write transaction.
+function validateStage19Award(committed,incoming,persistedSessions){
+ const marked=incoming.filter(e=>Object.prototype.hasOwnProperty.call(e,'stage19ExpectedCurrent'));
+ if(!marked.length)return;
+ const a=marked[0],state=persistedSessions.get(a.sessionId);
+ if(marked.length!==1||a.type!=='BONUS_AWARDED'||incoming.at(-1)!==a||!state||state.status!=='ACTIVE'||
+    state.current!==a.stage19ExpectedCurrent||state.segment!==a.segmentId||state.bonuses.some(b=>!b.completed||b.pendingReview)||
+    !['BB','RB'].includes(a.bonusType)||!['不明','単独','チェリー重複'].includes(a.trigger)||a.pendingReview!==false||
+    !Number.isSafeInteger(a.awardedAtCurrentG)||a.awardedAtCurrentG<0||a.awardedAtCurrentG>9999999||
+    incoming.some(e=>e.sessionId!==a.sessionId))throw Error('当選記録の条件が変更されました');
+ const prefix=incoming.slice(0,-1);
+ if(prefix.length>2||prefix.some(e=>!['CURRENT_G_BASELINE','GAMES_RECORDED','EVENT_CANCELLED'].includes(e.type)))throw Error('当選操作の構成が不正です');
+ const planned=stage19GameEvents(state,a.awardedAtCurrentG, prefix.find(e=>e.type==='GAMES_RECORDED')?.measuredBoth===true,committed,a.sessionId);
+ if(!planned.events||planned.events.length!==prefix.length||planned.events.some((e,i)=>Object.keys(e).some(k=>prefix[i][k]!==e[k])))throw Error('当選時のゲーム数修正が不正です');
+ const last=committed.at(-1)?.commitSequence??0;
+ const after=replay(committed.concat(incoming.map((e,i)=>({...e,commitSequence:last+i+1})))).get(a.sessionId);
+ if(!after||after.current!==a.awardedAtCurrentG||after.bonuses.length!==state.bonuses.length+1)throw Error('当選後の記録整合性を確認できません');
+}
+// Stage19: validate the exact bonus action against persisted state in the same transaction.
+function validateStage19BonusAction(committed,incoming,persistedSessions){
+ const marked=incoming.filter(e=>Object.prototype.hasOwnProperty.call(e,'stage19BonusAction'));
+ if(!marked.length)return;
+ const e=marked[0],state=persistedSessions.get(e.sessionId),action=e.stage19BonusAction;
+ const bonus=state?.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);
+ if(incoming.length!==1||marked.length!==1||!state||state.status!=='ACTIVE'||!bonus||bonus.bonusId!==e.stage19BonusId||
+ state.current!==e.stage19ActionCurrent||state.segment!==e.stage19ActionSegment)throw Error('対象の当選状態が変更されました');
+ if(action==='complete'){
+  if(e.type!=='BONUS_COMPLETED'||e.bonusId!==bonus.bonusId||e.completedSegmentId!==state.segment)throw Error('消化完了対象が不正です');
+ }else if(action==='cancel'){
+  const last=correctedEvents(committed.filter(x=>x.sessionId===e.sessionId)).at(-1);
+  if(e.type!=='EVENT_CANCELLED'||last?.type!=='BONUS_AWARDED'||last.bonusId!==bonus.bonusId||last.eventId!==e.targetEventId||
+  committed.some(x=>x.sessionId===e.sessionId&&x.bonusId===bonus.bonusId&&x.type==='BONUS_REVIEW_CONFIRMED'))throw Error('取消対象が変更されました');
+ }else throw Error('当選操作が不正です');
 }
 window.__p8CountApi = Object.freeze({
   state(){return Object.freeze({ready:!!writer && !busy && pending.length===0 && !!active && !document.hidden && !p8JournalRead(), busy:!!busy, pending:pending.length, hasSession:!!active, writer:!!writer});},
@@ -3209,6 +3269,21 @@ window.__p8CountApi = Object.freeze({
       return await runForD07F([{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:s.segment,pendingReview,awardedAtCurrentG:Number.isSafeInteger(s.current)?s.current:null}]);
     }catch(_e){return Object.freeze({status:'unknown'});}
   },
+  // Stage19: an explicit draft is accepted as one journalled operation.
+  async awardBonusAtGames(type,trigger,target,measuredBoth,expectedCurrent,expectedSessionId){
+    const state=project?.get(active);
+    if(!['BB','RB'].includes(type)||!['不明','単独','チェリー重複'].includes(trigger)||
+      !Number.isSafeInteger(target)||target<0||target>9999999||typeof measuredBoth!=='boolean'||
+      !state||state.status!=='ACTIVE'||active!==expectedSessionId||state.current!==expectedCurrent||
+      !writer||busy||pending.length||document.hidden||p8JournalRead()||state.bonuses.some(b=>!b.completed||b.pendingReview))
+      return Object.freeze({status:'rejected',reason:'当選時の実戦・ゲーム数・保存状態を確認してください'});
+    const planned=stage19GameEvents(state,target,measuredBoth,view,active);
+    if(!planned.events)return Object.freeze({status:'rejected',reason:planned.reason});
+    const events=[...planned.events,{type:'BONUS_AWARDED',bonusId:UID(),bonusType:type,trigger,
+      triggerVerification:trigger==='不明'?'unknown':'confirmed',segmentId:state.segment,pendingReview:false,
+      awardedAtCurrentG:target,stage19ExpectedCurrent:expectedCurrent}].map(e=>({...e,sessionId:active}));
+    try{return await runForD07F(events);}catch(_e){return Object.freeze({status:'unknown'});}
+  },
   // D07F uses this projected state; IDs never come from the caller.
   bonusActions(){
     const s=project?.get(active);
@@ -3241,6 +3316,25 @@ window.__p8CountApi = Object.freeze({
         : {type:'BONUS_REVIEW_CONFIRMED',bonusId:bonus.bonusId,segmentId:s.segment};
       return await runForD07F([ev]);
     }catch(_e){return Object.freeze({status:'unknown'});}
+  },
+  // Stage19: bind finish/cancel to the exact active bonus and session.
+  stage19BonusTarget(){
+    const state=project?.get(active);
+    const bonus=state?.bonuses.slice().reverse().find(b=>!b.completed&&!b.pendingReview);
+    if(!state||state.status!=='ACTIVE'||!bonus)return null;
+    const last=correctedEvents(view.filter(e=>e.sessionId===active)).at(-1);
+    return Object.freeze({sessionId:active,segmentId:state.segment,bonusId:bonus.bonusId,type:bonus.bonusType,current:state.current,
+      canCancel:last?.type==='BONUS_AWARDED'&&last.bonusId===bonus.bonusId&&!view.some(e=>e.sessionId===active&&e.bonusId===bonus.bonusId&&e.type==='BONUS_REVIEW_CONFIRMED')});
+  },
+  async stage19FinishOrCancel(action,expected){
+    const actual=this.stage19BonusTarget();
+    if(!['complete','cancel'].includes(action)||!expected||!actual||!this.state().ready||
+       ['sessionId','segmentId','bonusId','current'].some(k=>expected[k]!==actual[k])||
+       (action==='cancel'&&!actual.canCancel))return Object.freeze({status:'rejected',reason:'対象の当選記録または実戦状態が変わりました'});
+    const event=action==='complete'?{type:'BONUS_COMPLETED',bonusId:actual.bonusId,completedSegmentId:actual.segmentId}:
+      {type:'EVENT_CANCELLED',targetEventId:correctedEvents(view.filter(e=>e.sessionId===active)).at(-1).eventId};
+    try{return await runForD07F([{...event,sessionId:actual.sessionId,stage19BonusAction:action,stage19BonusId:actual.bonusId,stage19ActionCurrent:actual.current,stage19ActionSegment:actual.segmentId}]);}
+    catch(_e){return Object.freeze({status:'unknown'});}
   },
   // Direct D07F Undo; exactly the same eligible tail rules as the native Undo button.
   undoCandidate(){

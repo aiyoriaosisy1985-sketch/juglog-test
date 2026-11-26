@@ -1,0 +1,12 @@
+/* Juglog Stage16 stylesheet consolidation. Source sections retain original cascade order. */
+
+/* ===== SOURCE: phase8-ledger.css ===== */
+.p8-ledger-panel{margin:12px 1px;padding:13px;border:1px solid #6b9e84;border-radius:14px;background:#0a3429;color:#e9f8f0;}.p8-ledger-panel h2{font-size:17px;margin:0 0 8px;}.p8-ledger-panel h3{font-size:14px;margin:12px 0 6px;}.p8-ledger-panel p,.p8-ledger-panel #p8-ledger-summary{font-size:12px;line-height:1.5;}.p8-ledger-panel form{display:grid;gap:8px;margin-top:12px;border-top:1px solid #78998155;padding-top:9px;}.p8-ledger-panel label{display:grid;gap:4px;font-size:12px;}.p8-ledger-panel input,.p8-ledger-panel select{width:100%;min-height:42px;border:1px solid #85ac9a;border-radius:8px;padding:7px;color:#152b22;background:#fff;}.p8-ledger-panel button{min-height:43px;border:1px solid #c1dcbe;border-radius:9px;background:#29694e;color:white;font-weight:700;}.p8-ledger-panel button:disabled{opacity:.5;}html[data-theme=light] .p8-ledger-panel{background:#e8f2e9;color:#244235;}html[data-theme=light] .p8-ledger-panel button{background:#266447;color:white;}
+
+/* ===== SOURCE: phase8-net-graph.css ===== */
+#p8-net-graph{margin-top:14px;border-top:1px solid #789e8a55;padding-top:12px;}#p8-net-graph h3{font-size:15px;margin:0 0 7px;}#p8-net-graph .p8-net-note{font-size:11px;color:var(--jc-muted,#bad0c5);line-height:1.6;}#p8-net-graph svg{display:block;width:100%;height:auto;max-height:240px;}#p8-net-graph .p8-net-label{font-size:10px;fill:currentColor;}
+#p8-estimated-net svg{display:block;width:100%;height:auto;max-height:280px;}#p8-estimated-net .p8-data-grid{margin:0 0 7px;}#p8-estimated-net details summary{cursor:pointer;}
+
+
+/* ===== SOURCE: stage12-bonus-timeline.css ===== */
+#stage12-bonus-timeline svg{width:100%;height:auto;display:block;margin-top:8px;}#stage12-bonus-timeline .stage12-timeline-summary{font-weight:650;font-size:13px;margin:4px 0;}#stage12-bonus-timeline .stage12-timeline-details{margin-top:8px;font-size:13px;}#stage12-bonus-timeline .stage12-timeline-details summary{min-height:44px;padding:10px 0;cursor:pointer;}#stage12-bonus-timeline .stage12-timeline-details ol{max-height:200px;overflow:auto;padding-left:25px;}#stage12-bonus-timeline .stage12-timeline-details li{padding:3px 0;}

@@ -3,17 +3,35 @@
  const $=id=>document.getElementById(id);
  const field=$('p8-games'),dialog=$('jgl15-keypad-dialog'),open=$('jgl15-keypad-open'),display=$('jgl15-keypad-value');
  if(!field||!dialog||!open||!display)return;
- let draft='';
- function render(){display.textContent=draft||'—'}
- open.addEventListener('click',()=>{draft=field.value||'';render();if(typeof dialog.showModal==='function')dialog.showModal();});
+ // Stage19: reuse one existing keypad, with distinct normal/award contexts.
+ let draft='', request=null;
+ const applyButton=$('jgl15-keypad-apply');
+ function render(){display.textContent=draft||'—';applyButton.disabled=!/^\d{1,7}$/.test(draft);}
+ function openKeypad(initial,onApply){
+  if(dialog.open||typeof onApply!=='function'||typeof dialog.showModal!=='function')return false;
+  draft=Number.isSafeInteger(initial)&&initial>=0&&initial<=9999999?String(initial):'';
+  request={onApply};render();
+  try{dialog.showModal();return true;}catch(_e){request=null;return false;}
+ }
+ window.__stage19Keypad=Object.freeze({open:openKeypad});
+ open.addEventListener('click',()=>{
+  const api=window.__stage19NormalKeypad,context=api?.capture();
+  if(context)openKeypad(context.current,target=>api.apply(target,context));
+ });
  dialog.querySelectorAll('[data-jgl15-digit]').forEach(button=>button.addEventListener('click',()=>{
- const digit=button.dataset.jgl15Digit;
- if(digit==='C')draft='';else if(digit==='⌫')draft=draft.slice(0,-1);else if(draft.length<7)draft+=digit;
- render();
+  if(!request||!dialog.open)return;
+  const digit=button.dataset.jgl15Digit;
+  if(digit==='C')draft='';else if(digit==='⌫')draft=draft.slice(0,-1);else if(draft.length<7)draft+=digit;
+  render();
  }));
- $('jgl15-keypad-cancel').addEventListener('click',()=>dialog.close());
- $('jgl15-keypad-apply').addEventListener('click',()=>{
- field.value=draft;field.dispatchEvent(new Event('input',{bubbles:true}));field.dispatchEvent(new Event('change',{bubbles:true}));dialog.close();
+ $('jgl15-keypad-cancel').addEventListener('click',()=>{request=null;dialog.close();});
+ dialog.addEventListener('cancel',()=>{request=null;});
+ dialog.addEventListener('close',()=>{if(!dialog.open)request=null;});
+ applyButton.addEventListener('click',()=>{
+  if(!request||!dialog.open||!/^\d{1,7}$/.test(draft))return;
+  const target=Number(draft),action=request;request=null;
+  dialog.close();
+  action.onApply(target);
  });
  const launch=$('jgl15-grape-open'),panel=$('jgl15-grape-panel');
  launch.addEventListener('click',()=>{
