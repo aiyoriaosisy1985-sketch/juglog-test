@@ -151,35 +151,51 @@ document.body.append(bonusDialog);
 bonusDialog.querySelector('[data-p8-cancel]').addEventListener('click',()=>{if(!directPending)bonusDialog.close('cancel');});
 let bonusType=null, bonusSessionId=null, stage19BonusContext=null, stage19BonusDraft=null;
 // Snapshot of the selected session and current position. No writes occur here.
+let stage19Diagnostic='OK';
 function stage19ReadInput(requireReady=true){
- if(document.hidden)return null;
+ stage19Diagnostic='OK';
+ if(document.hidden){stage19Diagnostic='D01:画面非表示';return null;}
  try{
   const api=frame.contentWindow?.__p8CountApi, session=frame.contentWindow?.__p8SessionApi?.state();
   const position=api?.gamePosition(), bonus=api?.bonusActions();
-  if(!session?.selectedId||session.selectedStatus!=='ACTIVE'||!position||!bonus||bonus.completion||bonus.pendingCount>0)return null;
-  if(requireReady&&(p8WriteBlocked()||!api?.state().ready||!bonus.ready))return null;
+  if(!session?.selectedId){stage19Diagnostic='D02:実戦未選択';return null;}
+  if(session.selectedStatus!=='ACTIVE'){stage19Diagnostic='D03:実戦状態';return null;}
+  if(!position){stage19Diagnostic='D04:G数取得不可';return null;}
+  if(!bonus){stage19Diagnostic='D05:当選状態取得不可';return null;}
+  if(bonus.completion){stage19Diagnostic='D06:未消化あり';return null;}
+  if(bonus.pendingCount>0){stage19Diagnostic='D07:保留あり';return null;}
+  if(requireReady&&(p8WriteBlocked()||!api?.state().ready||!bonus.ready)){stage19Diagnostic='D08:保存準備未完了';return null;}
   return Object.freeze({sessionId:session.selectedId,current:position.current,personal:position.personal,
    measuredBoth:document.getElementById('p8-measured').checked,epoch:foregroundEpoch,frameDocument:frame.contentDocument});
- }catch(_e){return null;}
+ }catch(_e){stage19Diagnostic='D09:状態取得例外';return null;}
 }
 function stage19CaptureInput(){return stage19ReadInput(true);}
 function stage19SameData(context){
  const next=stage19ReadInput(false);
- return !!context&&!!next&&next.sessionId===context.sessionId&&next.current===context.current&&
-  next.personal===context.personal&&next.measuredBoth===context.measuredBoth&&next.frameDocument===context.frameDocument;
+ if(!context){stage19Diagnostic='D10:入力情報なし';return false;}
+ if(!next)return false;
+ if(next.sessionId!==context.sessionId){stage19Diagnostic='D11:実戦ID変更';return false;}
+ if(next.current!==context.current){stage19Diagnostic='D12:現在G変更';return false;}
+ if(next.personal!==context.personal){stage19Diagnostic='D13:本人G変更';return false;}
+ if(next.measuredBoth!==context.measuredBoth){stage19Diagnostic='D14:実測設定変更';return false;}
+ if(next.frameDocument!==context.frameDocument){stage19Diagnostic='D15:内部画面変更';return false;}
+ return true;
 }
 function stage19SameInput(context){
  return stage19SameData(context)&&!!stage19ReadInput(true);
+}
+function stage19DiagnosticText(message,phase){
+ return message+'［Fix1-Diag '+phase+' / '+stage19Diagnostic+'］';
 }
 function stage19ShowDraft(){bonusDialog.querySelector('#stage19-award-games').textContent=stage19BonusDraft===null?'未設定':stage19BonusDraft+' G';}
 bonusDialog.querySelector('#stage19-award-games').addEventListener('click',()=>{
  if(!bonusDialog.open||!bonusType||directPending)return;
  const context=stage19BonusContext;
- if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。';return;}
+ if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent=stage19DiagnosticText('実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。','テンキー起動');return;}
  const keypad=window.__stage19Keypad;
  if(!keypad?.open(stage19BonusDraft,(target)=>{
   if(!bonusDialog.open||stage19BonusContext!==context)return;
-  if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='入力状態が変わりました。入力を開き直してください。';return;}
+  if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent=stage19DiagnosticText('入力状態が変わりました。入力を開き直してください。','テンキー反映');return;}
   stage19BonusDraft=target;stage19ShowDraft();
  }))bonusDialog.querySelector('#p8-bonus-feedback').textContent='テンキーを開けませんでした。';
 });
@@ -209,12 +225,12 @@ bonusDialog.querySelector('#p8-bonus-save').addEventListener('click',async()=>{
  // A fresh foreground tap confirms the retained values for the same session.
  if(document.hidden){bonusDialog.querySelector('#p8-bonus-feedback').textContent='アプリ復帰後に内容を確認して保存してください。';return;}
  if(!stage19SameData(stage19BonusContext)){
-  bonusDialog.querySelector('#p8-bonus-feedback').textContent='実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。';return;
+  bonusDialog.querySelector('#p8-bonus-feedback').textContent=stage19DiagnosticText('実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。','当選保存');return;
  }
  if(!Number.isSafeInteger(stage19BonusDraft)||stage19BonusDraft<0||stage19BonusDraft>9999999){
   bonusDialog.querySelector('#p8-bonus-feedback').textContent='当選ゲーム数を入力してください。';return;
  }
- if(!stage19ReadInput(true)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='入力権限を確認中です。入力内容は保持しています。保存可能になってから当選を記録してください。';return;}
+ if(!stage19ReadInput(true)){bonusDialog.querySelector('#p8-bonus-feedback').textContent=stage19DiagnosticText('入力権限を確認中です。入力内容は保持しています。保存可能になってから当選を記録してください。','当選保存準備');return;}
  const beforeAction=frame.contentWindow?.__p8CountApi?.bonusActions();
  if(beforeAction?.completion||beforeAction?.pendingCount>0){
   bonusDialog.querySelector('#p8-bonus-feedback').textContent='先に未消化ボーナスの消化完了・保留確認を行ってください。';
