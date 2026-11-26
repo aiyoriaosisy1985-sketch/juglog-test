@@ -21,7 +21,7 @@ function v122Confirm(message){
   const body=document.createElement('p');
   if(message&&typeof message==='object'&&message.kind==='bonus-completion'){
    dialog.classList.add('stage14-bonus-confirm');
-   const heading=document.createElement('strong');heading.textContent=message.type+'消化完了の確認';
+   const heading=document.createElement('strong');heading.textContent=message.type+'ボーナス終了の確認';
    const caption=document.createElement('span');caption.textContent='遊技台の現在G';caption.className='stage14-modal-caption';
    const count=document.createElement('strong');count.className='stage14-modal-current';count.textContent=Number.isSafeInteger(message.current)?message.current+'G':'未設定';
    const warning=document.createElement('span');warning.textContent='確定すると現在Gが0Gに戻ります。本人累計Gは保持されます。';warning.className='stage14-modal-warning';
@@ -146,7 +146,7 @@ async function directCount(role){
 const bonusDialog=document.createElement('dialog');
 bonusDialog.id='p8-bonus-dialog';
 bonusDialog.setAttribute('aria-label','ボーナス当選の記録');
-bonusDialog.innerHTML=`<form method="dialog" class="p8-bonus-form"><h2 id="p8-bonus-heading">ボーナス当選</h2><label for="stage19-award-games">当選ゲーム数</label><button id="stage19-award-games" type="button" aria-haspopup="dialog" aria-controls="jgl15-keypad-dialog">未設定</button><p>数字をタップして修正</p><label for="p8-bonus-trigger">当選契機</label><select id="p8-bonus-trigger"><option value="不明">不明・判別できず</option><option value="単独">単独（確認済み）</option><option value="チェリー重複">チェリー重複（確認済み）</option></select><p>前回のボーナスが未消化の場合は先に消化完了を記録してください。チェリー回数は自動加算されません。</p><div class="p8-bonus-actions"><button value="cancel" type="button" data-p8-cancel>キャンセル</button><button id="p8-bonus-save" type="button">当選を記録</button></div><p id="p8-bonus-feedback" role="status" aria-live="polite"></p></form>`;
+bonusDialog.innerHTML=`<form method="dialog" class="p8-bonus-form"><h2 id="p8-bonus-heading">ボーナス当選</h2><label for="stage19-award-games">当選ゲーム数</label><button id="stage19-award-games" type="button" aria-haspopup="dialog" aria-controls="jgl15-keypad-dialog">未設定</button><p>数字をタップして修正</p><label for="p8-bonus-trigger">当選契機</label><select id="p8-bonus-trigger"><option value="不明">不明・判別できず</option><option value="単独">単独（確認済み）</option><option value="チェリー重複">チェリー重複（確認済み）</option></select><p>前回のボーナスが終了している場合は、先に「ボーナス終了・0Gに戻す」を押してください。チェリー回数は自動加算されません。</p><div class="p8-bonus-actions"><button value="cancel" type="button" data-p8-cancel>キャンセル</button><button id="p8-bonus-save" type="button">当選を記録</button></div><p id="p8-bonus-feedback" role="status" aria-live="polite"></p></form>`;
 document.body.append(bonusDialog);
 bonusDialog.querySelector('[data-p8-cancel]').addEventListener('click',()=>{if(!directPending)bonusDialog.close('cancel');});
 let bonusType=null, bonusSessionId=null, stage19BonusContext=null, stage19BonusDraft=null;
@@ -233,7 +233,7 @@ bonusDialog.querySelector('#p8-bonus-save').addEventListener('click',async()=>{
  if(!stage19ReadInput(true)){bonusDialog.querySelector('#p8-bonus-feedback').textContent=stage19DiagnosticText('入力権限を確認中です。入力内容は保持しています。保存可能になってから当選を記録してください。','当選保存準備');return;}
  const beforeAction=frame.contentWindow?.__p8CountApi?.bonusActions();
  if(beforeAction?.completion||beforeAction?.pendingCount>0){
-  bonusDialog.querySelector('#p8-bonus-feedback').textContent='先に未消化ボーナスの消化完了・保留確認を行ってください。';
+  bonusDialog.querySelector('#p8-bonus-feedback').textContent='先に前回のボーナス終了または保留確認を行ってください。';
   return;
  }
  const btn=bonusDialog.querySelector('#p8-bonus-save');
@@ -281,7 +281,7 @@ async function directBonusAction(action){
  try{api=frame.contentWindow?.__p8CountApi;info=api?.bonusActions();}
  catch(_e){setDirectStatus('実戦データに接続できません。');return;}
  const target=action==='complete'?info?.completion:info?.review;
- if(!info?.ready||!target){setDirectStatus(action==='review'?(info?.reviewReason||'保留を確認できません。実戦状態を確認してください。'):'現在、この消化完了操作はできません。実戦の状態を確認してください。');syncBonusState();return;}
+ if(!info?.ready||!target){setDirectStatus(action==='review'?(info?.reviewReason||'保留を確認できません。実戦状態を確認してください。'):'現在、このボーナス終了操作はできません。実戦の状態を確認してください。');syncBonusState();return;}
  const displayCurrent=api?.gamePosition()?.current;
  const message=action==='complete'?{kind:'bonus-completion',type:target.type,current:displayCurrent}:`${target.type}の保留を確認済みとして計上しますか？\nこの操作だけでは現在Gはリセットしません。`;
  const confirmationEpoch=foregroundEpoch;
@@ -293,7 +293,7 @@ async function directBonusAction(action){
  directPending=true;updateDirectButtons();setDirectStatus('保存処理中…');
  try{
   const result=await api.bonusAction(action,action==='complete'?displayCurrent:null);
-  if(result.status==='saved-and-refreshed'){setDirectStatus(`${target.type}の${action==='complete'?'消化完了':'保留確認'}を保存しました。`);sync();}
+  if(result.status==='saved-and-refreshed'){setDirectStatus(`${target.type}の${action==='complete'?'ボーナス終了':'保留確認'}を保存しました。`);sync();}
   else if(result.status==='rejected'){setDirectStatus('状態が変更されたため操作を受け付けませんでした。');sync();}
   else{directUncertain=true;setDirectStatus('保存結果が不明です。再操作せず保存記録を照合してください。');}
  }catch(_e){directUncertain=true;setDirectStatus('保存結果が不明です。再操作しないでください。');}
@@ -311,11 +311,11 @@ async function showIncompleteBonusWarning(){
   return;
  }
  const pendingOnly=action==='review';
- setDirectStatus(pendingOnly?'保留ボーナスの確認が必要です。G数・小役は保存していません。':'BB/RBの消化完了が未記録です。先に消化完了を保存してください。');
+ setDirectStatus(pendingOnly?'保留ボーナスの確認が必要です。G数・小役は保存していません。':'BB/RBのボーナス終了が未記録です。先に「ボーナス終了・0Gに戻す」を押してください。');
  const epoch=foregroundEpoch;
  const message=pendingOnly
   ? '保留ボーナスが残っています。\nゲーム数・小役は保存していません。\n\n保留の確認に進みますか？'
-  : 'ボーナス消化が未完了です。\nゲーム数・小役は保存していません。\n\n消化完了の確認へ進みますか？';
+  : 'ボーナス消化が未完了です。\nゲーム数・小役は保存していません。\n\nボーナス終了の確認へ進みますか？';
  const go=await v122Confirm(message);
  if(!go||!foregroundUnchanged(epoch)||p8WriteBlocked())return;
  await directBonusAction(action);
@@ -851,7 +851,7 @@ function syncCompletion(){
   const review=info.review;
   const playVisible=!document.getElementById('panel-play')?.hidden;
   const action=b?'complete':review?'review':null;
-  completeButton.textContent=b?'ボーナス終了・0Gに戻す':'消化完了（対象なし）';
+  completeButton.textContent=b?'ボーナス終了・0Gに戻す':'ボーナス終了（対象なし）';
   const undo=document.querySelector('[data-p31="undoBtn"]');
   if(undo){undo.textContent=b?'当選取り消し':'元に戻す';undo.disabled=b?(!info.ready||p8WriteBlocked()||!frame.contentWindow?.__p8CountApi?.stage19BonusTarget()?.canCancel):(!info.ready||p8WriteBlocked());}
   completeButton.disabled=!b||!info.ready||p8WriteBlocked();
@@ -862,7 +862,7 @@ function syncCompletion(){
   fixedComplete.dataset.action=action||'';
   fixedComplete.textContent=b?'ボーナス終了・0Gに戻す':review?review.type+' 保留確認':'';
   fixedComplete.disabled=!info.ready||p8WriteBlocked();
-  fixedComplete.title=b?'現在Gを0Gに戻して保存':'保留ボーナスを確認後、消化完了を記録してください';
+  fixedComplete.title=b?'現在Gを0Gに戻して保存':'保留ボーナスを確認後、ボーナス終了を記録してください';
   if(!action&&info.pendingCount>0&&playVisible){
    // A blocked review must remain visible as a recovery cue, never silently vanish.
    fixedComplete.hidden=false;
@@ -870,7 +870,7 @@ function syncCompletion(){
    fixedComplete.textContent='保留ボーナスあり・状態確認が必要';
    fixedComplete.title=info.reviewReason||'台一覧から実戦状態を確認してください';
   }
- }catch(_e){completeButton.textContent='消化完了（対象なし）';completeButton.disabled=true;completeButton.title='ボーナス状態を確認してください';fixedComplete.hidden=true;fixedCancel.hidden=true;fixedCancel.disabled=true;}
+ }catch(_e){completeButton.textContent='ボーナス終了（対象なし）';completeButton.disabled=true;completeButton.title='ボーナス状態を確認してください';fixedComplete.hidden=true;fixedCancel.hidden=true;fixedCancel.disabled=true;}
  fixedActions.hidden=fixedComplete.hidden&&fixedCancel.hidden;
  document.getElementById('panel-play')?.classList.toggle('stage19-fixed-visible',!fixedActions.hidden);
  document.getElementById('panel-play')?.classList.toggle('stage19-cancel-visible',!fixedCancel.hidden);
@@ -1049,7 +1049,7 @@ function renderSessionHistory(){
  if(detail?.ok){const ev=detail.events;const confirmedIds=new Set(ev.filter(e=>e.type==='BONUS_REVIEW_CONFIRMED'&&e.bonusId).map(e=>e.bonusId));
   for(const e of ev.slice().reverse()){
    const li=document.createElement('li'),label=document.createElement('span'),small=document.createElement('small');
-   const names={SESSION_CREATED:'実戦開始',SEGMENT_STARTED:'区間開始',GAMES_RECORDED:'G数追加',GRAPE_COUNTED:'ぶどう',CHERRY_COUNTED:'チェリー',BONUS_AWARDED:'ボーナス当選',BONUS_COMPLETED:'消化完了',HALL_SNAPSHOT_RECORDED:'ホール観測',SESSION_PAUSED:'一時中断',SESSION_RESUMED:'再開',SESSION_CLOSED_PENDING:'終了申請',SESSION_CLOSED_CONFIRMED:'終了確定',BONUS_REVIEW_CONFIRMED:'当選契機確認'};
+   const names={SESSION_CREATED:'実戦開始',SEGMENT_STARTED:'区間開始',GAMES_RECORDED:'G数追加',GRAPE_COUNTED:'ぶどう',CHERRY_COUNTED:'チェリー',BONUS_AWARDED:'ボーナス当選',BONUS_COMPLETED:'ボーナス終了',HALL_SNAPSHOT_RECORDED:'ホール観測',SESSION_PAUSED:'一時中断',SESSION_RESUMED:'再開',SESSION_CLOSED_PENDING:'終了申請',SESSION_CLOSED_CONFIRMED:'終了確定',BONUS_REVIEW_CONFIRMED:'当選契機確認'};
    label.textContent=(names[e.type]||e.type)+(e.bonusType?`（${e.bonusType}）`:'')+(e.pendingReview&&!confirmedIds.has(e.bonusId)?'［保留］':'')+(e.delta!==null?` +${e.delta}G`:'');
    small.textContent=e.sequence===null?'順序不明':`#${e.sequence}`;li.append(label,small);ol.append(li);
   }
@@ -1178,7 +1178,7 @@ function syncDataTabs(){
   const line=(k)=>'0,'+height+' '+steps.map((p,i)=>`${Math.round(offset+(i+1)*step)},${Math.round(height-p[k]/max*(height-18))}`).join(' ');
   graph.innerHTML=`<div class="p8-data-grid"><div>BB<strong>${bb}</strong></div><div>RB<strong>${rb}</strong></div></div><svg role="img" aria-label="確定済み当選イベント順の累積BBとRB" viewBox="0 0 320 150" width="100%" height="160" preserveAspectRatio="xMidYMid meet"><polyline fill="none" stroke="#ff7296" stroke-width="3" points="${line('bb')}"/><polyline fill="none" stroke="#73c9ff" stroke-width="3" points="${line('rb')}"/></svg><p>ピンク：BB ／ 水色：RB ／ 確定${steps.length}件${pending?' ／ 保留'+pending+'件除外':''}</p>`;
  }
- const labels={SESSION_CREATED:'実戦開始',SEGMENT_STARTED:'区間開始',GAMES_RECORDED:'G数追加',GRAPE_COUNTED:'ぶどう',CHERRY_COUNTED:'チェリー',BONUS_AWARDED:'ボーナス当選',BONUS_COMPLETED:'消化完了',HALL_SNAPSHOT_RECORDED:'ホール観測',SESSION_PAUSED:'一時中断',SESSION_RESUMED:'再開',SESSION_CLOSED_PENDING:'終了申請',SESSION_CLOSED_CONFIRMED:'終了確定',BONUS_REVIEW_CONFIRMED:'当選契機確認'};
+ const labels={SESSION_CREATED:'実戦開始',SEGMENT_STARTED:'区間開始',GAMES_RECORDED:'G数追加',GRAPE_COUNTED:'ぶどう',CHERRY_COUNTED:'チェリー',BONUS_AWARDED:'ボーナス当選',BONUS_COMPLETED:'ボーナス終了',HALL_SNAPSHOT_RECORDED:'ホール観測',SESSION_PAUSED:'一時中断',SESSION_RESUMED:'再開',SESSION_CLOSED_PENDING:'終了申請',SESSION_CLOSED_CONFIRMED:'終了確定',BONUS_REVIEW_CONFIRMED:'当選契機確認'};
  const recent=ev.slice(-20).reverse();
  renderSessionHistory();
 }
