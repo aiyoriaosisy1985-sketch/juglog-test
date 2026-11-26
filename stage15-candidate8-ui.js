@@ -4,13 +4,13 @@
  const field=$('p8-games'),dialog=$('jgl15-keypad-dialog'),open=$('jgl15-keypad-open'),display=$('jgl15-keypad-value');
  if(!field||!dialog||!open||!display)return;
  // Stage19: reuse one existing keypad, with distinct normal/award contexts.
- let draft='', request=null;
+ let draft='', request=null, replaceOnDigit=false;
  const applyButton=$('jgl15-keypad-apply');
  function render(){display.textContent=draft||'—';applyButton.disabled=!/^\d{1,7}$/.test(draft);}
  function openKeypad(initial,onApply){
   if(dialog.open||typeof onApply!=='function'||typeof dialog.showModal!=='function')return false;
   draft=Number.isSafeInteger(initial)&&initial>=0&&initial<=9999999?String(initial):'';
-  request={onApply};render();
+  replaceOnDigit=true;request={onApply};render();
   try{dialog.showModal();return true;}catch(_e){request=null;return false;}
  }
  window.__stage19Keypad=Object.freeze({open:openKeypad});
@@ -21,7 +21,9 @@
  dialog.querySelectorAll('[data-jgl15-digit]').forEach(button=>button.addEventListener('click',()=>{
   if(!request||!dialog.open)return;
   const digit=button.dataset.jgl15Digit;
-  if(digit==='C')draft='';else if(digit==='⌫')draft=draft.slice(0,-1);else if(draft.length<7)draft+=digit;
+  if(digit==='C'){draft='';replaceOnDigit=false;}
+  else if(digit==='⌫'){draft=draft.slice(0,-1);replaceOnDigit=false;}
+  else if(/^\d$/.test(digit)){if(replaceOnDigit){draft=digit;replaceOnDigit=false;}else if(draft.length<7)draft+=digit;}
   render();
  }));
  $('jgl15-keypad-cancel').addEventListener('click',()=>{request=null;dialog.close();});
