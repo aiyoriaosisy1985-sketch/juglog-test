@@ -151,30 +151,35 @@ document.body.append(bonusDialog);
 bonusDialog.querySelector('[data-p8-cancel]').addEventListener('click',()=>{if(!directPending)bonusDialog.close('cancel');});
 let bonusType=null, bonusSessionId=null, stage19BonusContext=null, stage19BonusDraft=null;
 // Snapshot of the selected session and current position. No writes occur here.
-function stage19CaptureInput(){
- if(p8WriteBlocked()||document.hidden)return null;
+function stage19ReadInput(requireReady=true){
+ if(document.hidden)return null;
  try{
   const api=frame.contentWindow?.__p8CountApi, session=frame.contentWindow?.__p8SessionApi?.state();
   const position=api?.gamePosition(), bonus=api?.bonusActions();
-  if(!api?.state().ready||!session?.selectedId||session.selectedStatus!=='ACTIVE'||!position||!bonus?.ready||bonus.completion||bonus.pendingCount>0)return null;
+  if(!session?.selectedId||session.selectedStatus!=='ACTIVE'||!position||!bonus||bonus.completion||bonus.pendingCount>0)return null;
+  if(requireReady&&(p8WriteBlocked()||!api?.state().ready||!bonus.ready))return null;
   return Object.freeze({sessionId:session.selectedId,current:position.current,personal:position.personal,
-   measuredBoth:document.getElementById('p8-measured').checked,epoch:foregroundEpoch});
+   measuredBoth:document.getElementById('p8-measured').checked,epoch:foregroundEpoch,frameDocument:frame.contentDocument});
  }catch(_e){return null;}
 }
-function stage19SameInput(context){
- const next=stage19CaptureInput();
+function stage19CaptureInput(){return stage19ReadInput(true);}
+function stage19SameData(context){
+ const next=stage19ReadInput(false);
  return !!context&&!!next&&next.sessionId===context.sessionId&&next.current===context.current&&
-  next.personal===context.personal&&next.measuredBoth===context.measuredBoth&&next.epoch===context.epoch;
+  next.personal===context.personal&&next.measuredBoth===context.measuredBoth&&next.frameDocument===context.frameDocument;
+}
+function stage19SameInput(context){
+ return stage19SameData(context)&&!!stage19ReadInput(true);
 }
 function stage19ShowDraft(){bonusDialog.querySelector('#stage19-award-games').textContent=stage19BonusDraft===null?'未設定':stage19BonusDraft+' G';}
 bonusDialog.querySelector('#stage19-award-games').addEventListener('click',()=>{
  if(!bonusDialog.open||!bonusType||directPending)return;
  const context=stage19BonusContext;
- if(!stage19SameInput(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。';return;}
+ if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。';return;}
  const keypad=window.__stage19Keypad;
  if(!keypad?.open(stage19BonusDraft,(target)=>{
   if(!bonusDialog.open||stage19BonusContext!==context)return;
-  if(!stage19SameInput(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='入力状態が変わりました。入力を開き直してください。';return;}
+  if(!stage19SameData(context)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='入力状態が変わりました。入力を開き直してください。';return;}
   stage19BonusDraft=target;stage19ShowDraft();
  }))bonusDialog.querySelector('#p8-bonus-feedback').textContent='テンキーを開けませんでした。';
 });
@@ -203,12 +208,13 @@ bonusDialog.querySelector('#p8-bonus-save').addEventListener('click',async()=>{
  // Preserve the user's draft across backgrounding, but never auto-commit it.
  // A fresh foreground tap confirms the retained values for the same session.
  if(document.hidden){bonusDialog.querySelector('#p8-bonus-feedback').textContent='アプリ復帰後に内容を確認して保存してください。';return;}
- if(!stage19SameInput(stage19BonusContext)){
+ if(!stage19SameData(stage19BonusContext)){
   bonusDialog.querySelector('#p8-bonus-feedback').textContent='実戦・ゲーム数・入力状態が変わりました。入力を開き直してください。';return;
  }
  if(!Number.isSafeInteger(stage19BonusDraft)||stage19BonusDraft<0||stage19BonusDraft>9999999){
   bonusDialog.querySelector('#p8-bonus-feedback').textContent='当選ゲーム数を入力してください。';return;
  }
+ if(!stage19ReadInput(true)){bonusDialog.querySelector('#p8-bonus-feedback').textContent='入力権限を確認中です。入力内容は保持しています。保存可能になってから当選を記録してください。';return;}
  const beforeAction=frame.contentWindow?.__p8CountApi?.bonusActions();
  if(beforeAction?.completion||beforeAction?.pendingCount>0){
   bonusDialog.querySelector('#p8-bonus-feedback').textContent='先に未消化ボーナスの消化完了・保留確認を行ってください。';
